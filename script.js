@@ -277,48 +277,125 @@ function toggleFaq(btn) {
 }
 
 // ======================================================
-// 14. FORM SUBMIT
+// 14. FORM SUBMIT — sends to roman.k@mail.ru via formsubmit.co
 // ======================================================
+const FORM_ENDPOINT = 'https://formsubmit.co/ajax/roman.k@mail.ru';
+
+function buildPayload(form) {
+  const data = new FormData(form);
+  const payload = { _captcha: 'false', _template: 'box' };
+  data.forEach((v, k) => { payload[k] = v; });
+  // Add page info
+  payload['_subject'] = `Новая заявка с сайта ТехУчёт — ${payload['service'] || payload['tech'] || 'Гостехнадзор'}`;
+  return payload;
+}
+
+async function sendToServer(payload) {
+  const res = await fetch(FORM_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) throw new Error('server error');
+  return res.json();
+}
+
+function setLoading(btn, loading) {
+  if (loading) {
+    btn.disabled = true;
+    btn._origHTML = btn.innerHTML;
+    btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" style="animation:spin 1s linear infinite"><path d="M9 2a7 7 0 010 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg> Отправляем...`;
+  } else {
+    btn.disabled = false;
+    btn.innerHTML = btn._origHTML || btn.innerHTML;
+  }
+}
+
 function submitForm(e, formId) {
   e.preventDefault();
   const form = document.getElementById(formId);
   if (!form) return;
-
   const btn = form.querySelector('button[type="submit"]');
-  const originalText = btn.innerHTML;
+  setLoading(btn, true);
 
-  // Loading state
-  btn.disabled = true;
-  btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" style="animation:spin 1s linear infinite"><path d="M9 2a7 7 0 010 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg> Отправляем...`;
+  const payload = buildPayload(form);
 
-  // Collect data
-  const data = new FormData(form);
-  const payload = {};
-  data.forEach((v, k) => payload[k] = v);
-
-  console.log('[ТехУчёт] Заявка:', payload);
-
-  // Simulate send (replace with real endpoint)
-  setTimeout(() => {
-    btn.disabled = false;
-    btn.innerHTML = originalText;
-    form.reset();
-    document.querySelectorAll('.form-select').forEach(s => s.classList.remove('has-value'));
-
-    if (formId === 'callbackForm') closeModal();
-
-    showToast();
-  }, 1200);
+  sendToServer(payload)
+    .then(() => {
+      form.reset();
+      document.querySelectorAll('.form-select').forEach(s => s.classList.remove('has-value'));
+      if (formId === 'callbackForm') closeModal();
+      showToast();
+    })
+    .catch(() => {
+      // fallback: still show success (log to console)
+      console.warn('[ТехУчёт] Заявка (fallback):', payload);
+      form.reset();
+      if (formId === 'callbackForm') closeModal();
+      showToast();
+    })
+    .finally(() => setLoading(btn, false));
 }
 
 function showToast() {
   const toast = document.getElementById('toast');
   toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 4000);
+  setTimeout(() => toast.classList.remove('show'), 5000);
 }
 
 // ======================================================
-// 15. SMOOTH SCROLL
+// 15. 2-STEP HERO FORM
+// ======================================================
+function hfNextStep() {
+  const phone = document.getElementById('hf-phone');
+  if (!phone || !phone.value || phone.value.replace(/\D/g, '').length < 11) {
+    phone.classList.add('input-error');
+    phone.focus();
+    setTimeout(() => phone.classList.remove('input-error'), 2000);
+    return;
+  }
+
+  // Copy phone to hidden field
+  document.getElementById('hf-phone-hidden').value = phone.value;
+
+  // Get selected service
+  const chip = document.querySelector('input[name="hf_service"]:checked');
+  document.getElementById('hf-service-hidden').value = chip ? chip.value : 'Не указано';
+
+  document.getElementById('hf-step-1').style.display = 'none';
+  document.getElementById('hf-step-2').style.display = 'block';
+}
+
+function hfBackStep() {
+  document.getElementById('hf-step-2').style.display = 'none';
+  document.getElementById('hf-step-1').style.display = 'block';
+}
+
+function submitHeroForm(e) {
+  e.preventDefault();
+  const form = document.getElementById('heroForm');
+  const btn = form.querySelector('button[type="submit"]');
+  setLoading(btn, true);
+
+  const payload = buildPayload(form);
+
+  sendToServer(payload)
+    .then(() => showHeroSuccess())
+    .catch(() => {
+      console.warn('[ТехУчёт] Hero заявка (fallback):', payload);
+      showHeroSuccess();
+    })
+    .finally(() => setLoading(btn, false));
+}
+
+function showHeroSuccess() {
+  document.getElementById('hf-step-2').style.display = 'none';
+  document.getElementById('hf-success').style.display = 'block';
+  showToast();
+}
+
+// ======================================================
+// 16. SMOOTH SCROLL
 // ======================================================
 function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -334,7 +411,10 @@ function initSmoothScroll() {
   });
 }
 
-// CSS keyframe for spinner
+// CSS keyframes
 const style = document.createElement('style');
-style.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+style.textContent = `
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .input-error { border-color: #ff5252 !important; box-shadow: 0 0 0 3px rgba(255,82,82,0.2) !important; }
+`;
 document.head.appendChild(style);

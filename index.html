@@ -46,11 +46,14 @@
       </nav>
 
       <div class="header__actions">
-        <a href="tel:+78001234567" class="header__phone" id="header-phone">
+        <a href="tel:+79257577888" class="header__phone" id="header-phone">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14.4 11.2c-.8-.8-2.4-1.6-3.2-1.6-.4 0-.8.4-1.2.8-.4.4-.8.8-1.2.8-.8 0-2-1.2-3.2-2.4C4.4 7.6 3.2 6.4 3.2 5.6c0-.4.4-.8.8-1.2.4-.4.8-.8.8-1.2 0-.8-.8-2.4-1.6-3.2C2.6.4 2.2.4 1.8.4 1 .4.4 1 .4 1L.4 1C-.4 2.6-.4 5.2 2 7.6l.4.4.4.4C5.2 10.8 7.8 12 9.4 12h.4c.6 0 1.2-.2 1.6-.4.4-.2.6-.4.6-.4.6-.4 1.2-1 1.2-1.8C13.2 9 12.8 9 12.8 9c-.8-1.2-1.2-1.6-1.6-1.6L14.4 11.2z" fill="currentColor"/></svg>
-          8 800 123-45-67
+          +7 925 757-78-88
         </a>
-        <button class="btn btn--outline btn--sm" id="callback-btn" onclick="openModal()">Заказать звонок</button>
+        <a href="https://wa.me/79257577888" class="btn btn--wa btn--sm" target="_blank" rel="noopener" id="header-wa-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
       </div>
 
       <button class="burger" id="burger-btn" aria-label="Меню" onclick="toggleMenu()">
@@ -67,8 +70,8 @@
       <a href="#pricing" class="mobile-nav__link" onclick="closeMenu()">Стоимость</a>
       <a href="#faq" class="mobile-nav__link" onclick="closeMenu()">Вопросы</a>
       <a href="#contacts" class="mobile-nav__link" onclick="closeMenu()">Контакты</a>
-      <a href="tel:+78001234567" class="mobile-nav__phone">8 800 123-45-67</a>
-      <button class="btn btn--primary" onclick="openModal(); closeMenu()">Заказать звонок</button>
+      <a href="tel:+79257577888" class="mobile-nav__phone">+7 925 757-78-88</a>
+      <a href="https://wa.me/79257577888" class="btn btn--wa btn--full" target="_blank" rel="noopener" onclick="closeMenu()">Написать в WhatsApp</a>
     </nav>
   </div>
 
@@ -128,58 +131,92 @@
         </p>
       </div>
 
-      <!-- Hero Form -->
+      <!-- Hero Form (2-step qualifier) -->
       <div class="hero__form animate-in" data-delay="200" id="hero-form">
         <div class="form-card">
-          <h3 class="form-card__title">Узнайте порядок оформления вашей техники</h3>
-          <form id="heroForm" onsubmit="submitForm(event, 'heroForm')">
-            <div class="form-group">
-              <input type="text" id="h-name" name="name" class="form-input" placeholder="Ваше имя" required autocomplete="name">
-              <label for="h-name" class="form-label">Ваше имя</label>
+          <h3 class="form-card__title">Узнайте стоимость для вашей техники</h3>
+
+          <!-- Step 1 -->
+          <div id="hf-step-1">
+            <div class="form-steps-hint">Шаг 1 из 2 — займёт 30 секунд</div>
+            <div class="service-chips" id="hf-service-chips">
+              <label class="service-chip">
+                <input type="radio" name="hf_service" value="Постановка на учёт">
+                <span>📋 Постановка на учёт</span>
+              </label>
+              <label class="service-chip">
+                <input type="radio" name="hf_service" value="Снятие с учёта">
+                <span>🔄 Снятие с учёта</span>
+              </label>
+              <label class="service-chip">
+                <input type="radio" name="hf_service" value="Восстановление ПСМ">
+                <span>📄 Восстановление ПСМ</span>
+              </label>
+              <label class="service-chip">
+                <input type="radio" name="hf_service" value="Перерегистрация">
+                <span>↔️ Перерегистрация</span>
+              </label>
+              <label class="service-chip">
+                <input type="radio" name="hf_service" value="Другое">
+                <span>❓ Другое</span>
+              </label>
             </div>
             <div class="form-group">
-              <input type="tel" id="h-phone" name="phone" class="form-input" placeholder="+7 (___) ___-__-__" required autocomplete="tel">
-              <label for="h-phone" class="form-label">Телефон</label>
+              <input type="tel" id="hf-phone" name="phone" class="form-input" placeholder="+7 (___) ___-__-__" autocomplete="tel" required>
+              <label for="hf-phone" class="form-label">Ваш телефон</label>
             </div>
-            <div class="form-group">
-              <select id="h-region" name="region" class="form-select" required>
-                <option value="">Выберите регион</option>
-              </select>
-              <label for="h-region" class="form-label">Регион</label>
-            </div>
-            <div class="form-group">
-              <input type="text" id="h-city" name="city" class="form-input" placeholder="Ваш город" required autocomplete="address-level2">
-              <label for="h-city" class="form-label">Город</label>
-            </div>
-            <div class="form-group">
-              <select id="h-tech" name="tech" class="form-select" required>
-                <option value="">Вид техники</option>
-                <option value="excavator">Экскаватор</option>
-                <option value="loader">Фронтальный погрузчик</option>
-                <option value="bulldozer">Бульдозер</option>
-                <option value="crane">Кран</option>
-                <option value="tractor">Трактор</option>
-                <option value="combine">Комбайн</option>
-                <option value="other">Другое</option>
-              </select>
-              <label for="h-tech" class="form-label">Вид техники</label>
-            </div>
-            <div class="form-group">
-              <select id="h-service" name="service" class="form-select" required>
-                <option value="">Необходимая услуга</option>
-                <option value="reg">Постановка на учёт</option>
-                <option value="dereg">Снятие с учёта</option>
-                <option value="restore">Восстановление документов</option>
-                <option value="rereg">Перерегистрация</option>
-                <option value="other">Другое</option>
-              </select>
-              <label for="h-service" class="form-label">Необходимая услуга</label>
-            </div>
-            <button type="submit" class="btn btn--primary btn--full" id="hero-submit-btn">
-              Получить консультацию
+            <button type="button" class="btn btn--primary btn--full" id="hf-next-btn" onclick="hfNextStep()">
+              Получить расчёт стоимости →
             </button>
             <p class="form-card__privacy">Нажимая кнопку, вы соглашаетесь с <a href="#" class="link">политикой конфиденциальности</a></p>
-          </form>
+          </div>
+
+          <!-- Step 2 -->
+          <div id="hf-step-2" style="display:none">
+            <div class="form-steps-hint">Шаг 2 из 2 — уточните детали</div>
+            <form id="heroForm" onsubmit="submitHeroForm(event)">
+              <input type="hidden" name="service" id="hf-service-hidden">
+              <input type="hidden" name="phone" id="hf-phone-hidden">
+              <div class="form-group">
+                <input type="text" id="hf-name" name="name" class="form-input" placeholder="Ваше имя (необязательно)" autocomplete="name">
+                <label for="hf-name" class="form-label">Имя</label>
+              </div>
+              <div class="form-group">
+                <select id="hf-tech" name="tech" class="form-select">
+                  <option value="">Вид техники</option>
+                  <option value="Экскаватор">Экскаватор</option>
+                  <option value="Погрузчик">Фронтальный погрузчик</option>
+                  <option value="Бульдозер">Бульдозер</option>
+                  <option value="Кран">Кран</option>
+                  <option value="Трактор">Трактор</option>
+                  <option value="Комбайн">Комбайн</option>
+                  <option value="Квадроцикл">Квадроцикл / снегоход</option>
+                  <option value="Другое">Другое</option>
+                </select>
+                <label for="hf-tech" class="form-label">Вид техники</label>
+              </div>
+              <div class="form-group">
+                <select id="hf-owner" name="owner" class="form-select">
+                  <option value="">Вы — физлицо или юрлицо?</option>
+                  <option value="Физическое лицо">Физическое лицо</option>
+                  <option value="Юридическое лицо / ИП">Юридическое лицо / ИП</option>
+                </select>
+                <label for="hf-owner" class="form-label">Тип собственника</label>
+              </div>
+              <button type="submit" class="btn btn--primary btn--full" id="hero-submit-btn">
+                Отправить заявку
+              </button>
+              <button type="button" class="btn btn--ghost btn--full" style="margin-top:8px" onclick="hfBackStep()">← Назад</button>
+            </form>
+          </div>
+
+          <!-- Success -->
+          <div id="hf-success" style="display:none" class="form-success-msg">
+            <div class="form-success-icon">✅</div>
+            <h4>Заявка принята!</h4>
+            <p>Специалист свяжется с вами в рабочее время (Пн–Пт 9:00–18:00)</p>
+            <a href="https://wa.me/79257577888" class="btn btn--wa btn--full" target="_blank" rel="noopener" style="margin-top:16px">Написать в WhatsApp сейчас</a>
+          </div>
         </div>
       </div>
     </div>
@@ -374,6 +411,34 @@
     </div>
   </section>
 
+  <!-- ===== PENALTY BLOCK ===== -->
+  <section class="penalty-section" id="penalty">
+    <div class="container">
+      <div class="penalty-inner">
+        <div class="penalty-icon">⚠️</div>
+        <div class="penalty-content">
+          <h3 class="penalty-title">Штраф за нарушение сроков регистрации</h3>
+          <p class="penalty-sub">Технику нужно поставить на учёт в течение <strong>10 дней</strong> с момента покупки. За нарушение грозит:</p>
+          <div class="penalty-grid">
+            <div class="penalty-item">
+              <span class="penalty-who">Физическое лицо</span>
+              <span class="penalty-amount">до 2 000 ₽</span>
+            </div>
+            <div class="penalty-item">
+              <span class="penalty-who">Должностное лицо</span>
+              <span class="penalty-amount">до 3 500 ₽</span>
+            </div>
+            <div class="penalty-item">
+              <span class="penalty-who">Юридическое лицо</span>
+              <span class="penalty-amount">до 10 000 ₽</span>
+            </div>
+          </div>
+        </div>
+        <a href="#form" class="btn btn--primary">Зарегистрировать технику</a>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== PRICING ===== -->
   <section class="pricing section" id="pricing">
     <div class="container">
@@ -451,7 +516,27 @@
 
       <div class="pricing__note">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#F5A623" stroke-width="1.5"/><path d="M10 9v5M10 7v.5" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round"/></svg>
-        Стоимость не включает госпошлину Гостехнадзора. Точная цена зависит от региона и сложности ситуации. Получите бесплатный расчёт — оставьте заявку.
+        Стоимость не включает госпошлину Гостехнадзора (~2 350 ₽). Точная цена зависит от региона и сложности ситуации.
+      </div>
+
+      <!-- Payment badges -->
+      <div class="payment-badges">
+        <div class="payment-badge">
+          <span class="payment-badge__icon">💵</span>
+          <span>Наличный расчёт</span>
+        </div>
+        <div class="payment-badge">
+          <span class="payment-badge__icon">🏦</span>
+          <span>Безналичный с НДС</span>
+        </div>
+        <div class="payment-badge">
+          <span class="payment-badge__icon">✅</span>
+          <span>Оплата после результата</span>
+        </div>
+        <div class="payment-badge">
+          <span class="payment-badge__icon">📄</span>
+          <span>Договор и счёт-фактура</span>
+        </div>
       </div>
     </div>
   </section>
@@ -543,9 +628,17 @@
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M19.4 15.2c-.8-.8-2.4-1.6-3.2-1.6-.4 0-.8.4-1.2.8-.4.4-.8.8-1.2.8-.8 0-2-1.2-3.2-2.4C9.4 11.6 8.2 10.4 8.2 9.6c0-.4.4-.8.8-1.2.4-.4.8-.8.8-1.2 0-.8-.8-2.4-1.6-3.2C7.6 3.4 7.2 3.4 6.8 3.4 6 3.4 5.4 4 5.4 4L5.4 4C4.6 5.6 4.6 8.2 7 10.6l.4.4.4.4C10.2 13.8 12.8 15 14.4 15h.4c.6 0 1.2-.2 1.6-.4.4-.2.6-.4.6-.4.6-.4 1.2-1 1.2-1.8 0-.4-.4-.4-.4-.4L14.4 9.2z" fill="#F5A623"/></svg>
               </div>
               <div>
-                <div class="contact-item__label">Единый федеральный номер</div>
-                <a href="tel:+78001234567" class="contact-item__value">8 800 123-45-67</a>
-                <div class="contact-item__hint">Бесплатно по России</div>
+                <div class="contact-item__label">Телефон</div>
+                <a href="tel:+78000000000" class="contact-item__value">8 800 000-00-00</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-item__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              </div>
+              <div>
+                <div class="contact-item__label">WhatsApp</div>
+                <a href="https://wa.me/78000000000" class="contact-item__value" target="_blank">Написать в чат</a>
               </div>
             </div>
             <div class="contact-item">
@@ -554,9 +647,6 @@
               </div>
               <div>
                 <div class="contact-item__label">Email</div>
-                <a href="mailto:info@techucht.ru" class="contact-item__value">info@techucht.ru</a>
-                <div class="contact-item__hint">Ответим в течение часа</div>
-              </div>
             </div>
             <div class="contact-item">
               <div class="contact-item__icon">
@@ -676,10 +766,10 @@
           </div>
           <div class="footer__col">
             <h4>Контакты</h4>
-            <a href="tel:+78001234567">8 800 123-45-67</a>
-            <a href="mailto:info@techucht.ru">info@techucht.ru</a>
+            <a href="tel:+79257577888">+7 925 757-78-88</a>
+            <a href="https://wa.me/79257577888" target="_blank" rel="noopener">WhatsApp</a>
+            <a href="mailto:roman.k@mail.ru">roman.k@mail.ru</a>
             <span>Пн–Пт: 9:00–18:00</span>
-            <span>Приём заявок: 24/7</span>
           </div>
         </div>
       </div>
@@ -730,11 +820,14 @@
 
   <!-- Mobile CTA Bar -->
   <div class="mobile-cta" id="mobile-cta">
-    <a href="tel:+78001234567" class="btn btn--primary" id="mobile-call-btn">
+    <a href="tel:+79257577888" class="btn btn--primary" id="mobile-call-btn">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M16 12.8c-.7-.7-2.1-1.4-2.8-1.4-.35 0-.7.35-1.05.7-.35.35-.7.7-1.05.7-.7 0-1.75-1.05-2.8-2.1-1.05-1.05-2.1-2.1-2.1-2.8 0-.35.35-.7.7-1.05.35-.35.7-.7.7-1.05 0-.7-.7-2.1-1.4-2.8C8.6 2.8 8.25 2.8 7.9 2.8c-.7 0-1.225.525-1.225.525L6.5 3.5C5.8 4.9 5.8 7.175 7.9 9.275l.35.35.35.35C10.7 12.075 12.975 13.125 14.375 13.125H14.9c.525 0 1.05-.175 1.4-.35.35-.175.525-.35.525-.35.525-.35 1.05-.875 1.05-1.575 0-.35-.35-.35-.35-.35L16 12.8z" fill="white"/></svg>
       Позвонить
     </a>
-    <a href="#form" class="btn btn--outline-light" id="mobile-form-btn">Оставить заявку</a>
+    <a href="https://wa.me/79257577888" class="btn btn--wa" target="_blank" rel="noopener" id="mobile-wa-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
   </div>
 
   <script src="script.js"></script>
