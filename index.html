@@ -1,878 +1,260 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ТехУчёт — федеральный сервис по регистрации самоходной техники по всей России. Постановка на учёт, снятие, восстановление документов. Единый федеральный центр сопровождения.">
-  <meta name="keywords" content="регистрация самоходной техники, постановка на учёт трактора, регистрация экскаватора, Гостехнадзор, ТехУчёт">
-  <meta property="og:title" content="ТехУчёт — Регистрация самоходной техники по всей России">
-  <meta property="og:description" content="Федеральный сервис по регистрации самоходной техники. Работаем по всей России дистанционно.">
+  <meta name="theme-color" content="#0a101b">
+  <meta name="description" content="Проверка документов и сопровождение регистрации самоходной техники в Гостехнадзоре. Услуги от 3 000 ₽, ориентировочный срок 3–5 рабочих дней.">
+  <link rel="canonical" href="https://kdrkru-del.github.io/techucht-site/">
+  <meta property="og:locale" content="ru_RU">
   <meta property="og:type" content="website">
-  <title>ТехУчёт — Регистрация самоходной техники по всей России</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=3">
+  <meta property="og:site_name" content="ТехУчёт">
+  <meta property="og:title" content="ТехУчёт — регистрация самоходной техники по всей России">
+  <meta property="og:description" content="Проверка документов и сопровождение регистрации самоходной техники в Гостехнадзоре. Услуги от 3 000 ₽, ориентировочный срок 3–5 рабочих дней.">
+  <meta property="og:url" content="https://kdrkru-del.github.io/techucht-site/">
+  <meta property="og:image" content="https://kdrkru-del.github.io/techucht-site/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ТехУчёт — регистрация самоходной техники по всей России">
+  <meta name="twitter:description" content="Проверка документов и сопровождение регистрации самоходной техники в Гостехнадзоре. Услуги от 3 000 ₽, ориентировочный срок 3–5 рабочих дней.">
+  <meta name="twitter:image" content="https://kdrkru-del.github.io/techucht-site/og.png">
+  <title>ТехУчёт — регистрация самоходной техники по всей России</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preload" href="style.css?v=5" as="style">
+  <link rel="stylesheet" href="style.css?v=5">
+  <script src="site-config.js?v=5"></script>
+  <script src="script.js?v=5" defer></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"ООО «ЮНАТ»","alternateName":"ТехУчёт","url":"https://kdrkru-del.github.io/techucht-site/","logo":"https://kdrkru-del.github.io/techucht-site/logo.png","telephone":"+7 925 757-78-88","email":"jobstat@bk.ru","identifier":[{"@type":"PropertyValue","name":"ИНН","value":"2536345868"},{"@type":"PropertyValue","name":"КПП","value":"253601001"},{"@type":"PropertyValue","name":"ОГРН","value":"1242500018859"}],"areaServed":{"@type":"Country","name":"Россия"},"contactPoint":{"@type":"ContactPoint","telephone":"+7 925 757-78-88","email":"jobstat@bk.ru","contactType":"customer service","areaServed":"RU","availableLanguage":"Russian"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Сопровождение регистрации самоходной техники","description":"Проверка документов и сопровождение регистрации самоходной техники в Гостехнадзоре. Услуги от 3 000 ₽, ориентировочный срок 3–5 рабочих дней.","url":"https://kdrkru-del.github.io/techucht-site/","provider":{"@type":"Organization","name":"ООО «ЮНАТ»","url":"https://kdrkru-del.github.io/techucht-site/"},"areaServed":{"@type":"Country","name":"Россия"},"offers":{"@type":"Offer","priceCurrency":"RUB","price":"3000","description":"Стоимость от 3 000 ₽. Точная стоимость определяется после проверки документов."}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Какие документы нужны для постановки техники на учёт?","acceptedAnswer":{"@type":"Answer","text":"Предварительно потребуются паспорт техники, документ о праве собственности, документ владельца или реквизиты организации и документы, подтверждающие полномочия представителя. Точный перечень зависит от техники, региона и истории владения."}},{"@type":"Question","name":"Можно ли оформить документы дистанционно?","acceptedAnswer":{"@type":"Answer","text":"Первичную проверку документов, подготовку заявлений и согласование порядка действий проводим дистанционно. Необходимость личного присутствия или осмотра техники зависит от услуги и требований подразделения Гостехнадзора."}},{"@type":"Question","name":"Сколько времени занимает оформление?","acceptedAnswer":{"@type":"Answer","text":"Большинство стандартных регистрационных действий выполняется в течение 3–5 рабочих дней после получения полного комплекта документов. Точный срок зависит от региона, документов и графика работы Гостехнадзора."}},{"@type":"Question","name":"От чего зависит стоимость?","acceptedAnswer":{"@type":"Answer","text":"Стоимость каждой основной услуги начинается от 3 000 ₽. Точная сумма зависит от вида техники, региона, комплекта документов и сложности ситуации."}},{"@type":"Question","name":"Что делать, если нет ПСМ или ЭПСМ?","acceptedAnswer":{"@type":"Answer","text":"Нужно проверить сохранившиеся документы, сведения о технике и основания владения. После проверки специалист определит возможный порядок восстановления паспорта и дальнейшей регистрации."}},{"@type":"Question","name":"Что делать, если техника не снята с учёта?","acceptedAnswer":{"@type":"Answer","text":"Порядок действий зависит от причины и документов по сделке. Мы проверим регистрационную историю и подготовим последовательность действий для снятия и последующей регистрации."}},{"@type":"Question","name":"Можно ли оформить несколько единиц техники?","acceptedAnswer":{"@type":"Answer","text":"Да. Проверим документы по каждой единице, составим общий перечень недостающих данных и согласуем последовательность регистрационных действий."}},{"@type":"Question","name":"Работаете ли вы в моём регионе?","acceptedAnswer":{"@type":"Answer","text":"Принимаем обращения по всей России. Возможность дистанционного сопровождения и порядок подачи зависят от конкретного региона и выбранной услуги."}}]}</script>
+  <link rel="preload" href="assets/images/hero_bg.webp" as="image" type="image/webp" imagesrcset="assets/images/hero_bg-720.webp 720w, assets/images/hero_bg-900.webp 900w, assets/images/hero_bg.webp 1376w" imagesizes="100vw" fetchpriority="high">
 </head>
 <body>
-
-  <!-- ===== HEADER ===== -->
+  <a class="skip-link" href="#main">К основному содержанию</a>
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="#" class="logo" id="logo-link">
-        <img src="logo.png" alt="ТехУчет - Гостехнадзор" class="logo__img">
+      <a class="logo" href="./" aria-label="ТехУчёт — главная">
+        <img class="logo__img" src="logo.png" width="1024" height="682" alt="ТехУчёт — Гостехнадзор">
       </a>
-
-      <nav class="nav" id="main-nav">
-        <a href="#services" class="nav__link">Услуги</a>
-        <a href="#how-it-works" class="nav__link">Как мы работаем</a>
-        <a href="#pricing" class="nav__link">Стоимость</a>
-        <a href="#faq" class="nav__link">Вопросы</a>
-        <a href="#contacts" class="nav__link">Контакты</a>
+      <nav class="nav" aria-label="Основная навигация">
+        <a href="./#services">Услуги</a>
+        <a href="./#situations">Сложные ситуации</a>
+        <a href="./#process">Как работаем</a>
+        <a href="./#faq">Вопросы</a>
       </nav>
-
       <div class="header__actions">
-        <a href="tel:+79257577888" class="header__phone" id="header-phone">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14.4 11.2c-.8-.8-2.4-1.6-3.2-1.6-.4 0-.8.4-1.2.8-.4.4-.8.8-1.2.8-.8 0-2-1.2-3.2-2.4C4.4 7.6 3.2 6.4 3.2 5.6c0-.4.4-.8.8-1.2.4-.4.8-.8.8-1.2 0-.8-.8-2.4-1.6-3.2C2.6.4 2.2.4 1.8.4 1 .4.4 1 .4 1L.4 1C-.4 2.6-.4 5.2 2 7.6l.4.4.4.4C5.2 10.8 7.8 12 9.4 12h.4c.6 0 1.2-.2 1.6-.4.4-.2.6-.4.6-.4.6-.4 1.2-1 1.2-1.8C13.2 9 12.8 9 12.8 9c-.8-1.2-1.2-1.6-1.6-1.6L14.4 11.2z" fill="currentColor"/></svg>
-          +7 925 757-78-88
-        </a>
-        <a href="https://wa.me/79257577888" class="btn btn--wa btn--sm" target="_blank" rel="noopener" id="header-wa-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          WhatsApp
-        </a>
+        <a class="header__phone track-phone" href="tel:+79257577888">+7 925 757-78-88</a>
+        <button class="btn btn--small btn--outline" type="button" data-modal-open>Перезвоните мне</button>
       </div>
-
-      <button class="burger" id="burger-btn" aria-label="Меню" onclick="toggleMenu()">
+      <button class="menu-button" type="button" aria-label="Открыть меню" aria-controls="mobile-menu" aria-expanded="false" data-menu-button>
         <span></span><span></span><span></span>
       </button>
     </div>
+    <div class="mobile-menu" id="mobile-menu" hidden data-mobile-menu>
+      <nav class="container" aria-label="Мобильная навигация">
+        <a href="./#services">Услуги</a>
+        <a href="./#situations">Сложные ситуации</a>
+        <a href="./#process">Как работаем</a>
+        <a href="./#faq">Вопросы</a>
+        <a class="track-phone" href="tel:+79257577888">+7 925 757-78-88</a>
+      </nav>
+    </div>
   </header>
-
-  <!-- Mobile Nav -->
-  <div class="mobile-nav" id="mobile-nav">
-    <nav>
-      <a href="#services" class="mobile-nav__link" onclick="closeMenu()">Услуги</a>
-      <a href="#how-it-works" class="mobile-nav__link" onclick="closeMenu()">Как мы работаем</a>
-      <a href="#pricing" class="mobile-nav__link" onclick="closeMenu()">Стоимость</a>
-      <a href="#faq" class="mobile-nav__link" onclick="closeMenu()">Вопросы</a>
-      <a href="#contacts" class="mobile-nav__link" onclick="closeMenu()">Контакты</a>
-      <a href="tel:+79257577888" class="mobile-nav__phone">+7 925 757-78-88</a>
-      <a href="https://wa.me/79257577888" class="btn btn--wa btn--full" target="_blank" rel="noopener" onclick="closeMenu()">Написать в WhatsApp</a>
-    </nav>
+  <main id="main">
+    <section class="hero">
+      <picture class="hero__media" aria-hidden="true"><source srcset="assets/images/hero_bg-720.webp 720w, assets/images/hero_bg-900.webp 900w, assets/images/hero_bg.webp 1376w" sizes="100vw" type="image/webp"><img src="assets/images/hero_bg.jpg" width="1376" height="768" alt="" fetchpriority="high" decoding="async"></picture>
+      <div class="hero__shade" aria-hidden="true"></div>
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <p class="hero__badge">ФЕДЕРАЛЬНЫЙ СЕРВИС • РАБОТАЕМ ПО ВСЕЙ РОССИИ</p>
+          <h1>Регистрация самоходной техники по всей России</h1>
+          <p class="hero__subtitle">Поможем подготовить документы и сопроводим постановку на учёт, снятие с учёта, восстановление документов и другие регистрационные действия с самоходной техникой.</p>
+          <ul class="hero__benefits"><li>Единый номер для связи</li><li>Дистанционная проверка документов</li><li>Сопровождение с учётом региона</li><li>Срок выполнения большинства работ — 3–5 рабочих дней</li></ul>
+          <div class="hero__actions"><a class="btn btn--primary" href="#hero-lead">Получить консультацию</a><a class="btn btn--outline" href="#hero-lead">Рассчитать стоимость</a></div>
+          <p class="hero__hint">Оставьте заявку — специалист свяжется с вами в рабочее время.</p>
+        </div>
+        <form class="form-card hero-form" id="hero-lead" data-lead-form data-form-name="Форма первого экрана" novalidate>
+    <div class="honeypot" aria-hidden="true">
+    <label>Оставьте поле пустым <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
   </div>
-
-  <!-- ===== HERO ===== -->
-  <section class="hero" id="hero">
-    <!-- Background Image -->
-    <div class="hero__bg"></div>
-
-    <!-- Overlay Gradient -->
-    <div class="hero__overlay"></div>
-
-    <div class="container hero__content">
-      <div class="hero__left">
-        <div class="hero__badge animate-in" data-delay="0">
-          <span class="badge__dot"></span>
-          Федеральный сервис • Работаем по всей России
-        </div>
-
-        <h1 class="hero__title animate-in" data-delay="100">
-          Регистрация самоходной техники<br>
-          <span class="hero__title--accent">по всей России</span>
-        </h1>
-
-        <p class="hero__subtitle animate-in" data-delay="200">
-          Поможем подготовить документы и сопроводим постановку на учёт, снятие с учёта, восстановление документов и другие регистрационные действия с самоходной техникой.
-        </p>
-
-        <div class="hero__features animate-in" data-delay="300">
-          <div class="hero__feature">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1.5a7.5 7.5 0 100 15A7.5 7.5 0 009 1.5z" stroke="#F5A623" stroke-width="1.5"/><path d="M6 9l2 2 4-4" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Единый федеральный номер
-          </div>
-          <div class="hero__feature">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1.5a7.5 7.5 0 100 15A7.5 7.5 0 009 1.5z" stroke="#F5A623" stroke-width="1.5"/><path d="M6 9l2 2 4-4" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Дистанционная проверка документов
-          </div>
-          <div class="hero__feature">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1.5a7.5 7.5 0 100 15A7.5 7.5 0 009 1.5z" stroke="#F5A623" stroke-width="1.5"/><path d="M6 9l2 2 4-4" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Сопровождение с учётом региона
-          </div>
-        </div>
-
-        <div class="hero__actions animate-in" data-delay="400">
-          <a href="#form" class="btn btn--primary btn--lg">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 3v5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            Получить консультацию
-          </a>
-          <a href="#pricing" class="btn btn--ghost btn--lg">
-            Рассчитать стоимость
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M12 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-
-        <p class="hero__hint animate-in" data-delay="500">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#F5A623" stroke-width="1.2"/><path d="M7 5v4M7 3.5v.5" stroke="#F5A623" stroke-width="1.2" stroke-linecap="round"/></svg>
-          Оставьте заявку — специалист свяжется с вами в рабочее время
-        </p>
-      </div>
-
-      <!-- Hero Form (2-step qualifier) -->
-      <div class="hero__form animate-in" data-delay="200" id="hero-form">
-        <div class="form-card">
-          <h3 class="form-card__title">Узнайте стоимость для вашей техники</h3>
-
-          <!-- Step 1 -->
-          <div id="hf-step-1">
-            <div class="form-steps-hint">Шаг 1 из 2 — займёт 30 секунд</div>
-            <div class="service-chips" id="hf-service-chips">
-              <label class="service-chip">
-                <input type="radio" name="hf_service" value="Постановка на учёт">
-                <span>📋 Постановка на учёт</span>
-              </label>
-              <label class="service-chip">
-                <input type="radio" name="hf_service" value="Снятие с учёта">
-                <span>🔄 Снятие с учёта</span>
-              </label>
-              <label class="service-chip">
-                <input type="radio" name="hf_service" value="Восстановление ПСМ">
-                <span>📄 Восстановление ПСМ</span>
-              </label>
-              <label class="service-chip">
-                <input type="radio" name="hf_service" value="Технический осмотр">
-                <span>🔍 Техосмотр</span>
-              </label>
-              <label class="service-chip">
-                <input type="radio" name="hf_service" value="Другое">
-                <span>❓ Другое</span>
-              </label>
-            </div>
-            <div class="form-group">
-              <input type="tel" id="hf-phone" name="phone" class="form-input" placeholder="+7 (___) ___-__-__" autocomplete="tel" required>
-              <label for="hf-phone" class="form-label">Ваш телефон</label>
-            </div>
-            <button type="button" class="btn btn--primary btn--full" id="hf-next-btn" onclick="hfNextStep()">
-              Получить расчёт стоимости →
-            </button>
-            <p class="form-card__privacy">Нажимая кнопку, вы соглашаетесь с <a href="#" class="link">политикой конфиденциальности</a></p>
-          </div>
-
-          <!-- Step 2 -->
-          <div id="hf-step-2" style="display:none">
-            <div class="form-steps-hint">Шаг 2 из 2 — уточните детали</div>
-            <form id="heroForm" onsubmit="submitHeroForm(event)">
-              <input type="hidden" name="service" id="hf-service-hidden">
-              <input type="hidden" name="phone" id="hf-phone-hidden">
-              <div class="form-group">
-                <input type="text" id="hf-name" name="name" class="form-input" placeholder="Ваше имя (необязательно)" autocomplete="name">
-                <label for="hf-name" class="form-label">Имя</label>
-              </div>
-              <div class="form-group">
-                <select id="hf-tech" name="tech" class="form-select">
-                  <option value="">Вид техники</option>
-                  <option value="Экскаватор">Экскаватор</option>
-                  <option value="Погрузчик">Фронтальный погрузчик</option>
-                  <option value="Бульдозер">Бульдозер</option>
-                  <option value="Кран">Кран</option>
-                  <option value="Трактор">Трактор</option>
-                  <option value="Комбайн">Комбайн</option>
-                  <option value="Квадроцикл">Квадроцикл / снегоход</option>
-                  <option value="Другое">Другое</option>
-                </select>
-                <label for="hf-tech" class="form-label">Вид техники</label>
-              </div>
-              <div class="form-group">
-                <select id="hf-owner" name="owner" class="form-select">
-                  <option value="">Вы — физлицо или юрлицо?</option>
-                  <option value="Физическое лицо">Физическое лицо</option>
-                  <option value="Юридическое лицо / ИП">Юридическое лицо / ИП</option>
-                </select>
-                <label for="hf-owner" class="form-label">Тип собственника</label>
-              </div>
-              <button type="submit" class="btn btn--primary btn--full" id="hero-submit-btn">
-                Отправить заявку
-              </button>
-              <button type="button" class="btn btn--ghost btn--full" style="margin-top:8px" onclick="hfBackStep()">← Назад</button>
-            </form>
-          </div>
-
-          <!-- Success -->
-          <div id="hf-success" style="display:none" class="form-success-msg">
-            <div class="form-success-icon">✅</div>
-            <h4>Заявка принята!</h4>
-            <p>Специалист свяжется с вами в рабочее время (Пн–Пт 9:00–18:00)</p>
-            <a href="https://wa.me/79257577888" class="btn btn--wa btn--full" target="_blank" rel="noopener" style="margin-top:16px">Написать в WhatsApp сейчас</a>
-          </div>
-        </div>
-      </div>
+    <div class="form-card__header">
+      <p class="eyebrow">Расчёт стоимости</p>
+      <h2>Уточните задачу</h2>
+      <span data-step-label>Шаг 1 из 2</span>
     </div>
+    <fieldset class="form-step" data-hero-step="1">
+      <legend>Какая услуга требуется?</legend>
+      <div class="choice-grid">
+        <label class="choice"><input type="radio" name="service" value="Постановка на учёт" required><span>Постановка на учёт</span></label><label class="choice"><input type="radio" name="service" value="Снятие с учёта" required><span>Снятие с учёта</span></label><label class="choice"><input type="radio" name="service" value="Восстановление ПСМ или ЭПСМ" required><span>Восстановление ПСМ или ЭПСМ</span></label><label class="choice"><input type="radio" name="service" value="Технический осмотр" required><span>Технический осмотр</span></label><label class="choice"><input type="radio" name="service" value="Внесение изменений" required><span>Внесение изменений</span></label><label class="choice"><input type="radio" name="service" value="Отказ или сложная ситуация" required><span>Отказ или сложная ситуация</span></label><label class="choice"><input type="radio" name="service" value="Другое" required><span>Другое</span></label>
+      </div>
+      <label class="field" for="hero-phone"><span>Телефон *</span><input id="hero-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
+      <button class="btn btn--primary btn--full" type="button" data-hero-next>Получить расчёт стоимости</button>
+      <p class="field-error" data-step-error role="alert"></p>
+    </fieldset>
+    <fieldset class="form-step" data-hero-step="2" hidden>
+      <legend>Осталось немного</legend>
+      <label class="field" for="hero-region">
+    <span>Регион *</span>
+    <select id="hero-region" name="region" required data-region-select>
+      <option value="">Выберите регион</option>
+    </select>
+  </label>
+      <label class="field" for="hero-tech"><span>Вид техники</span><input id="hero-tech" name="tech" type="text" placeholder="Например, трактор МТЗ-82"></label>
+      <label class="field" for="hero-owner"><span>Тип собственника</span><select id="hero-owner" name="owner"><option value="">Выберите вариант</option><option>Физическое лицо</option><option>ИП</option><option>Организация</option></select></label>
+      <label class="field" for="hero-comment"><span>Комментарий</span><textarea id="hero-comment" name="comment" rows="3" placeholder="Коротко опишите задачу (необязательно)"></textarea></label>
+      <label class="consent" for="hero-consent">
+    <input id="hero-consent" name="consent" type="checkbox" required>
+    <span>Я соглашаюсь на <a href="consent/" target="_blank">обработку персональных данных</a> и принимаю <a href="privacy/" target="_blank">Политику конфиденциальности</a>.</span>
+  </label>
+      <div class="form-actions"><button class="btn btn--text" type="button" data-hero-back>Назад</button><button class="btn btn--primary" type="submit">Отправить заявку</button></div>
+      <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+    </fieldset>
+  </form>
+      </div>
+    </section>
 
-    <!-- Scroll indicator -->
-    <div class="hero__scroll">
-      <div class="hero__scroll-line"></div>
-      <span>Прокрутите вниз</span>
+    <section class="stats" aria-label="Опыт компании">
+      <div class="container stats__grid">
+        <div class="stat"><strong><span data-counter="85">85</span>+</strong><span>регионов России</span><small>Принимаем обращения по всей стране</small></div>
+        <div class="stat"><strong><span data-counter="3200">3 200</span>+</strong><span>выполненных регистраций</span><small>Сохранённый показатель компании</small></div>
+        <div class="stat"><strong><span data-counter="7">7</span> лет</strong><span>работы</span><small>Опыт сопровождения регистраций</small></div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Услуги и стоимость</p><h2>Регистрационные действия без неясных тарифов</h2><p>Проверяем документы, готовим комплект и сопровождаем выбранную услугу с учётом требований региона.</p></div>
+        <div class="service-grid"><article class="service-card"><span class="card-index">01</span><h3>Постановка спецтехники на учёт</h3><p>Для новой, ввезённой или приобретённой техники, которую нужно зарегистрировать в Гостехнадзоре.</p><h4>Что входит</h4><ul><li>Проверка документов</li><li>Подготовка заявлений и комплекта</li><li>Сопровождение регистрационных действий</li></ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 3 000 ₽</strong></div><div class="card-actions"><a class="text-link" href="registraciya/">Подробнее</a><a class="btn btn--primary" href="#lead-form" data-select-service="Постановка на учёт" data-service-event="registration">Рассчитать услугу</a></div></article><article class="service-card"><span class="card-index">02</span><h3>Снятие спецтехники с учёта</h3><p>При продаже, утилизации, вывозе или необходимости завершить прежние регистрационные действия.</p><h4>Что входит</h4><ul><li>Проверка основания</li><li>Подготовка документов</li><li>Сопровождение снятия с учёта</li></ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 3 000 ₽</strong></div><div class="card-actions"><a class="text-link" href="snyatie-s-ucheta/">Подробнее</a><a class="btn btn--primary" href="#lead-form" data-select-service="Снятие с учёта" data-service-event="deregistration">Рассчитать услугу</a></div></article><article class="service-card"><span class="card-index">03</span><h3>Восстановление ПСМ или ЭПСМ</h3><p>Если паспорт утрачен, повреждён, содержит нечитаемые данные или требует восстановления.</p><h4>Что входит</h4><ul><li>Анализ имеющихся документов</li><li>Определение порядка восстановления</li><li>Подготовка обращения и комплекта</li></ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 3 000 ₽</strong></div><div class="card-actions"><a class="text-link" href="vosstanovlenie-psm/">Подробнее</a><a class="btn btn--primary" href="#lead-form" data-select-service="Восстановление ПСМ или ЭПСМ" data-service-event="restore_psm">Рассчитать услугу</a></div></article><article class="service-card"><span class="card-index">04</span><h3>Технический осмотр</h3><p>Для подготовки к обязательному техническому осмотру самоходной техники.</p><h4>Что входит</h4><ul><li>Проверка исходных данных</li><li>Подготовка документов</li><li>Сопровождение процедуры</li></ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 3 000 ₽</strong></div><div class="card-actions"><a class="text-link" href="tehosmotr/">Подробнее</a><a class="btn btn--primary" href="#lead-form" data-select-service="Технический осмотр" data-service-event="inspection">Рассчитать услугу</a></div></article><article class="service-card"><span class="card-index">05</span><h3>Внесение изменений в регистрационные данные</h3><p>При смене собственника, адреса, характеристик техники или номерного компонента.</p><h4>Что входит</h4><ul><li>Проверка основания изменений</li><li>Подготовка заявления</li><li>Комплект документов для Гостехнадзора</li></ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 3 000 ₽</strong></div><div class="card-actions"><span></span><a class="btn btn--primary" href="#lead-form" data-select-service="Внесение изменений" data-service-event="changes">Рассчитать услугу</a></div></article><article class="service-card"><span class="card-index">06</span><h3>Получение или замена регистрационных документов</h3><p>Если свидетельство утрачено, повреждено или сведения в нём нужно актуализировать.</p><h4>Что входит</h4><ul><li>Проверка регистрационных данных</li><li>Подготовка обращения</li><li>Сопровождение выдачи документов</li></ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 3 000 ₽</strong></div><div class="card-actions"><span></span><a class="btn btn--primary" href="#lead-form" data-select-service="Получение или замена регистрационных документов" data-service-event="documents">Рассчитать услугу</a></div></article><article class="service-card"><span class="card-index">07</span><h3>Получение или замена номерных знаков</h3><p>При первичной выдаче, утрате, повреждении или необходимости замены знака.</p><h4>Что входит</h4><ul><li>Проверка основания</li><li>Подготовка документов</li><li>Сопровождение получения знака</li></ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 3 000 ₽</strong></div><div class="card-actions"><span></span><a class="btn btn--primary" href="#lead-form" data-select-service="Получение или замена номерных знаков" data-service-event="plates">Рассчитать услугу</a></div></article><article class="service-card"><span class="card-index">08</span><h3>Разбор сложной ситуации или отказа</h3><p>Если документы не принимают, получен отказ или история владения требует дополнительной проверки.</p><h4>Что входит</h4><ul><li>Разбор причины отказа</li><li>Проверка документов</li><li>План дальнейших действий</li></ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 3 000 ₽</strong></div><div class="card-actions"><a class="text-link" href="slozhnye-sluchai/">Подробнее</a><a class="btn btn--primary" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-service-event="complex_case">Рассчитать услугу</a></div></article></div>
+        <p class="section-note">Точная стоимость и срок зависят от вида техники, региона, регистрационного действия и комплекта документов. Итоговую стоимость специалист назовёт после проверки документов. Государственные пошлины и сторонние расходы в цену услуг не включены.</p>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="situations">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Проблемные ситуации</p><h2>Разберём документы и предложим порядок действий</h2><p>Не обещаем результат до проверки. Сначала изучаем исходные данные и требования конкретного подразделения.</p></div>
+        <div class="problem-grid"><article class="problem-card"><h3>Нет ПСМ или ЭПСМ</h3><p>Проверим сохранившиеся документы и определим возможный порядок восстановления паспорта.</p><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Нет ПСМ или ЭПСМ" data-service-event="complex_case">Разобрать мою ситуацию</a></article><article class="problem-card"><h3>Техника не снята с учёта предыдущим владельцем</h3><p>Разберём историю регистрации и подскажем последовательность действий для прежнего и нового владельцев.</p><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Техника не снята с учёта предыдущим владельцем" data-service-event="complex_case">Разобрать мою ситуацию</a></article><article class="problem-card"><h3>Ошибка в договоре купли-продажи</h3><p>Найдём несоответствия и подготовим корректный комплект документов для повторной подачи.</p><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Ошибка в договоре купли-продажи" data-service-event="complex_case">Разобрать мою ситуацию</a></article><article class="problem-card"><h3>Нет акта приёма-передачи</h3><p>Проверим основание владения и определим, какой документ можно подготовить в вашей ситуации.</p><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Нет акта приёма-передачи" data-service-event="complex_case">Разобрать мою ситуацию</a></article><article class="problem-card"><h3>Нет полной цепочки договоров</h3><p>Проверим доступные документы и выстроим порядок подтверждения перехода права.</p><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Нет полной цепочки договоров" data-service-event="complex_case">Разобрать мою ситуацию</a></article><article class="problem-card"><h3>Техника куплена через посредника</h3><p>Сверим участников сделки и документы на технику до обращения в Гостехнадзор.</p><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Техника куплена через посредника" data-service-event="complex_case">Разобрать мою ситуацию</a></article><article class="problem-card"><h3>Не читается заводской номер</h3><p>Оценим документы и подскажем порядок действий с учётом состояния идентификационной маркировки.</p><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Не читается заводской номер" data-service-event="complex_case">Разобрать мою ситуацию</a></article><article class="problem-card"><h3>Получен отказ Гостехнадзора</h3><p>Изучим формулировку отказа и подготовим план устранения указанных причин.</p><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Получен отказ Гостехнадзора" data-service-event="complex_case">Разобрать мою ситуацию</a></article><article class="problem-card"><h3>Техника ввезена из другой страны</h3><p>Проверим документы на ввоз, паспорт техники и требования к первой регистрации.</p><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Техника ввезена из другой страны" data-service-event="complex_case">Разобрать мою ситуацию</a></article><article class="problem-card"><h3>Нужно оформить несколько единиц техники</h3><p>Составим единый перечень документов и организуем работу по каждой единице.</p><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Нужно оформить несколько единиц техники" data-service-event="complex_case">Разобрать мою ситуацию</a></article><article class="problem-card"><h3>Изменились данные собственника или характеристики техники</h3><p>Определим основание изменений и подготовим документы для актуализации регистрационных данных.</p><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Изменились данные собственника или характеристики техники" data-service-event="complex_case">Разобрать мою ситуацию</a></article></div>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Как проходит работа</p><h2>Пять понятных этапов</h2></div>
+        <ol class="process-list"><li><span>1</span><div><h3>Заявка</h3><p>Оставьте заявку, укажите регион, вид техники и необходимую услугу.</p></div></li><li><span>2</span><div><h3>Проверка документов</h3><p>Специалист проверит имеющиеся документы и сообщит, каких документов не хватает.</p></div></li><li><span>3</span><div><h3>Подготовка комплекта</h3><p>Подготовим необходимые заявления, договоры, акты и другие документы в рамках выбранной услуги.</p></div></li><li><span>4</span><div><h3>Регистрационные действия</h3><p>Сопроводим регистрационные действия с учётом требований региона.</p></div></li><li><span>5</span><div><h3>Получение результата</h3><p>После завершения вы получите оформленные документы в соответствии с выбранной услугой.</p></div></li></ol>
+        <div class="info-strip"><strong>Как правило, 3–5 рабочих дней после получения полного комплекта документов.</strong><span>Точный срок зависит от региона, вида регистрационного действия, комплекта документов и графика работы соответствующего подразделения Гостехнадзора.</span></div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="documents">
+      <div class="container documents-layout">
+        <div class="section-heading section-heading--left"><p class="eyebrow">Документы</p><h2>Предварительный список для вашей ситуации</h2><p>Выберите собственника и регистрационное действие. Список обновится автоматически.</p></div>
+        <div class="documents-tool" data-documents-tool>
+          <div class="segmented" role="group" aria-label="Тип собственника"><button type="button" class="is-active" data-owner="person">Физическое лицо</button><button type="button" data-owner="company">ИП или организация</button></div>
+          <div class="tabs" role="tablist" aria-label="Регистрационное действие"><button type="button" class="is-active" data-action="registration">Постановка на учёт</button><button type="button" data-action="deregistration">Снятие с учёта</button><button type="button" data-action="restore">Восстановление документов</button><button type="button" data-action="inspection">Технический осмотр</button></div>
+          <ul class="document-list" data-document-list><li>Паспорт собственника</li><li>ПСМ или ЭПСМ</li><li>Документ о праве собственности</li><li>Полис ОСАГО — когда требуется</li><li>Документы на номерные компоненты — при наличии изменений</li></ul>
+          <p class="tool-note">Точный перечень зависит от вида техники, регистрационного действия, региона и истории владения. Специалист проверит документы после обращения.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cases">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Практические примеры</p><h2>Примеры задач, с которыми мы работаем</h2><p>Сроки и порядок действий приведены как примеры. Результат зависит от документов и конкретной ситуации.</p></div>
+        <div class="case-grid"><article class="case-card"><h3>Экскаватор-погрузчик JCB 3CX</h3><dl><div><dt>Ситуация</dt><dd>В договоре купли-продажи обнаружены ошибки, из-за которых документы могли не принять.</dd></div><div><dt>Возможное решение</dt><dd>Проверили ПСМ, подготовили исправленный договор и акт приёма-передачи, сформировали комплект документов для постановки на учёт.</dd></div><div><dt>Ориентировочный срок</dt><dd>4 рабочих дня</dd></div></dl><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Пример задачи: Экскаватор-погрузчик JCB 3CX">Обсудить похожую задачу</a></article><article class="case-card"><h3>Трактор МТЗ-82</h3><dl><div><dt>Ситуация</dt><dd>Техника продана, но предыдущий собственник не завершил регистрационные действия.</dd></div><div><dt>Возможное решение</dt><dd>Проверили историю документов, подготовили комплект для снятия и последующей постановки техники на нового владельца.</dd></div><div><dt>Ориентировочный срок</dt><dd>3 рабочих дня</dd></div></dl><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Пример задачи: Трактор МТЗ-82">Обсудить похожую задачу</a></article><article class="case-card"><h3>Вилочный погрузчик Toyota</h3><dl><div><dt>Ситуация</dt><dd>У организации отсутствовал акт приёма-передачи, а данные договора не совпадали с документами на технику.</dd></div><div><dt>Возможное решение</dt><dd>Подготовили необходимые документы и комплект для подачи от юридического лица.</dd></div><div><dt>Ориентировочный срок</dt><dd>5 рабочих дней</dd></div></dl><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Пример задачи: Вилочный погрузчик Toyota">Обсудить похожую задачу</a></article><article class="case-card"><h3>Мини-погрузчик Bobcat S650</h3><dl><div><dt>Ситуация</dt><dd>Паспорт самоходной машины был повреждён, часть данных читалась плохо.</dd></div><div><dt>Возможное решение</dt><dd>Проверили имеющиеся документы и подготовили обращение для восстановления документа и дальнейшей регистрации.</dd></div><div><dt>Ориентировочный срок</dt><dd>5 рабочих дней</dd></div></dl><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Пример задачи: Мини-погрузчик Bobcat S650">Обсудить похожую задачу</a></article><article class="case-card"><h3>Квадроцикл CFMOTO</h3><dl><div><dt>Ситуация</dt><dd>Техника была приобретена с рук без полного комплекта документов.</dd></div><div><dt>Возможное решение</dt><dd>Проверили имеющиеся документы, определили недостающие бумаги и подготовили порядок дальнейших регистрационных действий.</dd></div><div><dt>Ориентировочный срок</dt><dd>3–5 рабочих дней</dd></div></dl><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Пример задачи: Квадроцикл CFMOTO">Обсудить похожую задачу</a></article></div>
+      </div>
+    </section>
+
+    <section class="rules-section">
+      <div class="container rules-layout">
+        <div><p class="eyebrow">Изменение законодательства</p><h2>Учитываем новые правила регистрации с 1 сентября 2026 года</h2></div>
+        <div><p>При подготовке документов учитываем требования Правил государственной регистрации самоходных машин и других видов техники, утверждённых Постановлением Правительства РФ от 29.05.2026 №625.</p><a class="text-link" href="https://publication.pravo.gov.ru/document/0001202605290095" target="_blank" rel="noopener">Официальный источник</a></div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="faq"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Частые вопросы</p><h2>Коротко о главном</h2><p>Если вашей ситуации нет в списке, отправьте заявку на разбор документов.</p></div><div class="faq-list"><article class="faq-item"><h3><button type="button" aria-expanded="true" data-faq-button><span>Какие документы нужны для постановки техники на учёт?</span><span class="faq-icon" aria-hidden="true">+</span></button></h3><div class="faq-answer"><p>Предварительно потребуются паспорт техники, документ о праве собственности, документ владельца или реквизиты организации и документы, подтверждающие полномочия представителя. Точный перечень зависит от техники, региона и истории владения.</p></div></article><article class="faq-item"><h3><button type="button" aria-expanded="false" data-faq-button><span>Можно ли оформить документы дистанционно?</span><span class="faq-icon" aria-hidden="true">+</span></button></h3><div class="faq-answer" hidden><p>Первичную проверку документов, подготовку заявлений и согласование порядка действий проводим дистанционно. Необходимость личного присутствия или осмотра техники зависит от услуги и требований подразделения Гостехнадзора.</p></div></article><article class="faq-item"><h3><button type="button" aria-expanded="false" data-faq-button><span>Сколько времени занимает оформление?</span><span class="faq-icon" aria-hidden="true">+</span></button></h3><div class="faq-answer" hidden><p>Большинство стандартных регистрационных действий выполняется в течение 3–5 рабочих дней после получения полного комплекта документов. Точный срок зависит от региона, документов и графика работы Гостехнадзора.</p></div></article><article class="faq-item"><h3><button type="button" aria-expanded="false" data-faq-button><span>От чего зависит стоимость?</span><span class="faq-icon" aria-hidden="true">+</span></button></h3><div class="faq-answer" hidden><p>Стоимость каждой основной услуги начинается от 3 000 ₽. Точная сумма зависит от вида техники, региона, комплекта документов и сложности ситуации.</p></div></article><article class="faq-item"><h3><button type="button" aria-expanded="false" data-faq-button><span>Что делать, если нет ПСМ или ЭПСМ?</span><span class="faq-icon" aria-hidden="true">+</span></button></h3><div class="faq-answer" hidden><p>Нужно проверить сохранившиеся документы, сведения о технике и основания владения. После проверки специалист определит возможный порядок восстановления паспорта и дальнейшей регистрации.</p></div></article><article class="faq-item"><h3><button type="button" aria-expanded="false" data-faq-button><span>Что делать, если техника не снята с учёта?</span><span class="faq-icon" aria-hidden="true">+</span></button></h3><div class="faq-answer" hidden><p>Порядок действий зависит от причины и документов по сделке. Мы проверим регистрационную историю и подготовим последовательность действий для снятия и последующей регистрации.</p></div></article><article class="faq-item"><h3><button type="button" aria-expanded="false" data-faq-button><span>Можно ли оформить несколько единиц техники?</span><span class="faq-icon" aria-hidden="true">+</span></button></h3><div class="faq-answer" hidden><p>Да. Проверим документы по каждой единице, составим общий перечень недостающих данных и согласуем последовательность регистрационных действий.</p></div></article><article class="faq-item"><h3><button type="button" aria-expanded="false" data-faq-button><span>Работаете ли вы в моём регионе?</span><span class="faq-icon" aria-hidden="true">+</span></button></h3><div class="faq-answer" hidden><p>Принимаем обращения по всей России. Возможность дистанционного сопровождения и порядок подачи зависят от конкретного региона и выбранной услуги.</p></div></article></div></div></section>
+
+    <section class="section lead-section" id="lead-form"><div class="container lead-layout"><aside class="contact-panel">
+    <p class="eyebrow">Связаться напрямую</p>
+    <a class="contact-panel__primary track-phone" href="tel:+79257577888">+7 925 757-78-88</a>
+    <div class="contact-links"><a class="track-whatsapp" href="https://wa.me/79257577888" target="_blank" rel="noopener">WhatsApp</a><a class="track-email" href="mailto:jobstat@bk.ru">jobstat@bk.ru</a></div>
+    <dl><div><dt>Режим работы</dt><dd>Пн–Пт: 9:00–18:00</dd></div><div><dt>Стоимость услуг</dt><dd>от 3 000 ₽</dd></div><div><dt>Ориентировочный срок</dt><dd>3–5 рабочих дней</dd></div><div><dt>География</dt><dd>Вся Россия</dd></div></dl>
+  </aside><form class="form-card lead-form" id="main-lead" data-lead-form data-form-name="Получите консультацию по оформлению техники" novalidate>
+    <div class="honeypot" aria-hidden="true">
+    <label>Оставьте поле пустым <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
+  </div>
+    <div class="form-card__header"><p class="eyebrow">Заявка</p><h2>Получите консультацию по оформлению техники</h2><p>Специалист уточнит задачу, проверит документы и назовёт стоимость работ.</p></div>
+    <div class="form-grid">
+      <label class="field" for="main-lead-name"><span>Имя</span><input id="main-lead-name" name="name" type="text" autocomplete="name" placeholder="Необязательно"></label>
+      <label class="field" for="main-lead-phone"><span>Телефон *</span><input id="main-lead-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
+      <label class="field" for="main-lead-region">
+    <span>Регион *</span>
+    <select id="main-lead-region" name="region" required data-region-select>
+      <option value="">Выберите регион</option>
+    </select>
+  </label>
+      <label class="field" for="main-lead-service">
+    <span>Услуга *</span>
+    <select id="main-lead-service" name="service" required>
+      <option value="">Выберите услугу</option>
+      <option value="Постановка на учёт">Постановка на учёт</option><option value="Снятие с учёта">Снятие с учёта</option><option value="Восстановление ПСМ или ЭПСМ">Восстановление ПСМ или ЭПСМ</option><option value="Технический осмотр">Технический осмотр</option><option value="Внесение изменений">Внесение изменений</option><option value="Получение или замена регистрационных документов">Получение или замена регистрационных документов</option><option value="Получение или замена номерных знаков">Получение или замена номерных знаков</option><option value="Отказ или сложная ситуация">Отказ или сложная ситуация</option><option value="Другое">Другое</option>
+    </select>
+  </label>
     </div>
-  </section>
-
-  <!-- ===== TRUST STATS ===== -->
-  <section class="stats" id="stats">
-    <div class="container">
-      <div class="stats__grid">
-        <div class="stat-card" data-count="85">
-          <div class="stat-card__number"><span class="counter">0</span><span class="stat-card__unit">+</span></div>
-          <div class="stat-card__label">Регионов России</div>
-          <div class="stat-card__sub">Принимаем заявки из всех субъектов РФ</div>
-        </div>
-        <div class="stat-card" data-count="3200">
-          <div class="stat-card__number"><span class="counter">0</span><span class="stat-card__unit">+</span></div>
-          <div class="stat-card__label">Выполненных регистраций</div>
-          <div class="stat-card__sub">Успешно завершённых дел</div>
-        </div>
-        <div class="stat-card" data-count="7">
-          <div class="stat-card__number"><span class="counter">0</span><span class="stat-card__unit"> лет</span></div>
-          <div class="stat-card__label">На рынке</div>
-          <div class="stat-card__sub">Экспертный опыт с 2017 года</div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== SERVICES ===== -->
-  <section class="services section" id="services">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-label">Наши услуги</div>
-        <h2 class="section-title">Берём на себя всю бумажную волокиту<br>в Гостехнадзоре</h2>
-        <p class="section-subtitle">Избавим от очередей, придирок инспекторов и отказов из-за запятой в договоре. Делаем под ключ по всей России.</p>
-      </div>
-
-      <div class="services__grid">
-        <div class="service-card" id="service-reg">
-          <div class="service-card__icon">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="6" width="24" height="20" rx="3" stroke="#F5A623" stroke-width="1.8"/><path d="M10 12h12M10 16h8M10 20h6" stroke="#F5A623" stroke-width="1.8" stroke-linecap="round"/><path d="M26 10V6a2 2 0 00-2-2H8a2 2 0 00-2 2v4" stroke="#F5A623" stroke-width="1.8"/></svg>
-          </div>
-          <h3 class="service-card__title">Постановка на учёт</h3>
-          <p class="service-card__desc">Регистрация новой или ранее не стоявшей на учёте самоходной техники в Гостехнадзоре с учётом особенностей вашего региона.</p>
-          <ul class="service-card__list">
-            <li>Проверка документов дистанционно</li>
-            <li>Помощь в оформлении паспорта СМ</li>
-            <li>Сопровождение в Гостехнадзоре</li>
-          </ul>
-          <a href="#form" class="service-card__link">Подать заявку <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-
-        <div class="service-card service-card--featured" id="service-dereg">
-          <div class="service-card__badge">Популярно</div>
-          <div class="service-card__icon">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M8 8l16 16M24 8L8 24" stroke="#F5A623" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="16" r="12" stroke="#F5A623" stroke-width="1.8"/></svg>
-          </div>
-          <h3 class="service-card__title">Снятие с учёта</h3>
-          <p class="service-card__desc">Снятие самоходной техники с регистрационного учёта при продаже, списании или вывозе за рубеж. Быстро и без очередей.</p>
-          <ul class="service-card__list">
-            <li>Оформление при продаже техники</li>
-            <li>Снятие при утилизации</li>
-            <li>Снятие для экспорта</li>
-          </ul>
-          <a href="#form" class="service-card__link">Подать заявку <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-
-        <div class="service-card" id="service-restore">
-          <div class="service-card__icon">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M6 16a10 10 0 1010-10" stroke="#F5A623" stroke-width="1.8" stroke-linecap="round"/><path d="M6 6v10h10" stroke="#F5A623" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h3 class="service-card__title">Восстановление документов</h3>
-          <p class="service-card__desc">Восстановление утраченных или повреждённых свидетельств о регистрации, паспортов самоходных машин и другой документации.</p>
-          <ul class="service-card__list">
-            <li>Дубликат свидетельства о регистрации</li>
-            <li>Восстановление ПСМ</li>
-            <li>Восстановление после кражи/пожара</li>
-          </ul>
-          <a href="#form" class="service-card__link">Подать заявку <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-
-        <div class="service-card" id="service-inspection">
-          <div class="service-card__icon">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M12 20l4-4 4 4M16 16v-8" stroke="#F5A623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="16" r="12" stroke="#F5A623" stroke-width="1.8"/></svg>
-          </div>
-          <h3 class="service-card__title">Технический осмотр</h3>
-          <p class="service-card__desc">Организация и помощь в прохождении ежегодного технического осмотра вашей спецтехники инспектором Гостехнадзора.</p>
-          <ul class="service-card__list">
-            <li>Прохождение планового ТО</li>
-            <li>Сопровождение выездного осмотра</li>
-            <li>Помощь при нестандартных ситуациях</li>
-          </ul>
-          <a href="#form" class="service-card__link">Подать заявку <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-
-        <div class="service-card" id="service-plate">
-          <div class="service-card__icon">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="4" y="10" width="24" height="12" rx="2" stroke="#F5A623" stroke-width="1.8"/><path d="M10 16h12M14 13v6" stroke="#F5A623" stroke-width="1.8" stroke-linecap="round"/></svg>
-          </div>
-          <h3 class="service-card__title">Номерные знаки</h3>
-          <p class="service-card__desc">Получение новых государственных регистрационных знаков, восстановление или замена утраченных номерных знаков для самоходной техники.</p>
-          <ul class="service-card__list">
-            <li>Получение новых номеров</li>
-            <li>Восстановление при утере</li>
-            <li>Замена повреждённых знаков</li>
-          </ul>
-          <a href="#form" class="service-card__link">Подать заявку <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-
-        <div class="service-card service-card--cta" id="service-other">
-          <div class="service-card__icon">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="12" stroke="#F5A623" stroke-width="1.8"/><path d="M16 10v6l4 4" stroke="#F5A623" stroke-width="1.8" stroke-linecap="round"/></svg>
-          </div>
-          <h3 class="service-card__title">Другие услуги</h3>
-          <p class="service-card__desc">Консультации по любым вопросам регистрации. Нестандартные ситуации: ввезённая техника, техника без документов, спорные случаи.</p>
-          <a href="#form" class="btn btn--primary btn--full" style="margin-top:auto">Задать вопрос специалисту</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== HOW IT WORKS ===== -->
-  <section class="how section" id="how-it-works">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-label">Процесс работы</div>
-        <h2 class="section-title">Как мы работаем</h2>
-        <p class="section-subtitle">Сопровождение регистрационных действий с учётом региона клиента. Дистанционно — без поездок в наш офис.</p>
-      </div>
-
-      <div class="steps">
-        <div class="step" id="step-1">
-          <div class="step__number">01</div>
-          <div class="step__icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="3" y="5" width="22" height="18" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M9 11h10M9 15h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-          </div>
-          <h3 class="step__title">Заявка</h3>
-          <p class="step__desc">Оставьте заявку на сайте или позвоните на единый федеральный номер. Укажите ваш регион и вид техники.</p>
-          <div class="step__connector"></div>
-        </div>
-
-        <div class="step" id="step-2">
-          <div class="step__number">02</div>
-          <div class="step__icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3a11 11 0 100 22A11 11 0 0014 3z" stroke="currentColor" stroke-width="1.6"/><path d="M9 14l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h3 class="step__title">Проверка документов</h3>
-          <p class="step__desc">Специалист дистанционно проверит ваши документы, выявит возможные проблемы и составит список необходимых бумаг.</p>
-          <div class="step__connector"></div>
-        </div>
-
-        <div class="step" id="step-3">
-          <div class="step__number">03</div>
-          <div class="step__icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M7 14h14M7 9h14M7 19h9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-          </div>
-          <h3 class="step__title">Подготовка</h3>
-          <p class="step__desc">Помогаем подготовить полный пакет документов. Проверяем соответствие требованиям Гостехнадзора вашего региона.</p>
-          <div class="step__connector"></div>
-        </div>
-
-        <div class="step" id="step-4">
-          <div class="step__number">04</div>
-          <div class="step__icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M5 14l9 9 9-9M14 3v20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h3 class="step__title">Регистрация</h3>
-          <p class="step__desc">Сопровождаем подачу документов в Гостехнадзор. При необходимости — представляем ваши интересы по доверенности.</p>
-          <div class="step__connector"></div>
-        </div>
-
-        <div class="step" id="step-5">
-          <div class="step__number">05</div>
-          <div class="step__icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="11" stroke="currentColor" stroke-width="1.6"/><path d="M9 14l3 3 7-7" stroke="#F5A623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h3 class="step__title">Готово!</h3>
-          <p class="step__desc">Получаете готовые документы: ПСМ с отметками, СТС и номер. Можно спокойно работать, не боясь проверок.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== EXPERT ===== -->
-  <section class="expert section" id="expert">
-    <div class="container">
-      <div class="expert-card">
-        <div class="expert-card__photo">
-          <img src="expert.jpg" alt="Ведущий специалист" loading="lazy">
-        </div>
-        <div class="expert-card__content">
-          <div class="section-label">Личное обращение</div>
-          <h2 class="section-title" style="text-align: left;">Мы знаем, как инспекторы могут придираться к каждой запятой</h2>
-          <div class="expert-card__quote">
-            <p>«Часто к нам приходят после самостоятельных попыток поставить трактор или погрузчик на учёт. Причины отказа бывают абсурдными: не там стоит печать в ДКП, акт приёма-передачи не по форме, не читается номер на раме.</p>
-            <p>Мы работаем с инспекторами Гостехнадзора с 2017 года. Мы заранее знаем требования каждого регионального отделения. Доверьте эту работу нам, а сами занимайтесь бизнесом».</p>
-          </div>
-          <div class="expert-card__name">
-            <strong>Роман К.</strong>
-            <span>Ведущий эксперт по регистрации самоходной техники</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== CASES ===== -->
-  <section class="cases section" id="cases">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-label">Живые примеры</div>
-        <h2 class="section-title">Недавние регистрации</h2>
-        <p class="section-subtitle">Конкретные примеры техники, которую мы недавно поставили на учёт.</p>
-      </div>
-      <div class="cases__grid">
-        <div class="case-card">
-          <img src="case1.jpg" alt="Экскаватор-погрузчик JCB" class="case-card__img" loading="lazy">
-          <div class="case-card__content">
-            <h3 class="case-card__title">Экскаватор-погрузчик JCB 3CX</h3>
-            <ul class="case-card__details">
-              <li><strong>Регион:</strong> Московская область</li>
-              <li><strong>Сложность:</strong> Утерян ПСМ, нет договора от первого собственника</li>
-              <li><strong>Срок:</strong> 7 дней</li>
-            </ul>
-            <p class="case-card__result">Восстановили цепочку договоров, получили дубликат ПСМ и поставили на учёт на юрлицо.</p>
-          </div>
-        </div>
-        <div class="case-card">
-          <div class="case-card__placeholder">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            <span>Фото клиента</span>
-          </div>
-          <div class="case-card__content">
-            <h3 class="case-card__title">Трактор МТЗ-82 (Беларус)</h3>
-            <ul class="case-card__details">
-              <li><strong>Регион:</strong> Краснодарский край</li>
-              <li><strong>Сложность:</strong> Техника куплена с рук без снятия с учёта</li>
-              <li><strong>Срок:</strong> 4 дня</li>
-            </ul>
-            <p class="case-card__result">Оформили снятие и новую постановку по доверенности без выезда владельца.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== PENALTY BLOCK ===== -->
-  <section class="penalty-section" id="penalty">
-    <div class="container">
-      <div class="penalty-inner">
-        <div class="penalty-icon">⚠️</div>
-        <div class="penalty-content">
-          <h3 class="penalty-title">Штраф за нарушение сроков регистрации</h3>
-          <p class="penalty-sub">Технику нужно поставить на учёт в течение <strong>10 дней</strong> с момента покупки. За нарушение грозит:</p>
-          <div class="penalty-grid">
-            <div class="penalty-item">
-              <span class="penalty-who">Физическое лицо</span>
-              <span class="penalty-amount">до 2 000 ₽</span>
-            </div>
-            <div class="penalty-item">
-              <span class="penalty-who">Должностное лицо</span>
-              <span class="penalty-amount">до 3 500 ₽</span>
-            </div>
-            <div class="penalty-item">
-              <span class="penalty-who">Юридическое лицо</span>
-              <span class="penalty-amount">до 10 000 ₽</span>
-            </div>
-          </div>
-        </div>
-        <a href="#form" class="btn btn--primary">Зарегистрировать технику</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== PRICING ===== -->
-  <section class="pricing section" id="pricing">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-label">Стоимость услуг</div>
-        <h2 class="section-title">Прозрачные цены<br>без скрытых платежей</h2>
-        <p class="section-subtitle">Стоимость зависит от региона, сложности дела и комплектации документов. Точную цену рассчитаем после бесплатной консультации.</p>
-      </div>
-
-      <div class="pricing__grid">
-        <div class="pricing-card" id="price-basic">
-          <div class="pricing-card__header">
-            <h3 class="pricing-card__name">Базовый</h3>
-            <div class="pricing-card__price">
-              <span class="pricing-card__from">от</span>
-              <span class="pricing-card__amount">8 000</span>
-              <span class="pricing-card__currency">₽</span>
-            </div>
-            <p class="pricing-card__desc">Стандартная постановка на учёт с полным комплектом документов</p>
-          </div>
-          <ul class="pricing-card__features">
-            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Дистанционная проверка документов</li>
-            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Консультация специалиста</li>
-            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Подготовка пакета документов</li>
-            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Сопровождение в Гостехнадзоре</li>
-            <li class="disabled"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#555" stroke-width="1.5" stroke-linecap="round"/></svg>Представительство по доверенности</li>
-            <li class="disabled"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#555" stroke-width="1.5" stroke-linecap="round"/></svg>Срочное оформление</li>
-          </ul>
-          <a href="#form" class="btn btn--outline btn--full">Заказать</a>
-        </div>
-
-        <div class="pricing-card pricing-card--featured" id="price-standard">
-          <div class="pricing-card__badge">Рекомендуем</div>
-          <div class="pricing-card__header">
-            <h3 class="pricing-card__name">Стандарт</h3>
-            <div class="pricing-card__price">
-              <span class="pricing-card__from">от</span>
-              <span class="pricing-card__amount">15 000</span>
-              <span class="pricing-card__currency">₽</span>
-            </div>
-            <p class="pricing-card__desc">Полное сопровождение с представительством и гарантией результата</p>
-          </div>
-          <ul class="pricing-card__features">
-            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Всё из тарифа «Базовый»</li>
-            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Представительство по доверенности</li>
-            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Личный менеджер</li>
-            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Контроль на каждом этапе</li>
-            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Уведомления о ходе дела</li>
-            <li class="disabled"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#555" stroke-width="1.5" stroke-linecap="round"/></svg>Срочное оформление</li>
-          </ul>
-          <a href="#form" class="btn btn--primary btn--full">Заказать</a>
-        </div>
-
-        <div class="pricing-card" id="price-premium">
-          <div class="pricing-card__header">
-            <h3 class="pricing-card__name">Премиум</h3>
-            <div class="pricing-card__price">
-              <span class="pricing-card__from">от</span>
-              <span class="pricing-card__amount">25 000</span>
-              <span class="pricing-card__currency">₽</span>
-            </div>
-            <p class="pricing-card__desc">Максимально быстрое оформление для срочных случаев</p>
-          </div>
-          <ul class="pricing-card__features">
-            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Всё из тарифа «Стандарт»</li>
-            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Срочное оформление</li>
-            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Приоритетная очередь</li>
-            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Выезд специалиста (в вашем регионе)</li>
-            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Гарантия возврата при отказе</li>
-            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>VIP-поддержка 24/7</li>
-          </ul>
-          <a href="#form" class="btn btn--outline btn--full">Заказать</a>
-        </div>
-      </div>
-
-      <div class="pricing__note">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#F5A623" stroke-width="1.5"/><path d="M10 9v5M10 7v.5" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round"/></svg>
-        Стоимость не включает госпошлину Гостехнадзора (~2 350 ₽). Точная цена зависит от региона и сложности ситуации.
-      </div>
-
-      <!-- Payment badges -->
-      <div class="payment-badges">
-        <div class="payment-badge">
-          <span class="payment-badge__icon">💵</span>
-          <span>Наличный расчёт</span>
-        </div>
-        <div class="payment-badge">
-          <span class="payment-badge__icon">🏦</span>
-          <span>Безналичный с НДС</span>
-        </div>
-        <div class="payment-badge">
-          <span class="payment-badge__icon">✅</span>
-          <span>Оплата после результата</span>
-        </div>
-        <div class="payment-badge">
-          <span class="payment-badge__icon">📄</span>
-          <span>Договор и счёт-фактура</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== FAQ ===== -->
-  <section class="faq section" id="faq">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-label">Частые вопросы</div>
-        <h2 class="section-title">Ответы на популярные вопросы</h2>
-      </div>
-
-      <div class="faq__grid">
-        <div class="faq-item" id="faq-1">
-          <button class="faq-item__question" onclick="toggleFaq(this)" aria-expanded="false">
-            <span>Работаете ли вы в моём регионе?</span>
-            <svg class="faq-item__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="faq-item__answer">
-            <p>Да! Мы принимаем заявки из всех регионов Российской Федерации. У нас единый федеральный центр сопровождения — вы работаете с одной командой специалистов, которые учитывают особенности Гостехнадзора вашего региона. Проверка документов — дистанционно, сопровождение — с учётом региона клиента.</p>
-          </div>
-        </div>
-
-        <div class="faq-item" id="faq-2">
-          <button class="faq-item__question" onclick="toggleFaq(this)" aria-expanded="false">
-            <span>Нужно ли мне приезжать в ваш офис?</span>
-            <svg class="faq-item__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="faq-item__answer">
-            <p>Нет. Первичная проверка и подготовка документов проходят полностью дистанционно — вы отправляете сканы или фотографии. Для подачи в Гостехнадзор мы работаем с партнёрами в вашем регионе или сопровождаем процесс по доверенности.</p>
-          </div>
-        </div>
-
-        <div class="faq-item" id="faq-3">
-          <button class="faq-item__question" onclick="toggleFaq(this)" aria-expanded="false">
-            <span>Какую технику вы регистрируете?</span>
-            <svg class="faq-item__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="faq-item__answer">
-            <p>Любую самоходную технику, поднадзорную Гостехнадзору: экскаваторы, бульдозеры, фронтальные погрузчики, краны, тракторы, комбайны, дорожные катки, автогрейдеры, телескопические погрузчики и другую спецтехнику. Также работаем с нестандартными случаями — обратитесь за консультацией.</p>
-          </div>
-        </div>
-
-        <div class="faq-item" id="faq-4">
-          <button class="faq-item__question" onclick="toggleFaq(this)" aria-expanded="false">
-            <span>Сколько времени занимает регистрация?</span>
-            <svg class="faq-item__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="faq-item__answer">
-            <p>Стандартный срок — 5–10 рабочих дней с момента получения полного комплекта документов. При срочном оформлении (тариф Премиум) — 2–3 рабочих дня. Точные сроки зависят от региона и загруженности Гостехнадзора.</p>
-          </div>
-        </div>
-
-        <div class="faq-item" id="faq-5">
-          <button class="faq-item__question" onclick="toggleFaq(this)" aria-expanded="false">
-            <span>Что если у техники нет документов?</span>
-            <svg class="faq-item__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="faq-item__answer">
-            <p>Это решаемая ситуация. Мы поможем восстановить ПСМ (паспорт самоходной машины), установить идентификационные данные техники и подготовить пакет для первичной постановки на учёт. Каждый случай рассматривается индивидуально — получите бесплатную консультацию.</p>
-          </div>
-        </div>
-
-        <div class="faq-item" id="faq-6">
-          <button class="faq-item__question" onclick="toggleFaq(this)" aria-expanded="false">
-            <span>Как происходит оплата?</span>
-            <svg class="faq-item__arrow" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="faq-item__answer">
-            <p>Оплата производится по договору для юридических лиц (безналичный расчёт, счёт-фактура) или по квитанции для физических лиц. Возможна рассрочка. Аванс — 50% при подписании договора, остаток — после получения результата. Первичная консультация — бесплатно.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== MAIN FORM ===== -->
-  <section class="form-section section" id="form">
-    <div class="container">
-      <div class="form-section__inner">
-        <div class="form-section__info">
-          <div class="section-label">Оставить заявку</div>
-          <h2 class="section-title" style="text-align:left">Получите бесплатную консультацию</h2>
-          <p class="section-subtitle" style="text-align:left">Специалист свяжется с вами в рабочее время, проверит ваши документы и ответит на все вопросы по регистрации.</p>
-
-          <div class="form-section__contacts">
-            <div class="contact-item">
-              <div class="contact-item__icon">
-                <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M19.4 15.2c-.8-.8-2.4-1.6-3.2-1.6-.4 0-.8.4-1.2.8-.4.4-.8.8-1.2.8-.8 0-2-1.2-3.2-2.4C9.4 11.6 8.2 10.4 8.2 9.6c0-.4.4-.8.8-1.2.4-.4.8-.8.8-1.2 0-.8-.8-2.4-1.6-3.2C7.6 3.4 7.2 3.4 6.8 3.4 6 3.4 5.4 4 5.4 4L5.4 4C4.6 5.6 4.6 8.2 7 10.6l.4.4.4.4C10.2 13.8 12.8 15 14.4 15h.4c.6 0 1.2-.2 1.6-.4.4-.2.6-.4.6-.4.6-.4 1.2-1 1.2-1.8 0-.4-.4-.4-.4-.4L14.4 9.2z" fill="#F5A623"/></svg>
-              </div>
-              <div>
-                <div class="contact-item__label">Телефон</div>
-                <a href="tel:+78000000000" class="contact-item__value">8 800 000-00-00</a>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="contact-item__icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              </div>
-              <div>
-                <div class="contact-item__label">WhatsApp</div>
-                <a href="https://wa.me/78000000000" class="contact-item__value" target="_blank">Написать в чат</a>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="contact-item__icon">
-                <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="5" width="18" height="13" rx="2" stroke="#F5A623" stroke-width="1.6"/><path d="M2 8l9 6 9-6" stroke="#F5A623" stroke-width="1.6"/></svg>
-              </div>
-              <div>
-                <div class="contact-item__label">Email</div>
-            </div>
-            <div class="contact-item">
-              <div class="contact-item__icon">
-                <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="#F5A623" stroke-width="1.6"/><path d="M11 6v5l3 3" stroke="#F5A623" stroke-width="1.6" stroke-linecap="round"/></svg>
-              </div>
-              <div>
-                <div class="contact-item__label">Режим работы</div>
-                <div class="contact-item__value">Пн–Пт: 9:00–18:00</div>
-                <div class="contact-item__hint">Приём заявок — круглосуточно</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-card form-card--large">
-          <form id="mainForm" onsubmit="submitForm(event, 'mainForm')">
-            <div class="form-row">
-              <div class="form-group">
-                <input type="text" id="m-name" name="name" class="form-input" placeholder="Ваше имя" required autocomplete="name">
-                <label for="m-name" class="form-label">Ваше имя</label>
-              </div>
-              <div class="form-group">
-                <input type="tel" id="m-phone" name="phone" class="form-input" placeholder="+7 (___) ___-__-__" required autocomplete="tel">
-                <label for="m-phone" class="form-label">Телефон</label>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <select id="m-region" name="region" class="form-select" required>
-                  <option value="">Выберите регион</option>
-                </select>
-                <label for="m-region" class="form-label">Регион</label>
-              </div>
-              <div class="form-group">
-                <input type="text" id="m-city" name="city" class="form-input" placeholder="Ваш город" required autocomplete="address-level2">
-                <label for="m-city" class="form-label">Город</label>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <select id="m-tech" name="tech" class="form-select" required>
-                  <option value="">Вид техники</option>
-                  <option value="excavator">Экскаватор</option>
-                  <option value="loader">Фронтальный погрузчик</option>
-                  <option value="bulldozer">Бульдозер</option>
-                  <option value="crane">Кран</option>
-                  <option value="tractor">Трактор</option>
-                  <option value="combine">Комбайн</option>
-                  <option value="other">Другое</option>
-                </select>
-                <label for="m-tech" class="form-label">Вид техники</label>
-              </div>
-              <div class="form-group">
-                <select id="m-service" name="service" class="form-select" required>
-                  <option value="">Необходимая услуга</option>
-                  <option value="reg">Постановка на учёт</option>
-                  <option value="dereg">Снятие с учёта</option>
-                  <option value="restore">Восстановление документов</option>
-                  <option value="inspection">Технический осмотр</option>
-                  <option value="other">Другое</option>
-                </select>
-                <label for="m-service" class="form-label">Необходимая услуга</label>
-              </div>
-            </div>
-            <div class="form-group">
-              <textarea id="m-comment" name="comment" class="form-input form-textarea" placeholder="Комментарий (необязательно)"></textarea>
-              <label for="m-comment" class="form-label">Комментарий</label>
-            </div>
-            <button type="submit" class="btn btn--primary btn--full btn--lg" id="main-submit-btn">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 10l7 7 9-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Отправить заявку — получить консультацию
-            </button>
-            <p class="form-card__privacy">Нажимая кнопку, вы соглашаетесь с <a href="#" class="link">политикой конфиденциальности</a>. Ваши данные не передаются третьим лицам.</p>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== FOOTER ===== -->
+    <label class="field" for="main-lead-comment"><span>Комментарий</span><textarea id="main-lead-comment" name="comment" rows="4" placeholder="Опишите задачу (необязательно)"></textarea></label>
+    <label class="consent" for="main-lead-consent">
+    <input id="main-lead-consent" name="consent" type="checkbox" required>
+    <span>Я соглашаюсь на <a href="consent/" target="_blank">обработку персональных данных</a> и принимаю <a href="privacy/" target="_blank">Политику конфиденциальности</a>.</span>
+  </label>
+    <button class="btn btn--primary btn--full" type="submit">Отправить заявку</button>
+    <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+  </form></div></section>
+  </main>
   <footer class="footer" id="contacts">
-    <div class="container">
-      <div class="footer__top">
-        <div class="footer__brand">
-          <a href="#" class="logo">
-            <img src="logo.png" alt="ТехУчет - Гостехнадзор" class="logo__img">
-          </a>
-          <p class="footer__desc">Единый федеральный центр сопровождения регистрационных действий с самоходной техникой. Работаем по всей России.</p>
-          <div class="footer__phone">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M16 12.8c-.7-.7-2.1-1.4-2.8-1.4-.35 0-.7.35-1.05.7-.35.35-.7.7-1.05.7-.7 0-1.75-1.05-2.8-2.1-1.05-1.05-2.1-2.1-2.1-2.8 0-.35.35-.7.7-1.05.35-.35.7-.7.7-1.05 0-.7-.7-2.1-1.4-2.8-.6-.6-.95-.6-1.3-.6-.7 0-1.225.525-1.225.525L3.5 3.5C2.8 4.9 2.8 7.175 4.9 9.275l.35.35.35.35c2.1 2.1 4.375 3.15 5.775 3.15H11.9c.525 0 1.05-.175 1.4-.35.35-.175.525-.35.525-.35.525-.35 1.05-.875 1.05-1.575 0-.35-.35-.35-.35-.35L16 12.8z" fill="#F5A623"/></svg>
-            <a href="tel:+78001234567">8 800 123-45-67</a>
-            <span class="footer__phone-hint">— бесплатно по России</span>
-          </div>
-        </div>
-
-        <div class="footer__nav">
-          <div class="footer__col">
-            <h4>Услуги</h4>
-            <a href="#service-reg">Постановка на учёт</a>
-            <a href="#service-dereg">Снятие с учёта</a>
-            <a href="#service-restore">Восстановление документов</a>
-            <a href="#service-inspection">Технический осмотр</a>
-            <a href="#service-plate">Номерные знаки</a>
-          </div>
-          <div class="footer__col">
-            <h4>Компания</h4>
-            <a href="#how-it-works">Как мы работаем</a>
-            <a href="#pricing">Стоимость услуг</a>
-            <a href="#faq">Частые вопросы</a>
-            <a href="#form">Оставить заявку</a>
-          </div>
-          <div class="footer__col">
-            <h4>Контакты</h4>
-            <a href="tel:+79257577888">+7 925 757-78-88</a>
-            <a href="https://wa.me/79257577888" target="_blank" rel="noopener">WhatsApp</a>
-            <a href="mailto:roman.k@mail.ru">roman.k@mail.ru</a>
-            <span>Пн–Пт: 9:00–18:00</span>
-          </div>
-        </div>
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a class="logo" href="./"><img class="logo__img" src="logo.png" width="1024" height="682" alt="ТехУчёт — Гостехнадзор"></a>
+        <p>Компания по сопровождению регистрационных действий с самоходной техникой по всей России.</p>
       </div>
-
-      <div class="footer__bottom">
-        <p>© 2024 ТехУчёт. Все права защищены.</p>
-        <div class="footer__requisites">
-          <span>ООО «ЮНат»</span>
-          <span>ИНН: 2536345868</span>
-          <span>КПП: 253601001</span>
-        </div>
-        <div class="footer__links">
-          <a href="#">Политика конфиденциальности</a>
-        </div>
-        <p class="footer__geo">Принимаем заявки из всех регионов России</p>
-      </div>
+      <div><h2>Услуги</h2><a href="registraciya/">Постановка на учёт</a><a href="snyatie-s-ucheta/">Снятие с учёта</a><a href="vosstanovlenie-psm/">Восстановление ПСМ</a><a href="tehosmotr/">Техосмотр</a><a href="slozhnye-sluchai/">Сложные случаи</a></div>
+      <div><h2>Контакты</h2><a class="track-phone" href="tel:+79257577888">+7 925 757-78-88</a><a class="track-whatsapp" href="https://wa.me/79257577888" target="_blank" rel="noopener">WhatsApp</a><a class="track-email" href="mailto:jobstat@bk.ru">jobstat@bk.ru</a><span>Пн–Пт: 9:00–18:00</span></div>
+      <div><h2>Реквизиты</h2><span>ООО «ЮНАТ»</span><span>ИНН 2536345868</span><span>КПП 253601001</span><span>ОГРН 1242500018859</span></div>
+    </div>
+    <div class="container footer__bottom">
+      <span>© <span data-current-year>2026</span> ТехУчёт</span>
+      <a href="privacy/">Политика конфиденциальности</a>
+      <a href="consent/">Согласие на обработку данных</a>
     </div>
   </footer>
-
-  <!-- ===== MODAL CALLBACK ===== -->
-  <div class="modal" id="callbackModal" onclick="closeModalOutside(event)">
-    <div class="modal__inner">
-      <button class="modal__close" onclick="closeModal()" aria-label="Закрыть">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </button>
-      <h3 class="modal__title">Заказать обратный звонок</h3>
-      <p class="modal__subtitle">Специалист перезвонит вам в ближайшее рабочее время</p>
-      <form id="callbackForm" onsubmit="submitForm(event, 'callbackForm')">
-        <div class="form-group">
-          <input type="text" id="cb-name" name="name" class="form-input" placeholder="Ваше имя" required>
-          <label for="cb-name" class="form-label">Имя</label>
-        </div>
-        <div class="form-group">
-          <input type="tel" id="cb-phone" name="phone" class="form-input" placeholder="+7 (___) ___-__-__" required>
-          <label for="cb-phone" class="form-label">Телефон</label>
-        </div>
-        <button type="submit" class="btn btn--primary btn--full" id="callback-submit-btn">Заказать звонок</button>
+  <div class="modal" id="callback-modal" hidden data-modal>
+    <div class="modal__backdrop" data-modal-close></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="callback-title">
+      <button class="icon-button modal__close" type="button" aria-label="Закрыть окно" data-modal-close>×</button>
+      <h2 id="callback-title">Заказать обратный звонок</h2>
+      <p>Оставьте номер и регион — специалист свяжется с вами в рабочее время.</p>
+      <form data-lead-form data-form-name="Обратный звонок" novalidate>
+        <div class="honeypot" aria-hidden="true">
+    <label>Оставьте поле пустым <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
+  </div>
+        <input type="hidden" name="service" value="Обратный звонок">
+        <label class="field"><span>Имя</span><input name="name" type="text" autocomplete="name" placeholder="Необязательно"></label>
+        <label class="field"><span>Телефон *</span><input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
+        <label class="field" for="callback-region">
+    <span>Регион *</span>
+    <select id="callback-region" name="region" required data-region-select>
+      <option value="">Выберите регион</option>
+    </select>
+  </label>
+        <label class="consent" for="callback-consent">
+    <input id="callback-consent" name="consent" type="checkbox" required>
+    <span>Я соглашаюсь на <a href="consent/" target="_blank">обработку персональных данных</a> и принимаю <a href="privacy/" target="_blank">Политику конфиденциальности</a>.</span>
+  </label>
+        <button class="btn btn--primary btn--full" type="submit">Заказать звонок</button>
+        <p class="form-status" role="status" aria-live="polite" data-form-status></p>
       </form>
     </div>
   </div>
-
-  <!-- ===== TOAST ===== -->
-  <div class="toast" id="toast">
-    <div class="toast__icon">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" fill="#22c55e"/><path d="M6 10l3 3 5-5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div>
-    <div class="toast__text">
-      <strong>Заявка отправлена!</strong>
-      <span>Специалист свяжется с вами в рабочее время</span>
-    </div>
+  <div class="mobile-bar" aria-label="Быстрые действия">
+    <a class="btn btn--outline track-phone" href="tel:+79257577888">Позвонить</a>
+    <a class="btn btn--primary" href="#lead-form" data-mobile-lead>Оставить заявку</a>
   </div>
-
-  <!-- Mobile CTA Bar -->
-  <div class="mobile-cta" id="mobile-cta">
-    <a href="tel:+79257577888" class="btn btn--primary" id="mobile-call-btn">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M16 12.8c-.7-.7-2.1-1.4-2.8-1.4-.35 0-.7.35-1.05.7-.35.35-.7.7-1.05.7-.7 0-1.75-1.05-2.8-2.1-1.05-1.05-2.1-2.1-2.1-2.8 0-.35.35-.7.7-1.05.35-.35.7-.7.7-1.05 0-.7-.7-2.1-1.4-2.8C8.6 2.8 8.25 2.8 7.9 2.8c-.7 0-1.225.525-1.225.525L6.5 3.5C5.8 4.9 5.8 7.175 7.9 9.275l.35.35.35.35C10.7 12.075 12.975 13.125 14.375 13.125H14.9c.525 0 1.05-.175 1.4-.35.35-.175.525-.35.525-.35.525-.35 1.05-.875 1.05-1.575 0-.35-.35-.35-.35-.35L16 12.8z" fill="white"/></svg>
-      Позвонить
-    </a>
-    <a href="https://wa.me/79257577888" class="btn btn--wa" target="_blank" rel="noopener" id="mobile-wa-btn">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      WhatsApp
-    </a>
-  </div>
-
-  <script src="script.js"></script>
 </body>
 </html>

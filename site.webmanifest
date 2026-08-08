@@ -1,0 +1,15 @@
+{
+  "name": "ТехУчёт",
+  "short_name": "ТехУчёт",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0a101b",
+  "theme_color": "#0a101b",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "1024x682",
+      "type": "image/png"
+    }
+  ]
+}
