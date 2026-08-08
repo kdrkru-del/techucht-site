@@ -28,7 +28,7 @@ export default {
     const response = await fetchAsset(request, env, assetPath(url.pathname));
     if (response.status !== 404) return response;
     const notFoundUrl = new URL(request.url);
-    notFoundUrl.pathname = '/404/index.html';
+    notFoundUrl.pathname = '/404/';
     const notFound = await env.ASSETS.fetch(new Request(notFoundUrl, request));
     if (notFound.status === 404) return new Response('Not found', { status: 404 });
     return new Response(notFound.body, { status: 404, headers: notFound.headers });
