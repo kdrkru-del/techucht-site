@@ -164,6 +164,9 @@ ul { list-style: none; }
   max-height: 48px;
   width: auto;
   object-fit: contain;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
   transition: transform var(--transition);
 }
 .logo:hover .logo__img {
