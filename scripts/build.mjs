@@ -98,19 +98,20 @@ await output('site.webmanifest', JSON.stringify({
 if (!dist.startsWith(root)) throw new Error('Refusing to write outside the project.');
 await rm(dist, { recursive: true, force: true });
 await mkdir(join(dist, 'server'), { recursive: true });
+await mkdir(join(dist, 'client'), { recursive: true });
 
 for (const file of [
   'index.html', '404.html', 'style.css', 'script.js', 'site-config.js', 'logo.png', 'og.png',
   'robots.txt', 'sitemap.xml', 'site.webmanifest',
 ]) {
-  await copyFile(join(root, file), join(dist, file));
+  await copyFile(join(root, file), join(dist, 'client', file));
 }
 
 for (const directory of [
   'assets', '404', 'registraciya', 'snyatie-s-ucheta', 'vosstanovlenie-psm', 'tehosmotr',
   'slozhnye-sluchai', 'privacy', 'consent',
 ]) {
-  await cp(join(root, directory), join(dist, directory), { recursive: true });
+  await cp(join(root, directory), join(dist, 'client', directory), { recursive: true });
 }
 
 await writeFile(join(dist, 'server', 'index.js'), staticWorker, 'utf8');
