@@ -54,7 +54,7 @@ for (const value of requiredMain) {
 const js = await readFile(join(root, 'site-config.js'), 'utf8');
 if (!js.includes('"YANDEX_METRIKA_ID": ""')) errors.push('site-config.js: empty YANDEX_METRIKA_ID placeholder missing');
 if (!js.includes('"TELEGRAM_URL": "https://t.me/Romatran"')) errors.push('site-config.js: TELEGRAM_URL missing');
-if (!js.includes('"MAX_URL": "https://web.max.ru/"')) errors.push('site-config.js: official MAX web client URL missing');
+if (!js.includes('"MAX_URL": "https://max.ru/u/f9LHodD0cOIyRnk4XSMp9LQv3nUe6pWwsL4DqMp_p80p0ISba6wNwFpIQy4"')) errors.push('site-config.js: personal MAX profile URL missing');
 if (!js.includes('"MAX_PHONE": "+7 925 757-78-88"')) errors.push('site-config.js: MAX_PHONE missing');
 if (!js.includes('formsubmit.co/ajax/jobstat@bk.ru')) errors.push('site-config.js: approved form endpoint missing');
 
