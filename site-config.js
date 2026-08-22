@@ -4,7 +4,6 @@ window.TECHUCHET_CONFIG = {
   "WHATSAPP_URL": "https://wa.me/79257577888",
   "TELEGRAM_URL": "https://t.me/Romatran",
   "MAX_URL": "https://max.ru/u/f9LHodD0cOIyRnk4XSMp9LQv3nUe6pWwsL4DqMp_p80p0ISba6wNwFpIQy4",
-  "MAX_PHONE": "+7 925 757-78-88",
   "EMAIL": "jobstat@bk.ru",
   "FORM_ENDPOINT": "https://formsubmit.co/ajax/jobstat@bk.ru",
   "YANDEX_METRIKA_ID": "",

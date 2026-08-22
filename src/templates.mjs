@@ -30,10 +30,10 @@ function head({ title, description, canonical, prefix = '', schemas = [] }) {
   <meta name="twitter:image" content="${site.baseUrl}/og.png">
   <title>${title}</title>
   <link rel="icon" type="image/png" href="${prefix}logo.png">
-  <link rel="preload" href="${prefix}style.css?v=8" as="style">
-  <link rel="stylesheet" href="${prefix}style.css?v=8">
-  <script src="${prefix}site-config.js?v=8"></script>
-  <script src="${prefix}script.js?v=8" defer></script>
+  <link rel="preload" href="${prefix}style.css?v=9" as="style">
+  <link rel="stylesheet" href="${prefix}style.css?v=9">
+  <script src="${prefix}site-config.js?v=9"></script>
+  <script src="${prefix}script.js?v=9" defer></script>
   ${schemas.map((schema) => `<script type="application/ld+json">${jsonLd(schema)}</script>`).join('\n  ')}`;
 }
 
@@ -94,12 +94,8 @@ function serviceSchema({ name, description, url }) {
   };
 }
 
-function compactPhone(value) {
-  return value.replace(/[^\d+]/g, '');
-}
-
 function maxContactContent() {
-  return `<span class="quick-contact__label">MAX</span><span class="quick-contact__phone" data-max-phone>${site.maxPhone}</span><span class="quick-contact__phone quick-contact__phone--compact" data-max-phone-compact>${compactPhone(site.maxPhone)}</span>`;
+  return 'MAX';
 }
 
 function quickContacts({ modifier = '', includePhone = true } = {}) {
@@ -108,7 +104,7 @@ function quickContacts({ modifier = '', includePhone = true } = {}) {
   return `<div class="${className}" aria-label="Быстрые контакты">${phoneLink}
     <a class="quick-contact quick-contact--whatsapp track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a>
     <a class="quick-contact quick-contact--telegram track-telegram" href="${site.telegram}" target="_blank" rel="noopener">Telegram</a>
-    <a class="quick-contact quick-contact--max track-max is-disabled" aria-label="MAX: ${site.maxPhone}" aria-disabled="true" title="MAX: ${site.maxPhone}. Ссылка будет добавлена после её получения">${maxContactContent()}</a>
+    <a class="quick-contact quick-contact--max track-max is-disabled" aria-label="MAX" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">${maxContactContent()}</a>
   </div>`;
 }
 
@@ -317,7 +313,7 @@ function mobileBar(href = '#lead-form') {
     <a class="quick-contact quick-contact--phone track-phone" href="${site.phoneHref}">Позвонить</a>
     <a class="quick-contact quick-contact--whatsapp track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a>
     <a class="quick-contact quick-contact--telegram track-telegram" href="${site.telegram}" target="_blank" rel="noopener">Telegram</a>
-    <a class="quick-contact quick-contact--max track-max is-disabled" aria-label="MAX: ${site.maxPhone}" aria-disabled="true" title="MAX: ${site.maxPhone}. Ссылка будет добавлена после её получения">${maxContactContent()}</a>
+    <a class="quick-contact quick-contact--max track-max is-disabled" aria-label="MAX" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">${maxContactContent()}</a>
   </div>`;
 }
 
@@ -330,7 +326,7 @@ function footer(prefix = '') {
         <p>Компания по сопровождению регистрационных действий с самоходной техникой по всей России.</p>
       </div>
       <div><h2>Услуги</h2><a href="${prefix}registraciya/">Постановка на учёт</a><a href="${prefix}snyatie-s-ucheta/">Снятие с учёта</a><a href="${prefix}vosstanovlenie-psm/">Восстановление ПСМ</a><a href="${prefix}tehosmotr/">Техосмотр</a><a href="${prefix}slozhnye-sluchai/">Сложные случаи</a></div>
-      <div><h2>Контакты</h2><a class="track-phone" href="${site.phoneHref}">${site.phone}</a><a class="track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a><a class="track-telegram" href="${site.telegram}" target="_blank" rel="noopener">Telegram</a><a class="footer-max track-max is-disabled" aria-label="MAX: ${site.maxPhone}" aria-disabled="true" title="MAX: ${site.maxPhone}. Ссылка будет добавлена после её получения">${maxContactContent()}</a><a class="track-email" href="${site.emailHref}">${site.email}</a><span>${site.hours}</span></div>
+      <div><h2>Контакты</h2><a class="track-phone" href="${site.phoneHref}">${site.phone}</a><a class="track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a><a class="track-telegram" href="${site.telegram}" target="_blank" rel="noopener">Telegram</a><a class="footer-max track-max is-disabled" aria-label="MAX" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">${maxContactContent()}</a><a class="track-email" href="${site.emailHref}">${site.email}</a><span>${site.hours}</span></div>
       <div><h2>Реквизиты</h2><span>${site.company}</span><span>ИНН ${site.inn}</span><span>КПП ${site.kpp}</span><span>ОГРН ${site.ogrn}</span></div>
     </div>
     <div class="container footer__bottom">

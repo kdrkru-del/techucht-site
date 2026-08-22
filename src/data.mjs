@@ -10,7 +10,6 @@ export const site = {
   telegram: 'https://t.me/Romatran',
   // Персональная ссылка MAX, скопированная владельцем из приложения.
   maxUrl: 'https://max.ru/u/f9LHodD0cOIyRnk4XSMp9LQv3nUe6pWwsL4DqMp_p80p0ISba6wNwFpIQy4',
-  maxPhone: '+7 925 757-78-88',
   email: 'jobstat@bk.ru',
   emailHref: 'mailto:jobstat@bk.ru',
   hours: 'Пн–Пт: 9:00–18:00',
