@@ -33,6 +33,7 @@ const forbidden = [
   'Аванс 50%',
   '2 350 ₽',
   'Личное обращение',
+  'FormSubmit',
 ];
 
 const errors = [];
@@ -55,13 +56,14 @@ const js = await readFile(join(root, 'site-config.js'), 'utf8');
 if (!js.includes('"YANDEX_METRIKA_ID": ""')) errors.push('site-config.js: empty YANDEX_METRIKA_ID placeholder missing');
 if (!js.includes('"TELEGRAM_URL": "https://t.me/Romatran"')) errors.push('site-config.js: TELEGRAM_URL missing');
 if (!js.includes('"MAX_URL": "https://max.ru/u/f9LHodD0cOIyRnk4XSMp9LQv3nUe6pWwsL4DqMp_p80p0ISba6wNwFpIQy4"')) errors.push('site-config.js: personal MAX profile URL missing');
-if (!js.includes('formsubmit.co/ajax/jobstat@bk.ru')) errors.push('site-config.js: approved form endpoint missing');
+if (!js.includes('zelsrez-leads.roman-k-0b3.workers.dev/api/lead')) errors.push('site-config.js: Telegram lead endpoint missing');
 
 const mainMaxLinks = (main.match(/class="[^"]*track-max/g) || []).length;
 if (mainMaxLinks < 6) errors.push(`index.html: expected MAX in all contact areas, found ${mainMaxLinks}`);
 if (/href="[^"]*max\.ru/i.test(main)) errors.push('index.html: MAX URL must come from site-config.js');
 const mainMaxTags = main.match(/<a class="[^"]*track-max[^"]*"[^>]*>[\s\S]*?<\/a>/g) || [];
 if (mainMaxTags.some((tag) => /925[\s-]*757|79257577888/.test(tag))) errors.push('index.html: phone must not be displayed inside MAX buttons');
+if (!main.includes('href="favicon.png?v=1"')) errors.push('index.html: text-free favicon missing');
 
 const clientScript = await readFile(join(root, 'script.js'), 'utf8');
 if (!clientScript.includes("trackGoal('click_max')")) errors.push('script.js: click_max goal missing');
@@ -69,6 +71,7 @@ for (const invariant of [
   "form.addEventListener('submit', (event) => submitLead(event, form))",
   'fetch(CONFIG.FORM_ENDPOINT',
   "method: 'POST'",
+  'result?.ok === true',
   "trackGoal('lead_form_success')",
 ]) {
   if (!clientScript.includes(invariant)) errors.push(`script.js: form submission invariant missing "${invariant}"`);

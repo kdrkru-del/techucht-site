@@ -5,7 +5,7 @@ window.TECHUCHET_CONFIG = {
   "TELEGRAM_URL": "https://t.me/Romatran",
   "MAX_URL": "https://max.ru/u/f9LHodD0cOIyRnk4XSMp9LQv3nUe6pWwsL4DqMp_p80p0ISba6wNwFpIQy4",
   "EMAIL": "jobstat@bk.ru",
-  "FORM_ENDPOINT": "https://formsubmit.co/ajax/jobstat@bk.ru",
+  "FORM_ENDPOINT": "https://zelsrez-leads.roman-k-0b3.workers.dev/api/lead",
   "YANDEX_METRIKA_ID": "",
   "DOCUMENT_LISTS": {
     "person": {

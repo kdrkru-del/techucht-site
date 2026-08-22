@@ -263,9 +263,21 @@
       _captcha: 'false',
       _template: 'table',
       date_time: new Date().toLocaleString('ru-RU', { dateStyle: 'long', timeStyle: 'medium' }),
+      created_at: new Date().toISOString(),
+      source: 'tehuchet24.ru',
+      page: window.location.href,
+      entry_page: document.referrer || '',
       form_name: form.dataset.formName || 'Форма сайта',
       page_url: window.location.href,
       page_title: document.title,
+      utm: {
+        utm_source: attribution.utm_source || '',
+        utm_medium: attribution.utm_medium || '',
+        utm_campaign: attribution.utm_campaign || '',
+        utm_content: attribution.utm_content || '',
+        utm_term: attribution.utm_term || '',
+        yclid: attribution.yclid || '',
+      },
       utm_source: attribution.utm_source || '',
       utm_medium: attribution.utm_medium || '',
       utm_campaign: attribution.utm_campaign || '',
@@ -285,7 +297,7 @@
     });
     let result = null;
     try { result = await response.json(); } catch { result = null; }
-    const accepted = String(result?.success).toLowerCase() === 'true';
+    const accepted = result?.ok === true || String(result?.success).toLowerCase() === 'true';
     if (!response.ok || !accepted) throw new Error(result?.message || `HTTP ${response.status}`);
     return result;
   }

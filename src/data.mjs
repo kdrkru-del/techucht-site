@@ -14,7 +14,7 @@ export const site = {
   emailHref: 'mailto:jobstat@bk.ru',
   hours: 'Пн–Пт: 9:00–18:00',
   baseUrl: 'https://kdrkru-del.github.io/techucht-site',
-  formEndpoint: 'https://formsubmit.co/ajax/jobstat@bk.ru',
+  formEndpoint: 'https://zelsrez-leads.roman-k-0b3.workers.dev/api/lead',
   yandexMetrikaId: '',
 };
 
