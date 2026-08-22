@@ -31,8 +31,8 @@ function head({ title, description, canonical, prefix = '', schemas = [] }) {
   <title>${title}</title>
   <link rel="icon" type="image/png" href="${prefix}favicon.png?v=1">
   <link rel="apple-touch-icon" href="${prefix}favicon.png?v=1">
-  <link rel="preload" href="${prefix}style.css?v=10" as="style">
-  <link rel="stylesheet" href="${prefix}style.css?v=10">
+  <link rel="preload" href="${prefix}style.css?v=11" as="style">
+  <link rel="stylesheet" href="${prefix}style.css?v=11">
   <script src="${prefix}site-config.js?v=10"></script>
   <script src="${prefix}script.js?v=10" defer></script>
   ${schemas.map((schema) => `<script type="application/ld+json">${jsonLd(schema)}</script>`).join('\n  ')}`;
