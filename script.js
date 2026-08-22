@@ -8,9 +8,20 @@
     registration: 'service_registration',
     deregistration: 'service_deregistration',
     restore_psm: 'service_restore_psm',
+    restore_sts: 'service_restore_sts',
     inspection: 'service_inspection',
     complex_case: 'service_complex_case',
   };
+  const SERVICE_BY_PATH = {
+    '/registraciya/': 'Постановка на учёт',
+    '/snyatie-s-ucheta/': 'Снятие с учёта',
+    '/vosstanovlenie-psm/': 'Восстановление ПСМ',
+    '/tehosmotr/': 'Технический осмотр',
+    '/slozhnye-sluchai/': 'Отказ или сложная ситуация',
+  };
+  const currentPath = window.location.pathname.replace(/index\.html$/, '');
+  const pageService = Object.entries(SERVICE_BY_PATH).find(([path]) => currentPath.endsWith(path))?.[1];
+  let selectedService = pageService || 'Консультация';
 
   const REGIONS = [
     'Республика Адыгея', 'Республика Алтай', 'Республика Башкортостан', 'Республика Бурятия',
@@ -256,9 +267,10 @@
     const payload = Object.fromEntries(new FormData(form).entries());
     const attribution = getAttribution();
     const clientId = await getMetrikaClientId();
-    const service = payload.service || 'Консультация';
+    const service = payload.service || form.dataset.selectedService || selectedService || 'Консультация';
     return {
       ...payload,
+      service,
       _subject: `Новая заявка с сайта ТехУчёт — ${service}`,
       _captcha: 'false',
       _template: 'table',
@@ -364,6 +376,12 @@
       link.addEventListener('click', () => {
         const service = link.dataset.selectService || '';
         const situation = link.dataset.situation || '';
+        if (service) {
+          selectedService = service;
+          document.querySelectorAll('[data-lead-form]').forEach((form) => {
+            form.dataset.selectedService = service;
+          });
+        }
         document.querySelectorAll('select[name="service"]').forEach((select) => {
           const matching = Array.from(select.options).find((option) => option.value === service);
           if (matching) select.value = service;

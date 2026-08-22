@@ -89,8 +89,8 @@ function serviceSchema({ name, description, url }) {
     offers: {
       '@type': 'Offer',
       priceCurrency: 'RUB',
-      price: '3000',
-      description: 'Стоимость от 3 000 ₽. Точная стоимость определяется после проверки документов.',
+      price: '5000',
+      description: 'Стоимость от 5 000 ₽. Точная стоимость определяется после проверки документов.',
     },
   };
 }
@@ -236,7 +236,8 @@ function heroForm() {
   const heroOptions = [
     'Постановка на учёт',
     'Снятие с учёта',
-    'Восстановление ПСМ или ЭПСМ',
+    'Восстановление ПСМ',
+    'Восстановление СТС',
     'Технический осмотр',
     'Внесение изменений',
     'Отказ или сложная ситуация',
@@ -326,7 +327,7 @@ function footer(prefix = '') {
         <a class="logo" href="${home}"><img class="logo__img" src="${prefix}logo.png" width="1024" height="682" alt="ТехУчёт — Гостехнадзор"></a>
         <p>Компания по сопровождению регистрационных действий с самоходной техникой по всей России.</p>
       </div>
-      <div><h2>Услуги</h2><a href="${prefix}registraciya/">Постановка на учёт</a><a href="${prefix}snyatie-s-ucheta/">Снятие с учёта</a><a href="${prefix}vosstanovlenie-psm/">Восстановление ПСМ</a><a href="${prefix}tehosmotr/">Техосмотр</a><a href="${prefix}slozhnye-sluchai/">Сложные случаи</a></div>
+      <div><h2>Услуги</h2><a href="${prefix}registraciya/">Постановка на учёт</a><a href="${prefix}snyatie-s-ucheta/">Снятие с учёта</a><a href="${prefix}vosstanovlenie-psm/">Восстановление ПСМ</a><a href="${home}#service-restore_sts">Восстановление СТС</a><a href="${prefix}tehosmotr/">Техосмотр</a><a href="${prefix}slozhnye-sluchai/">Сложные случаи</a></div>
       <div><h2>Контакты</h2><a class="track-phone" href="${site.phoneHref}">${site.phone}</a><a class="track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a><a class="track-telegram" href="${site.telegram}" target="_blank" rel="noopener">Telegram</a><a class="footer-max track-max is-disabled" aria-label="MAX" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">${maxContactContent()}</a><a class="track-email" href="${site.emailHref}">${site.email}</a><span>${site.hours}</span></div>
       <div><h2>Реквизиты</h2><span>${site.company}</span><span>ИНН ${site.inn}</span><span>КПП ${site.kpp}</span><span>ОГРН ${site.ogrn}</span></div>
     </div>
@@ -348,13 +349,13 @@ function contactPanel() {
     <a class="contact-panel__primary track-phone" href="${site.phoneHref}">${site.phone}</a>
     ${quickContacts({ modifier: 'quick-contacts--contact', includePhone: false })}
     <a class="contact-panel__email track-email" href="${site.emailHref}">${site.email}</a>
-    <dl><div><dt>Режим работы</dt><dd>${site.hours}</dd></div><div><dt>Стоимость услуг</dt><dd>от 3 000 ₽</dd></div><div><dt>Ориентировочный срок</dt><dd>3–5 рабочих дней</dd></div><div><dt>География</dt><dd>Вся Россия</dd></div></dl>
+    <dl><div><dt>Режим работы</dt><dd>${site.hours}</dd></div><div><dt>Стоимость услуг</dt><dd>от 5 000 ₽</dd></div><div><dt>Ориентировочный срок</dt><dd>3–5 рабочих дней</dd></div><div><dt>География</dt><dd>Вся Россия</dd></div></dl>
   </aside>`;
 }
 
 export function mainPage() {
-  const title = 'ТехУчёт — регистрация самоходной техники по всей России';
-  const description = 'Проверка документов и сопровождение регистрации самоходной техники в Гостехнадзоре. Услуги от 3 000 ₽, ориентировочный срок 3–5 рабочих дней.';
+  const title = 'Регистрация самоходной техники в Москве, МО и по всей России — ТехУчёт';
+  const description = 'Проверка документов и сопровождение регистрации самоходной техники в Москве, МО и по всей России. Услуги от 5 000 ₽, ориентировочный срок 3–5 рабочих дней.';
   const canonical = `${site.baseUrl}/`;
   return `<!DOCTYPE html>
 <html lang="ru">
@@ -380,8 +381,8 @@ ${head({
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="container hero__grid">
         <div class="hero__content">
-          <p class="hero__badge">ФЕДЕРАЛЬНЫЙ СЕРВИС</p>
-          <h1>Регистрация самоходной техники по всей России</h1>
+          <p class="hero__badge">ФЕДЕРАЛЬНЫЙ СЕРВИС • РАБОТАЕМ ПО ВСЕЙ РОССИИ</p>
+          <h1>Регистрация самоходной техники в Москве, МО и по всей России</h1>
           <p class="hero__subtitle">Поможем подготовить документы и сопроводим постановку на учёт, снятие с учёта, восстановление документов и другие регистрационные действия с самоходной техникой.</p>
           <ul class="hero__benefits"><li>Единый номер для связи</li><li>Дистанционная проверка документов</li><li>Сопровождение с учётом региона</li><li>Срок выполнения большинства работ — 3–5 рабочих дней</li></ul>
           <div class="hero__actions"><a class="btn btn--primary" href="#hero-lead">Получить консультацию</a><a class="btn btn--outline" href="#hero-lead">Рассчитать стоимость</a></div>
@@ -405,7 +406,7 @@ ${head({
     <section class="section" id="services">
       <div class="container">
         <div class="section-heading"><p class="eyebrow">Услуги и стоимость</p><h2>Регистрационные действия без неясных тарифов</h2><p>Проверяем документы, готовим комплект и сопровождаем выбранную услугу с учётом требований региона.</p></div>
-        <div class="service-grid">${services.map((service, index) => `<article class="service-card"><span class="card-index">${String(index + 1).padStart(2, '0')}</span><h3>${service.name}</h3><p>${service.situation}</p><h4>Что входит</h4><ul>${service.includes.map((item) => `<li>${item}</li>`).join('')}</ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 3 000 ₽</strong></div><div class="card-actions">${service.page ? `<a class="text-link" href="${service.page}/">Подробнее</a>` : '<span></span>'}<a class="btn btn--primary" href="#lead-form" data-select-service="${service.short}" data-service-event="${service.key}">Рассчитать услугу</a></div></article>`).join('')}</div>
+        <div class="service-grid">${services.map((service, index) => `<article class="service-card${service.featured ? ' service-card--featured' : ''}" id="service-${service.key}"><span class="card-index"><span>${String(index + 1).padStart(2, '0')}</span>${service.featured ? '<strong>Восстановление документов</strong>' : ''}</span><h3>${service.name}</h3><p>${service.situation}</p><h4>Что входит</h4><ul>${service.includes.map((item) => `<li>${item}</li>`).join('')}</ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 5 000 ₽</strong></div><div class="card-actions">${service.page ? `<a class="text-link" href="${service.page}/">Подробнее</a>` : '<span></span>'}<a class="btn btn--primary" href="#lead-form" data-select-service="${service.short}" data-service-event="${service.key}">Получить консультацию</a></div></article>`).join('')}</div>
         <p class="section-note">Точная стоимость и срок зависят от вида техники, региона, регистрационного действия и комплекта документов. Итоговую стоимость специалист назовёт после проверки документов. Государственные пошлины и сторонние расходы в цену услуг не включены.</p>
       </div>
     </section>
@@ -413,7 +414,7 @@ ${head({
     <section class="section section--alt" id="situations">
       <div class="container">
         <div class="section-heading"><p class="eyebrow">Проблемные ситуации</p><h2>Разберём документы и предложим порядок действий</h2><p>Не обещаем результат до проверки. Сначала изучаем исходные данные и требования конкретного подразделения.</p></div>
-        <div class="problem-grid">${problems.map(([title, text]) => `<article class="problem-card"><h3>${title}</h3><p>${text}</p><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="${title}" data-service-event="complex_case">Разобрать мою ситуацию</a></article>`).join('')}</div>
+        <div class="problem-grid">${problems.map(([title, text, service = 'Отказ или сложная ситуация', event = 'complex_case']) => `<article class="problem-card"><h3>${title}</h3><p>${text}</p><a class="text-link" href="#lead-form" data-select-service="${service}" data-situation="${title}" data-service-event="${event}">Разобрать мою ситуацию</a></article>`).join('')}</div>
       </div>
     </section>
 
@@ -431,7 +432,7 @@ ${head({
         <div class="documents-tool" data-documents-tool>
           <div class="segmented" role="group" aria-label="Тип собственника"><button type="button" class="is-active" data-owner="person">Физическое лицо</button><button type="button" data-owner="company">ИП или организация</button></div>
           <div class="tabs" role="tablist" aria-label="Регистрационное действие"><button type="button" class="is-active" data-action="registration">Постановка на учёт</button><button type="button" data-action="deregistration">Снятие с учёта</button><button type="button" data-action="restore">Восстановление документов</button><button type="button" data-action="inspection">Технический осмотр</button></div>
-          <ul class="document-list" data-document-list><li>Паспорт собственника</li><li>ПСМ или ЭПСМ</li><li>Документ о праве собственности</li><li>Полис ОСАГО — когда требуется</li><li>Документы на номерные компоненты — при наличии изменений</li></ul>
+          <ul class="document-list" data-document-list><li>Паспорт собственника</li><li>Бумажный ПСМ или электронный паспорт (ЭПСМ)</li><li>Документ о праве собственности</li><li>Полис ОСАГО — когда требуется</li><li>Документы на номерные компоненты — при наличии изменений</li></ul>
           <p class="tool-note">Точный перечень зависит от вида техники, регистрационного действия, региона и истории владения. Специалист проверит документы после обращения.</p>
         </div>
       </div>
@@ -464,9 +465,9 @@ ${head({
 
 export function servicePage(page) {
   const canonical = `${site.baseUrl}/${page.slug}/`;
-  const description = `${page.description} Стоимость от 3 000 ₽, ориентировочный срок 3–5 рабочих дней.`;
+  const description = `${page.description} Стоимость от 5 000 ₽, ориентировочный срок 3–5 рабочих дней.`;
   const pageFaq = [
-    ['Сколько стоит услуга?', 'Стоимость начинается от 3 000 ₽. Точная сумма зависит от региона, вида техники, комплекта документов и сложности ситуации.'],
+    ['Сколько стоит услуга?', 'Стоимость начинается от 5 000 ₽. Точная сумма зависит от региона, вида техники, комплекта документов и сложности ситуации.'],
     ['Какой ориентировочный срок?', 'Большинство стандартных действий выполняется в течение 3–5 рабочих дней после получения полного комплекта документов. Срок зависит от региона и графика Гостехнадзора.'],
     ['Можно ли начать дистанционно?', 'Да. Отправьте сведения о технике и имеющиеся документы на предварительную проверку. Специалист сообщит дальнейший порядок действий.'],
   ];
@@ -489,7 +490,7 @@ ${head({ title: `${page.h1} — ТехУчёт`, description, canonical, prefix:
   <main id="main">
     <section class="service-hero">
       <div class="container"><nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>•</span><span>${page.short}</span></nav>
-        <div class="service-hero__grid"><div><p class="eyebrow">ТехУчёт • Работаем по всей России</p><h1>${page.h1}</h1><p>${page.description}</p><div class="service-hero__meta"><strong>от 3 000 ₽</strong><span>Ориентировочно 3–5 рабочих дней</span></div><div class="hero__actions"><a class="btn btn--primary" href="#page-form">Получить консультацию</a><a class="btn btn--outline track-phone" href="${site.phoneHref}">${site.phone}</a></div></div>
+        <div class="service-hero__grid"><div><p class="eyebrow">ТехУчёт • Работаем по всей России</p><h1>${page.h1}</h1><p>${page.description}</p><div class="service-hero__meta"><strong>от 5 000 ₽</strong><span>Ориентировочно 3–5 рабочих дней</span></div><div class="hero__actions"><a class="btn btn--primary" href="#page-form" data-select-service="${page.short}" data-service-event="${page.key}">Получить консультацию</a><a class="btn btn--outline track-phone" href="${site.phoneHref}">${site.phone}</a></div></div>
         <div class="service-summary"><h2>Что входит в работу</h2><ul>${page.works.map((item) => `<li>${item}</li>`).join('')}</ul><p>Точный порядок определяется после проверки документов.</p></div></div>
       </div>
     </section>

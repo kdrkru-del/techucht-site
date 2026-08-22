@@ -14,6 +14,8 @@ const htmlFiles = [
 ];
 
 const requiredMain = [
+  'Регистрация самоходной техники в Москве, МО и по всей России',
+  'от 5 000 ₽',
   'Поможем подготовить документы и сопроводим постановку на учёт, снятие с учёта, восстановление документов и другие регистрационные действия с самоходной техникой.',
   'data-counter="85">85',
   'data-counter="3200">3 200',
@@ -34,6 +36,11 @@ const forbidden = [
   '2 350 ₽',
   'Личное обращение',
   'FormSubmit',
+  '3 000 ₽',
+  'Восстановление ПСМ или ЭПСМ',
+  'Восстановление ПСМ и ЭПСМ',
+  'Восстановление ЭПСМ',
+  'восстановить ЭПСМ',
 ];
 
 const errors = [];
@@ -51,9 +58,13 @@ const main = await readFile(join(root, 'index.html'), 'utf8');
 for (const value of requiredMain) {
   if (!main.includes(value)) errors.push(`index.html: required text missing "${value}"`);
 }
+if (!main.includes('"price":"5000"')) errors.push('index.html: schema.org price 5000 missing');
+for (const value of ['Восстановление ПСМ', 'Восстановление СТС', 'data-service-event="restore_sts"']) {
+  if (!main.includes(value)) errors.push(`index.html: document service missing "${value}"`);
+}
 
 const js = await readFile(join(root, 'site-config.js'), 'utf8');
-if (!js.includes('"YANDEX_METRIKA_ID": ""')) errors.push('site-config.js: empty YANDEX_METRIKA_ID placeholder missing');
+if (!js.includes('"YANDEX_METRIKA_ID": "111852031"')) errors.push('site-config.js: Yandex Metrika ID 111852031 missing');
 if (!js.includes('"TELEGRAM_URL": "https://t.me/Romatran"')) errors.push('site-config.js: TELEGRAM_URL missing');
 if (!js.includes('"MAX_URL": "https://max.ru/u/f9LHodD0cOIyRnk4XSMp9LQv3nUe6pWwsL4DqMp_p80p0ISba6wNwFpIQy4"')) errors.push('site-config.js: personal MAX profile URL missing');
 if (!js.includes('zelsrez-leads.roman-k-0b3.workers.dev/api/lead')) errors.push('site-config.js: Telegram lead endpoint missing');
@@ -67,6 +78,8 @@ if (!main.includes('href="favicon.png?v=1"')) errors.push('index.html: text-free
 
 const clientScript = await readFile(join(root, 'script.js'), 'utf8');
 if (!clientScript.includes("trackGoal('click_max')")) errors.push('script.js: click_max goal missing');
+if (!clientScript.includes("restore_sts: 'service_restore_sts'")) errors.push('script.js: service_restore_sts goal missing');
+if (!clientScript.includes('form.dataset.selectedService || selectedService')) errors.push('script.js: CTA service handoff missing');
 for (const invariant of [
   "form.addEventListener('submit', (event) => submitLead(event, form))",
   'fetch(CONFIG.FORM_ENDPOINT',

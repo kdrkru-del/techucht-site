@@ -121,6 +121,7 @@ p { color: var(--muted); }
 .hero__shade { z-index: -1; background: rgba(5, 10, 18, 0.82); }
 .hero__grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(380px, 0.85fr); align-items: center; gap: 64px; }
 .hero__content { max-width: 680px; }
+.hero__content h1 { font-size: clamp(32px, 4vw, 52px); }
 .hero__badge { display: inline-flex; margin-bottom: 18px; padding: 8px 10px; color: #ffd18a; background: rgba(38, 23, 7, 0.88); border: 1px solid rgba(255, 159, 28, 0.45); border-radius: 4px; font-size: 12px; font-weight: 800; }
 .hero__subtitle { max-width: 660px; margin-bottom: 24px; color: #e1e7ef; font-size: 19px; }
 .hero__benefits { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0 0 28px; padding: 0; gap: 10px 22px; list-style: none; }
@@ -168,8 +169,10 @@ p { color: var(--muted); }
 .service-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .service-card, .problem-card, .case-card { background: var(--panel); border: 1px solid var(--line-soft); border-radius: var(--radius); }
 .service-card { display: grid; grid-template-rows: auto auto auto auto 1fr auto auto; padding: 26px; }
+.service-card--featured { border-color: rgba(255, 140, 43, 0.55); background: linear-gradient(145deg, rgba(255, 140, 43, 0.08), transparent 42%), var(--panel); }
 .service-card:hover, .problem-card:hover, .case-card:hover { border-color: #58677d; }
-.card-index { margin-bottom: 12px; color: var(--orange); font-family: Consolas, "Courier New", monospace; font-size: 13px; }
+.card-index { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 12px; color: var(--orange); font-family: Consolas, "Courier New", monospace; font-size: 13px; }
+.card-index strong { padding: 5px 8px; color: #ffd2a8; background: rgba(255, 140, 43, 0.13); border: 1px solid rgba(255, 140, 43, 0.32); border-radius: 999px; font-family: inherit; font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; }
 .service-card > p, .problem-card > p { color: var(--muted); }
 .service-card h4 { margin: 8px 0; color: var(--subtle); font-size: 12px; text-transform: uppercase; }
 .service-card ul, .service-summary ul, .check-list { margin: 0; padding: 0; list-style: none; }
