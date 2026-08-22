@@ -66,7 +66,18 @@
       if (CONFIG.TELEGRAM_URL) link.href = CONFIG.TELEGRAM_URL;
     });
     const maxUrl = String(CONFIG.MAX_URL || '').trim();
+    const maxPhone = String(CONFIG.MAX_PHONE || CONFIG.PHONE || '').trim();
+    const maxPhoneCompact = maxPhone.replace(/[^\d+]/g, '');
+    document.querySelectorAll('[data-max-phone]').forEach((node) => {
+      node.textContent = maxPhone;
+      node.hidden = !maxPhone;
+    });
+    document.querySelectorAll('[data-max-phone-compact]').forEach((node) => {
+      node.textContent = maxPhoneCompact;
+      node.hidden = !maxPhoneCompact;
+    });
     document.querySelectorAll('.track-max').forEach((link) => {
+      if (maxPhone) link.setAttribute('aria-label', `MAX: ${maxPhone}`);
       if (maxUrl) {
         link.href = maxUrl;
         link.target = '_blank';
@@ -78,6 +89,7 @@
         link.removeAttribute('href');
         link.classList.add('is-disabled');
         link.setAttribute('aria-disabled', 'true');
+        link.title = maxPhone ? `MAX: ${maxPhone}. Ссылка будет добавлена после её получения` : 'Ссылка на MAX будет добавлена после её получения';
       }
     });
     document.querySelectorAll('.track-email').forEach((link) => {

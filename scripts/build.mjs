@@ -68,6 +68,7 @@ const publicConfig = {
   WHATSAPP_URL: site.whatsapp,
   TELEGRAM_URL: site.telegram,
   MAX_URL: site.maxUrl,
+  MAX_PHONE: site.maxPhone,
   EMAIL: site.email,
   FORM_ENDPOINT: site.formEndpoint,
   YANDEX_METRIKA_ID: site.yandexMetrikaId,

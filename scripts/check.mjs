@@ -55,14 +55,24 @@ const js = await readFile(join(root, 'site-config.js'), 'utf8');
 if (!js.includes('"YANDEX_METRIKA_ID": ""')) errors.push('site-config.js: empty YANDEX_METRIKA_ID placeholder missing');
 if (!js.includes('"TELEGRAM_URL": "https://t.me/Romatran"')) errors.push('site-config.js: TELEGRAM_URL missing');
 if (!js.includes('"MAX_URL": ""')) errors.push('site-config.js: empty MAX_URL placeholder missing');
+if (!js.includes('"MAX_PHONE": "+7 925 757-78-88"')) errors.push('site-config.js: MAX_PHONE missing');
 if (!js.includes('formsubmit.co/ajax/jobstat@bk.ru')) errors.push('site-config.js: approved form endpoint missing');
 
 const mainMaxLinks = (main.match(/class="[^"]*track-max/g) || []).length;
 if (mainMaxLinks < 6) errors.push(`index.html: expected MAX in all contact areas, found ${mainMaxLinks}`);
 if (/href="[^"]*max\.ru/i.test(main)) errors.push('index.html: MAX URL must come from site-config.js');
+if ((main.match(/data-max-phone/g) || []).length < 6) errors.push('index.html: MAX phone is not displayed in every MAX contact');
 
 const clientScript = await readFile(join(root, 'script.js'), 'utf8');
 if (!clientScript.includes("trackGoal('click_max')")) errors.push('script.js: click_max goal missing');
+for (const invariant of [
+  "form.addEventListener('submit', (event) => submitLead(event, form))",
+  'fetch(CONFIG.FORM_ENDPOINT',
+  "method: 'POST'",
+  "trackGoal('lead_form_success')",
+]) {
+  if (!clientScript.includes(invariant)) errors.push(`script.js: form submission invariant missing "${invariant}"`);
+}
 
 if (errors.length) {
   console.error(errors.join('\n'));

@@ -10,6 +10,7 @@ export const site = {
   telegram: 'https://t.me/Romatran',
   // Вставьте реальную ссылку на профиль или чат MAX, когда она будет известна.
   maxUrl: '',
+  maxPhone: '+7 925 757-78-88',
   email: 'jobstat@bk.ru',
   emailHref: 'mailto:jobstat@bk.ru',
   hours: 'Пн–Пт: 9:00–18:00',
