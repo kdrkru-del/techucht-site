@@ -8,8 +8,8 @@ export const site = {
   phoneHref: 'tel:+79257577888',
   whatsapp: 'https://wa.me/79257577888',
   telegram: 'https://t.me/Romatran',
-  // Вставьте реальную ссылку на профиль или чат MAX, когда она будет известна.
-  maxUrl: '',
+  // Официальный веб-клиент MAX. Замените на ссылку «Профиль → Поделиться», чтобы кнопки открывали сразу личный чат.
+  maxUrl: 'https://web.max.ru/',
   maxPhone: '+7 925 757-78-88',
   email: 'jobstat@bk.ru',
   emailHref: 'mailto:jobstat@bk.ru',

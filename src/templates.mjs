@@ -30,10 +30,10 @@ function head({ title, description, canonical, prefix = '', schemas = [] }) {
   <meta name="twitter:image" content="${site.baseUrl}/og.png">
   <title>${title}</title>
   <link rel="icon" type="image/png" href="${prefix}logo.png">
-  <link rel="preload" href="${prefix}style.css?v=7" as="style">
-  <link rel="stylesheet" href="${prefix}style.css?v=7">
-  <script src="${prefix}site-config.js?v=7"></script>
-  <script src="${prefix}script.js?v=7" defer></script>
+  <link rel="preload" href="${prefix}style.css?v=8" as="style">
+  <link rel="stylesheet" href="${prefix}style.css?v=8">
+  <script src="${prefix}site-config.js?v=8"></script>
+  <script src="${prefix}script.js?v=8" defer></script>
   ${schemas.map((schema) => `<script type="application/ld+json">${jsonLd(schema)}</script>`).join('\n  ')}`;
 }
 
@@ -182,6 +182,57 @@ function regionSelect(id) {
 
 function formStatus() {
   return '<p class="form-status" role="status" aria-live="polite" data-form-status></p>';
+}
+
+function simpleContactFields(id) {
+  return `<div class="form-grid">
+    <label class="field" for="${id}-name"><span>Имя *</span><input id="${id}-name" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required></label>
+    <label class="field" for="${id}-phone"><span>Телефон *</span><input id="${id}-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
+  </div>`;
+}
+
+function simpleHeroForm() {
+  return `<form class="form-card hero-form" id="hero-lead" data-lead-form data-form-name="Форма первого экрана" novalidate>
+    ${honeypot()}
+    <div class="form-card__header">
+      <p class="eyebrow">Заявка</p>
+      <h2>Оставьте имя и телефон</h2>
+      <p>Специалист перезвонит и уточнит детали.</p>
+    </div>
+    ${simpleContactFields('hero')}
+    ${consentField('hero-consent')}
+    <button class="btn btn--primary btn--full" type="submit">Отправить заявку</button>
+    ${formStatus()}
+  </form>`;
+}
+
+function simpleFinalForm({ id = 'main-lead', prefix = '', title = 'Получите консультацию по оформлению техники' } = {}) {
+  return `<form class="form-card lead-form" id="${id}" data-lead-form data-form-name="${title}" novalidate>
+    ${honeypot()}
+    <div class="form-card__header"><p class="eyebrow">Заявка</p><h2>${title}</h2><p>Оставьте имя и телефон — специалист перезвонит и уточнит детали.</p></div>
+    ${simpleContactFields(id)}
+    ${consentField(`${id}-consent`, prefix)}
+    <button class="btn btn--primary btn--full" type="submit">Отправить заявку</button>
+    ${formStatus()}
+  </form>`;
+}
+
+function simpleCallbackModal(prefix = '') {
+  return `<div class="modal" id="callback-modal" hidden data-modal>
+    <div class="modal__backdrop" data-modal-close></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="callback-title">
+      <button class="icon-button modal__close" type="button" aria-label="Закрыть окно" data-modal-close>×</button>
+      <h2 id="callback-title">Заказать обратный звонок</h2>
+      <p>Оставьте имя и телефон — специалист свяжется с вами в рабочее время.</p>
+      <form data-lead-form data-form-name="Обратный звонок" novalidate>
+        ${honeypot()}
+        ${simpleContactFields('callback')}
+        ${consentField('callback-consent', prefix)}
+        <button class="btn btn--primary btn--full" type="submit">Заказать звонок</button>
+        ${formStatus()}
+      </form>
+    </div>
+  </div>`;
 }
 
 function heroForm() {
@@ -340,7 +391,7 @@ ${head({
           <p class="hero__hint">Оставьте заявку — специалист свяжется с вами в рабочее время.</p>
         </div>
         <div class="form-stack">
-          ${heroForm()}
+          ${simpleHeroForm()}
           <div class="form-quick-contacts"><span>Или свяжитесь напрямую</span>${quickContacts({ modifier: 'quick-contacts--form' })}</div>
         </div>
       </div>
@@ -405,10 +456,10 @@ ${head({
 
     <section class="section section--alt" id="faq"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Частые вопросы</p><h2>Коротко о главном</h2><p>Если вашей ситуации нет в списке, отправьте заявку на разбор документов.</p></div>${faqBlock()}</div></section>
 
-    <section class="section lead-section" id="lead-form"><div class="container lead-layout">${contactPanel()}${finalForm()}</div></section>
+    <section class="section lead-section" id="lead-form"><div class="container lead-layout">${contactPanel()}${simpleFinalForm()}</div></section>
   </main>
   ${footer()}
-  ${callbackModal()}
+    ${simpleCallbackModal()}
   ${mobileBar()}
 </body>
 </html>`;
@@ -447,10 +498,10 @@ ${head({ title: `${page.h1} — ТехУчёт`, description, canonical, prefix:
     </section>
     <section class="section"><div class="container two-column"><div><p class="eyebrow">Типовые ситуации</p><h2>Когда обращаются</h2><ul class="check-list">${page.situations.map((item) => `<li>${item}</li>`).join('')}</ul></div><div><p class="eyebrow">Документы</p><h2>Что подготовить</h2><ul class="check-list">${page.docs.map((item) => `<li>${item}</li>`).join('')}</ul><p class="section-note">Точный перечень зависит от вида техники, региона и истории владения.</p></div></div></section>
     <section class="section section--alt"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Вопросы по услуге</p><h2>Перед началом работы</h2></div>${faqBlock(pageFaq)}</div></section>
-    <section class="section lead-section" id="page-form"><div class="container lead-layout">${contactPanel()}${finalForm({ id: `${page.slug}-lead`, selected: page.short, prefix: '../', title: `Получить консультацию: ${page.short}` })}</div></section>
+    <section class="section lead-section" id="page-form"><div class="container lead-layout">${contactPanel()}${simpleFinalForm({ id: `${page.slug}-lead`, prefix: '../', title: `Получить консультацию: ${page.short}` })}</div></section>
   </main>
   ${footer('../')}
-  ${callbackModal('../')}
+    ${simpleCallbackModal('../')}
   ${mobileBar('#page-form')}
 </body>
 </html>`;
@@ -477,7 +528,7 @@ export function legalPage(type) {
     <h2>3. Действия с данными</h2><p>Сбор, запись, систематизация, хранение, уточнение, использование, передача сервису FormSubmit и другим техническим поставщикам для доставки заявки оператору, блокирование и удаление.</p>
     <h2>4. Срок и отзыв согласия</h2><p>Согласие действует до достижения целей обработки или до его отзыва. Отозвать согласие можно письмом на <a href="${site.emailHref}">${site.email}</a>. Отзыв не влияет на законность обработки, выполненной до его получения.</p>
     <h2>5. Подтверждение</h2><p>Я подтверждаю, что указанные мной данные принадлежат мне, а предоставленная информация является достоверной.</p>`;
-  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: `${title} — ТехУчёт`, description: `${title} сайта ТехУчёт.`, canonical, prefix: '../', schemas: [organizationSchema()] })}</head><body>${header('../')}<main id="main" class="legal"><div class="container legal__inner"><nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>•</span><span>${title}</span></nav><p class="eyebrow">Юридическая информация</p><h1>${title}</h1><p class="legal__updated">Редакция от 8 августа 2026 года</p>${isPrivacy ? privacyContent : consentContent}</div></main>${footer('../')}${callbackModal('../')}${mobileBar('../')}</body></html>`;
+  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: `${title} — ТехУчёт`, description: `${title} сайта ТехУчёт.`, canonical, prefix: '../', schemas: [organizationSchema()] })}</head><body>${header('../')}<main id="main" class="legal"><div class="container legal__inner"><nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>•</span><span>${title}</span></nav><p class="eyebrow">Юридическая информация</p><h1>${title}</h1><p class="legal__updated">Редакция от 8 августа 2026 года</p>${isPrivacy ? privacyContent : consentContent}</div></main>${footer('../')}${simpleCallbackModal('../')}${mobileBar('../')}</body></html>`;
 }
 
 export function notFoundPage({ nested = false } = {}) {

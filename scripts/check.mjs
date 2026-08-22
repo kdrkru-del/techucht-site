@@ -54,7 +54,7 @@ for (const value of requiredMain) {
 const js = await readFile(join(root, 'site-config.js'), 'utf8');
 if (!js.includes('"YANDEX_METRIKA_ID": ""')) errors.push('site-config.js: empty YANDEX_METRIKA_ID placeholder missing');
 if (!js.includes('"TELEGRAM_URL": "https://t.me/Romatran"')) errors.push('site-config.js: TELEGRAM_URL missing');
-if (!js.includes('"MAX_URL": ""')) errors.push('site-config.js: empty MAX_URL placeholder missing');
+if (!js.includes('"MAX_URL": "https://web.max.ru/"')) errors.push('site-config.js: official MAX web client URL missing');
 if (!js.includes('"MAX_PHONE": "+7 925 757-78-88"')) errors.push('site-config.js: MAX_PHONE missing');
 if (!js.includes('formsubmit.co/ajax/jobstat@bk.ru')) errors.push('site-config.js: approved form endpoint missing');
 
@@ -72,6 +72,19 @@ for (const invariant of [
   "trackGoal('lead_form_success')",
 ]) {
   if (!clientScript.includes(invariant)) errors.push(`script.js: form submission invariant missing "${invariant}"`);
+}
+
+for (const file of htmlFiles.filter((file) => !file.startsWith('404'))) {
+  const html = await readFile(join(root, file), 'utf8');
+  const leadForms = html.match(/<form\b[^>]*data-lead-form[\s\S]*?<\/form>/g) || [];
+  if (!leadForms.length) errors.push(`${file}: lead forms missing`);
+  leadForms.forEach((form, index) => {
+    if (!/name="name"[^>]*type="text"/.test(form)) errors.push(`${file}: form ${index + 1} missing name field`);
+    if (!/name="phone"[^>]*type="tel"/.test(form)) errors.push(`${file}: form ${index + 1} missing phone field`);
+    if (/<select\b|<textarea\b|type="radio"|name="(?:region|service|tech|owner|comment)"/.test(form)) {
+      errors.push(`${file}: form ${index + 1} contains fields other than name and phone`);
+    }
+  });
 }
 
 if (errors.length) {
