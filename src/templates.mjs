@@ -29,8 +29,9 @@ function head({ title, description, canonical, prefix = '', schemas = [] }) {
   <meta name="twitter:description" content="${description}">
   <meta name="twitter:image" content="${site.baseUrl}/og.png">
   <title>${title}</title>
-  <link rel="icon" type="image/png" href="${prefix}favicon.png?v=1">
-  <link rel="apple-touch-icon" href="${prefix}favicon.png?v=1">
+  <link rel="icon" type="image/png" href="${prefix}favicon.png?v=2">
+  <link rel="shortcut icon" type="image/png" href="${prefix}favicon.png?v=2">
+  <link rel="apple-touch-icon" href="${prefix}favicon.png?v=2">
   <link rel="preload" href="${prefix}style.css?v=11" as="style">
   <link rel="stylesheet" href="${prefix}style.css?v=11">
   <script src="${prefix}site-config.js?v=10"></script>
@@ -381,7 +382,7 @@ ${head({
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="container hero__grid">
         <div class="hero__content">
-          <p class="hero__badge">ФЕДЕРАЛЬНЫЙ СЕРВИС • РАБОТАЕМ ПО ВСЕЙ РОССИИ</p>
+          <p class="hero__badge">ФЕДЕРАЛЬНЫЙ СЕРВИС</p>
           <h1>Регистрация самоходной техники в Москве, МО и по всей России</h1>
           <p class="hero__subtitle">Поможем подготовить документы и сопроводим постановку на учёт, снятие с учёта, восстановление документов и другие регистрационные действия с самоходной техникой.</p>
           <ul class="hero__benefits"><li>Единый номер для связи</li><li>Дистанционная проверка документов</li><li>Сопровождение с учётом региона</li><li>Срок выполнения большинства работ — 3–5 рабочих дней</li></ul>

@@ -42,6 +42,7 @@ const forbidden = [
   'Восстановление ЭПСМ',
   'восстановить ЭПСМ',
   'card-index"><span>01</span>',
+  'РАБОТАЕМ ПО ВСЕЙ РОССИИ',
 ];
 
 const errors = [];
@@ -75,7 +76,8 @@ if (mainMaxLinks < 6) errors.push(`index.html: expected MAX in all contact areas
 if (/href="[^"]*max\.ru/i.test(main)) errors.push('index.html: MAX URL must come from site-config.js');
 const mainMaxTags = main.match(/<a class="[^"]*track-max[^"]*"[^>]*>[\s\S]*?<\/a>/g) || [];
 if (mainMaxTags.some((tag) => /925[\s-]*757|79257577888/.test(tag))) errors.push('index.html: phone must not be displayed inside MAX buttons');
-if (!main.includes('href="favicon.png?v=1"')) errors.push('index.html: text-free favicon missing');
+if (!main.includes('href="favicon.png?v=2"')) errors.push('index.html: favicon v2 missing');
+if (!main.includes('rel="shortcut icon"')) errors.push('index.html: shortcut favicon missing');
 
 const clientScript = await readFile(join(root, 'script.js'), 'utf8');
 if (!clientScript.includes("trackGoal('click_max')")) errors.push('script.js: click_max goal missing');
