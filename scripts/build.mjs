@@ -66,6 +66,8 @@ const publicConfig = {
   PHONE: site.phone,
   PHONE_HREF: site.phoneHref,
   WHATSAPP_URL: site.whatsapp,
+  TELEGRAM_URL: site.telegram,
+  MAX_URL: site.maxUrl,
   EMAIL: site.email,
   FORM_ENDPOINT: site.formEndpoint,
   YANDEX_METRIKA_ID: site.yandexMetrikaId,
@@ -99,7 +101,11 @@ await output('site.webmanifest', JSON.stringify({
 }, null, 2));
 
 if (!dist.startsWith(root)) throw new Error('Refusing to write outside the project.');
-await rm(dist, { recursive: true, force: true });
+await mkdir(dist, { recursive: true });
+await rm(join(dist, 'server'), { recursive: true, force: true });
+await rm(join(dist, 'client'), { recursive: true, force: true });
+await rm(join(dist, '.openai'), { recursive: true, force: true });
+await rm(join(dist, '.gitkeep'), { force: true });
 await mkdir(join(dist, 'server'), { recursive: true });
 await mkdir(join(dist, 'client'), { recursive: true });
 

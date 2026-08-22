@@ -20,10 +20,10 @@
   <meta name="twitter:image" content="https://kdrkru-del.github.io/techucht-site/og.png">
   <title>Снятие спецтехники с учёта в Гостехнадзоре — ТехУчёт</title>
   <link rel="icon" type="image/png" href="../logo.png">
-  <link rel="preload" href="../style.css?v=5" as="style">
-  <link rel="stylesheet" href="../style.css?v=5">
-  <script src="../site-config.js?v=5"></script>
-  <script src="../script.js?v=5" defer></script>
+  <link rel="preload" href="../style.css?v=6" as="style">
+  <link rel="stylesheet" href="../style.css?v=6">
+  <script src="../site-config.js?v=6"></script>
+  <script src="../script.js?v=6" defer></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"ООО «ЮНАТ»","alternateName":"ТехУчёт","url":"https://kdrkru-del.github.io/techucht-site/","logo":"https://kdrkru-del.github.io/techucht-site/logo.png","telephone":"+7 925 757-78-88","email":"jobstat@bk.ru","identifier":[{"@type":"PropertyValue","name":"ИНН","value":"2536345868"},{"@type":"PropertyValue","name":"КПП","value":"253601001"},{"@type":"PropertyValue","name":"ОГРН","value":"1242500018859"}],"areaServed":{"@type":"Country","name":"Россия"},"contactPoint":{"@type":"ContactPoint","telephone":"+7 925 757-78-88","email":"jobstat@bk.ru","contactType":"customer service","areaServed":"RU","availableLanguage":"Russian"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Снятие спецтехники с учёта в Гостехнадзоре","description":"Проверим основание и подготовим комплект для снятия самоходной техники с регистрационного учёта. Стоимость от 3 000 ₽, ориентировочный срок 3–5 рабочих дней.","url":"https://kdrkru-del.github.io/techucht-site/snyatie-s-ucheta/","provider":{"@type":"Organization","name":"ООО «ЮНАТ»","url":"https://kdrkru-del.github.io/techucht-site/"},"areaServed":{"@type":"Country","name":"Россия"},"offers":{"@type":"Offer","priceCurrency":"RUB","price":"3000","description":"Стоимость от 3 000 ₽. Точная стоимость определяется после проверки документов."}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Сколько стоит услуга?","acceptedAnswer":{"@type":"Answer","text":"Стоимость начинается от 3 000 ₽. Точная сумма зависит от региона, вида техники, комплекта документов и сложности ситуации."}},{"@type":"Question","name":"Какой ориентировочный срок?","acceptedAnswer":{"@type":"Answer","text":"Большинство стандартных действий выполняется в течение 3–5 рабочих дней после получения полного комплекта документов. Срок зависит от региона и графика Гостехнадзора."}},{"@type":"Question","name":"Можно ли начать дистанционно?","acceptedAnswer":{"@type":"Answer","text":"Да. Отправьте сведения о технике и имеющиеся документы на предварительную проверку. Специалист сообщит дальнейший порядок действий."}}]}</script>
@@ -44,6 +44,11 @@
       </nav>
       <div class="header__actions">
         <a class="header__phone track-phone" href="tel:+79257577888">+7 925 757-78-88</a>
+        <div class="quick-contacts quick-contacts--header" aria-label="Быстрые контакты">
+    <a class="quick-contact quick-contact--whatsapp track-whatsapp" href="https://wa.me/79257577888" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="quick-contact quick-contact--telegram track-telegram" href="https://t.me/Romatran" target="_blank" rel="noopener">Telegram</a>
+    <a class="quick-contact quick-contact--max track-max is-disabled" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">MAX</a>
+  </div>
         <button class="btn btn--small btn--outline" type="button" data-modal-open>Перезвоните мне</button>
       </div>
       <button class="menu-button" type="button" aria-label="Открыть меню" aria-controls="mobile-menu" aria-expanded="false" data-menu-button>
@@ -51,13 +56,19 @@
       </button>
     </div>
     <div class="mobile-menu" id="mobile-menu" hidden data-mobile-menu>
-      <nav class="container" aria-label="Мобильная навигация">
-        <a href="../#services">Услуги</a>
-        <a href="../#situations">Сложные ситуации</a>
-        <a href="../#process">Как работаем</a>
-        <a href="../#faq">Вопросы</a>
-        <a class="track-phone" href="tel:+79257577888">+7 925 757-78-88</a>
-      </nav>
+      <div class="container">
+        <nav aria-label="Мобильная навигация">
+          <a href="../#services">Услуги</a>
+          <a href="../#situations">Сложные ситуации</a>
+          <a href="../#process">Как работаем</a>
+          <a href="../#faq">Вопросы</a>
+        </nav>
+        <div class="quick-contacts quick-contacts--menu" aria-label="Быстрые контакты"><a class="quick-contact quick-contact--phone track-phone" href="tel:+79257577888">Позвонить</a>
+    <a class="quick-contact quick-contact--whatsapp track-whatsapp" href="https://wa.me/79257577888" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="quick-contact quick-contact--telegram track-telegram" href="https://t.me/Romatran" target="_blank" rel="noopener">Telegram</a>
+    <a class="quick-contact quick-contact--max track-max is-disabled" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">MAX</a>
+  </div>
+      </div>
     </div>
   </header>
   <main id="main">
@@ -72,7 +83,12 @@
     <section class="section lead-section" id="page-form"><div class="container lead-layout"><aside class="contact-panel">
     <p class="eyebrow">Связаться напрямую</p>
     <a class="contact-panel__primary track-phone" href="tel:+79257577888">+7 925 757-78-88</a>
-    <div class="contact-links"><a class="track-whatsapp" href="https://wa.me/79257577888" target="_blank" rel="noopener">WhatsApp</a><a class="track-email" href="mailto:jobstat@bk.ru">jobstat@bk.ru</a></div>
+    <div class="quick-contacts quick-contacts--contact" aria-label="Быстрые контакты">
+    <a class="quick-contact quick-contact--whatsapp track-whatsapp" href="https://wa.me/79257577888" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="quick-contact quick-contact--telegram track-telegram" href="https://t.me/Romatran" target="_blank" rel="noopener">Telegram</a>
+    <a class="quick-contact quick-contact--max track-max is-disabled" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">MAX</a>
+  </div>
+    <a class="contact-panel__email track-email" href="mailto:jobstat@bk.ru">jobstat@bk.ru</a>
     <dl><div><dt>Режим работы</dt><dd>Пн–Пт: 9:00–18:00</dd></div><div><dt>Стоимость услуг</dt><dd>от 3 000 ₽</dd></div><div><dt>Ориентировочный срок</dt><dd>3–5 рабочих дней</dd></div><div><dt>География</dt><dd>Вся Россия</dd></div></dl>
   </aside><form class="form-card lead-form" id="snyatie-s-ucheta-lead" data-lead-form data-form-name="Получить консультацию: Снятие с учёта" novalidate>
     <div class="honeypot" aria-hidden="true">
@@ -112,7 +128,7 @@
         <p>Компания по сопровождению регистрационных действий с самоходной техникой по всей России.</p>
       </div>
       <div><h2>Услуги</h2><a href="../registraciya/">Постановка на учёт</a><a href="../snyatie-s-ucheta/">Снятие с учёта</a><a href="../vosstanovlenie-psm/">Восстановление ПСМ</a><a href="../tehosmotr/">Техосмотр</a><a href="../slozhnye-sluchai/">Сложные случаи</a></div>
-      <div><h2>Контакты</h2><a class="track-phone" href="tel:+79257577888">+7 925 757-78-88</a><a class="track-whatsapp" href="https://wa.me/79257577888" target="_blank" rel="noopener">WhatsApp</a><a class="track-email" href="mailto:jobstat@bk.ru">jobstat@bk.ru</a><span>Пн–Пт: 9:00–18:00</span></div>
+      <div><h2>Контакты</h2><a class="track-phone" href="tel:+79257577888">+7 925 757-78-88</a><a class="track-whatsapp" href="https://wa.me/79257577888" target="_blank" rel="noopener">WhatsApp</a><a class="track-telegram" href="https://t.me/Romatran" target="_blank" rel="noopener">Telegram</a><a class="track-max is-disabled" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">MAX</a><a class="track-email" href="mailto:jobstat@bk.ru">jobstat@bk.ru</a><span>Пн–Пт: 9:00–18:00</span></div>
       <div><h2>Реквизиты</h2><span>ООО «ЮНАТ»</span><span>ИНН 2536345868</span><span>КПП 253601001</span><span>ОГРН 1242500018859</span></div>
     </div>
     <div class="container footer__bottom">
@@ -150,8 +166,10 @@
     </div>
   </div>
   <div class="mobile-bar" aria-label="Быстрые действия">
-    <a class="btn btn--outline track-phone" href="tel:+79257577888">Позвонить</a>
-    <a class="btn btn--primary" href="#page-form" data-mobile-lead>Оставить заявку</a>
+    <a class="quick-contact quick-contact--phone track-phone" href="tel:+79257577888">Позвонить</a>
+    <a class="quick-contact quick-contact--whatsapp track-whatsapp" href="https://wa.me/79257577888" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="quick-contact quick-contact--telegram track-telegram" href="https://t.me/Romatran" target="_blank" rel="noopener">Telegram</a>
+    <a class="quick-contact quick-contact--max track-max is-disabled" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">MAX</a>
   </div>
 </body>
 </html>

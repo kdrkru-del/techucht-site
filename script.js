@@ -62,6 +62,24 @@
     document.querySelectorAll('.track-whatsapp').forEach((link) => {
       if (CONFIG.WHATSAPP_URL) link.href = CONFIG.WHATSAPP_URL;
     });
+    document.querySelectorAll('.track-telegram').forEach((link) => {
+      if (CONFIG.TELEGRAM_URL) link.href = CONFIG.TELEGRAM_URL;
+    });
+    const maxUrl = String(CONFIG.MAX_URL || '').trim();
+    document.querySelectorAll('.track-max').forEach((link) => {
+      if (maxUrl) {
+        link.href = maxUrl;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.classList.remove('is-disabled');
+        link.removeAttribute('aria-disabled');
+        link.removeAttribute('title');
+      } else {
+        link.removeAttribute('href');
+        link.classList.add('is-disabled');
+        link.setAttribute('aria-disabled', 'true');
+      }
+    });
     document.querySelectorAll('.track-email').forEach((link) => {
       if (CONFIG.EMAIL) link.href = `mailto:${CONFIG.EMAIL}`;
     });
@@ -353,6 +371,10 @@
   function initClickTracking() {
     document.querySelectorAll('.track-phone').forEach((link) => link.addEventListener('click', () => trackGoal('click_phone')));
     document.querySelectorAll('.track-whatsapp').forEach((link) => link.addEventListener('click', () => trackGoal('click_whatsapp')));
+    document.querySelectorAll('.track-telegram').forEach((link) => link.addEventListener('click', () => trackGoal('click_telegram')));
+    document.querySelectorAll('.track-max').forEach((link) => link.addEventListener('click', () => {
+      if (link.getAttribute('aria-disabled') !== 'true') trackGoal('click_max');
+    }));
     document.querySelectorAll('.track-email').forEach((link) => link.addEventListener('click', () => trackGoal('click_email')));
     document.querySelectorAll('[data-mobile-lead]').forEach((link) => link.addEventListener('click', () => trackGoal('lead_form_open')));
   }

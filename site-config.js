@@ -2,6 +2,8 @@ window.TECHUCHET_CONFIG = {
   "PHONE": "+7 925 757-78-88",
   "PHONE_HREF": "tel:+79257577888",
   "WHATSAPP_URL": "https://wa.me/79257577888",
+  "TELEGRAM_URL": "https://t.me/Romatran",
+  "MAX_URL": "",
   "EMAIL": "jobstat@bk.ru",
   "FORM_ENDPOINT": "https://formsubmit.co/ajax/jobstat@bk.ru",
   "YANDEX_METRIKA_ID": "",

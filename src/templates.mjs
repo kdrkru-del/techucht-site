@@ -30,10 +30,10 @@ function head({ title, description, canonical, prefix = '', schemas = [] }) {
   <meta name="twitter:image" content="${site.baseUrl}/og.png">
   <title>${title}</title>
   <link rel="icon" type="image/png" href="${prefix}logo.png">
-  <link rel="preload" href="${prefix}style.css?v=5" as="style">
-  <link rel="stylesheet" href="${prefix}style.css?v=5">
-  <script src="${prefix}site-config.js?v=5"></script>
-  <script src="${prefix}script.js?v=5" defer></script>
+  <link rel="preload" href="${prefix}style.css?v=6" as="style">
+  <link rel="stylesheet" href="${prefix}style.css?v=6">
+  <script src="${prefix}site-config.js?v=6"></script>
+  <script src="${prefix}script.js?v=6" defer></script>
   ${schemas.map((schema) => `<script type="application/ld+json">${jsonLd(schema)}</script>`).join('\n  ')}`;
 }
 
@@ -94,6 +94,16 @@ function serviceSchema({ name, description, url }) {
   };
 }
 
+function quickContacts({ modifier = '', includePhone = true } = {}) {
+  const className = ['quick-contacts', modifier].filter(Boolean).join(' ');
+  const phoneLink = includePhone ? `<a class="quick-contact quick-contact--phone track-phone" href="${site.phoneHref}">Позвонить</a>` : '';
+  return `<div class="${className}" aria-label="Быстрые контакты">${phoneLink}
+    <a class="quick-contact quick-contact--whatsapp track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="quick-contact quick-contact--telegram track-telegram" href="${site.telegram}" target="_blank" rel="noopener">Telegram</a>
+    <a class="quick-contact quick-contact--max track-max is-disabled" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">MAX</a>
+  </div>`;
+}
+
 function header(prefix = '') {
   const home = prefix || './';
   return `<header class="header" id="header">
@@ -109,6 +119,7 @@ function header(prefix = '') {
       </nav>
       <div class="header__actions">
         <a class="header__phone track-phone" href="${site.phoneHref}">${site.phone}</a>
+        ${quickContacts({ modifier: 'quick-contacts--header', includePhone: false })}
         <button class="btn btn--small btn--outline" type="button" data-modal-open>Перезвоните мне</button>
       </div>
       <button class="menu-button" type="button" aria-label="Открыть меню" aria-controls="mobile-menu" aria-expanded="false" data-menu-button>
@@ -116,13 +127,15 @@ function header(prefix = '') {
       </button>
     </div>
     <div class="mobile-menu" id="mobile-menu" hidden data-mobile-menu>
-      <nav class="container" aria-label="Мобильная навигация">
-        <a href="${home}#services">Услуги</a>
-        <a href="${home}#situations">Сложные ситуации</a>
-        <a href="${home}#process">Как работаем</a>
-        <a href="${home}#faq">Вопросы</a>
-        <a class="track-phone" href="${site.phoneHref}">${site.phone}</a>
-      </nav>
+      <div class="container">
+        <nav aria-label="Мобильная навигация">
+          <a href="${home}#services">Услуги</a>
+          <a href="${home}#situations">Сложные ситуации</a>
+          <a href="${home}#process">Как работаем</a>
+          <a href="${home}#faq">Вопросы</a>
+        </nav>
+        ${quickContacts({ modifier: 'quick-contacts--menu' })}
+      </div>
     </div>
   </header>`;
 }
@@ -241,10 +254,11 @@ function callbackModal(prefix = '') {
 }
 
 function mobileBar(href = '#lead-form') {
-  const target = href === '../' ? '../#lead-form' : (href || '#lead-form');
   return `<div class="mobile-bar" aria-label="Быстрые действия">
-    <a class="btn btn--outline track-phone" href="${site.phoneHref}">Позвонить</a>
-    <a class="btn btn--primary" href="${target}" data-mobile-lead>Оставить заявку</a>
+    <a class="quick-contact quick-contact--phone track-phone" href="${site.phoneHref}">Позвонить</a>
+    <a class="quick-contact quick-contact--whatsapp track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="quick-contact quick-contact--telegram track-telegram" href="${site.telegram}" target="_blank" rel="noopener">Telegram</a>
+    <a class="quick-contact quick-contact--max track-max is-disabled" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">MAX</a>
   </div>`;
 }
 
@@ -257,7 +271,7 @@ function footer(prefix = '') {
         <p>Компания по сопровождению регистрационных действий с самоходной техникой по всей России.</p>
       </div>
       <div><h2>Услуги</h2><a href="${prefix}registraciya/">Постановка на учёт</a><a href="${prefix}snyatie-s-ucheta/">Снятие с учёта</a><a href="${prefix}vosstanovlenie-psm/">Восстановление ПСМ</a><a href="${prefix}tehosmotr/">Техосмотр</a><a href="${prefix}slozhnye-sluchai/">Сложные случаи</a></div>
-      <div><h2>Контакты</h2><a class="track-phone" href="${site.phoneHref}">${site.phone}</a><a class="track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a><a class="track-email" href="${site.emailHref}">${site.email}</a><span>${site.hours}</span></div>
+      <div><h2>Контакты</h2><a class="track-phone" href="${site.phoneHref}">${site.phone}</a><a class="track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a><a class="track-telegram" href="${site.telegram}" target="_blank" rel="noopener">Telegram</a><a class="track-max is-disabled" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">MAX</a><a class="track-email" href="${site.emailHref}">${site.email}</a><span>${site.hours}</span></div>
       <div><h2>Реквизиты</h2><span>${site.company}</span><span>ИНН ${site.inn}</span><span>КПП ${site.kpp}</span><span>ОГРН ${site.ogrn}</span></div>
     </div>
     <div class="container footer__bottom">
@@ -276,7 +290,8 @@ function contactPanel() {
   return `<aside class="contact-panel">
     <p class="eyebrow">Связаться напрямую</p>
     <a class="contact-panel__primary track-phone" href="${site.phoneHref}">${site.phone}</a>
-    <div class="contact-links"><a class="track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a><a class="track-email" href="${site.emailHref}">${site.email}</a></div>
+    ${quickContacts({ modifier: 'quick-contacts--contact', includePhone: false })}
+    <a class="contact-panel__email track-email" href="${site.emailHref}">${site.email}</a>
     <dl><div><dt>Режим работы</dt><dd>${site.hours}</dd></div><div><dt>Стоимость услуг</dt><dd>от 3 000 ₽</dd></div><div><dt>Ориентировочный срок</dt><dd>3–5 рабочих дней</dd></div><div><dt>География</dt><dd>Вся Россия</dd></div></dl>
   </aside>`;
 }
@@ -316,7 +331,10 @@ ${head({
           <div class="hero__actions"><a class="btn btn--primary" href="#hero-lead">Получить консультацию</a><a class="btn btn--outline" href="#hero-lead">Рассчитать стоимость</a></div>
           <p class="hero__hint">Оставьте заявку — специалист свяжется с вами в рабочее время.</p>
         </div>
-        ${heroForm()}
+        <div class="form-stack">
+          ${heroForm()}
+          <div class="form-quick-contacts"><span>Или свяжитесь напрямую</span>${quickContacts({ modifier: 'quick-contacts--form' })}</div>
+        </div>
       </div>
     </section>
 
