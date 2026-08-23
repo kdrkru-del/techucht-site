@@ -74,7 +74,38 @@ const publicConfig = {
   DOCUMENT_LISTS: documentLists,
 };
 
-await output('site-config.js', `window.TECHUCHET_CONFIG = ${JSON.stringify(publicConfig, null, 2)};\n`);
+const metrikaBootstrap = `
+(function initYandexMetrika() {
+  const id = Number(window.TECHUCHET_CONFIG?.YANDEX_METRIKA_ID || 0);
+  if (!Number.isInteger(id) || id <= 0) return;
+
+  window.ym = window.ym || function () {
+    (window.ym.a = window.ym.a || []).push(arguments);
+  };
+  window.ym.l = Date.now();
+
+  const src = \`https://mc.yandex.ru/metrika/tag.js?id=\${id}\`;
+  const exists = Array.from(document.scripts).some((script) => script.src === src || script.src.startsWith('https://mc.yandex.ru/metrika/tag.js'));
+  if (!exists) {
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = src;
+    const firstScript = document.getElementsByTagName('script')[0];
+    if (firstScript?.parentNode) firstScript.parentNode.insertBefore(script, firstScript);
+    else document.head.append(script);
+  }
+
+  window.ym(id, 'init', {
+    ssr: true,
+    webvisor: true,
+    clickmap: true,
+    accurateTrackBounce: true,
+    trackLinks: true
+  });
+})();
+`;
+
+await output('site-config.js', `window.TECHUCHET_CONFIG = ${JSON.stringify(publicConfig, null, 2)};\n${metrikaBootstrap}`);
 
 const urls = ['', ...servicePages.map((page) => `${page.slug}/`), 'privacy/', 'consent/'];
 
