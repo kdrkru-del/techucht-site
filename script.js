@@ -54,7 +54,6 @@
   document.addEventListener('DOMContentLoaded', () => {
     captureAttribution();
     initWebvisorPrivacy();
-    initMetrika();
     primeMetrikaClientId();
     initContacts();
     initCurrentYear();
@@ -192,7 +191,8 @@
     const back = form.querySelector('[data-hero-back]');
     const label = form.querySelector('[data-step-label]');
     const error = form.querySelector('[data-step-error]');
-    next?.addEventListener('click', () => {
+    if (!first || !second || !next || !back || !label || !error) return;
+    next.addEventListener('click', () => {
       const service = form.querySelector('input[name="service"]:checked');
       const phone = form.querySelector('input[name="phone"]');
       const validPhone = phone && phone.value.replace(/\D/g, '').length >= 11;
@@ -210,11 +210,11 @@
       trackGoal('quiz_step_1');
       second.querySelector('select, input, textarea')?.focus();
     });
-    back?.addEventListener('click', () => {
+    back.addEventListener('click', () => {
       second.hidden = true;
       first.hidden = false;
       label.textContent = 'Шаг 1 из 2';
-      next?.focus();
+      next.focus();
     });
     form.addEventListener('lead:success', () => {
       second.hidden = true;
@@ -335,68 +335,43 @@
     if (!node) return;
     node.textContent = message;
     node.classList.toggle('is-success', success === true);
+    node.classList.toggle('is-error', success === false);
   }
 
   function initFaq() {
     document.querySelectorAll('[data-faq-button]').forEach((button) => {
       button.addEventListener('click', () => {
-        const answer = button.closest('.faq-item')?.querySelector('.faq-answer');
-        if (!answer) return;
-        const opening = button.getAttribute('aria-expanded') !== 'true';
-        button.setAttribute('aria-expanded', String(opening));
-        answer.hidden = !opening;
+        const item = button.closest('.faq-item');
+        if (!item) return;
+        const opened = item.classList.toggle('is-open');
+        button.setAttribute('aria-expanded', String(opened));
       });
     });
   }
 
   function initDocumentsTool() {
-    const tool = document.querySelector('[data-documents-tool]');
-    const lists = CONFIG.DOCUMENT_LISTS;
-    if (!tool || !lists) return;
-    let owner = 'person';
-    let action = 'registration';
+    const ownerType = document.querySelector('[data-owner-type]');
+    const actionType = document.querySelector('[data-action-type]');
+    const output = document.querySelector('[data-documents-output]');
+    if (!ownerType || !actionType || !output || !CONFIG.DOCUMENT_LISTS) return;
     const render = () => {
-      const list = tool.querySelector('[data-document-list]');
-      const items = lists?.[owner]?.[action] || [];
-      list.replaceChildren(...items.map((text) => {
-        const item = document.createElement('li');
-        item.textContent = text;
-        return item;
-      }));
+      const owner = CONFIG.DOCUMENT_LISTS[ownerType.value];
+      const docs = owner?.[actionType.value] || [];
+      output.innerHTML = docs.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
     };
-    tool.querySelectorAll('[data-owner]').forEach((button) => button.addEventListener('click', () => {
-      owner = button.dataset.owner;
-      tool.querySelectorAll('[data-owner]').forEach((item) => item.classList.toggle('is-active', item === button));
-      render();
-    }));
-    tool.querySelectorAll('[data-action]').forEach((button) => button.addEventListener('click', () => {
-      action = button.dataset.action;
-      tool.querySelectorAll('[data-action]').forEach((item) => item.classList.toggle('is-active', item === button));
-      render();
-    }));
+    ownerType.addEventListener('change', render);
+    actionType.addEventListener('change', render);
+    render();
   }
 
   function initServiceSelection() {
-    document.querySelectorAll('[data-select-service]').forEach((link) => {
+    document.querySelectorAll('[data-service-event]').forEach((link) => {
       link.addEventListener('click', () => {
-        const service = link.dataset.selectService || '';
-        const situation = link.dataset.situation || '';
-        if (service) {
-          selectedService = service;
-          document.querySelectorAll('[data-lead-form]').forEach((form) => {
-            form.dataset.selectedService = service;
-          });
-        }
-        document.querySelectorAll('select[name="service"]').forEach((select) => {
-          const matching = Array.from(select.options).find((option) => option.value === service);
-          if (matching) select.value = service;
-        });
-        document.querySelectorAll('input[type="radio"][name="service"]').forEach((radio) => {
-          radio.checked = radio.value === service;
-        });
-        if (situation) {
-          const comment = document.querySelector('#main-lead textarea[name="comment"]');
-          if (comment) comment.value = situation;
+        const selected = String(link.dataset.serviceLabel || '').trim();
+        if (selected) {
+          selectedService = selected;
+          const modalForm = document.querySelector('[data-modal] [data-lead-form]');
+          if (modalForm) modalForm.dataset.selectedService = selected;
         }
         const eventName = GOALS[link.dataset.serviceEvent];
         if (eventName) trackGoal(eventName);
@@ -441,27 +416,12 @@
     });
   }
 
-  function initMetrika() {
-    if (!/^\d+$/.test(METRIKA_ID)) return;
-    const guardKey = `__techuchetMetrikaInitialized${METRIKA_ID}`;
-    if (window[guardKey]) return;
-    window[guardKey] = true;
-    window.ym = window.ym || function () { (window.ym.a = window.ym.a || []).push(arguments); };
-    window.ym.l = Date.now();
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://mc.yandex.ru/metrika/tag.js?id=${encodeURIComponent(METRIKA_ID)}`;
-    document.head.append(script);
-    window.ym(Number(METRIKA_ID), 'init', {
-      clickmap: true,
-      trackLinks: true,
-      accurateTrackBounce: true,
-      webvisor: true,
-    });
-  }
-
-  function trackGoal(name) {
+  function trackGoal(name, params) {
     if (!/^\d+$/.test(METRIKA_ID) || typeof window.ym !== 'function') return;
+    if (params && typeof params === 'object') {
+      window.ym(Number(METRIKA_ID), 'reachGoal', name, params);
+      return;
+    }
     window.ym(Number(METRIKA_ID), 'reachGoal', name);
   }
 
@@ -510,5 +470,14 @@
       retryTimer = window.setInterval(attempt, 200);
       deadlineTimer = window.setTimeout(() => finish(cachedMetrikaClientId), 1000);
     });
+  }
+
+  function escapeHtml(value) {
+    return String(value)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;');
   }
 })();

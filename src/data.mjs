@@ -1,3 +1,5 @@
+export const SITE_URL = 'https://tehuchet24.ru';
+
 export const site = {
   brand: 'ТехУчёт',
   company: 'ООО «ЮНАТ»',
@@ -13,7 +15,8 @@ export const site = {
   email: 'jobstat@bk.ru',
   emailHref: 'mailto:jobstat@bk.ru',
   hours: 'Пн–Пт: 9:00–18:00',
-  baseUrl: 'https://tehuchet24.ru',
+  baseUrl: SITE_URL,
+  lastModified: '2026-08-23',
   formEndpoint: 'https://zelsrez-leads.roman-k-0b3.workers.dev/api/lead',
   yandexMetrikaId: '111852031',
 };
