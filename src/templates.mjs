@@ -29,13 +29,11 @@ function head({ title, description, canonical, prefix = '', schemas = [] }) {
   <meta name="twitter:description" content="${description}">
   <meta name="twitter:image" content="${site.baseUrl}/og.png">
   <title>${title}</title>
-  <link rel="icon" type="image/png" href="${prefix}favicon.png?v=2">
-  <link rel="shortcut icon" type="image/png" href="${prefix}favicon.png?v=2">
-  <link rel="apple-touch-icon" href="${prefix}favicon.png?v=2">
+  <link rel="icon" type="image/png" href="${prefix}logo.png">
   <link rel="preload" href="${prefix}style.css?v=11" as="style">
   <link rel="stylesheet" href="${prefix}style.css?v=11">
-  <script src="${prefix}site-config.js?v=10"></script>
-  <script src="${prefix}script.js?v=10" defer></script>
+  <script src="${prefix}site-config.js?v=11"></script>
+  <script src="${prefix}script.js?v=11" defer></script>
   ${schemas.map((schema) => `<script type="application/ld+json">${jsonLd(schema)}</script>`).join('\n  ')}`;
 }
 
@@ -155,7 +153,7 @@ function consentField(id, prefix = '') {
 
 function honeypot() {
   return `<div class="honeypot" aria-hidden="true">
-    <label>Оставьте поле пустым <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
+    <label>Оставьте поле пустым <input class="ym-disable-keys" type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
   </div>`;
 }
 
@@ -184,8 +182,8 @@ function formStatus() {
 
 function simpleContactFields(id) {
   return `<div class="form-grid">
-    <label class="field" for="${id}-name"><span>Имя *</span><input id="${id}-name" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required></label>
-    <label class="field" for="${id}-phone"><span>Телефон *</span><input id="${id}-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
+    <label class="field" for="${id}-name"><span>Имя *</span><input class="ym-disable-keys" id="${id}-name" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required></label>
+    <label class="field" for="${id}-phone"><span>Телефон *</span><input class="ym-disable-keys" id="${id}-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
   </div>`;
 }
 
@@ -328,7 +326,7 @@ function footer(prefix = '') {
         <a class="logo" href="${home}"><img class="logo__img" src="${prefix}logo.png" width="1024" height="682" alt="ТехУчёт — Гостехнадзор"></a>
         <p>Компания по сопровождению регистрационных действий с самоходной техникой по всей России.</p>
       </div>
-      <div><h2>Услуги</h2><a href="${prefix}registraciya/">Постановка на учёт</a><a href="${prefix}snyatie-s-ucheta/">Снятие с учёта</a><a href="${prefix}vosstanovlenie-psm/">Восстановление ПСМ</a><a href="${home}#service-restore_sts">Восстановление СТС</a><a href="${prefix}tehosmotr/">Техосмотр</a><a href="${prefix}slozhnye-sluchai/">Сложные случаи</a></div>
+      <div><h2>Услуги</h2><a href="${prefix}registraciya/">Постановка на учёт</a><a href="${prefix}snyatie-s-ucheta/">Снятие с учёта</a><a href="${prefix}vosstanovlenie-psm/">Восстановление ПСМ</a><a href="${prefix}vosstanovlenie-sts/">Восстановление СТС</a><a href="${prefix}tehosmotr/">Техосмотр</a><a href="${prefix}slozhnye-sluchai/">Сложные случаи</a></div>
       <div><h2>Контакты</h2><a class="track-phone" href="${site.phoneHref}">${site.phone}</a><a class="track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a><a class="track-telegram" href="${site.telegram}" target="_blank" rel="noopener">Telegram</a><a class="footer-max track-max is-disabled" aria-label="MAX" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">${maxContactContent()}</a><a class="track-email" href="${site.emailHref}">${site.email}</a><span>${site.hours}</span></div>
       <div><h2>Реквизиты</h2><span>${site.company}</span><span>ИНН ${site.inn}</span><span>КПП ${site.kpp}</span><span>ОГРН ${site.ogrn}</span></div>
     </div>
@@ -382,7 +380,7 @@ ${head({
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="container hero__grid">
         <div class="hero__content">
-          <p class="hero__badge">ФЕДЕРАЛЬНЫЙ СЕРВИС</p>
+          <p class="hero__badge">ФЕДЕРАЛЬНЫЙ СЕРВИС • РАБОТАЕМ ПО ВСЕЙ РОССИИ</p>
           <h1>Регистрация самоходной техники в Москве, МО и по всей России</h1>
           <p class="hero__subtitle">Поможем подготовить документы и сопроводим постановку на учёт, снятие с учёта, восстановление документов и другие регистрационные действия с самоходной техникой.</p>
           <ul class="hero__benefits"><li>Единый номер для связи</li><li>Дистанционная проверка документов</li><li>Сопровождение с учётом региона</li><li>Срок выполнения большинства работ — 3–5 рабочих дней</li></ul>
@@ -407,7 +405,7 @@ ${head({
     <section class="section" id="services">
       <div class="container">
         <div class="section-heading"><p class="eyebrow">Услуги и стоимость</p><h2>Регистрационные действия без неясных тарифов</h2><p>Проверяем документы, готовим комплект и сопровождаем выбранную услугу с учётом требований региона.</p></div>
-        <div class="service-grid">${services.map((service) => `<article class="service-card${service.featured ? ' service-card--featured' : ''}" id="service-${service.key}">${service.featured ? '<span class="card-index"><strong>Восстановление документов</strong></span>' : ''}<h3>${service.name}</h3><p>${service.situation}</p><h4>Что входит</h4><ul>${service.includes.map((item) => `<li>${item}</li>`).join('')}</ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 5 000 ₽</strong></div><div class="card-actions">${service.page ? `<a class="text-link" href="${service.page}/">Подробнее</a>` : '<span></span>'}<a class="btn btn--primary" href="#lead-form" data-select-service="${service.short}" data-service-event="${service.key}">Получить консультацию</a></div></article>`).join('')}</div>
+        <div class="service-grid">${services.map((service, index) => `<article class="service-card${service.featured ? ' service-card--featured' : ''}" id="service-${service.key}"><span class="card-index"><span>${String(index + 1).padStart(2, '0')}</span>${service.featured ? '<strong>Восстановление документов</strong>' : ''}</span><h3>${service.name}</h3><p>${service.situation}</p><h4>Что входит</h4><ul>${service.includes.map((item) => `<li>${item}</li>`).join('')}</ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 5 000 ₽</strong></div><div class="card-actions">${service.page ? `<a class="text-link" href="${service.page}/">Подробнее</a>` : '<span></span>'}<a class="btn btn--primary" href="#lead-form" data-select-service="${service.short}" data-service-event="${service.key}">Получить консультацию</a></div></article>`).join('')}</div>
         <p class="section-note">Точная стоимость и срок зависят от вида техники, региона, регистрационного действия и комплекта документов. Итоговую стоимость специалист назовёт после проверки документов. Государственные пошлины и сторонние расходы в цену услуг не включены.</p>
       </div>
     </section>

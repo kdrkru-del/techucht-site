@@ -74,44 +74,13 @@ const publicConfig = {
   DOCUMENT_LISTS: documentLists,
 };
 
-const metrikaBootstrap = `
-(function initYandexMetrika() {
-  const id = Number(window.TECHUCHET_CONFIG?.YANDEX_METRIKA_ID || 0);
-  if (!Number.isInteger(id) || id <= 0) return;
-
-  window.ym = window.ym || function () {
-    (window.ym.a = window.ym.a || []).push(arguments);
-  };
-  window.ym.l = Date.now();
-
-  const src = \`https://mc.yandex.ru/metrika/tag.js?id=\${id}\`;
-  const exists = Array.from(document.scripts).some((script) => script.src === src || script.src.startsWith('https://mc.yandex.ru/metrika/tag.js'));
-  if (!exists) {
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = src;
-    const firstScript = document.getElementsByTagName('script')[0];
-    if (firstScript?.parentNode) firstScript.parentNode.insertBefore(script, firstScript);
-    else document.head.append(script);
-  }
-
-  window.ym(id, 'init', {
-    ssr: true,
-    webvisor: true,
-    clickmap: true,
-    accurateTrackBounce: true,
-    trackLinks: true
-  });
-})();
-`;
-
-await output('site-config.js', `window.TECHUCHET_CONFIG = ${JSON.stringify(publicConfig, null, 2)};\n${metrikaBootstrap}`);
+await output('site-config.js', `window.TECHUCHET_CONFIG = ${JSON.stringify(publicConfig, null, 2)};\n`);
 
 const urls = ['', ...servicePages.map((page) => `${page.slug}/`), 'privacy/', 'consent/'];
 
 await output('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((path) => `  <url><loc>${site.baseUrl}/${path}</loc><lastmod>${site.lastModified}</lastmod></url>`).join('\n')}
+${urls.map((path) => `  <url><loc>${site.baseUrl}/${path}</loc><lastmod>2026-08-23</lastmod></url>`).join('\n')}
 </urlset>
 `);
 
@@ -128,7 +97,7 @@ await output('site.webmanifest', JSON.stringify({
   display: 'standalone',
   background_color: '#0a101b',
   theme_color: '#0a101b',
-  icons: [{ src: 'favicon.png', sizes: '1254x1254', type: 'image/png' }],
+  icons: [{ src: 'logo.png', sizes: '1024x682', type: 'image/png' }],
 }, null, 2));
 
 if (!dist.startsWith(root)) throw new Error('Refusing to write outside the project.');
@@ -141,15 +110,14 @@ await mkdir(join(dist, 'server'), { recursive: true });
 await mkdir(join(dist, 'client'), { recursive: true });
 
 for (const file of [
-  'index.html', '404.html', 'style.css', 'script.js', 'site-config.js', 'logo.png', 'favicon.png', 'og.png',
+  'index.html', '404.html', 'style.css', 'script.js', 'site-config.js', 'logo.png', 'og.png',
   'robots.txt', 'sitemap.xml', 'site.webmanifest',
 ]) {
   await copyFile(join(root, file), join(dist, 'client', file));
 }
 
 for (const directory of [
-  'assets', '404', 'registraciya', 'snyatie-s-ucheta', 'vosstanovlenie-psm', 'tehosmotr',
-  'slozhnye-sluchai', 'privacy', 'consent',
+  'assets', '404', ...servicePages.map((page) => page.slug), 'privacy', 'consent',
 ]) {
   await cp(join(root, directory), join(dist, 'client', directory), { recursive: true });
 }

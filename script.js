@@ -16,12 +16,14 @@
     '/registraciya/': 'Постановка на учёт',
     '/snyatie-s-ucheta/': 'Снятие с учёта',
     '/vosstanovlenie-psm/': 'Восстановление ПСМ',
+    '/vosstanovlenie-sts/': 'Восстановление СТС',
     '/tehosmotr/': 'Технический осмотр',
     '/slozhnye-sluchai/': 'Отказ или сложная ситуация',
   };
   const currentPath = window.location.pathname.replace(/index\.html$/, '');
   const pageService = Object.entries(SERVICE_BY_PATH).find(([path]) => currentPath.endsWith(path))?.[1];
   let selectedService = pageService || 'Консультация';
+  let cachedMetrikaClientId = '';
 
   const REGIONS = [
     'Республика Адыгея', 'Республика Алтай', 'Республика Башкортостан', 'Республика Бурятия',
@@ -51,6 +53,9 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     captureAttribution();
+    initWebvisorPrivacy();
+    initMetrika();
+    primeMetrikaClientId();
     initContacts();
     initCurrentYear();
     initMenu();
@@ -187,8 +192,7 @@
     const back = form.querySelector('[data-hero-back]');
     const label = form.querySelector('[data-step-label]');
     const error = form.querySelector('[data-step-error]');
-    if (!first || !second || !next || !back || !label || !error) return;
-    next.addEventListener('click', () => {
+    next?.addEventListener('click', () => {
       const service = form.querySelector('input[name="service"]:checked');
       const phone = form.querySelector('input[name="phone"]');
       const validPhone = phone && phone.value.replace(/\D/g, '').length >= 11;
@@ -206,11 +210,11 @@
       trackGoal('quiz_step_1');
       second.querySelector('select, input, textarea')?.focus();
     });
-    back.addEventListener('click', () => {
+    back?.addEventListener('click', () => {
       second.hidden = true;
       first.hidden = false;
       label.textContent = 'Шаг 1 из 2';
-      next.focus();
+      next?.focus();
     });
     form.addEventListener('lead:success', () => {
       second.hidden = true;
@@ -282,6 +286,7 @@
       form_name: form.dataset.formName || 'Форма сайта',
       page_url: window.location.href,
       page_title: document.title,
+      landing_url: attribution.landing_url || window.location.href,
       utm: {
         utm_source: attribution.utm_source || '',
         utm_medium: attribution.utm_medium || '',
@@ -330,43 +335,68 @@
     if (!node) return;
     node.textContent = message;
     node.classList.toggle('is-success', success === true);
-    node.classList.toggle('is-error', success === false);
   }
 
   function initFaq() {
     document.querySelectorAll('[data-faq-button]').forEach((button) => {
       button.addEventListener('click', () => {
-        const item = button.closest('.faq-item');
-        if (!item) return;
-        const opened = item.classList.toggle('is-open');
-        button.setAttribute('aria-expanded', String(opened));
+        const answer = button.closest('.faq-item')?.querySelector('.faq-answer');
+        if (!answer) return;
+        const opening = button.getAttribute('aria-expanded') !== 'true';
+        button.setAttribute('aria-expanded', String(opening));
+        answer.hidden = !opening;
       });
     });
   }
 
   function initDocumentsTool() {
-    const ownerType = document.querySelector('[data-owner-type]');
-    const actionType = document.querySelector('[data-action-type]');
-    const output = document.querySelector('[data-documents-output]');
-    if (!ownerType || !actionType || !output || !CONFIG.DOCUMENT_LISTS) return;
+    const tool = document.querySelector('[data-documents-tool]');
+    const lists = CONFIG.DOCUMENT_LISTS;
+    if (!tool || !lists) return;
+    let owner = 'person';
+    let action = 'registration';
     const render = () => {
-      const owner = CONFIG.DOCUMENT_LISTS[ownerType.value];
-      const docs = owner?.[actionType.value] || [];
-      output.innerHTML = docs.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
+      const list = tool.querySelector('[data-document-list]');
+      const items = lists?.[owner]?.[action] || [];
+      list.replaceChildren(...items.map((text) => {
+        const item = document.createElement('li');
+        item.textContent = text;
+        return item;
+      }));
     };
-    ownerType.addEventListener('change', render);
-    actionType.addEventListener('change', render);
-    render();
+    tool.querySelectorAll('[data-owner]').forEach((button) => button.addEventListener('click', () => {
+      owner = button.dataset.owner;
+      tool.querySelectorAll('[data-owner]').forEach((item) => item.classList.toggle('is-active', item === button));
+      render();
+    }));
+    tool.querySelectorAll('[data-action]').forEach((button) => button.addEventListener('click', () => {
+      action = button.dataset.action;
+      tool.querySelectorAll('[data-action]').forEach((item) => item.classList.toggle('is-active', item === button));
+      render();
+    }));
   }
 
   function initServiceSelection() {
-    document.querySelectorAll('[data-service-event]').forEach((link) => {
+    document.querySelectorAll('[data-select-service]').forEach((link) => {
       link.addEventListener('click', () => {
-        const selected = String(link.dataset.serviceLabel || '').trim();
-        if (selected) {
-          selectedService = selected;
-          const modalForm = document.querySelector('[data-modal] [data-lead-form]');
-          if (modalForm) modalForm.dataset.selectedService = selected;
+        const service = link.dataset.selectService || '';
+        const situation = link.dataset.situation || '';
+        if (service) {
+          selectedService = service;
+          document.querySelectorAll('[data-lead-form]').forEach((form) => {
+            form.dataset.selectedService = service;
+          });
+        }
+        document.querySelectorAll('select[name="service"]').forEach((select) => {
+          const matching = Array.from(select.options).find((option) => option.value === service);
+          if (matching) select.value = service;
+        });
+        document.querySelectorAll('input[type="radio"][name="service"]').forEach((radio) => {
+          radio.checked = radio.value === service;
+        });
+        if (situation) {
+          const comment = document.querySelector('#main-lead textarea[name="comment"]');
+          if (comment) comment.value = situation;
         }
         const eventName = GOALS[link.dataset.serviceEvent];
         if (eventName) trackGoal(eventName);
@@ -389,9 +419,15 @@
   function captureAttribution() {
     const params = new URLSearchParams(window.location.search);
     const current = getAttribution();
-    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'yclid'].forEach((key) => {
+    const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'yclid'];
+    const hasNewAttribution = keys.some((key) => params.has(key));
+    keys.forEach((key) => {
       if (params.get(key)) current[key] = params.get(key);
     });
+    if (hasNewAttribution || !current.landing_url) {
+      current.landing_url = window.location.href;
+      current.captured_at = new Date().toISOString();
+    }
     try { sessionStorage.setItem(ATTRIBUTION_KEY, JSON.stringify(current)); } catch { /* Storage can be disabled. */ }
   }
 
@@ -399,53 +435,80 @@
     try { return JSON.parse(sessionStorage.getItem(ATTRIBUTION_KEY) || '{}'); } catch { return {}; }
   }
 
-  function trackGoal(name, params) {
+  function initWebvisorPrivacy() {
+    document.querySelectorAll('[data-lead-form] input, [data-lead-form] textarea, [data-lead-form] select').forEach((field) => {
+      field.classList.add('ym-disable-keys');
+    });
+  }
+
+  function initMetrika() {
+    if (!/^\d+$/.test(METRIKA_ID)) return;
+    const guardKey = `__techuchetMetrikaInitialized${METRIKA_ID}`;
+    if (window[guardKey]) return;
+    window[guardKey] = true;
+    window.ym = window.ym || function () { (window.ym.a = window.ym.a || []).push(arguments); };
+    window.ym.l = Date.now();
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://mc.yandex.ru/metrika/tag.js?id=${encodeURIComponent(METRIKA_ID)}`;
+    document.head.append(script);
+    window.ym(Number(METRIKA_ID), 'init', {
+      clickmap: true,
+      trackLinks: true,
+      accurateTrackBounce: true,
+      webvisor: true,
+    });
+  }
+
+  function trackGoal(name) {
     if (!/^\d+$/.test(METRIKA_ID) || typeof window.ym !== 'function') return;
-    if (params && typeof params === 'object') {
-      window.ym(Number(METRIKA_ID), 'reachGoal', name, params);
-      return;
-    }
     window.ym(Number(METRIKA_ID), 'reachGoal', name);
   }
 
+  function requestMetrikaClientId(onValue = () => {}) {
+    if (!/^\d+$/.test(METRIKA_ID) || typeof window.ym !== 'function') return;
+    window.ym(Number(METRIKA_ID), 'getClientID', (value) => {
+      const clientId = String(value || '');
+      if (!clientId) return;
+      cachedMetrikaClientId = clientId;
+      onValue(clientId);
+    });
+  }
+
+  function primeMetrikaClientId() {
+    [0, 250, 750, 1500, 3000].forEach((delay) => {
+      window.setTimeout(() => requestMetrikaClientId(), delay);
+    });
+  }
+
   function getMetrikaClientId() {
+    if (cachedMetrikaClientId) return Promise.resolve(cachedMetrikaClientId);
     return new Promise((resolve) => {
-      if (!/^\d+$/.test(METRIKA_ID)) {
+      if (!/^\d+$/.test(METRIKA_ID) || typeof window.ym !== 'function') {
         resolve('');
         return;
       }
       let settled = false;
-      let attempts = 0;
+      let retryTimer;
+      let deadlineTimer;
       const finish = (value = '') => {
         if (settled) return;
         settled = true;
+        window.clearInterval(retryTimer);
+        window.clearTimeout(deadlineTimer);
         resolve(String(value || ''));
       };
-      const tryGetClientId = () => {
-        if (settled) return;
-        attempts += 1;
-        if (typeof window.ym === 'function') {
-          try {
-            window.ym(Number(METRIKA_ID), 'getClientID', (clientId) => {
-              if (clientId) finish(clientId);
-            });
-          } catch { /* Retry until timeout. */ }
+      const attempt = () => {
+        if (cachedMetrikaClientId) {
+          finish(cachedMetrikaClientId);
+          return;
         }
-        if (attempts < 10) {
-          window.setTimeout(tryGetClientId, 300);
-        }
+        requestMetrikaClientId(finish);
       };
-      tryGetClientId();
-      window.setTimeout(() => finish(''), 3200);
+      attempt();
+      if (settled) return;
+      retryTimer = window.setInterval(attempt, 200);
+      deadlineTimer = window.setTimeout(() => finish(cachedMetrikaClientId), 1000);
     });
-  }
-
-  function escapeHtml(value) {
-    return String(value)
-      .replaceAll('&', '&amp;')
-      .replaceAll('<', '&lt;')
-      .replaceAll('>', '&gt;')
-      .replaceAll('"', '&quot;')
-      .replaceAll("'", '&#039;');
   }
 })();
