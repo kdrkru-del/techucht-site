@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kdrkru-del.github.io/techucht-site/sitemap.xml
+Sitemap: https://tehuchet24.ru/sitemap.xml

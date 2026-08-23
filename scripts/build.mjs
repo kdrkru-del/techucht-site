@@ -80,7 +80,7 @@ const urls = ['', ...servicePages.map((page) => `${page.slug}/`), 'privacy/', 'c
 
 await output('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((path) => `  <url><loc>${site.baseUrl}/${path}</loc><lastmod>2026-08-08</lastmod></url>`).join('\n')}
+${urls.map((path) => `  <url><loc>${site.baseUrl}/${path}</loc><lastmod>${site.lastModified}</lastmod></url>`).join('\n')}
 </urlset>
 `);
 
