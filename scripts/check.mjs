@@ -53,6 +53,10 @@ for (const file of htmlFiles) {
   if (!html.includes('name="consent"') && !file.startsWith('404')) errors.push(`${file}: missing consent field`);
   if ((html.match(/site-config\.js\?v=11/g) || []).length !== 1) errors.push(`${file}: site-config.js must be included exactly once`);
   if ((html.match(/script\.js\?v=11/g) || []).length !== 1) errors.push(`${file}: script.js must be included exactly once`);
+  if ((html.match(/rel="icon"[^>]*favicon\.png\?v=3/g) || []).length !== 1) errors.push(`${file}: favicon link missing`);
+  if ((html.match(/rel="shortcut icon"[^>]*favicon\.png\?v=3/g) || []).length !== 1) errors.push(`${file}: shortcut favicon link missing`);
+  if ((html.match(/rel="apple-touch-icon"[^>]*favicon\.png\?v=3/g) || []).length !== 1) errors.push(`${file}: apple touch icon link missing`);
+  if (/rel="(?:shortcut )?icon"[^>]*logo\.png/.test(html)) errors.push(`${file}: rectangular logo used as favicon`);
   if (/mc\.yandex\.ru\/metrika\/tag\.js/.test(html)) errors.push(`${file}: inline duplicate Metrika loader found`);
   if (html.includes('name="keywords"')) errors.push(`${file}: meta keywords found`);
   for (const value of forbidden) {
@@ -126,7 +130,7 @@ if (mainMaxLinks < 6) errors.push(`index.html: expected MAX in all contact areas
 if (/href="[^"]*max\.ru/i.test(main)) errors.push('index.html: MAX URL must come from site-config.js');
 const mainMaxTags = main.match(/<a class="[^"]*track-max[^"]*"[^>]*>[\s\S]*?<\/a>/g) || [];
 if (mainMaxTags.some((tag) => /925[\s-]*757|79257577888/.test(tag))) errors.push('index.html: phone must not be displayed inside MAX buttons');
-if (!main.includes('href="logo.png"')) errors.push('index.html: favicon missing');
+if (!main.includes('href="favicon.png?v=3"')) errors.push('index.html: favicon missing');
 
 const clientScript = await readFile(join(root, 'script.js'), 'utf8');
 if (!clientScript.includes("trackGoal('click_max')")) errors.push('script.js: click_max goal missing');

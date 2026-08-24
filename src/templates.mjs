@@ -29,7 +29,9 @@ function head({ title, description, canonical, prefix = '', schemas = [] }) {
   <meta name="twitter:description" content="${description}">
   <meta name="twitter:image" content="${site.baseUrl}/og.png">
   <title>${title}</title>
-  <link rel="icon" type="image/png" href="${prefix}logo.png">
+  <link rel="icon" type="image/png" href="${prefix}favicon.png?v=3">
+  <link rel="shortcut icon" type="image/png" href="${prefix}favicon.png?v=3">
+  <link rel="apple-touch-icon" href="${prefix}favicon.png?v=3">
   <link rel="preload" href="${prefix}style.css?v=11" as="style">
   <link rel="stylesheet" href="${prefix}style.css?v=11">
   <script src="${prefix}site-config.js?v=11"></script>

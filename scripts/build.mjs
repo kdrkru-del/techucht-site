@@ -97,7 +97,7 @@ await output('site.webmanifest', JSON.stringify({
   display: 'standalone',
   background_color: '#0a101b',
   theme_color: '#0a101b',
-  icons: [{ src: 'logo.png', sizes: '1024x682', type: 'image/png' }],
+  icons: [{ src: 'favicon.png', sizes: '1254x1254', type: 'image/png' }],
 }, null, 2));
 
 if (!dist.startsWith(root)) throw new Error('Refusing to write outside the project.');
@@ -110,7 +110,7 @@ await mkdir(join(dist, 'server'), { recursive: true });
 await mkdir(join(dist, 'client'), { recursive: true });
 
 for (const file of [
-  'index.html', '404.html', 'style.css', 'script.js', 'site-config.js', 'logo.png', 'og.png',
+  'index.html', '404.html', 'style.css', 'script.js', 'site-config.js', 'favicon.png', 'logo.png', 'og.png',
   'robots.txt', 'sitemap.xml', 'site.webmanifest',
 ]) {
   await copyFile(join(root, file), join(dist, 'client', file));
