@@ -29,9 +29,7 @@ function head({ title, description, canonical, prefix = '', schemas = [] }) {
   <meta name="twitter:description" content="${description}">
   <meta name="twitter:image" content="${site.baseUrl}/og.png">
   <title>${title}</title>
-  <link rel="icon" type="image/png" href="${prefix}favicon.png?v=2">
-  <link rel="shortcut icon" type="image/png" href="${prefix}favicon.png?v=2">
-  <link rel="apple-touch-icon" href="${prefix}favicon.png?v=2">
+  <link rel="icon" type="image/png" href="${prefix}logo.png">
   <link rel="preload" href="${prefix}style.css?v=11" as="style">
   <link rel="stylesheet" href="${prefix}style.css?v=11">
   <script src="${prefix}site-config.js?v=11"></script>
@@ -148,7 +146,7 @@ function header(prefix = '') {
 
 function consentField(id, prefix = '') {
   return `<label class="consent" for="${id}">
-    <input class="ym-disable-keys" id="${id}" name="consent" type="checkbox" required>
+    <input id="${id}" name="consent" type="checkbox" required>
     <span>Я соглашаюсь на <a href="${prefix}consent/" target="_blank">обработку персональных данных</a> и принимаю <a href="${prefix}privacy/" target="_blank">Политику конфиденциальности</a>.</span>
   </label>`;
 }
@@ -162,7 +160,7 @@ function honeypot() {
 function serviceSelect(id, selected = '') {
   return `<label class="field" for="${id}">
     <span>Услуга *</span>
-    <select class="ym-disable-keys" id="${id}" name="service" required>
+    <select id="${id}" name="service" required>
       <option value="">Выберите услугу</option>
       ${serviceOptions.map((option) => `<option value="${option}"${option === selected ? ' selected' : ''}>${option}</option>`).join('')}
     </select>
@@ -172,7 +170,7 @@ function serviceSelect(id, selected = '') {
 function regionSelect(id) {
   return `<label class="field" for="${id}">
     <span>Регион *</span>
-    <select class="ym-disable-keys" id="${id}" name="region" required data-region-select>
+    <select id="${id}" name="region" required data-region-select>
       <option value="">Выберите регион</option>
     </select>
   </label>`;
@@ -254,18 +252,18 @@ function heroForm() {
     <fieldset class="form-step" data-hero-step="1">
       <legend>Какая услуга требуется?</legend>
       <div class="choice-grid">
-        ${heroOptions.map((option) => `<label class="choice"><input class="ym-disable-keys" type="radio" name="service" value="${option}" required><span>${option}</span></label>`).join('')}
+        ${heroOptions.map((option) => `<label class="choice"><input type="radio" name="service" value="${option}" required><span>${option}</span></label>`).join('')}
       </div>
-      <label class="field" for="hero-phone"><span>Телефон *</span><input class="ym-disable-keys" id="hero-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
+      <label class="field" for="hero-phone"><span>Телефон *</span><input id="hero-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
       <button class="btn btn--primary btn--full" type="button" data-hero-next>Получить расчёт стоимости</button>
       <p class="field-error" data-step-error role="alert"></p>
     </fieldset>
     <fieldset class="form-step" data-hero-step="2" hidden>
       <legend>Осталось немного</legend>
       ${regionSelect('hero-region')}
-      <label class="field" for="hero-tech"><span>Вид техники</span><input class="ym-disable-keys" id="hero-tech" name="tech" type="text" placeholder="Например, трактор МТЗ-82"></label>
-      <label class="field" for="hero-owner"><span>Тип собственника</span><select class="ym-disable-keys" id="hero-owner" name="owner"><option value="">Выберите вариант</option><option>Физическое лицо</option><option>ИП</option><option>Организация</option></select></label>
-      <label class="field" for="hero-comment"><span>Комментарий</span><textarea class="ym-disable-keys" id="hero-comment" name="comment" rows="3" placeholder="Коротко опишите задачу (необязательно)"></textarea></label>
+      <label class="field" for="hero-tech"><span>Вид техники</span><input id="hero-tech" name="tech" type="text" placeholder="Например, трактор МТЗ-82"></label>
+      <label class="field" for="hero-owner"><span>Тип собственника</span><select id="hero-owner" name="owner"><option value="">Выберите вариант</option><option>Физическое лицо</option><option>ИП</option><option>Организация</option></select></label>
+      <label class="field" for="hero-comment"><span>Комментарий</span><textarea id="hero-comment" name="comment" rows="3" placeholder="Коротко опишите задачу (необязательно)"></textarea></label>
       ${consentField('hero-consent')}
       <div class="form-actions"><button class="btn btn--text" type="button" data-hero-back>Назад</button><button class="btn btn--primary" type="submit">Отправить заявку</button></div>
       ${formStatus()}
@@ -278,12 +276,12 @@ function finalForm({ id = 'main-lead', selected = '', prefix = '', title = 'По
     ${honeypot()}
     <div class="form-card__header"><p class="eyebrow">Заявка</p><h2>${title}</h2><p>Специалист уточнит задачу, проверит документы и назовёт стоимость работ.</p></div>
     <div class="form-grid">
-      <label class="field" for="${id}-name"><span>Имя</span><input class="ym-disable-keys" id="${id}-name" name="name" type="text" autocomplete="name" placeholder="Необязательно"></label>
-      <label class="field" for="${id}-phone"><span>Телефон *</span><input class="ym-disable-keys" id="${id}-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
+      <label class="field" for="${id}-name"><span>Имя</span><input id="${id}-name" name="name" type="text" autocomplete="name" placeholder="Необязательно"></label>
+      <label class="field" for="${id}-phone"><span>Телефон *</span><input id="${id}-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
       ${regionSelect(`${id}-region`)}
       ${serviceSelect(`${id}-service`, selected)}
     </div>
-    <label class="field" for="${id}-comment"><span>Комментарий</span><textarea class="ym-disable-keys" id="${id}-comment" name="comment" rows="4" placeholder="Опишите задачу (необязательно)"></textarea></label>
+    <label class="field" for="${id}-comment"><span>Комментарий</span><textarea id="${id}-comment" name="comment" rows="4" placeholder="Опишите задачу (необязательно)"></textarea></label>
     ${consentField(`${id}-consent`, prefix)}
     <button class="btn btn--primary btn--full" type="submit">Отправить заявку</button>
     ${formStatus()}
@@ -299,9 +297,9 @@ function callbackModal(prefix = '') {
       <p>Оставьте номер и регион — специалист свяжется с вами в рабочее время.</p>
       <form data-lead-form data-form-name="Обратный звонок" novalidate>
         ${honeypot()}
-        <input class="ym-disable-keys" type="hidden" name="service" value="Обратный звонок">
-        <label class="field"><span>Имя</span><input class="ym-disable-keys" name="name" type="text" autocomplete="name" placeholder="Необязательно"></label>
-        <label class="field"><span>Телефон *</span><input class="ym-disable-keys" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
+        <input type="hidden" name="service" value="Обратный звонок">
+        <label class="field"><span>Имя</span><input name="name" type="text" autocomplete="name" placeholder="Необязательно"></label>
+        <label class="field"><span>Телефон *</span><input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
         ${regionSelect('callback-region')}
         ${consentField('callback-consent', prefix)}
         <button class="btn btn--primary btn--full" type="submit">Заказать звонок</button>
@@ -354,6 +352,77 @@ function contactPanel() {
   </aside>`;
 }
 
+function serviceExtraSection(page) {
+  if (page.key === 'registration') {
+    return `<section class="section section--alt service-detail" id="pereregistraciya">
+      <div class="container">
+        <div class="section-heading section-heading--left">
+          <p class="eyebrow">Переоформление техники</p>
+          <h2>Перерегистрация и смена собственника самоходной техники</h2>
+          <p>Помогаем подготовить документы для переоформления самоходной техники при смене собственника, продаже, передаче по договору или изменении регистрационных данных. До начала работ проверяем документы на технику, основание перехода права и сведения о новом собственнике.</p>
+        </div>
+        <div class="service-detail__grid">
+          <div class="service-detail__panel">
+            <h3>С какой техникой работаем</h3>
+            <ul class="check-list">
+              <li>Регистрация трактора</li>
+              <li>Регистрация погрузчика</li>
+              <li>Регистрация вилочного погрузчика</li>
+              <li>Регистрация экскаватора</li>
+              <li>Регистрация экскаватора-погрузчика</li>
+              <li>Регистрация самоходной машины</li>
+              <li>Постановка другой спецтехники на учёт в Гостехнадзоре</li>
+            </ul>
+          </div>
+          <div class="service-detail__panel">
+            <h3>Что входит в сопровождение</h3>
+            <ul class="check-list">
+              <li>Предварительная проверка документов</li>
+              <li>Проверка основания смены собственника</li>
+              <li>Подготовка заявления и комплекта документов</li>
+              <li>Сопровождение регистрационных действий</li>
+              <li>Информирование о недостающих документах и возможных препятствиях</li>
+            </ul>
+          </div>
+        </div>
+        <div class="service-detail__actions">
+          <a class="btn btn--primary" href="#page-form" data-select-service="Внесение изменений" data-service-event="changes">Проверить документы для переоформления</a>
+          <p>Возможность переоформления, итоговый порядок и срок зависят от документов, истории владения и требований соответствующего подразделения Гостехнадзора.</p>
+        </div>
+      </div>
+    </section>`;
+  }
+
+  if (page.key === 'inspection') {
+    return `<section class="section section--alt service-detail" id="akt-osmotra">
+      <div class="container">
+        <div class="section-heading section-heading--left">
+          <p class="eyebrow">Осмотр техники</p>
+          <h2>Акт осмотра самоходной техники</h2>
+          <p>Помогаем подготовить документы и организовать сопровождение осмотра самоходной техники, когда для регистрационных действий требуется акт осмотра. Предварительно проверяем сведения о собственнике, документы на технику и идентификационные данные.</p>
+        </div>
+        <div class="service-detail__panel service-detail__panel--wide">
+          <h3>Что проверяем до осмотра</h3>
+          <ul class="check-list service-detail__list--columns">
+            <li>Паспорт самоходной машины или сведения об ЭПСМ</li>
+            <li>Документы о праве собственности</li>
+            <li>Сведения о собственнике</li>
+            <li>Заводские и идентификационные номера</li>
+            <li>Соответствие сведений в документах</li>
+            <li>Комплект документов для требуемого регистрационного действия</li>
+          </ul>
+        </div>
+        <div class="service-detail__actions">
+          <a class="btn btn--primary" href="#page-form" data-select-service="Технический осмотр" data-service-event="inspection">Получить консультацию по акту осмотра</a>
+          <p>Возможность оформления акта и итоговый порядок действий зависят от документов, состояния идентификационной маркировки, региона и требований соответствующего подразделения Гостехнадзора.</p>
+        </div>
+      </div>
+    </section>`;
+  }
+
+  return '';
+}
+
 export function mainPage() {
   const title = 'Регистрация самоходной техники в Москве, МО и по всей России — ТехУчёт';
   const description = 'Проверка документов и сопровождение регистрации самоходной техники в Москве, МО и по всей России. Услуги от 5 000 ₽, ориентировочный срок 3–5 рабочих дней.';
@@ -382,7 +451,6 @@ ${head({
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="container hero__grid">
         <div class="hero__content">
-          <p class="hero__badge">ФЕДЕРАЛЬНЫЙ СЕРВИС</p>
           <h1>Регистрация самоходной техники в Москве, МО и по всей России</h1>
           <p class="hero__subtitle">Поможем подготовить документы и сопроводим постановку на учёт, снятие с учёта, восстановление документов и другие регистрационные действия с самоходной техникой.</p>
           <ul class="hero__benefits"><li>Единый номер для связи</li><li>Дистанционная проверка документов</li><li>Сопровождение с учётом региона</li><li>Срок выполнения большинства работ — 3–5 рабочих дней</li></ul>
@@ -407,7 +475,7 @@ ${head({
     <section class="section" id="services">
       <div class="container">
         <div class="section-heading"><p class="eyebrow">Услуги и стоимость</p><h2>Регистрационные действия без неясных тарифов</h2><p>Проверяем документы, готовим комплект и сопровождаем выбранную услугу с учётом требований региона.</p></div>
-        <div class="service-grid">${services.map((service) => `<article class="service-card${service.featured ? ' service-card--featured' : ''}" id="service-${service.key}">${service.featured ? '<span class="card-index"><strong>Восстановление документов</strong></span>' : ''}<h3>${service.name}</h3><p>${service.situation}</p><h4>Что входит</h4><ul>${service.includes.map((item) => `<li>${item}</li>`).join('')}</ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 5 000 ₽</strong></div><div class="card-actions">${service.page ? `<a class="text-link" href="${service.page}/">Подробнее</a>` : '<span></span>'}<a class="btn btn--primary" href="#lead-form" data-select-service="${service.short}" data-service-event="${service.key}">Получить консультацию</a></div></article>`).join('')}</div>
+        <div class="service-grid">${services.map((service) => `<article class="service-card" id="service-${service.key}"><h3>${service.name}</h3><p>${service.situation}</p><h4>Что входит</h4><ul>${service.includes.map((item) => `<li>${item}</li>`).join('')}</ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 5 000 ₽</strong></div><div class="card-actions">${service.page ? `<a class="text-link" href="${service.page}/">Подробнее</a>` : '<span></span>'}<a class="btn btn--primary" href="#lead-form" data-select-service="${service.short}" data-service-event="${service.key}">Получить консультацию</a></div></article>`).join('')}</div>
         <p class="section-note">Точная стоимость и срок зависят от вида техники, региона, регистрационного действия и комплекта документов. Итоговую стоимость специалист назовёт после проверки документов. Государственные пошлины и сторонние расходы в цену услуг не включены.</p>
       </div>
     </section>
@@ -491,11 +559,12 @@ ${head({ title: `${page.h1} — ТехУчёт`, description, canonical, prefix:
   <main id="main">
     <section class="service-hero">
       <div class="container"><nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>•</span><span>${page.short}</span></nav>
-        <div class="service-hero__grid"><div><p class="eyebrow">ТехУчёт • Работаем по всей России</p><h1>${page.h1}</h1><p>${page.description}</p><div class="service-hero__meta"><strong>от 5 000 ₽</strong><span>Ориентировочно 3–5 рабочих дней</span></div><div class="hero__actions"><a class="btn btn--primary" href="#page-form" data-select-service="${page.short}" data-service-event="${page.key}">Получить консультацию</a><a class="btn btn--outline track-phone" href="${site.phoneHref}">${site.phone}</a></div></div>
-        <div class="service-summary"><h2>Что входит в работу</h2><ul>${page.works.map((item) => `<li>${item}</li>`).join('')}</ul><p>Точный порядок определяется после проверки документов.</p></div></div>
+        <div class="service-hero__grid"><div><p class="eyebrow">ТехУчёт • Работаем по всей России</p><h1>${page.h1}</h1><p>${page.description}</p><div class="service-hero__meta" id="price" aria-label="Стоимость и ориентировочный срок"><strong>от 5 000 ₽</strong><span>Ориентировочно 3–5 рабочих дней</span></div><div class="hero__actions"><a class="btn btn--primary" href="#page-form" data-select-service="${page.short}" data-service-event="${page.key}">Получить консультацию</a><a class="btn btn--outline track-phone" href="${site.phoneHref}">${site.phone}</a></div></div>
+        <div class="service-summary" id="how"><h2>Что входит в работу</h2><ul>${page.works.map((item) => `<li>${item}</li>`).join('')}</ul><p>Точный порядок определяется после проверки документов.</p></div></div>
       </div>
     </section>
-    <section class="section"><div class="container two-column"><div><p class="eyebrow">Типовые ситуации</p><h2>Когда обращаются</h2><ul class="check-list">${page.situations.map((item) => `<li>${item}</li>`).join('')}</ul></div><div><p class="eyebrow">Документы</p><h2>Что подготовить</h2><ul class="check-list">${page.docs.map((item) => `<li>${item}</li>`).join('')}</ul><p class="section-note">Точный перечень зависит от вида техники, региона и истории владения.</p></div></div></section>
+    <section class="section"><div class="container two-column"><div><p class="eyebrow">Типовые ситуации</p><h2>Когда обращаются</h2><ul class="check-list">${page.situations.map((item) => `<li>${item}</li>`).join('')}</ul></div><div id="documents"><p class="eyebrow">Документы</p><h2>Что подготовить</h2><ul class="check-list">${page.docs.map((item) => `<li>${item}</li>`).join('')}</ul><p class="section-note">Точный перечень зависит от вида техники, региона и истории владения.</p></div></div></section>
+${serviceExtraSection(page)}
     <section class="section section--alt"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Вопросы по услуге</p><h2>Перед началом работы</h2></div>${faqBlock(pageFaq)}</div></section>
     <section class="section lead-section" id="page-form"><div class="container lead-layout">${contactPanel()}${simpleFinalForm({ id: `${page.slug}-lead`, prefix: '../', title: `Получить консультацию: ${page.short}` })}</div></section>
   </main>
