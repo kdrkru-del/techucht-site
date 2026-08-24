@@ -65,10 +65,14 @@ for (const value of requiredMain) {
   if (!main.includes(value)) errors.push(`index.html: required text missing "${value}"`);
 }
 if (!main.includes('"price":"5000"')) errors.push('index.html: schema.org price 5000 missing');
-for (const value of ['Восстановление ПСМ', 'Восстановление СТС', 'data-service-event="restore_sts"']) {
-  if (!main.includes(value)) errors.push(`index.html: document service missing "${value}"`);
+for (const value of ['id="service-restore_psm"', 'Восстановление ПСМ и СТС', 'href="vosstanovlenie-psm/"']) {
+  if (!main.includes(value)) errors.push(`index.html: combined document recovery service missing "${value}"`);
 }
-if (!main.includes('href="vosstanovlenie-sts/"')) errors.push('index.html: restore STS service page link missing');
+for (const value of ['id="service-restore_sts"', 'id="service-documents"', 'id="service-plates"', 'Получение или замена регистрационных документов', 'Получение или замена номерных знаков']) {
+  if (main.includes(value)) errors.push(`index.html: removed service card returned "${value}"`);
+}
+const serviceCardCount = (main.match(/<article class="service-card"/g) || []).length;
+if (serviceCardCount !== 6) errors.push(`index.html: expected 6 service cards, found ${serviceCardCount}`);
 for (const value of ['class="card-index"', 'service-card--featured', '<strong>Восстановление документов</strong>']) {
   if (main.includes(value)) errors.push(`index.html: removed service-card decoration returned "${value}"`);
 }
