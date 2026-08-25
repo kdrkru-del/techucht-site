@@ -129,7 +129,7 @@ const mainMaxLinks = (main.match(/class="[^"]*track-max/g) || []).length;
 if (mainMaxLinks < 6) errors.push(`index.html: expected MAX in all contact areas, found ${mainMaxLinks}`);
 if (/href="[^"]*max\.ru/i.test(main)) errors.push('index.html: MAX URL must come from site-config.js');
 const mainMaxTags = main.match(/<a class="[^"]*track-max[^"]*"[^>]*>[\s\S]*?<\/a>/g) || [];
-if (mainMaxTags.some((tag) => /925[\s-]*757|79257577888/.test(tag))) errors.push('index.html: phone must not be displayed inside MAX buttons');
+if (mainMaxTags.some((tag) => /999[\s-]*552|79995522001/.test(tag))) errors.push('index.html: phone must not be displayed inside MAX buttons');
 if (!main.includes('href="favicon.png?v=3"')) errors.push('index.html: favicon missing');
 
 const clientScript = await readFile(join(root, 'script.js'), 'utf8');

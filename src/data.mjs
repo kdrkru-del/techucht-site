@@ -4,8 +4,8 @@ export const site = {
   inn: '2536345868',
   kpp: '253601001',
   ogrn: '1242500018859',
-  phone: '+7 925 757-78-88',
-  phoneHref: 'tel:+79257577888',
+  phone: '+7 999 552-20-01',
+  phoneHref: 'tel:+79995522001',
   whatsapp: 'https://wa.me/79257577888',
   telegram: 'https://t.me/Romatran',
   // Персональная ссылка MAX, скопированная владельцем из приложения.

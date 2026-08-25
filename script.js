@@ -260,7 +260,7 @@
       form.dispatchEvent(new CustomEvent('lead:success', { bubbles: true }));
     } catch (error) {
       console.error('[ТехУчёт] Ошибка отправки формы:', error);
-      setStatus(status, `Не удалось отправить заявку. Позвоните ${CONFIG.PHONE || '+7 925 757-78-88'} или повторите попытку.`, false);
+      setStatus(status, `Не удалось отправить заявку. Позвоните ${CONFIG.PHONE || '+7 999 552-20-01'} или повторите попытку.`, false);
       trackGoal('lead_form_error');
     } finally {
       setButtonLoading(button, false);
