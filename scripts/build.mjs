@@ -111,7 +111,7 @@ await mkdir(join(dist, 'client'), { recursive: true });
 
 for (const file of [
   'index.html', '404.html', 'style.css', 'script.js', 'site-config.js', 'favicon.png', 'logo.png', 'og.png',
-  'robots.txt', 'sitemap.xml', 'site.webmanifest',
+  'robots.txt', 'sitemap.xml', 'site.webmanifest', 'yandex_51c60f752ea2994f.html',
 ]) {
   await copyFile(join(root, file), join(dist, 'client', file));
 }
