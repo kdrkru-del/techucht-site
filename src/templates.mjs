@@ -6,6 +6,7 @@ import {
   processSteps,
   cases,
   faq,
+  spbLanding,
 } from './data.mjs';
 
 const jsonLd = (data) => JSON.stringify(data).replace(/</g, '\\u003c');
@@ -110,18 +111,19 @@ function quickContacts({ modifier = '', includePhone = true } = {}) {
   </div>`;
 }
 
-function header(prefix = '') {
+function header(prefix = '', sectionBase = null) {
   const home = prefix || './';
+  const sections = sectionBase || home;
   return `<header class="header" id="header">
     <div class="container header__inner">
       <a class="logo" href="${home}" aria-label="ТехУчёт — главная">
         <img class="logo__img" src="${prefix}logo.png" width="1024" height="682" alt="ТехУчёт — Гостехнадзор">
       </a>
       <nav class="nav" aria-label="Основная навигация">
-        <a href="${home}#services">Услуги</a>
-        <a href="${home}#situations">Сложные ситуации</a>
-        <a href="${home}#process">Как работаем</a>
-        <a href="${home}#faq">Вопросы</a>
+        <a href="${sections}#services">Услуги</a>
+        <a href="${sections}#situations">Сложные ситуации</a>
+        <a href="${sections}#process">Как работаем</a>
+        <a href="${sections}#faq">Вопросы</a>
       </nav>
       <div class="header__actions">
         <a class="header__phone track-phone" href="${site.phoneHref}">${site.phone}</a>
@@ -135,10 +137,10 @@ function header(prefix = '') {
     <div class="mobile-menu" id="mobile-menu" hidden data-mobile-menu>
       <div class="container">
         <nav aria-label="Мобильная навигация">
-          <a href="${home}#services">Услуги</a>
-          <a href="${home}#situations">Сложные ситуации</a>
-          <a href="${home}#process">Как работаем</a>
-          <a href="${home}#faq">Вопросы</a>
+          <a href="${sections}#services">Услуги</a>
+          <a href="${sections}#situations">Сложные ситуации</a>
+          <a href="${sections}#process">Как работаем</a>
+          <a href="${sections}#faq">Вопросы</a>
         </nav>
         ${quickContacts({ modifier: 'quick-contacts--menu' })}
       </div>
@@ -354,6 +356,28 @@ function contactPanel() {
   </aside>`;
 }
 
+function spbLeadForm({ id, title, text, buttonText, formName }) {
+  return `<form class="form-card lead-form" id="${id}" data-lead-form data-form-name="${formName}" data-selected-service="${spbLanding.defaultService}" novalidate>
+    ${honeypot()}
+    <div class="form-card__header"><p class="eyebrow">Заявка</p><h2>${title}</h2><p>${text}</p></div>
+    ${simpleContactFields(id)}
+    ${consentField(`${id}-consent`, '../')}
+    <button class="btn btn--primary btn--full" type="submit">${buttonText}</button>
+    ${formStatus()}
+  </form>`;
+}
+
+function spbContactPanel() {
+  return `<aside class="contact-panel">
+    <p class="eyebrow">Связаться напрямую</p>
+    <h2>Регистрация техники в СПб и Ленинградской области</h2>
+    <a class="contact-panel__primary track-phone" href="${site.phoneHref}">${site.phone}</a>
+    ${quickContacts({ modifier: 'quick-contacts--contact', includePhone: false })}
+    <a class="contact-panel__email track-email" href="${site.emailHref}">${site.email}</a>
+    <dl><div><dt>Регион</dt><dd>Санкт-Петербург и Ленинградская область</dd></div><div><dt>Проверка документов</dt><dd>Дистанционно</dd></div><div><dt>Режим работы</dt><dd>${site.hours}</dd></div></dl>
+  </aside>`;
+}
+
 function serviceExtraSection(page) {
   if (page.key === 'registration') {
     return `<section class="section section--alt service-detail" id="pereregistraciya">
@@ -530,6 +554,109 @@ ${head({
   ${footer()}
     ${simpleCallbackModal()}
   ${mobileBar()}
+</body>
+</html>`;
+}
+
+export function spbPage() {
+  const canonical = `${site.baseUrl}/spb/`;
+  const regionalService = serviceSchema({
+    name: spbLanding.h1,
+    description: spbLanding.description,
+    url: canonical,
+  });
+  regionalService.areaServed = [
+    { '@type': 'City', name: 'Санкт-Петербург' },
+    { '@type': 'AdministrativeArea', name: 'Ленинградская область' },
+  ];
+  const breadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Главная', item: `${site.baseUrl}/` },
+      { '@type': 'ListItem', position: 2, name: 'Санкт-Петербург и Ленинградская область', item: canonical },
+    ],
+  };
+  return `<!DOCTYPE html>
+<html lang="ru">
+<head>
+${head({
+  title: spbLanding.title,
+  description: spbLanding.description,
+  canonical,
+  prefix: '../',
+  schemas: [organizationSchema(), regionalService, faqSchema(spbLanding.faq), breadcrumb],
+})}
+  <link rel="preload" href="../assets/images/hero_bg.webp" as="image" type="image/webp" imagesrcset="../assets/images/hero_bg-720.webp 720w, ../assets/images/hero_bg-900.webp 900w, ../assets/images/hero_bg.webp 1376w" imagesizes="100vw" fetchpriority="high">
+</head>
+<body>
+  <a class="skip-link" href="#main">К основному содержанию</a>
+  ${header('../', './')}
+  <main id="main">
+    <section class="hero hero--regional">
+      <picture class="hero__media" aria-hidden="true"><source srcset="../assets/images/hero_bg-720.webp 720w, ../assets/images/hero_bg-900.webp 900w, ../assets/images/hero_bg.webp 1376w" sizes="100vw" type="image/webp"><img src="../assets/images/hero_bg.jpg" width="1376" height="768" alt="" fetchpriority="high" decoding="async"></picture>
+      <div class="hero__shade" aria-hidden="true"></div>
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <p class="hero__badge">Санкт-Петербург и Ленинградская область</p>
+          <h1>${spbLanding.h1}</h1>
+          <p class="hero__subtitle">${spbLanding.subtitle}</p>
+          <ul class="hero__benefits">${spbLanding.benefits.map((item) => `<li>${item}</li>`).join('')}</ul>
+          <div class="hero__actions"><a class="btn btn--primary" href="#spb-hero-form" data-select-service="${spbLanding.defaultService}" data-service-event="registration">Рассчитать стоимость</a><a class="btn btn--outline track-phone" href="${site.phoneHref}">${site.phone}</a></div>
+          <p class="hero__hint">Оставьте заявку — уточним тип техники, задачу и необходимые документы.</p>
+        </div>
+        <div class="form-stack">
+          ${spbLeadForm({ id: 'spb-hero-form', title: 'Рассчитать стоимость регистрации', text: 'Оставьте имя и телефон — специалист уточнит тип техники и задачу.', buttonText: 'Рассчитать стоимость', formName: 'СПб — форма первого экрана' })}
+          <div class="form-quick-contacts"><span>Или свяжитесь напрямую</span>${quickContacts({ modifier: 'quick-contacts--form' })}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Услуги</p><h2>Регистрационные действия с самоходной техникой</h2><p>Помогаем владельцам техники из Санкт-Петербурга и Ленинградской области проверить документы и согласовать порядок оформления.</p></div>
+        <div class="problem-grid">${spbLanding.services.map((service) => `<article class="problem-card" data-spb-service-card><h3>${service.title}</h3><p>${service.description}</p><a class="text-link" href="#spb-lead" data-select-service="${service.service}" data-service-event="${service.event}">Оставить заявку</a></article>`).join('')}</div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="technique">
+      <div class="container two-column">
+        <div class="section-heading section-heading--left"><p class="eyebrow">Виды техники</p><h2>Зарегистрируем разные виды самоходной техники</h2><p>Проверим документы и уточним порядок регистрационного действия с учётом вида техники и ситуации.</p></div>
+        <div class="service-detail__panel"><ul class="check-list service-detail__list--columns">${spbLanding.techTypes.map((item) => `<li>${item}</li>`).join('')}</ul></div>
+      </div>
+    </section>
+
+    <section class="rules-section" id="region">
+      <div class="container rules-layout">
+        <div><p class="eyebrow">Регион работы</p><h2>Работаем по Санкт-Петербургу и Ленинградской области</h2></div>
+        <div><p>Принимаем обращения владельцев самоходной техники из Санкт-Петербурга и населённых пунктов Ленинградской области.</p><a class="text-link" href="#spb-lead" data-select-service="${spbLanding.defaultService}" data-service-event="registration">Обсудить задачу</a></div>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Как мы работаем</p><h2>Четыре понятных этапа</h2></div>
+        <div class="service-detail__grid">${spbLanding.process.map(([title, text], index) => `<article class="service-detail__panel"><p class="eyebrow">Этап ${index + 1}</p><h3>${title}</h3><p>${text}</p></article>`).join('')}</div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="situations">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">С чем можно обратиться</p><h2>Регистрационные задачи без лишних шагов</h2><p>Сначала уточним ситуацию и документы, затем согласуем подходящее регистрационное действие.</p></div>
+        <div class="two-column">
+          <div class="service-detail__panel"><ul class="check-list">${spbLanding.situations.slice(0, 4).map((item) => `<li>${item}</li>`).join('')}</ul></div>
+          <div class="service-detail__panel"><ul class="check-list">${spbLanding.situations.slice(4).map((item) => `<li>${item}</li>`).join('')}</ul><a class="text-link" href="#spb-lead" data-select-service="${spbLanding.defaultService}" data-service-event="registration">Уточнить порядок оформления</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Частые вопросы</p><h2>Регистрация техники в Санкт-Петербурге и области</h2><p>Ответы основаны на действующих услугах ТехУчёт24. Точный порядок определим после проверки документов.</p></div>${faqBlock(spbLanding.faq)}</div></section>
+
+    <section class="section lead-section" id="spb-lead"><div class="container lead-layout">${spbContactPanel()}${spbLeadForm({ id: 'spb-final-form', title: 'Нужно зарегистрировать спецтехнику в Санкт-Петербурге или Ленинградской области?', text: 'Оставьте номер телефона. Уточним тип техники, задачу и порядок оформления.', buttonText: 'Получить консультацию', formName: 'СПб — повторная форма' })}</div></section>
+  </main>
+  ${footer('../')}
+  ${simpleCallbackModal('../')}
+  ${mobileBar('#spb-lead')}
 </body>
 </html>`;
 }

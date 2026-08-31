@@ -13,6 +13,7 @@
     complex_case: 'service_complex_case',
   };
   const SERVICE_BY_PATH = {
+    '/spb/': 'Регистрация спецтехники — Санкт-Петербург и Ленинградская область',
     '/registraciya/': 'Постановка на учёт',
     '/snyatie-s-ucheta/': 'Снятие с учёта',
     '/vosstanovlenie-psm/': 'Восстановление ПСМ',

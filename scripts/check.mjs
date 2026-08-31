@@ -6,6 +6,7 @@ import { servicePages } from '../src/data.mjs';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const htmlFiles = [
   'index.html',
+  'spb/index.html',
   ...servicePages.map((page) => `${page.slug}/index.html`),
   'privacy/index.html',
   'consent/index.html',
@@ -118,6 +119,32 @@ for (const value of [
 ]) {
   if (!inspectionPage.includes(value)) errors.push(`tehosmotr/index.html: required advertising content missing "${value}"`);
 }
+
+const spbPage = await readFile(join(root, 'spb/index.html'), 'utf8');
+for (const value of [
+  '<title>Регистрация спецтехники в Санкт-Петербурге и ЛО | ТехУчёт24</title>',
+  '<link rel="canonical" href="https://tehuchet24.ru/spb/">',
+  'Регистрация спецтехники в Санкт-Петербурге и Ленинградской области',
+  'Работаем по Санкт-Петербургу и Ленинградской области',
+  'Гостехнадзоре Санкт-Петербурга и Ленинградской области',
+  'Рассчитать стоимость',
+  'Получить консультацию',
+  'data-form-name="СПб — форма первого экрана"',
+  'data-form-name="СПб — повторная форма"',
+  'href="tel:+79995522001"',
+  '"@type":"FAQPage"',
+  '"name":"Санкт-Петербург"',
+  '"name":"Ленинградская область"',
+]) {
+  if (!spbPage.includes(value)) errors.push(`spb/index.html: required landing content missing "${value}"`);
+}
+if ((spbPage.match(/data-spb-service-card/g) || []).length !== 7) errors.push('spb/index.html: expected 7 regional service cards');
+if ((spbPage.match(/<form\b[^>]*data-lead-form/g) || []).length !== 3) errors.push('spb/index.html: expected hero, final and callback forms');
+if (/Москв/.test(spbPage)) errors.push('spb/index.html: Moscow text leaked into regional landing');
+if (!spbPage.includes('../site-config.js?v=11') || !spbPage.includes('../script.js?v=11')) errors.push('spb/index.html: shared scripts missing');
+
+const sitemap = await readFile(join(root, 'sitemap.xml'), 'utf8');
+if (!sitemap.includes('<loc>https://tehuchet24.ru/spb/</loc>')) errors.push('sitemap.xml: /spb/ URL missing');
 
 const js = await readFile(join(root, 'site-config.js'), 'utf8');
 if (!js.includes('"YANDEX_METRIKA_ID": "111852031"')) errors.push('site-config.js: Yandex Metrika ID 111852031 missing');

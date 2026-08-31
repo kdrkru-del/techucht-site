@@ -348,6 +348,9 @@ p { color: var(--muted); }
   .hero { padding: 34px 0 40px; }
   .hero__grid { gap: 30px; }
   .hero__badge { font-size: 11px; }
+  .hero--regional .hero__content h1 { font-size: 30px; }
+  .hero--regional .hero__benefits { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; }
+  .hero--regional .hero__benefits li { padding-left: 20px; font-size: 13px; }
   .hero__subtitle { font-size: 17px; }
   .hero__actions, .hero__actions .btn { width: 100%; }
   .form-card, .documents-tool, .service-summary, .modal__dialog { padding: 20px; }
