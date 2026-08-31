@@ -111,8 +111,8 @@ function quickContacts({ modifier = '', includePhone = true } = {}) {
   </div>`;
 }
 
-function header(prefix = '', sectionBase = null) {
-  const home = prefix || './';
+function header(prefix = '', sectionBase = null, { homeHref = null, situationsId = 'situations' } = {}) {
+  const home = homeHref || prefix || './';
   const sections = sectionBase || home;
   return `<header class="header" id="header">
     <div class="container header__inner">
@@ -121,7 +121,7 @@ function header(prefix = '', sectionBase = null) {
       </a>
       <nav class="nav" aria-label="Основная навигация">
         <a href="${sections}#services">Услуги</a>
-        <a href="${sections}#situations">Сложные ситуации</a>
+        <a href="${sections}#${situationsId}">Сложные ситуации</a>
         <a href="${sections}#process">Как работаем</a>
         <a href="${sections}#faq">Вопросы</a>
       </nav>
@@ -138,7 +138,7 @@ function header(prefix = '', sectionBase = null) {
       <div class="container">
         <nav aria-label="Мобильная навигация">
           <a href="${sections}#services">Услуги</a>
-          <a href="${sections}#situations">Сложные ситуации</a>
+          <a href="${sections}#${situationsId}">Сложные ситуации</a>
           <a href="${sections}#process">Как работаем</a>
           <a href="${sections}#faq">Вопросы</a>
         </nav>
@@ -322,15 +322,23 @@ function mobileBar(href = '#lead-form') {
   </div>`;
 }
 
-function footer(prefix = '') {
-  const home = prefix || './';
+function footer(prefix = '', { homeHref = null, serviceLinks = null } = {}) {
+  const home = homeHref || prefix || './';
+  const links = serviceLinks || [
+    [`${prefix}registraciya/`, 'Постановка на учёт'],
+    [`${prefix}snyatie-s-ucheta/`, 'Снятие с учёта'],
+    [`${prefix}vosstanovlenie-psm/`, 'Восстановление ПСМ'],
+    [`${prefix}vosstanovlenie-sts/`, 'Восстановление СТС'],
+    [`${prefix}tehosmotr/`, 'Техосмотр'],
+    [`${prefix}slozhnye-sluchai/`, 'Сложные случаи'],
+  ];
   return `<footer class="footer" id="contacts">
     <div class="container footer__grid">
       <div class="footer__brand">
         <a class="logo" href="${home}"><img class="logo__img" src="${prefix}logo.png" width="1024" height="682" alt="ТехУчёт — Гостехнадзор"></a>
         <p>Компания по сопровождению регистрационных действий с самоходной техникой по всей России.</p>
       </div>
-      <div><h2>Услуги</h2><a href="${prefix}registraciya/">Постановка на учёт</a><a href="${prefix}snyatie-s-ucheta/">Снятие с учёта</a><a href="${prefix}vosstanovlenie-psm/">Восстановление ПСМ</a><a href="${prefix}vosstanovlenie-sts/">Восстановление СТС</a><a href="${prefix}tehosmotr/">Техосмотр</a><a href="${prefix}slozhnye-sluchai/">Сложные случаи</a></div>
+      <div><h2>Услуги</h2>${links.map(([href, label]) => `<a href="${href}">${label}</a>`).join('')}</div>
       <div><h2>Контакты</h2><a class="track-phone" href="${site.phoneHref}">${site.phone}</a><a class="track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a><a class="track-telegram" href="${site.telegram}" target="_blank" rel="noopener">Telegram</a><a class="footer-max track-max is-disabled" aria-label="MAX" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">${maxContactContent()}</a><a class="track-email" href="${site.emailHref}">${site.email}</a><span>${site.hours}</span></div>
       <div><h2>Реквизиты</h2><span>${site.company}</span><span>ИНН ${site.inn}</span><span>КПП ${site.kpp}</span><span>ОГРН ${site.ogrn}</span></div>
     </div>
@@ -370,7 +378,7 @@ function spbLeadForm({ id, title, text, buttonText, formName }) {
 function spbContactPanel() {
   return `<aside class="contact-panel">
     <p class="eyebrow">Связаться напрямую</p>
-    <h2>Регистрация техники в СПб и Ленинградской области</h2>
+    <h2>Регистрация техники в Санкт-Петербурге и Ленинградской области</h2>
     <a class="contact-panel__primary track-phone" href="${site.phoneHref}">${site.phone}</a>
     ${quickContacts({ modifier: 'quick-contacts--contact', includePhone: false })}
     <a class="contact-panel__email track-email" href="${site.emailHref}">${site.email}</a>
@@ -591,7 +599,7 @@ ${head({
 </head>
 <body>
   <a class="skip-link" href="#main">К основному содержанию</a>
-  ${header('../', './')}
+  ${header('../', './', { homeHref: './', situationsId: 'cases' })}
   <main id="main">
     <section class="hero hero--regional">
       <picture class="hero__media" aria-hidden="true"><source srcset="../assets/images/hero_bg-720.webp 720w, ../assets/images/hero_bg-900.webp 900w, ../assets/images/hero_bg.webp 1376w" sizes="100vw" type="image/webp"><img src="../assets/images/hero_bg.jpg" width="1376" height="768" alt="" fetchpriority="high" decoding="async"></picture>
@@ -615,11 +623,11 @@ ${head({
     <section class="section" id="services">
       <div class="container">
         <div class="section-heading"><p class="eyebrow">Услуги</p><h2>Регистрационные действия с самоходной техникой</h2><p>Помогаем владельцам техники из Санкт-Петербурга и Ленинградской области проверить документы и согласовать порядок оформления.</p></div>
-        <div class="problem-grid">${spbLanding.services.map((service) => `<article class="problem-card" data-spb-service-card><h3>${service.title}</h3><p>${service.description}</p><a class="text-link" href="#spb-lead" data-select-service="${service.service}" data-service-event="${service.event}">Оставить заявку</a></article>`).join('')}</div>
+        <div class="problem-grid">${spbLanding.services.map((service) => `<article class="problem-card"${service.anchor ? ` id="${service.anchor}"` : ''} data-spb-service-card><h3>${service.title}</h3><p>${service.description}</p><a class="text-link" href="#form" data-select-service="${service.service}" data-service-event="${service.event}">Оставить заявку</a></article>`).join('')}</div>
       </div>
     </section>
 
-    <section class="section section--alt" id="technique">
+    <section class="section section--alt" id="vehicles">
       <div class="container two-column">
         <div class="section-heading section-heading--left"><p class="eyebrow">Виды техники</p><h2>Зарегистрируем разные виды самоходной техники</h2><p>Проверим документы и уточним порядок регистрационного действия с учётом вида техники и ситуации.</p></div>
         <div class="service-detail__panel"><ul class="check-list service-detail__list--columns">${spbLanding.techTypes.map((item) => `<li>${item}</li>`).join('')}</ul></div>
@@ -629,7 +637,7 @@ ${head({
     <section class="rules-section" id="region">
       <div class="container rules-layout">
         <div><p class="eyebrow">Регион работы</p><h2>Работаем по Санкт-Петербургу и Ленинградской области</h2></div>
-        <div><p>Принимаем обращения владельцев самоходной техники из Санкт-Петербурга и населённых пунктов Ленинградской области.</p><a class="text-link" href="#spb-lead" data-select-service="${spbLanding.defaultService}" data-service-event="registration">Обсудить задачу</a></div>
+        <div><p>Принимаем обращения владельцев самоходной техники из Санкт-Петербурга и населённых пунктов Ленинградской области.</p><a class="text-link" href="#form" data-select-service="${spbLanding.defaultService}" data-service-event="registration">Обсудить задачу</a></div>
       </div>
     </section>
 
@@ -640,23 +648,33 @@ ${head({
       </div>
     </section>
 
-    <section class="section section--alt" id="situations">
+    <section class="section section--alt" id="cases">
       <div class="container">
         <div class="section-heading"><p class="eyebrow">С чем можно обратиться</p><h2>Регистрационные задачи без лишних шагов</h2><p>Сначала уточним ситуацию и документы, затем согласуем подходящее регистрационное действие.</p></div>
         <div class="two-column">
           <div class="service-detail__panel"><ul class="check-list">${spbLanding.situations.slice(0, 4).map((item) => `<li>${item}</li>`).join('')}</ul></div>
-          <div class="service-detail__panel"><ul class="check-list">${spbLanding.situations.slice(4).map((item) => `<li>${item}</li>`).join('')}</ul><a class="text-link" href="#spb-lead" data-select-service="${spbLanding.defaultService}" data-service-event="registration">Уточнить порядок оформления</a></div>
+          <div class="service-detail__panel"><ul class="check-list">${spbLanding.situations.slice(4).map((item) => `<li>${item}</li>`).join('')}</ul><a class="text-link" href="#form" data-select-service="${spbLanding.defaultService}" data-service-event="registration">Уточнить порядок оформления</a></div>
         </div>
       </div>
     </section>
 
     <section class="section" id="faq"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Частые вопросы</p><h2>Регистрация техники в Санкт-Петербурге и области</h2><p>Ответы основаны на действующих услугах ТехУчёт24. Точный порядок определим после проверки документов.</p></div>${faqBlock(spbLanding.faq)}</div></section>
 
-    <section class="section lead-section" id="spb-lead"><div class="container lead-layout">${spbContactPanel()}${spbLeadForm({ id: 'spb-final-form', title: 'Нужно зарегистрировать спецтехнику в Санкт-Петербурге или Ленинградской области?', text: 'Оставьте номер телефона. Уточним тип техники, задачу и порядок оформления.', buttonText: 'Получить консультацию', formName: 'СПб — повторная форма' })}</div></section>
+    <section class="section lead-section" id="form"><div class="container lead-layout">${spbContactPanel()}${spbLeadForm({ id: 'spb-final-form', title: 'Нужно зарегистрировать спецтехнику в Санкт-Петербурге или Ленинградской области?', text: 'Оставьте номер телефона. Уточним тип техники, задачу и порядок оформления.', buttonText: 'Получить консультацию', formName: 'СПб — повторная форма' })}</div></section>
   </main>
-  ${footer('../')}
+  ${footer('../', {
+    homeHref: './',
+    serviceLinks: [
+      ['#registration', 'Постановка на учёт'],
+      ['#reregistration', 'Перерегистрация'],
+      ['#deregistration', 'Снятие с учёта'],
+      ['#inspection', 'Техосмотр'],
+      ['#vehicles', 'Виды техники'],
+      ['#cases', 'С чем можно обратиться'],
+    ],
+  })}
   ${simpleCallbackModal('../')}
-  ${mobileBar('#spb-lead')}
+  ${mobileBar('#form')}
 </body>
 </html>`;
 }

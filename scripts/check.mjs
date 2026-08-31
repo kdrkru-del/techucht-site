@@ -126,6 +126,8 @@ for (const value of [
   '<link rel="canonical" href="https://tehuchet24.ru/spb/">',
   'Регистрация спецтехники в Санкт-Петербурге и Ленинградской области',
   'Работаем по Санкт-Петербургу и Ленинградской области',
+  'Поможем поставить самоходную технику на учёт в Гостехнадзоре, снять её с учёта, переоформить при смене собственника и проверить документы.',
+  'Регистрация техники в Санкт-Петербурге и Ленинградской области',
   'Гостехнадзоре Санкт-Петербурга и Ленинградской области',
   'Рассчитать стоимость',
   'Получить консультацию',
@@ -142,6 +144,20 @@ if ((spbPage.match(/data-spb-service-card/g) || []).length !== 7) errors.push('s
 if ((spbPage.match(/<form\b[^>]*data-lead-form/g) || []).length !== 3) errors.push('spb/index.html: expected hero, final and callback forms');
 if (/Москв/.test(spbPage)) errors.push('spb/index.html: Moscow text leaked into regional landing');
 if (!spbPage.includes('../site-config.js?v=11') || !spbPage.includes('../script.js?v=11')) errors.push('spb/index.html: shared scripts missing');
+
+for (const id of ['services', 'vehicles', 'process', 'cases', 'faq', 'form', 'registration', 'reregistration', 'deregistration', 'inspection']) {
+  const matches = spbPage.match(new RegExp(`id="${id}"`, 'g')) || [];
+  if (matches.length !== 1) errors.push(`spb/index.html: expected one #${id} anchor, found ${matches.length}`);
+}
+for (const href of ['#registration', '#reregistration', '#deregistration', '#inspection', '#vehicles', '#cases']) {
+  if (!spbPage.includes(`href="${href}"`)) errors.push(`spb/index.html: regional footer link ${href} missing`);
+}
+for (const href of ['../registraciya/', '../snyatie-s-ucheta/', '../vosstanovlenie-psm/', '../vosstanovlenie-sts/', '../tehosmotr/', '../slozhnye-sluchai/']) {
+  if (spbPage.includes(`href="${href}"`)) errors.push(`spb/index.html: Moscow service link ${href} must not be present`);
+}
+if ((spbPage.match(/href="#form"/g) || []).length !== 9) errors.push('spb/index.html: expected all 7 card CTAs plus 2 supporting CTAs to lead to #form');
+if (!spbPage.includes('href="./#cases"')) errors.push('spb/index.html: regional navigation must lead to #cases');
+if (spbPage.includes('href="./#situations"')) errors.push('spb/index.html: obsolete #situations navigation remains');
 
 const sitemap = await readFile(join(root, 'sitemap.xml'), 'utf8');
 if (!sitemap.includes('<loc>https://tehuchet24.ru/spb/</loc>')) errors.push('sitemap.xml: /spb/ URL missing');
