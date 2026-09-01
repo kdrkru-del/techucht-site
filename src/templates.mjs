@@ -206,10 +206,10 @@ function simpleHeroForm() {
   </form>`;
 }
 
-function simpleFinalForm({ id = 'main-lead', prefix = '', title = 'Получите консультацию по оформлению техники' } = {}) {
-  return `<form class="form-card lead-form" id="${id}" data-lead-form data-form-name="${title}" novalidate>
+function simpleFinalForm({ id = 'main-lead', prefix = '', title = 'Нужна регистрация техники в Гостехнадзоре?', formName = 'Получите консультацию по оформлению техники' } = {}) {
+  return `<form class="form-card lead-form" id="${id}" data-lead-form data-form-name="${formName}" novalidate>
     ${honeypot()}
-    <div class="form-card__header"><p class="eyebrow">Заявка</p><h2>${title}</h2><p>Оставьте имя и телефон — специалист перезвонит и уточнит детали.</p></div>
+    <div class="form-card__header"><p class="eyebrow">Заявка</p><h2>${title}</h2><p>Оставьте номер телефона — проверим документы и подскажем порядок оформления.</p></div>
     ${simpleContactFields(id)}
     ${consentField(`${id}-consent`, prefix)}
     <button class="btn btn--primary btn--full" type="submit">Отправить заявку</button>
@@ -392,7 +392,7 @@ function serviceExtraSection(page) {
       <div class="container">
         <div class="section-heading section-heading--left">
           <p class="eyebrow">Переоформление техники</p>
-          <h2>Перерегистрация и смена собственника самоходной техники</h2>
+          <h2>Перерегистрация и смена собственника самоходной техники в Гостехнадзоре</h2>
           <p>Помогаем подготовить документы для переоформления самоходной техники при смене собственника, продаже, передаче по договору или изменении регистрационных данных. До начала работ проверяем документы на технику, основание перехода права и сведения о новом собственнике.</p>
         </div>
         <div class="service-detail__grid">
@@ -458,8 +458,8 @@ function serviceExtraSection(page) {
 }
 
 export function mainPage() {
-  const title = 'Регистрация самоходной техники в Москве, МО и по всей России — ТехУчёт';
-  const description = 'Проверка документов и сопровождение регистрации самоходной техники в Москве, МО и по всей России. Услуги от 5 000 ₽, ориентировочный срок 3–5 рабочих дней.';
+  const title = 'Регистрация самоходной техники в Гостехнадзоре — Москва и МО | ТехУчёт';
+  const description = 'Постановка, перерегистрация и снятие самоходной техники с учёта в Гостехнадзоре. Тракторы, погрузчики, экскаваторы и другая техника.';
   const canonical = `${site.baseUrl}/`;
   return `<!DOCTYPE html>
 <html lang="ru">
@@ -485,7 +485,7 @@ ${head({
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="container hero__grid">
         <div class="hero__content">
-          <h1>Регистрация самоходной техники в Москве, МО и по всей России</h1>
+          <h1>Регистрация самоходной техники в Гостехнадзоре в Москве и Московской области</h1>
           <p class="hero__subtitle">Поможем подготовить документы и сопроводим постановку на учёт, снятие с учёта, восстановление документов и другие регистрационные действия с самоходной техникой.</p>
           <ul class="hero__benefits"><li>Единый номер для связи</li><li>Дистанционная проверка документов</li><li>Сопровождение с учётом региона</li><li>Срок выполнения большинства работ — 3–5 рабочих дней</li></ul>
           <div class="hero__actions"><a class="btn btn--primary" href="#hero-lead">Получить консультацию</a><a class="btn btn--outline" href="#hero-lead">Рассчитать стоимость</a></div>
@@ -508,7 +508,7 @@ ${head({
 
     <section class="section" id="services">
       <div class="container">
-        <div class="section-heading"><p class="eyebrow">Услуги и стоимость</p><h2>Регистрационные действия без неясных тарифов</h2><p>Проверяем документы, готовим комплект и сопровождаем выбранную услугу с учётом требований региона.</p></div>
+        <div class="section-heading"><p class="eyebrow">Услуги и стоимость</p><h2>Регистрационные действия в Гостехнадзоре без неясных тарифов</h2><p>Проверяем документы, готовим комплект и сопровождаем выбранную услугу с учётом требований региона.</p></div>
         <div class="service-grid">${services.map((service) => `<article class="service-card" id="service-${service.key}"><h3>${service.name}</h3><p>${service.situation}</p><h4>Что входит</h4><ul>${service.includes.map((item) => `<li>${item}</li>`).join('')}</ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 5 000 ₽</strong></div><div class="card-actions">${service.page ? `<a class="text-link" href="${service.page}/">Подробнее</a>` : '<span></span>'}<a class="btn btn--primary" href="#lead-form" data-select-service="${service.short}" data-service-event="${service.key}">Получить консультацию</a></div></article>`).join('')}</div>
         <p class="section-note">Точная стоимость и срок зависят от вида техники, региона, регистрационного действия и комплекта документов. Итоговую стоимость специалист назовёт после проверки документов. Государственные пошлины и сторонние расходы в цену услуг не включены.</p>
       </div>
@@ -629,7 +629,7 @@ ${head({
 
     <section class="section section--alt" id="vehicles">
       <div class="container two-column">
-        <div class="section-heading section-heading--left"><p class="eyebrow">Виды техники</p><h2>Зарегистрируем разные виды самоходной техники</h2><p>Проверим документы и уточним порядок регистрационного действия с учётом вида техники и ситуации.</p></div>
+        <div class="section-heading section-heading--left"><p class="eyebrow">Виды техники</p><h2>Зарегистрируем разные виды самоходной техники</h2><p>Регистрируем в Гостехнадзоре тракторы, погрузчики, экскаваторы, квадроциклы и другую самоходную технику.</p></div>
         <div class="service-detail__panel"><ul class="check-list service-detail__list--columns">${spbLanding.techTypes.map((item) => `<li>${item}</li>`).join('')}</ul></div>
       </div>
     </section>
@@ -660,7 +660,7 @@ ${head({
 
     <section class="section" id="faq"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Частые вопросы</p><h2>Регистрация техники в Санкт-Петербурге и области</h2><p>Ответы основаны на действующих услугах ТехУчёт24. Точный порядок определим после проверки документов.</p></div>${faqBlock(spbLanding.faq)}</div></section>
 
-    <section class="section lead-section" id="form"><div class="container lead-layout">${spbContactPanel()}${spbLeadForm({ id: 'spb-final-form', title: 'Нужно зарегистрировать спецтехнику в Санкт-Петербурге или Ленинградской области?', text: 'Оставьте номер телефона. Уточним тип техники, задачу и порядок оформления.', buttonText: 'Получить консультацию', formName: 'СПб — повторная форма' })}</div></section>
+    <section class="section lead-section" id="form"><div class="container lead-layout">${spbContactPanel()}${spbLeadForm({ id: 'spb-final-form', title: 'Нужна регистрация техники в Гостехнадзоре?', text: 'Оставьте номер телефона — проверим документы и подскажем порядок оформления.', buttonText: 'Получить консультацию', formName: 'СПб — повторная форма' })}</div></section>
   </main>
   ${footer('../', {
     homeHref: './',
@@ -683,9 +683,11 @@ export function servicePage(page) {
   const canonical = `${site.baseUrl}/${page.slug}/`;
   const description = `${page.description} Стоимость от 5 000 ₽, ориентировочный срок 3–5 рабочих дней.`;
   const pageFaq = [
+    ['Как проходит работа с Гостехнадзором по этой услуге?', 'Сначала проверяем документы и исходные данные, затем уточняем порядок обращения в Гостехнадзор и готовим комплект в рамках выбранной услуги.'],
+    ['Какие документы потребуются для обращения в Гостехнадзор?', 'Предварительный список указан на странице. Точный комплект зависит от вида техники, региона, истории владения и выбранного регистрационного действия.'],
     ['Сколько стоит услуга?', 'Стоимость начинается от 5 000 ₽. Точная сумма зависит от региона, вида техники, комплекта документов и сложности ситуации.'],
     ['Какой ориентировочный срок?', 'Большинство стандартных действий выполняется в течение 3–5 рабочих дней после получения полного комплекта документов. Срок зависит от региона и графика Гостехнадзора.'],
-    ['Можно ли начать дистанционно?', 'Да. Отправьте сведения о технике и имеющиеся документы на предварительную проверку. Специалист сообщит дальнейший порядок действий.'],
+    ['Можно ли начать дистанционно?', 'Да. Отправьте сведения о технике и имеющиеся документы на предварительную проверку. Специалист сообщит дальнейший порядок обращения в Гостехнадзор.'],
   ];
   const breadcrumb = {
     '@context': 'https://schema.org',
@@ -713,7 +715,7 @@ ${head({ title: `${page.h1} — ТехУчёт`, description, canonical, prefix:
     <section class="section"><div class="container two-column"><div><p class="eyebrow">Типовые ситуации</p><h2>Когда обращаются</h2><ul class="check-list">${page.situations.map((item) => `<li>${item}</li>`).join('')}</ul></div><div id="documents"><p class="eyebrow">Документы</p><h2>Что подготовить</h2><ul class="check-list">${page.docs.map((item) => `<li>${item}</li>`).join('')}</ul><p class="section-note">Точный перечень зависит от вида техники, региона и истории владения.</p></div></div></section>
 ${serviceExtraSection(page)}
     <section class="section section--alt"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Вопросы по услуге</p><h2>Перед началом работы</h2></div>${faqBlock(pageFaq)}</div></section>
-    <section class="section lead-section" id="page-form"><div class="container lead-layout">${contactPanel()}${simpleFinalForm({ id: `${page.slug}-lead`, prefix: '../', title: `Получить консультацию: ${page.short}` })}</div></section>
+    <section class="section lead-section" id="page-form"><div class="container lead-layout">${contactPanel()}${simpleFinalForm({ id: `${page.slug}-lead`, prefix: '../', formName: `Получить консультацию: ${page.short}` })}</div></section>
   </main>
   ${footer('../')}
     ${simpleCallbackModal('../')}

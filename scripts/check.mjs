@@ -15,7 +15,9 @@ const htmlFiles = [
 ];
 
 const requiredMain = [
-  'Регистрация самоходной техники в Москве, МО и по всей России',
+  '<title>Регистрация самоходной техники в Гостехнадзоре — Москва и МО | ТехУчёт</title>',
+  'content="Постановка, перерегистрация и снятие самоходной техники с учёта в Гостехнадзоре. Тракторы, погрузчики, экскаваторы и другая техника."',
+  'Регистрация самоходной техники в Гостехнадзоре в Москве и Московской области',
   'от 5 000 ₽',
   'Поможем подготовить документы и сопроводим постановку на учёт, снятие с учёта, восстановление документов и другие регистрационные действия с самоходной техникой.',
   'data-counter="85">85',
@@ -24,6 +26,12 @@ const requiredMain = [
   'ООО «ЮНАТ»',
   'ОГРН 1242500018859',
   'jobstat@bk.ru',
+  'Постановка техники на учёт в Гостехнадзоре',
+  'Снятие техники с учёта в Гостехнадзоре',
+  'Перерегистрация техники в Гостехнадзоре',
+  'Техосмотр самоходной техники в Гостехнадзоре',
+  'Нужна регистрация техники в Гостехнадзоре?',
+  'Оставьте номер телефона — проверим документы и подскажем порядок оформления.',
 ];
 
 const forbidden = [
@@ -97,7 +105,7 @@ for (const file of advertisingLandings) {
 const registrationPage = await readFile(join(root, 'registraciya/index.html'), 'utf8');
 for (const value of [
   'id="pereregistraciya"',
-  'Перерегистрация и смена собственника самоходной техники',
+  'Перерегистрация и смена собственника самоходной техники в Гостехнадзоре',
   'Регистрация трактора',
   'Регистрация погрузчика',
   'Регистрация вилочного погрузчика',
@@ -122,9 +130,10 @@ for (const value of [
 
 const spbPage = await readFile(join(root, 'spb/index.html'), 'utf8');
 for (const value of [
-  '<title>Регистрация спецтехники в Санкт-Петербурге и ЛО | ТехУчёт24</title>',
+  '<title>Регистрация техники в Гостехнадзоре — Санкт-Петербург и ЛО | ТехУчёт</title>',
+  'content="Регистрация, перерегистрация и снятие самоходной техники с учёта в Гостехнадзоре. Санкт-Петербург и Ленинградская область."',
   '<link rel="canonical" href="https://tehuchet24.ru/spb/">',
-  'Регистрация спецтехники в Санкт-Петербурге и Ленинградской области',
+  'Регистрация самоходной техники в Гостехнадзоре в Санкт-Петербурге и Ленинградской области',
   'Работаем по Санкт-Петербургу и Ленинградской области',
   'Поможем поставить самоходную технику на учёт в Гостехнадзоре, снять её с учёта, переоформить при смене собственника и проверить документы.',
   'Регистрация техники в Санкт-Петербурге и Ленинградской области',
@@ -133,12 +142,46 @@ for (const value of [
   'Получить консультацию',
   'data-form-name="СПб — форма первого экрана"',
   'data-form-name="СПб — повторная форма"',
+  'Постановка техники на учёт в Гостехнадзоре',
+  'Перерегистрация техники в Гостехнадзоре',
+  'Снятие техники с учёта в Гостехнадзоре',
+  'Техосмотр самоходной техники в Гостехнадзоре',
+  'Регистрируем в Гостехнадзоре тракторы, погрузчики, экскаваторы, квадроциклы и другую самоходную технику.',
+  'Нужна регистрация техники в Гостехнадзоре?',
+  'Оставьте номер телефона — проверим документы и подскажем порядок оформления.',
   'href="tel:+79995522001"',
   '"@type":"FAQPage"',
   '"name":"Санкт-Петербург"',
   '"name":"Ленинградская область"',
 ]) {
   if (!spbPage.includes(value)) errors.push(`spb/index.html: required landing content missing "${value}"`);
+}
+
+const requiredGostekhnadzorFaq = [
+  'Как поставить самоходную технику на учёт в Гостехнадзоре?',
+  'Какие документы нужны для регистрации техники в Гостехнадзоре?',
+  'Какая техника регистрируется в Гостехнадзоре?',
+  'Как снять самоходную технику с учёта в Гостехнадзоре?',
+  'Как проходит перерегистрация техники в Гостехнадзоре?',
+];
+for (const file of ['index.html', 'spb/index.html']) {
+  const html = file === 'index.html' ? main : spbPage;
+  for (const question of requiredGostekhnadzorFaq) {
+    if (!html.includes(question)) errors.push(`${file}: Gostekhnadzor FAQ missing "${question}"`);
+  }
+}
+
+for (const page of servicePages) {
+  const file = `${page.slug}/index.html`;
+  const html = await readFile(join(root, file), 'utf8');
+  const heroMatch = html.match(/<section class="service-hero">[\s\S]*?<\/section>/);
+  if (!heroMatch || !heroMatch[0].includes('Гостехнадзор')) errors.push(`${file}: first screen must mention Gostekhnadzor`);
+  if (!html.includes('Нужна регистрация техники в Гостехнадзоре?')) errors.push(`${file}: pre-form Gostekhnadzor heading missing`);
+  if (!html.includes('Оставьте номер телефона — проверим документы и подскажем порядок оформления.')) errors.push(`${file}: pre-form explanation missing`);
+  if (!html.includes(`data-form-name="Получить консультацию: ${page.short}"`)) errors.push(`${file}: lead form analytics name changed`);
+  for (const question of ['Сколько стоит услуга?', 'Какой ориентировочный срок?', 'Как проходит работа с Гостехнадзором по этой услуге?']) {
+    if (!html.includes(question)) errors.push(`${file}: service FAQ missing "${question}"`);
+  }
 }
 if ((spbPage.match(/data-spb-service-card/g) || []).length !== 7) errors.push('spb/index.html: expected 7 regional service cards');
 if ((spbPage.match(/<form\b[^>]*data-lead-form/g) || []).length !== 3) errors.push('spb/index.html: expected hero, final and callback forms');
