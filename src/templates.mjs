@@ -346,6 +346,7 @@ function footer(prefix = '', { homeHref = null, serviceLinks = null } = {}) {
       <span>© <span data-current-year>${new Date().getFullYear()}</span> ${site.brand}</span>
       <a href="${prefix}privacy/">Политика конфиденциальности</a>
       <a href="${prefix}consent/">Согласие на обработку данных</a>
+      <a href="https://voltrena.ru" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary, #f5a623); text-decoration: underline; text-underline-offset: 3px;">Создание и продвижение: voltrena.ru</a>
     </div>
   </footer>`;
 }
