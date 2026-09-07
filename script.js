@@ -234,6 +234,9 @@
 
   async function submitLead(event, form) {
     event.preventDefault();
+
+    if (form.dataset.submitting === 'true') return;
+    form.dataset.submitting = 'true';
     const status = form.querySelector('[data-form-status]');
     const button = form.querySelector('button[type="submit"]');
     const phone = form.querySelector('input[name="phone"]');
@@ -264,6 +267,7 @@
       setStatus(status, `Не удалось отправить заявку. Позвоните ${CONFIG.PHONE || '+7 999 552-20-01'} или повторите попытку.`, false);
       trackGoal('lead_form_error');
     } finally {
+      form.dataset.submitting = 'false';
       setButtonLoading(button, false);
     }
   }
