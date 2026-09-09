@@ -545,7 +545,7 @@ ${head({
     <section class="section section--alt" id="situations">
       <div class="container">
         <div class="section-heading"><p class="eyebrow">Проблемные ситуации</p><h2>Разберём ситуацию и предложим порядок действий</h2><p>Поможем разобраться в нестандартном случае и сопроводить оформление в Гостехнадзоре.</p></div>
-        <div class="problem-grid">${problems.filter(p => ['Утрачен ПСМ', 'Техника не снята предыдущим владельцем', 'Ошибка в договоре', 'Получен отказ'].includes(p[0])).map(([title, text, service = 'Отказ или сложная ситуация', event = 'complex_case']) => `<article class="problem-card"><h3>${title}</h3><p>${text}</p><a class="text-link" href="#lead-form" data-modal-open data-select-service="${service}" data-situation="${title}" data-service-event="${event}">Получить консультацию</a></article>`).join('')}</div>
+        <div class="problem-grid">${problems.slice(0, 4).map(([title, text, service = 'Отказ или сложная ситуация', event = 'complex_case']) => `<article class="problem-card"><h3>${title}</h3><p>${text}</p><a class="text-link" href="#lead-form" data-modal-open data-select-service="${service}" data-situation="${title}" data-service-event="${event}">Получить консультацию</a></article>`).join('')}</div>
       </div>
     </section>
 
