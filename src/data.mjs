@@ -12,7 +12,7 @@ export const site = {
   maxUrl: 'https://max.ru/u/f9LHodD0cOIyRnk4XSMp9LQv3nUe6pWwsL4DqMp_p80p0ISba6wNwFpIQy4',
   email: 'jobstat@bk.ru',
   emailHref: 'mailto:jobstat@bk.ru',
-  hours: 'Пн–Пт: 9:00–18:00',
+  hours: 'Ежедневно с 09:00 до 20:00',
   baseUrl: 'https://tehuchet24.ru',
   formEndpoint: 'https://zelsrez-leads.roman-k-0b3.workers.dev/api/lead',
   yandexMetrikaId: '111852031',

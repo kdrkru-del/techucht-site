@@ -56,6 +56,12 @@ function organizationSchema() {
       { '@type': 'PropertyValue', name: 'ОГРН', value: site.ogrn },
     ],
     areaServed: { '@type': 'Country', name: 'Россия' },
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '09:00',
+      closes: '20:00',
+    },
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: site.phone,
@@ -111,8 +117,7 @@ function trustBlock() {
 }
 
 function serviceNavigation() {
-  const links = [['registraciya/', 'Постановка спецтехники на учёт'], ['snyatie-s-ucheta/', 'Снятие спецтехники с учёта'], ['registraciya/#pereregistraciya', 'Перерегистрация'], ['vosstanovlenie-psm/', 'Восстановление документов'], ['registraciya/#documents', 'Проверка ПСМ / ЭПСМ'], ['tehosmotr/#akt-osmotra', 'Помощь с осмотром техники'], ['registraciya/#owners', 'Регистрационные действия для физлиц и юрлиц']];
-  return `<section class="service-navigation"><div class="container"><h2>Что мы делаем</h2><div class="service-navigation__grid">${links.map(([href, label]) => `<a href="${href}">${label}<span aria-hidden="true">↗</span></a>`).join('')}</div></div></section>`;
+  return `<section class="service-navigation"><div class="container"><h2>Что мы делаем</h2><div class="service-navigation__grid service-navigation__grid--main"><a href="registraciya/"><span class="nav-card__title">Постановка на учёт</span><span class="nav-card__desc">Проверим документы, подготовим комплект и сопроводим постановку самоходной техники на учёт.</span><span class="nav-card__arrow" aria-hidden="true">↗</span></a><a href="snyatie-s-ucheta/"><span class="nav-card__title">Снятие с учёта</span><span class="nav-card__desc">Проверим документы и сопроводим снятие техники с регистрационного учёта.</span><span class="nav-card__arrow" aria-hidden="true">↗</span></a><a href="tehosmotr/"><span class="nav-card__title">Техосмотр</span><span class="nav-card__desc">Поможем подготовить документы и организовать прохождение техосмотра самоходной техники.</span><span class="nav-card__arrow" aria-hidden="true">↗</span></a></div><div class="secondary-services"><p class="secondary-services__title">Другие регистрационные вопросы</p><ul class="secondary-services__list"><li><a href="registraciya/#pereregistraciya">Изменение регистрационных данных / перерегистрация</a></li><li><a href="vosstanovlenie-psm/">Восстановление ПСМ / СТС</a></li><li><a href="registraciya/#documents">Проверка ПСМ / ЭПСМ</a></li><li><a href="tehosmotr/#akt-osmotra">Помощь с осмотром техники</a></li><li><a href="slozhnye-sluchai/">Сложные случаи и отказы Гостехнадзора</a></li></ul><button class="btn btn--small btn--outline" type="button" data-modal-open data-select-service="Консультация" data-lead-intent="consultation">Обсудить с специалистом</button></div></div></section>`;
 }
 
 function commercialDetails(page) {
@@ -510,8 +515,8 @@ ${head({
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="container hero__grid">
         <div class="hero__content">
-          <h1>Регистрация спецтехники в Гостехнадзоре под ключ</h1>
-          <p class="hero__subtitle">Постановка и снятие с учёта, проверка документов и сопровождение регистрационных действий в Москве, Московской области, Санкт-Петербурге и Ленинградской области.</p>
+          <h1>Регистрация спецтехники в Гостехнадзоре Москвы и МО под ключ</h1>
+          <p class="hero__subtitle">Постановка на учёт, снятие с учёта и техосмотр самоходной техники. Проверим документы, подскажем порядок действий и возьмём оформление на сопровождение.</p>
           ${offerBenefits()}
           ${offerActions()}
         </div>
@@ -524,18 +529,44 @@ ${head({
 
     ${serviceNavigation()}
     <section class="stats" aria-label="Опыт компании">
-      <div class="container stats__grid">
-        <div class="stat"><strong><span data-counter="85">85</span>+</strong><span>регионов России</span><small>Принимаем обращения по всей стране</small></div>
+      <div class="container stats__grid stats__grid--two">
         <div class="stat"><strong><span data-counter="3200">3 200</span>+</strong><span>выполненных регистраций</span><small>Опыт регистрационных действий</small></div>
         <div class="stat"><strong><span data-counter="7">7</span> лет</strong><span>работы</span><small>Опыт сопровождения регистраций</small></div>
       </div>
+      <p class="regions-note container">Также рассматриваем обращения из других регионов России. Возможность сопровождения зависит от региона и конкретной ситуации.</p>
     </section>
 
     ${trustBlock()}
     <section class="section" id="services">
       <div class="container">
         <div class="section-heading"><p class="eyebrow">Услуги и стоимость</p><h2>Регистрационные действия в Гостехнадзоре без неясных тарифов</h2><p>Проверяем документы, готовим комплект и сопровождаем выбранную услугу с учётом требований региона.</p></div>
-        <div class="service-grid">${services.map((service) => `<article class="service-card" id="service-${service.key}"><h3>${service.name}</h3><p>${service.situation}</p><h4>Что входит</h4><ul>${service.includes.map((item) => `<li>${item}</li>`).join('')}</ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 5 000 ₽</strong></div><div class="card-actions">${service.page ? `<a class="text-link" href="${service.page}/">Состав услуги и документы</a>` : '<span></span>'}<a class="btn btn--primary" href="#lead-form" data-select-service="${service.short}" data-service-event="${service.key}">Бесплатная консультация</a></div></article>`).join('')}</div>
+        <div class="service-grid service-grid--primary"><article class="service-card" id="service-registration"><h3>Постановка техники на учёт в Гостехнадзоре</h3><p>Для новой, ввезённой или приобретённой техники, которую нужно зарегистрировать в Гостехнадзоре Москвы и МО.</p><h4>Что входит</h4><ul><li>Проверка документов</li><li>Подготовка заявлений и комплекта</li><li>Сопровождение регистрационных действий</li></ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 5 000 ₽</strong></div><div class="card-actions"><a class="text-link" href="registraciya/">Состав услуги и документы</a><a class="btn btn--primary" href="#lead-form" data-select-service="Постановка на учёт" data-service-event="registration">Бесплатная консультация</a></div></article><article class="service-card" id="service-deregistration"><h3>Снятие техники с учёта в Гостехнадзоре</h3><p>При продаже, утилизации, вывозе или необходимости завершить прежние регистрационные действия в Гостехнадзоре.</p><h4>Что входит</h4><ul><li>Проверка основания</li><li>Подготовка документов</li><li>Сопровождение снятия с учёта</li></ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 5 000 ₽</strong></div><div class="card-actions"><a class="text-link" href="snyatie-s-ucheta/">Состав услуги и документы</a><a class="btn btn--primary" href="#lead-form" data-select-service="Снятие с учёта" data-service-event="deregistration">Бесплатная консультация</a></div></article><article class="service-card" id="service-inspection"><h3>Техосмотр самоходной техники в Гостехнадзоре</h3><p>Для подготовки к обязательному техническому осмотру самоходной техники в Гостехнадзоре.</p><h4>Что входит</h4><ul><li>Проверка исходных данных</li><li>Подготовка документов</li><li>Сопровождение процедуры</li></ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 5 000 ₽</strong></div><div class="card-actions"><a class="text-link" href="tehosmotr/">Состав услуги и документы</a><a class="btn btn--primary" href="#lead-form" data-select-service="Технический осмотр" data-service-event="inspection">Бесплатная консультация</a></div></article></div>
+        <div class="secondary-services-block">
+          <h3 class="secondary-services-block__title">Дополнительные регистрационные вопросы</h3>
+          <div class="secondary-services-block__grid">
+            <article class="secondary-service-item" id="service-restore_psm">
+              <div>
+                <h4>Восстановление ПСМ и СТС</h4>
+                <p>Если паспорт самоходной машины или свидетельство утрачены, повреждены либо нечитаемы.</p>
+              </div>
+              <div class="secondary-service-item__meta"><span>3–5 дней · от 5 000 ₽</span><a class="text-link" href="vosstanovlenie-psm/">Подробнее ↗</a></div>
+            </article>
+            <article class="secondary-service-item" id="service-changes">
+              <div>
+                <h4>Перерегистрация техники</h4>
+                <p>При смене собственника, адреса, характеристик техники или номерных агрегатов.</p>
+              </div>
+              <div class="secondary-service-item__meta"><span>3–5 дней · от 5 000 ₽</span><a class="text-link" href="#lead-form" data-select-service="Внесение изменений" data-service-event="changes">Консультация ↗</a></div>
+            </article>
+            <article class="secondary-service-item" id="service-complex_case">
+              <div>
+                <h4>Разбор сложной ситуации или отказа</h4>
+                <p>Если документы не принимают, получен отказ или требуется проверка истории владения.</p>
+              </div>
+              <div class="secondary-service-item__meta"><span>3–5 дней · от 5 000 ₽</span><a class="text-link" href="slozhnye-sluchai/">Подробнее ↗</a></div>
+            </article>
+          </div>
+        </div>
         <p class="section-note">Точная стоимость и срок зависят от вида техники, региона, регистрационного действия и комплекта документов. Итоговую стоимость специалист назовёт после проверки документов. Государственные пошлины и сторонние расходы в цену услуг не включены.</p>
       </div>
     </section>
@@ -549,8 +580,44 @@ ${head({
 
     <section class="section" id="process">
       <div class="container">
-        <div class="section-heading"><p class="eyebrow">Как проходит работа</p><h2>Пять понятных этапов</h2></div>
-        <ol class="process-list">${processSteps.map(([title, text], index) => `<li><span>${index + 1}</span><div><h3>${title}</h3><p>${text}</p></div></li>`).join('')}</ol>
+        <div class="section-heading"><p class="eyebrow">Как проходит работа</p><h2>Как проходит оформление</h2></div>
+        <ol class="process-flow">
+          <li class="process-flow__step">
+            <div class="process-flow__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+            <div class="process-flow__body">
+              <h3>Оставляете заявку</h3>
+              <p>Вы оставляете заявку или отправляете документы.</p>
+            </div>
+          </li>
+          <li class="process-flow__step">
+            <div class="process-flow__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+            <div class="process-flow__body">
+              <h3>Бесплатно проверяем</h3>
+              <p>Бесплатно проверяем документы и ситуацию.</p>
+            </div>
+          </li>
+          <li class="process-flow__step">
+            <div class="process-flow__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="process-flow__body">
+              <h3>Сообщаем стоимость и срок</h3>
+              <p>Объясняем, сколько стоит оформление и сколько времени займёт.</p>
+            </div>
+          </li>
+          <li class="process-flow__step">
+            <div class="process-flow__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg></div>
+            <div class="process-flow__body">
+              <h3>Заключаем договор</h3>
+              <p>Заключаем официальный договор и готовим документы.</p>
+            </div>
+          </li>
+          <li class="process-flow__step">
+            <div class="process-flow__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            <div class="process-flow__body">
+              <h3>Сопровождаем до результата</h3>
+              <p>Сопровождаем процедуру оформления в Гостехнадзоре до выдачи документов.</p>
+            </div>
+          </li>
+        </ol>
         <div class="info-strip"><strong>Как правило, 3–5 рабочих дней после получения полного комплекта документов.</strong><span>Точный срок зависит от региона, вида регистрационного действия, комплекта документов и графика работы соответствующего подразделения Гостехнадзора.</span></div>
       </div>
     </section>
@@ -707,8 +774,9 @@ ${head({
 
 export function servicePage(page) {
   const landing = {
-    registration: ['Регистрация спецтехники в Гостехнадзоре Москвы и МО под ключ', 'Проверим документы, подготовим комплект и сопроводим постановку техники на учёт до результата.'],
+    registration: ['Постановка спецтехники на учёт в Гостехнадзоре Москвы и МО', 'Проверим документы, подготовим комплект и сопроводим постановку техники на учёт до результата.'],
     deregistration: ['Снятие спецтехники с учёта в Гостехнадзоре Москвы и МО', 'Проверим документы, подготовим заявление и сопроводим снятие техники с регистрационного учёта.'],
+    inspection: ['Техосмотр самоходной техники в Москве и МО', 'Поможем подготовить документы и пройти процедуру технического осмотра самоходной техники в Гостехнадзоре.'],
   }[page.key];
   const canonical = `${site.baseUrl}/${page.slug}/`;
   const description = `${page.description} Стоимость от 5 000 ₽, ориентировочный срок 3–5 рабочих дней.`;

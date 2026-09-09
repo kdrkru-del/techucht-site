@@ -17,10 +17,9 @@ const htmlFiles = [
 const requiredMain = [
   '<title>Регистрация самоходной техники в Гостехнадзоре — Москва и МО | ТехУчёт</title>',
   'content="Постановка, перерегистрация и снятие самоходной техники с учёта в Гостехнадзоре. Тракторы, погрузчики, экскаваторы и другая техника."',
-  'Регистрация спецтехники в Гостехнадзоре под ключ',
+  'Регистрация спецтехники в Гостехнадзоре Москвы и МО под ключ',
   'от 5 000 ₽',
-  'Постановка и снятие с учёта, проверка документов и сопровождение регистрационных действий в Москве, Московской области, Санкт-Петербурге и Ленинградской области.',
-  'data-counter="85">85',
+  'Постановка на учёт, снятие с учёта и техосмотр самоходной техники.',
   'data-counter="3200">3 200',
   'data-counter="7">7',
   'ООО «ЮНАТ»',
@@ -28,7 +27,6 @@ const requiredMain = [
   'jobstat@bk.ru',
   'Постановка техники на учёт в Гостехнадзоре',
   'Снятие техники с учёта в Гостехнадзоре',
-  'Перерегистрация техники в Гостехнадзоре',
   'Техосмотр самоходной техники в Гостехнадзоре',
   'Нужна регистрация техники в Гостехнадзоре?',
   'Оставьте номер телефона — проверим документы и подскажем порядок оформления.',
@@ -85,10 +83,7 @@ for (const value of ['id="service-restore_sts"', 'id="service-documents"', 'id="
   if (main.includes(value)) errors.push(`index.html: removed service card returned "${value}"`);
 }
 const serviceCardCount = (main.match(/<article class="service-card"/g) || []).length;
-if (serviceCardCount !== 6) errors.push(`index.html: expected 6 service cards, found ${serviceCardCount}`);
-for (const value of ['class="card-index"', 'service-card--featured', '<strong>Восстановление документов</strong>']) {
-  if (main.includes(value)) errors.push(`index.html: removed service-card decoration returned "${value}"`);
-}
+if (serviceCardCount !== 3) errors.push(`index.html: expected 3 main service cards, found ${serviceCardCount}`);
 
 const advertisingLandings = [
   'registraciya/index.html',
