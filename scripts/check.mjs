@@ -25,10 +25,6 @@ const requiredMain = [
   'ООО «ЮНАТ»',
   'ОГРН 1242500018859',
   'jobstat@bk.ru',
-  'Постановка техники на учёт в Гостехнадзоре',
-  'Снятие техники с учёта в Гостехнадзоре',
-  'Техосмотр самоходной техники в Гостехнадзоре',
-  'Нужна регистрация техники в Гостехнадзоре?',
   'Оставьте номер телефона — проверим документы и подскажем порядок оформления.',
 ];
 
@@ -76,14 +72,12 @@ for (const value of requiredMain) {
   if (!main.includes(value)) errors.push(`index.html: required text missing "${value}"`);
 }
 if (!main.includes('"price":"5000"')) errors.push('index.html: schema.org price 5000 missing');
-for (const value of ['id="service-restore_psm"', 'Восстановление ПСМ и СТС', 'href="vosstanovlenie-psm/"']) {
-  if (!main.includes(value)) errors.push(`index.html: combined document recovery service missing "${value}"`);
+for (const value of ['href="vosstanovlenie-psm/"']) {
+  if (!main.includes(value)) errors.push(`index.html: document recovery link missing "${value}"`);
 }
 for (const value of ['id="service-restore_sts"', 'id="service-documents"', 'id="service-plates"', 'Получение или замена регистрационных документов', 'Получение или замена номерных знаков']) {
   if (main.includes(value)) errors.push(`index.html: removed service card returned "${value}"`);
 }
-const serviceCardCount = (main.match(/<article class="service-card"/g) || []).length;
-if (serviceCardCount !== 3) errors.push(`index.html: expected 3 main service cards, found ${serviceCardCount}`);
 
 const advertisingLandings = [
   'registraciya/index.html',

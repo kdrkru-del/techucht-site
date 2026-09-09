@@ -537,44 +537,10 @@ ${head({
     </section>
 
     ${trustBlock()}
-    <section class="section" id="services">
-      <div class="container">
-        <div class="section-heading"><p class="eyebrow">Услуги и стоимость</p><h2>Регистрационные действия в Гостехнадзоре без неясных тарифов</h2><p>Проверяем документы, готовим комплект и сопровождаем выбранную услугу с учётом требований региона.</p></div>
-        <div class="service-grid service-grid--primary"><article class="service-card" id="service-registration"><h3>Постановка техники на учёт в Гостехнадзоре</h3><p>Для новой, ввезённой или приобретённой техники, которую нужно зарегистрировать в Гостехнадзоре Москвы и МО.</p><h4>Что входит</h4><ul><li>Проверка документов</li><li>Подготовка заявлений и комплекта</li><li>Сопровождение регистрационных действий</li></ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 5 000 ₽</strong></div><div class="card-actions"><a class="text-link" href="registraciya/">Состав услуги и документы</a><a class="btn btn--primary" href="#lead-form" data-select-service="Постановка на учёт" data-service-event="registration">Бесплатная консультация</a></div></article><article class="service-card" id="service-deregistration"><h3>Снятие техники с учёта в Гостехнадзоре</h3><p>При продаже, утилизации, вывозе или необходимости завершить прежние регистрационные действия в Гостехнадзоре.</p><h4>Что входит</h4><ul><li>Проверка основания</li><li>Подготовка документов</li><li>Сопровождение снятия с учёта</li></ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 5 000 ₽</strong></div><div class="card-actions"><a class="text-link" href="snyatie-s-ucheta/">Состав услуги и документы</a><a class="btn btn--primary" href="#lead-form" data-select-service="Снятие с учёта" data-service-event="deregistration">Бесплатная консультация</a></div></article><article class="service-card" id="service-inspection"><h3>Техосмотр самоходной техники в Гостехнадзоре</h3><p>Для подготовки к обязательному техническому осмотру самоходной техники в Гостехнадзоре.</p><h4>Что входит</h4><ul><li>Проверка исходных данных</li><li>Подготовка документов</li><li>Сопровождение процедуры</li></ul><div class="service-meta"><span>3–5 рабочих дней</span><strong>от 5 000 ₽</strong></div><div class="card-actions"><a class="text-link" href="tehosmotr/">Состав услуги и документы</a><a class="btn btn--primary" href="#lead-form" data-select-service="Технический осмотр" data-service-event="inspection">Бесплатная консультация</a></div></article></div>
-        <div class="secondary-services-block">
-          <h3 class="secondary-services-block__title">Дополнительные регистрационные вопросы</h3>
-          <div class="secondary-services-block__grid">
-            <article class="secondary-service-item" id="service-restore_psm">
-              <div>
-                <h4>Восстановление ПСМ и СТС</h4>
-                <p>Если паспорт самоходной машины или свидетельство утрачены, повреждены либо нечитаемы.</p>
-              </div>
-              <div class="secondary-service-item__meta"><span>3–5 дней · от 5 000 ₽</span><a class="text-link" href="vosstanovlenie-psm/">Подробнее ↗</a></div>
-            </article>
-            <article class="secondary-service-item" id="service-changes">
-              <div>
-                <h4>Перерегистрация техники</h4>
-                <p>При смене собственника, адреса, характеристик техники или номерных агрегатов.</p>
-              </div>
-              <div class="secondary-service-item__meta"><span>3–5 дней · от 5 000 ₽</span><a class="text-link" href="#lead-form" data-select-service="Внесение изменений" data-service-event="changes">Консультация ↗</a></div>
-            </article>
-            <article class="secondary-service-item" id="service-complex_case">
-              <div>
-                <h4>Разбор сложной ситуации или отказа</h4>
-                <p>Если документы не принимают, получен отказ или требуется проверка истории владения.</p>
-              </div>
-              <div class="secondary-service-item__meta"><span>3–5 дней · от 5 000 ₽</span><a class="text-link" href="slozhnye-sluchai/">Подробнее ↗</a></div>
-            </article>
-          </div>
-        </div>
-        <p class="section-note">Точная стоимость и срок зависят от вида техники, региона, регистрационного действия и комплекта документов. Итоговую стоимость специалист назовёт после проверки документов. Государственные пошлины и сторонние расходы в цену услуг не включены.</p>
-      </div>
-    </section>
-
     <section class="section section--alt" id="situations">
       <div class="container">
         <div class="section-heading"><p class="eyebrow">Проблемные ситуации</p><h2>Разберём документы и предложим порядок действий</h2><p>Не обещаем результат до проверки. Сначала изучаем исходные данные и требования конкретного подразделения.</p></div>
-        <div class="problem-grid">${problems.map(([title, text, service = 'Отказ или сложная ситуация', event = 'complex_case']) => `<article class="problem-card"><h3>${title}</h3><p>${text}</p><a class="text-link" href="#lead-form" data-select-service="${service}" data-situation="${title}" data-service-event="${event}">Разобрать мою ситуацию</a></article>`).join('')}</div>
+        <div class="problem-grid">${problems.filter(p => ['Утрачен бумажный ПСМ', 'Техника не снята с учёта предыдущим владельцем', 'Ошибка в договоре купли-продажи', 'Получен отказ Гостехнадзора'].includes(p[0])).map(([title, text, service = 'Отказ или сложная ситуация', event = 'complex_case']) => `<article class="problem-card"><h3>${title}</h3><p>${text}</p><a class="text-link" href="#lead-form" data-select-service="${service}" data-situation="${title}" data-service-event="${event}">Разобрать мою ситуацию</a></article>`).join('')}</div>
       </div>
     </section>
 
@@ -637,20 +603,19 @@ ${head({
     <section class="section" id="cases">
       <div class="container">
         <div class="section-heading"><p class="eyebrow">Практические примеры</p><h2>Примеры задач, с которыми мы работаем</h2><p>Сроки и порядок действий приведены как примеры. Результат зависит от документов и конкретной ситуации.</p></div>
-        <div class="case-grid">${cases.map((item) => `<article class="case-card"><h3>${item.title}</h3><dl><div><dt>Ситуация</dt><dd>${item.situation}</dd></div><div><dt>Возможное решение</dt><dd>${item.solution}</dd></div><div><dt>Ориентировочный срок</dt><dd>${item.term}</dd></div></dl><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Пример задачи: ${item.title}">Обсудить похожую задачу</a></article>`).join('')}</div>
+        <div class="case-grid">${cases.filter(c => ['Экскаватор-погрузчик JCB 3CX', 'Трактор МТЗ-82', 'Мини-погрузчик Bobcat S650'].includes(c.title)).map((item) => `<article class="case-card"><h3>${item.title}</h3><dl><div><dt>Ситуация</dt><dd>${item.situation}</dd></div><div><dt>Возможное решение</dt><dd>${item.solution}</dd></div><div><dt>Ориентировочный срок</dt><dd>${item.term}</dd></div></dl><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Пример задачи: ${item.title}">Обсудить похожую задачу</a></article>`).join('')}</div>
       </div>
     </section>
 
-    <section class="rules-section">
-      <div class="container rules-layout">
-        <div><p class="eyebrow">Изменение законодательства</p><h2>Учитываем новые правила регистрации с 1 сентября 2026 года</h2></div>
-        <div><p>При подготовке документов учитываем требования Правил государственной регистрации самоходных машин и других видов техники, утверждённых Постановлением Правительства РФ от 29.05.2026 №625.</p><a class="text-link" href="https://publication.pravo.gov.ru/document/0001202605290095" target="_blank" rel="noopener">Официальный источник</a></div>
+    <section class="rules-section" style="padding-bottom: 0;">
+      <div class="container">
+        <div class="info-strip"><strong>Работаем с учётом актуальных правил регистрации с 1 сентября 2026 года.</strong><span><a class="text-link" href="https://publication.pravo.gov.ru/document/0001202605290095" target="_blank" rel="noopener">Официальный источник</a></span></div>
       </div>
     </section>
 
-    <section class="section section--alt" id="faq"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Частые вопросы</p><h2>Коротко о главном</h2><p>Если вашей ситуации нет в списке, отправьте заявку на разбор документов.</p></div>${faqBlock()}</div></section>
+    <section class="section section--alt" id="faq"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Частые вопросы</p><h2>Коротко о главном</h2><p>Если вашей ситуации нет в списке, отправьте заявку на разбор документов.</p></div>${faqBlock(faq.slice(0, 5))}</div></section>
 
-    <section class="section lead-section" id="lead-form"><div class="container lead-layout">${contactPanel()}${simpleFinalForm()}</div></section>
+    <section class="section lead-section" id="lead-form"><div class="container lead-layout">${contactPanel()}${simpleFinalForm({ title: 'Не уверены, какие документы нужны?', formName: 'Получите консультацию по оформлению техники' })}</div></section>
   </main>
   ${footer()}
     ${simpleCallbackModal()}
