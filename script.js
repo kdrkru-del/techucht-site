@@ -137,17 +137,34 @@
       modal.hidden = false;
       document.body.classList.add('modal-open');
       trackGoal('lead_form_open');
-      window.setTimeout(() => dialog?.querySelector('input:not([type="hidden"])')?.focus(), 0);
+      window.setTimeout(() => dialog?.querySelector('input[name="name"]')?.focus(), 0);
     };
     const close = () => {
       modal.hidden = true;
       document.body.classList.remove('modal-open');
       if (previousFocus instanceof HTMLElement) previousFocus.focus();
     };
-    document.querySelectorAll('[data-modal-open]').forEach((button) => button.addEventListener('click', open));
+    document.querySelectorAll('[data-modal-open]').forEach((button) => button.addEventListener('click', () => {
+      const documents = button.dataset.leadIntent === 'documents';
+      selectedService = button.dataset.selectService || pageService || 'Консультация';
+      const form = modal.querySelector('form');
+      modal.querySelector('#callback-title').textContent = documents ? 'Бесплатная проверка документов' : 'Бесплатная консультация';
+      const channel = modal.querySelector('[data-document-channel]');
+      if (channel) channel.hidden = !documents;
+      form.dataset.selectedService = selectedService;
+      form.dataset.formName = documents ? 'Бесплатная проверка документов' : 'Бесплатная консультация';
+      form.querySelector('[type="submit"]').textContent = documents ? 'Заказать проверку документов' : 'Бесплатная консультация';
+      open();
+    }));
     modal.querySelectorAll('[data-modal-close]').forEach((button) => button.addEventListener('click', close));
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape' && !modal.hidden) close();
+      if (event.key === 'Tab' && !modal.hidden) {
+        const items = [...dialog.querySelectorAll('a[href], button, input, textarea, select')].filter(el => !el.disabled && el.tabIndex !== -1 && el.getClientRects().length);
+        const first = items[0], last = items[items.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+      }
     });
     modal.addEventListener('lead:success', close);
   }
@@ -236,7 +253,7 @@
     event.preventDefault();
 
     if (form.dataset.submitting === 'true') return;
-    form.dataset.submitting = 'true';
+
     const status = form.querySelector('[data-form-status]');
     const button = form.querySelector('button[type="submit"]');
     const phone = form.querySelector('input[name="phone"]');
@@ -253,6 +270,7 @@
       trackGoal('lead_form_error');
       return;
     }
+    form.dataset.submitting = 'true';
     setButtonLoading(button, true);
     setStatus(status, 'Отправляем заявку…', null);
     try {
@@ -405,7 +423,7 @@
         }
         const eventName = GOALS[link.dataset.serviceEvent];
         if (eventName) trackGoal(eventName);
-        trackGoal('lead_form_open');
+        if (!link.hasAttribute('data-modal-open')) trackGoal('lead_form_open');
       });
     });
   }

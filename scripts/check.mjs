@@ -17,9 +17,9 @@ const htmlFiles = [
 const requiredMain = [
   '<title>Регистрация самоходной техники в Гостехнадзоре — Москва и МО | ТехУчёт</title>',
   'content="Постановка, перерегистрация и снятие самоходной техники с учёта в Гостехнадзоре. Тракторы, погрузчики, экскаваторы и другая техника."',
-  'Регистрация самоходной техники в Гостехнадзоре в Москве и Московской области',
+  'Регистрация спецтехники в Гостехнадзоре под ключ',
   'от 5 000 ₽',
-  'Поможем подготовить документы и сопроводим постановку на учёт, снятие с учёта, восстановление документов и другие регистрационные действия с самоходной техникой.',
+  'Постановка и снятие с учёта, проверка документов и сопровождение регистрационных действий в Москве, Московской области, Санкт-Петербурге и Ленинградской области.',
   'data-counter="85">85',
   'data-counter="3200">3 200',
   'data-counter="7">7',
@@ -60,8 +60,8 @@ for (const file of htmlFiles) {
   if (!html.includes('<link rel="canonical"')) errors.push(`${file}: missing canonical`);
   if (!html.includes('https://tehuchet24.ru')) errors.push(`${file}: custom production domain missing`);
   if (!html.includes('name="consent"') && !file.startsWith('404')) errors.push(`${file}: missing consent field`);
-  if ((html.match(/site-config\.js\?v=11/g) || []).length !== 1) errors.push(`${file}: site-config.js must be included exactly once`);
-  if ((html.match(/script\.js\?v=11/g) || []).length !== 1) errors.push(`${file}: script.js must be included exactly once`);
+  if ((html.match(/site-config\.js\?v=12/g) || []).length !== 1) errors.push(`${file}: site-config.js must be included exactly once`);
+  if ((html.match(/script\.js\?v=12/g) || []).length !== 1) errors.push(`${file}: script.js must be included exactly once`);
   if ((html.match(/rel="icon"[^>]*favicon\.png\?v=3/g) || []).length !== 1) errors.push(`${file}: favicon link missing`);
   if ((html.match(/rel="shortcut icon"[^>]*favicon\.png\?v=3/g) || []).length !== 1) errors.push(`${file}: shortcut favicon link missing`);
   if ((html.match(/rel="apple-touch-icon"[^>]*favicon\.png\?v=3/g) || []).length !== 1) errors.push(`${file}: apple touch icon link missing`);
@@ -139,7 +139,7 @@ for (const value of [
   'Регистрация техники в Санкт-Петербурге и Ленинградской области',
   'Гостехнадзоре Санкт-Петербурга и Ленинградской области',
   'Рассчитать стоимость',
-  'Получить консультацию',
+  'Бесплатная консультация',
   'data-form-name="СПб — форма первого экрана"',
   'data-form-name="СПб — повторная форма"',
   'Постановка техники на учёт в Гостехнадзоре',
@@ -186,7 +186,7 @@ for (const page of servicePages) {
 if ((spbPage.match(/data-spb-service-card/g) || []).length !== 7) errors.push('spb/index.html: expected 7 regional service cards');
 if ((spbPage.match(/<form\b[^>]*data-lead-form/g) || []).length !== 3) errors.push('spb/index.html: expected hero, final and callback forms');
 if (/Москв/.test(spbPage)) errors.push('spb/index.html: Moscow text leaked into regional landing');
-if (!spbPage.includes('../site-config.js?v=11') || !spbPage.includes('../script.js?v=11')) errors.push('spb/index.html: shared scripts missing');
+if (!spbPage.includes('../site-config.js?v=12') || !spbPage.includes('../script.js?v=12')) errors.push('spb/index.html: shared scripts missing');
 
 for (const id of ['services', 'vehicles', 'process', 'cases', 'faq', 'form', 'registration', 'reregistration', 'deregistration', 'inspection']) {
   const matches = spbPage.match(new RegExp(`id="${id}"`, 'g')) || [];
@@ -261,8 +261,9 @@ for (const file of htmlFiles.filter((file) => !file.startsWith('404'))) {
     if (!/name="phone"[^>]*type="tel"/.test(form)) errors.push(`${file}: form ${index + 1} missing phone field`);
     if (!/class="[^"]*ym-disable-keys[^"]*"[^>]*name="name"/.test(form)) errors.push(`${file}: form ${index + 1} name field is not protected from Webvisor`);
     if (!/class="[^"]*ym-disable-keys[^"]*"[^>]*name="phone"/.test(form)) errors.push(`${file}: form ${index + 1} phone field is not protected from Webvisor`);
-    if (/<select\b|<textarea\b|type="radio"|name="(?:region|service|tech|owner|comment)"/.test(form)) {
-      errors.push(`${file}: form ${index + 1} contains fields other than name and phone`);
+    if (!/name="comment"[^>]*type="text"/.test(form)) errors.push(`${file}: form ${index + 1} missing optional task field`);
+    if (/<select\b|<textarea\b|type="radio"|name="(?:region|service|tech|owner)"/.test(form)) {
+      errors.push(`${file}: form ${index + 1} contains fields other than name, phone and optional task`);
     }
   });
 }
