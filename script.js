@@ -145,15 +145,15 @@
       if (previousFocus instanceof HTMLElement) previousFocus.focus();
     };
     document.querySelectorAll('[data-modal-open]').forEach((button) => button.addEventListener('click', () => {
-      const documents = button.dataset.leadIntent === 'documents';
+      const isOrder = button.dataset.leadIntent === 'order';
       selectedService = button.dataset.selectService || pageService || 'Консультация';
       const form = modal.querySelector('form');
-      modal.querySelector('#callback-title').textContent = documents ? 'Бесплатная проверка документов' : 'Бесплатная консультация';
+      modal.querySelector('#callback-title').textContent = isOrder ? 'Заказать услугу' : 'Бесплатная консультация';
       const channel = modal.querySelector('[data-document-channel]');
-      if (channel) channel.hidden = !documents;
+      if (channel) channel.hidden = true;
       form.dataset.selectedService = selectedService;
-      form.dataset.formName = documents ? 'Бесплатная проверка документов' : 'Бесплатная консультация';
-      form.querySelector('[type="submit"]').textContent = documents ? 'Заказать проверку документов' : 'Бесплатная консультация';
+      form.dataset.formName = isOrder ? `Заказ услуги: ${selectedService}` : 'Бесплатная консультация';
+      form.querySelector('[type="submit"]').textContent = isOrder ? 'Заказать услугу' : 'Бесплатная консультация';
       open();
     }));
     modal.querySelectorAll('[data-modal-close]').forEach((button) => button.addEventListener('click', close));
