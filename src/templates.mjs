@@ -6,6 +6,7 @@ import {
   processSteps,
   cases,
   faq,
+  mainFaq,
   spbLanding,
 } from './data.mjs';
 
@@ -98,31 +99,31 @@ function serviceSchema({ name, description, url }) {
       '@type': 'Offer',
       priceCurrency: 'RUB',
       price: '5000',
-      description: 'Стоимость от 5 000 ₽. Точная стоимость определяется после проверки документов.',
+      description: 'Стоимость от 5 000 ₽. Точная стоимость определяется после уточнения задачи.',
     },
   };
 }
 
 
-function offerBenefits(term = '3–5') {
-  return `<ul class="offer-benefits" id="price"><li><strong>от 5 000 ₽</strong><span>Стоимость услуг</span></li><li><strong>${term} рабочих дней</strong><span>Ориентировочный срок</span></li><li>Работа по договору</li><li>Бесплатная консультация</li><li>Бесплатная проверка документов</li></ul>`;
+function offerBenefits(term = '3–5', region = 'Москва и МО') {
+  return `<ul class="offer-benefits" id="price"><li><strong>от 5 000 ₽</strong><span>Стоимость услуг</span></li><li><strong>${term} рабочих дней</strong><span>Ориентировочный срок</span></li><li>По договору</li><li>${region}</li><li>Для физлиц и организаций</li></ul>`;
 }
 
 function offerActions(service = 'Консультация', event = '') {
-  return `<div class="hero__actions offer-actions"><button class="btn btn--primary" type="button" data-modal-open data-select-service="${service}" data-lead-intent="consultation" data-service-event="${event}">Бесплатная консультация</button><button class="btn btn--outline" type="button" data-modal-open data-select-service="${service}" data-lead-intent="documents" data-service-event="${event}">Проверить документы</button><a class="offer-whatsapp track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">Написать в WhatsApp ↗</a></div><p class="hero__hint">Расскажем, какие документы нужны, сколько займёт оформление и сколько будет стоить именно ваш случай.</p>`;
+  return `<div class="hero__actions offer-actions"><button class="btn btn--primary" type="button" data-modal-open data-select-service="${service}" data-lead-intent="order" data-service-event="${event}">Заказать услугу</button><button class="btn btn--outline" type="button" data-modal-open data-select-service="${service}" data-lead-intent="consultation" data-service-event="${event}">Бесплатная консультация</button><a class="offer-whatsapp track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp ↗</a></div>`;
 }
 
 function trustBlock() {
-  return `<section class="trust-strip"><div class="container"><h2>Работаем по договору</h2><ul><li>Работаем с физлицами и организациями</li><li>Бесплатная первичная консультация</li><li>Проверка документов до начала оформления</li></ul><p>${site.company} · ИНН ${site.inn} · КПП ${site.kpp} · ОГРН ${site.ogrn}</p></div></section>`;
+  return `<section class="trust-strip"><div class="container"><h2>Работаем по договору</h2><ul><li>Работаем с физлицами и организациями</li><li>Бесплатная первичная консультация</li><li>Берём оформление в Гостехнадзоре на себя</li></ul><p>${site.company} · ИНН ${site.inn} · КПП ${site.kpp} · ОГРН ${site.ogrn}</p></div></section>`;
 }
 
 function serviceNavigation() {
-  return `<section class="service-navigation" id="services"><div class="container"><h2>Что мы делаем</h2><div class="service-navigation__grid service-navigation__grid--main"><a href="registraciya/"><span class="nav-card__title">Постановка на учёт</span><span class="nav-card__desc">Проверим документы, подготовим комплект и сопроводим постановку самоходной техники на учёт.</span><span class="nav-card__arrow" aria-hidden="true">↗</span></a><a href="snyatie-s-ucheta/"><span class="nav-card__title">Снятие с учёта</span><span class="nav-card__desc">Проверим документы и сопроводим снятие техники с регистрационного учёта.</span><span class="nav-card__arrow" aria-hidden="true">↗</span></a><a href="tehosmotr/"><span class="nav-card__title">Техосмотр</span><span class="nav-card__desc">Поможем подготовить документы и организовать прохождение техосмотра самоходной техники.</span><span class="nav-card__arrow" aria-hidden="true">↗</span></a></div><div class="secondary-services"><p class="secondary-services__title">Другие регистрационные вопросы</p><ul class="secondary-services__list"><li><a href="registraciya/#pereregistraciya">Изменение регистрационных данных / перерегистрация</a></li><li><a href="vosstanovlenie-psm/">Восстановление ПСМ / СТС</a></li><li><a href="registraciya/#documents">Проверка ПСМ / ЭПСМ</a></li><li><a href="tehosmotr/#akt-osmotra">Помощь с осмотром техники</a></li><li><a href="slozhnye-sluchai/">Сложные случаи и отказы Гостехнадзора</a></li></ul><button class="btn btn--small btn--outline" type="button" data-modal-open data-select-service="Консультация" data-lead-intent="consultation">Обсудить со специалистом</button></div></div></section>`;
+  return `<section class="service-navigation" id="services"><div class="container"><h2>Что мы делаем</h2><div class="service-navigation__grid service-navigation__grid--main"><a href="registraciya/"><span class="nav-card__title">Постановка на учёт</span><span class="nav-card__desc">Оформление постановки самоходной техники на учёт в Гостехнадзоре Москвы и МО.</span><span class="nav-card__meta"><strong>от 5 000 ₽</strong> · 3–5 рабочих дней</span><span class="btn btn--small btn--primary nav-card__btn">Заказать услугу</span></a><a href="snyatie-s-ucheta/"><span class="nav-card__title">Снятие с учёта</span><span class="nav-card__desc">Сопровождение снятия самоходной техники с регистрационного учёта.</span><span class="nav-card__meta"><strong>от 5 000 ₽</strong> · 2–5 рабочих дней</span><span class="btn btn--small btn--primary nav-card__btn">Заказать услугу</span></a><a href="tehosmotr/"><span class="nav-card__title">Техосмотр</span><span class="nav-card__desc">Помощь в прохождении техосмотра самоходной техники.</span><span class="nav-card__meta"><strong>от 5 000 ₽</strong> · 3–5 рабочих дней</span><span class="btn btn--small btn--primary nav-card__btn">Заказать услугу</span></a></div><div class="secondary-services"><p class="secondary-services__title">Другие вопросы по Гостехнадзору</p><p class="secondary-services__desc" style="color: var(--muted); font-size: 14px; margin-bottom: 12px;">Перерегистрация, восстановление документов, изменение регистрационных данных, сложные случаи.</p><ul class="secondary-services__list"><li><a href="registraciya/#pereregistraciya">Перерегистрация и изменение данных</a></li><li><a href="vosstanovlenie-psm/">Восстановление документов (ПСМ / СТС)</a></li><li><a href="tehosmotr/#akt-osmotra">Помощь с осмотром техники</a></li><li><a href="slozhnye-sluchai/">Сложные случаи и отказы Гостехнадзора</a></li></ul><button class="btn btn--small btn--outline" type="button" data-modal-open data-select-service="Консультация" data-lead-intent="consultation">Получить консультацию</button></div></div></section>`;
 }
 
 function commercialDetails(page) {
   if (page.key === 'registration') return `<section class="section section--alt"><div class="container two-column"><div><h2>Что берём на себя</h2><ul class="check-list">${['Проверка ПСМ / ЭПСМ', 'Проверка документов собственника', 'Подготовка заявления', 'Формирование комплекта документов', 'Сопровождение осмотра', 'Сопровождение регистрации', 'Помощь в нестандартных ситуациях'].map(x => `<li>${x}</li>`).join('')}</ul></div><div id="owners"><h2>Регистрируем самоходную технику</h2><p>Для физических лиц, ИП и организаций.</p><ul class="equipment-list">${['Тракторы', 'Погрузчики', 'Экскаваторы', 'Квадроциклы', 'Снегоходы', 'Коммунальная техника', 'Дорожно-строительная техника', 'Иная самоходная техника'].map(x => `<li>${x}</li>`).join('')}</ul></div></div></section>`;
-  if (page.key === 'deregistration') return `<section class="section section--alt"><div class="container"><h2>Когда требуется снятие с учёта</h2><p>Обратитесь за проверкой документов, если ваша задача связана с одной из ситуаций:</p><ul class="equipment-list">${['Продажа техники', 'Утилизация', 'Вывоз в другой регион', 'Изменение собственника', 'Прекращение регистрации', 'Другие регистрационные действия'].map(x => `<li>${x}</li>`).join('')}</ul><p class="section-note">Проверим, требуется ли снятие с учёта именно в вашем случае или другое регистрационное действие.</p></div></section>`;
+  if (page.key === 'deregistration') return `<section class="section section--alt"><div class="container"><h2>Когда требуется снятие с учёта</h2><p>Обратитесь за оформлением, если ваша задача связана с одной из ситуаций:</p><ul class="equipment-list">${['Продажа техники', 'Утилизация', 'Вывоз в другой регион', 'Изменение собственника', 'Прекращение регистрации', 'Другие регистрационные действия'].map(x => `<li>${x}</li>`).join('')}</ul><p class="section-note">Подготовим документы и сопроводим снятие с учёта в Гостехнадзоре до результата.</p></div></section>`;
   return '';
 }
 
@@ -235,13 +236,17 @@ function simpleHeroForm() {
   </form>`;
 }
 
-function simpleFinalForm({ id = 'main-lead', prefix = '', title = 'Нужна регистрация техники в Гостехнадзоре?', formName = 'Получите консультацию по оформлению техники' } = {}) {
+function simpleFinalForm({ id = 'main-lead', prefix = '', title = 'Нужно оформить спецтехнику в Гостехнадзоре?', subtitle = 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.', formName = 'Оформление спецтехники в Гостехнадзоре' } = {}) {
   return `<form class="form-card lead-form" id="${id}" data-lead-form data-form-name="${formName}" novalidate>
     ${honeypot()}
-    <div class="form-card__header"><p class="eyebrow">Заявка</p><h2>${title}</h2><p>Оставьте номер телефона — проверим документы и подскажем порядок оформления.</p></div>
+    <div class="form-card__header"><p class="eyebrow">Заявка</p><h2>${title}</h2><p>${subtitle}</p></div>
     ${simpleContactFields(id)}
     ${consentField(`${id}-consent`, prefix)}
-    <button class="btn btn--primary btn--full" type="submit">Бесплатная консультация</button>
+    <button class="btn btn--primary btn--full" type="submit">Заказать услугу</button>
+    <div class="lead-form__secondary-actions" style="display:flex;gap:10px;margin-top:10px;">
+      <button class="btn btn--outline" type="button" data-modal-open data-select-service="Консультация" data-lead-intent="consultation" style="flex:1;">Бесплатная консультация</button>
+      <a class="btn btn--outline track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener" style="flex:1;text-align:center;">WhatsApp</a>
+    </div>
     ${formStatus()}
   </form>`;
 }
@@ -252,7 +257,7 @@ function simpleCallbackModal(prefix = '') {
     <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="callback-title">
       <button class="icon-button modal__close" type="button" aria-label="Закрыть окно" data-modal-close>×</button>
       <h2 id="callback-title">Бесплатная консультация</h2>
-      <p data-modal-description>Оставьте имя и телефон — специалист свяжется с вами в рабочее время.</p><p data-document-channel hidden>Для бесплатной проверки отправьте документы в <a class="text-link track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a> или на <a class="text-link track-email" href="${site.emailHref}">${site.email}</a>. Можно оставить заявку — объясним, что подготовить.</p>
+      <p data-modal-description>Есть вопрос по постановке или снятию с учёта? Оставьте заявку — специалист свяжется с вами.</p>
       <form data-lead-form data-form-name="Обратный звонок" novalidate>
         ${honeypot()}
         ${simpleContactFields('callback')}
@@ -307,7 +312,7 @@ function heroForm() {
 function finalForm({ id = 'main-lead', selected = '', prefix = '', title = 'Получите консультацию по оформлению техники' } = {}) {
   return `<form class="form-card lead-form" id="${id}" data-lead-form data-form-name="${title}" novalidate>
     ${honeypot()}
-    <div class="form-card__header"><p class="eyebrow">Заявка</p><h2>${title}</h2><p>Специалист уточнит задачу, проверит документы и назовёт стоимость работ.</p></div>
+    <div class="form-card__header"><p class="eyebrow">Заявка</p><h2>${title}</h2><p>Специалист уточнит задачу и назовёт точную стоимость сопровождения.</p></div>
     <div class="form-grid">
       <label class="field" for="${id}-name"><span>Имя</span><input id="${id}-name" name="name" type="text" autocomplete="name" placeholder="Необязательно"></label>
       <label class="field" for="${id}-phone"><span>Телефон *</span><input id="${id}-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
@@ -384,13 +389,13 @@ function faqBlock(items = faq) {
   return `<div class="faq-list">${items.map(([question, answer], index) => `<article class="faq-item"><h3><button type="button" aria-expanded="${index === 0 ? 'true' : 'false'}" data-faq-button><span>${question}</span><span class="faq-icon" aria-hidden="true">+</span></button></h3><div class="faq-answer"${index === 0 ? '' : ' hidden'}><p>${answer}</p></div></article>`).join('')}</div>`;
 }
 
-function contactPanel() {
+function contactPanel(region = 'Москва и МО') {
   return `<aside class="contact-panel">
     <p class="eyebrow">Связаться напрямую</p>
     <a class="contact-panel__primary track-phone" href="${site.phoneHref}">${site.phone}</a>
     ${quickContacts({ modifier: 'quick-contacts--contact', includePhone: false })}
     <a class="contact-panel__email track-email" href="${site.emailHref}">${site.email}</a>
-    <dl><div><dt>Режим работы</dt><dd>${site.hours}</dd></div><div><dt>Стоимость услуг</dt><dd>от 5 000 ₽</dd></div><div><dt>Ориентировочный срок</dt><dd>3–5 рабочих дней</dd></div><div><dt>География</dt><dd>Вся Россия</dd></div></dl>
+    <dl><div><dt>Режим работы</dt><dd>${site.hours}</dd></div><div><dt>Стоимость услуг</dt><dd>от 5 000 ₽</dd></div><div><dt>Ориентировочный срок</dt><dd>3–5 рабочих дней</dd></div><div><dt>Регион</dt><dd>${region}</dd></div></dl>
   </aside>`;
 }
 
@@ -412,7 +417,7 @@ function spbContactPanel() {
     <a class="contact-panel__primary track-phone" href="${site.phoneHref}">${site.phone}</a>
     ${quickContacts({ modifier: 'quick-contacts--contact', includePhone: false })}
     <a class="contact-panel__email track-email" href="${site.emailHref}">${site.email}</a>
-    <dl><div><dt>Регион</dt><dd>Санкт-Петербург и Ленинградская область</dd></div><div><dt>Проверка документов</dt><dd>Дистанционно</dd></div><div><dt>Режим работы</dt><dd>${site.hours}</dd></div></dl>
+    <dl><div><dt>Регион</dt><dd>Санкт-Петербург и Ленинградская область</dd></div><div><dt>Сопровождение</dt><dd>Под ключ</dd></div><div><dt>Режим работы</dt><dd>${site.hours}</dd></div></dl>
   </aside>`;
 }
 
@@ -441,16 +446,16 @@ function serviceExtraSection(page) {
           <div class="service-detail__panel">
             <h3>Что входит в сопровождение</h3>
             <ul class="check-list">
-              <li>Предварительная проверка документов</li>
+              <li>Подготовка и анализ комплекта документов</li>
               <li>Проверка основания смены собственника</li>
               <li>Подготовка заявления и комплекта документов</li>
               <li>Сопровождение регистрационных действий</li>
-              <li>Информирование о недостающих документах и возможных препятствиях</li>
+              <li>Информирование о необходимых шагах и сроках</li>
             </ul>
           </div>
         </div>
         <div class="service-detail__actions">
-          <a class="btn btn--primary" href="#page-form" data-select-service="Внесение изменений" data-service-event="changes">Проверить документы для переоформления</a>
+          <a class="btn btn--primary" href="#page-form" data-select-service="Внесение изменений" data-service-event="changes">Заказать переоформление</a>
           <p>Возможность переоформления, итоговый порядок и срок зависят от документов, истории владения и требований соответствующего подразделения Гостехнадзора.</p>
         </div>
       </div>
@@ -501,7 +506,7 @@ ${head({
   schemas: [
     organizationSchema(),
     serviceSchema({ name: 'Сопровождение регистрации самоходной техники', description, url: canonical }),
-    faqSchema(faq),
+    faqSchema(mainFaq),
   ],
 })}
   <link rel="preload" href="assets/images/hero_bg.webp" as="image" type="image/webp" imagesrcset="assets/images/hero_bg-720.webp 720w, assets/images/hero_bg-900.webp 900w, assets/images/hero_bg.webp 1376w" imagesizes="100vw" fetchpriority="high">
@@ -516,7 +521,7 @@ ${head({
       <div class="container hero__grid">
         <div class="hero__content">
           <h1>Регистрация спецтехники в Гостехнадзоре Москвы и МО под ключ</h1>
-          <p class="hero__subtitle">Постановка на учёт, снятие с учёта и техосмотр самоходной техники. Проверим документы, подскажем порядок действий и сопроводим оформление до результата.</p>
+          <p class="hero__subtitle">Постановка на учёт, снятие с учёта и техосмотр самоходной техники. Берём оформление в Гостехнадзоре на себя и сопровождаем до результата.</p>
           ${offerBenefits()}
           ${offerActions()}
         </div>
@@ -539,8 +544,8 @@ ${head({
     ${trustBlock()}
     <section class="section section--alt" id="situations">
       <div class="container">
-        <div class="section-heading"><p class="eyebrow">Проблемные ситуации</p><h2>Разберём документы и предложим порядок действий</h2><p>Не обещаем результат до проверки. Сначала изучаем исходные данные и требования конкретного подразделения.</p></div>
-        <div class="problem-grid">${problems.filter(p => ['Утрачен бумажный ПСМ', 'Техника не снята с учёта предыдущим владельцем', 'Ошибка в договоре купли-продажи', 'Получен отказ Гостехнадзора'].includes(p[0])).map(([title, text, service = 'Отказ или сложная ситуация', event = 'complex_case']) => `<article class="problem-card"><h3>${title}</h3><p>${text}</p><a class="text-link" href="#lead-form" data-select-service="${service}" data-situation="${title}" data-service-event="${event}">Разобрать мою ситуацию</a></article>`).join('')}</div>
+        <div class="section-heading"><p class="eyebrow">Проблемные ситуации</p><h2>Разберём ситуацию и предложим порядок действий</h2><p>Поможем разобраться в нестандартном случае и сопроводить оформление в Гостехнадзоре.</p></div>
+        <div class="problem-grid">${problems.filter(p => ['Утрачен ПСМ', 'Техника не снята предыдущим владельцем', 'Ошибка в договоре', 'Получен отказ'].includes(p[0])).map(([title, text, service = 'Отказ или сложная ситуация', event = 'complex_case']) => `<article class="problem-card"><h3>${title}</h3><p>${text}</p><a class="text-link" href="#lead-form" data-modal-open data-select-service="${service}" data-situation="${title}" data-service-event="${event}">Получить консультацию</a></article>`).join('')}</div>
       </div>
     </section>
 
@@ -558,8 +563,8 @@ ${head({
           <li class="process-flow__step">
             <div class="process-flow__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
             <div class="process-flow__body">
-              <h3>Бесплатно проверяем</h3>
-              <p>Бесплатно проверяем документы и ситуацию.</p>
+              <h3>Уточняем задачу</h3>
+              <p>Бесплатно разбираем ситуацию и требования Гостехнадзора.</p>
             </div>
           </li>
           <li class="process-flow__step">
@@ -590,12 +595,13 @@ ${head({
 
     <section class="section section--alt" id="documents">
       <div class="container documents-layout">
-        <div class="section-heading section-heading--left"><p class="eyebrow">Документы</p><h2>Предварительный список для вашей ситуации</h2><p>Выберите собственника и регистрационное действие. Список обновится автоматически.</p></div>
+        <div class="section-heading section-heading--left"><p class="eyebrow">Документы</p><h2>Что понадобится для оформления</h2><p>Комплект зависит от техники и регистрационного действия. После обращения специалист сообщит, какие документы понадобятся именно в вашем случае.</p></div>
         <div class="documents-tool" data-documents-tool>
           <div class="segmented" role="group" aria-label="Тип собственника"><button type="button" class="is-active" data-owner="person">Физическое лицо</button><button type="button" data-owner="company">ИП или организация</button></div>
           <div class="tabs" role="tablist" aria-label="Регистрационное действие"><button type="button" class="is-active" data-action="registration">Постановка на учёт</button><button type="button" data-action="deregistration">Снятие с учёта</button><button type="button" data-action="restore">Восстановление документов</button><button type="button" data-action="inspection">Технический осмотр</button></div>
           <ul class="document-list" data-document-list><li>Паспорт собственника</li><li>Бумажный ПСМ или электронный паспорт (ЭПСМ)</li><li>Документ о праве собственности</li><li>Полис ОСАГО — когда требуется</li><li>Документы на номерные компоненты — при наличии изменений</li></ul>
-          <p class="tool-note">Точный перечень зависит от вида техники, регистрационного действия, региона и истории владения. Специалист проверит документы после обращения.</p>
+          <p class="tool-note">Ориентировочный перечень для начала работы. Специалист уточнит необходимые документы по вашей задаче.</p>
+          <div style="margin-top: 18px;"><button class="btn btn--primary" type="button" data-modal-open data-select-service="Регистрация спецтехники" data-lead-intent="order">Заказать оформление</button></div>
         </div>
       </div>
     </section>
@@ -613,9 +619,9 @@ ${head({
       </div>
     </section>
 
-    <section class="section section--alt" id="faq"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Частые вопросы</p><h2>Коротко о главном</h2><p>Если вашей ситуации нет в списке, отправьте заявку на разбор документов.</p></div>${faqBlock(faq.slice(0, 5))}</div></section>
+    <section class="section section--alt" id="faq"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Частые вопросы</p><h2>Коротко о главном</h2><p>Остались вопросы по оформлению техники? Оставьте заявку на консультацию.</p></div>${faqBlock(mainFaq)}</div></section>
 
-    <section class="section lead-section" id="lead-form"><div class="container lead-layout">${contactPanel()}${simpleFinalForm({ title: 'Не уверены, какие документы нужны?', formName: 'Получите консультацию по оформлению техники' })}</div></section>
+    <section class="section lead-section" id="lead-form"><div class="container lead-layout">${contactPanel('Москва и МО')}${simpleFinalForm({ title: 'Нужно оформить спецтехнику в Гостехнадзоре?', subtitle: 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.', formName: 'Оформление спецтехники в Гостехнадзоре' })}</div></section>
   </main>
   ${footer()}
     ${simpleCallbackModal()}
@@ -667,7 +673,7 @@ ${head({
           <p class="hero__badge">Санкт-Петербург и Ленинградская область</p>
           <h1>${spbLanding.h1} под ключ</h1>
           <p class="hero__subtitle">${spbLanding.subtitle}</p>
-          ${offerBenefits()}
+          ${offerBenefits('3–5', 'Санкт-Петербург и ЛО')}
           ${offerActions(spbLanding.defaultService, 'registration')}
         </div>
         <div class="form-stack">
@@ -680,7 +686,7 @@ ${head({
     ${trustBlock()}
     <section class="section" id="services">
       <div class="container">
-        <div class="section-heading"><p class="eyebrow">Услуги</p><h2>Регистрационные действия с самоходной техникой</h2><p>Помогаем владельцам техники из Санкт-Петербурга и Ленинградской области проверить документы и согласовать порядок оформления.</p></div>
+        <div class="section-heading"><p class="eyebrow">Услуги</p><h2>Регистрационные действия с самоходной техникой</h2><p>Помогаем владельцам техники из Санкт-Петербурга и Ленинградской области согласовать порядок оформления и зарегистрировать технику под ключ.</p></div>
         <div class="problem-grid">${spbLanding.services.map((service) => `<article class="problem-card"${service.anchor ? ` id="${service.anchor}"` : ''} data-spb-service-card><h3>${service.title}</h3><p>${service.description}</p><a class="text-link" href="#form" data-select-service="${service.service}" data-service-event="${service.event}">Оставить заявку</a></article>`).join('')}</div>
       </div>
     </section>
@@ -716,9 +722,9 @@ ${head({
       </div>
     </section>
 
-    <section class="section" id="faq"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Частые вопросы</p><h2>Регистрация техники в Санкт-Петербурге и области</h2><p>Ответы основаны на действующих услугах ТехУчёт24. Точный порядок определим после проверки документов.</p></div>${faqBlock(spbLanding.faq)}</div></section>
+    <section class="section" id="faq"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Частые вопросы</p><h2>Регистрация техники в Санкт-Петербурге и области</h2><p>Ответы основаны на действующих услугах ТехУчёт24. Точный порядок определим при обращении.</p></div>${faqBlock(spbLanding.faq)}</div></section>
 
-    <section class="section lead-section" id="form"><div class="container lead-layout">${spbContactPanel()}${spbLeadForm({ id: 'spb-final-form', title: 'Нужна регистрация техники в Гостехнадзоре?', text: 'Оставьте номер телефона — проверим документы и подскажем порядок оформления.', buttonText: 'Получить консультацию', formName: 'СПб — повторная форма' })}</div></section>
+    <section class="section lead-section" id="form"><div class="container lead-layout">${spbContactPanel()}${spbLeadForm({ id: 'spb-final-form', title: 'Нужно оформить спецтехнику в Гостехнадзоре?', text: 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.', buttonText: 'Заказать услугу', formName: 'СПб — повторная форма' })}</div></section>
   </main>
   ${footer('../', {
     homeHref: './',
@@ -739,18 +745,18 @@ ${head({
 
 export function servicePage(page) {
   const landing = {
-    registration: ['Постановка спецтехники на учёт в Гостехнадзоре Москвы и МО', 'Проверим документы, подготовим комплект и сопроводим постановку техники на учёт до результата.'],
-    deregistration: ['Снятие спецтехники с учёта в Гостехнадзоре Москвы и МО', 'Проверим документы, подготовим заявление и сопроводим снятие техники с регистрационного учёта.'],
-    inspection: ['Техосмотр самоходной техники в Москве и МО', 'Поможем подготовить документы и пройти процедуру технического осмотра самоходной техники в Гостехнадзоре.'],
+    registration: ['Постановка спецтехники на учёт в Гостехнадзоре Москвы и МО под ключ', 'Берём оформление в Гостехнадзоре на себя и сопровождаем постановку техники на учёт до результата.'],
+    deregistration: ['Снятие спецтехники с учёта в Гостехнадзоре Москвы и МО', 'Берём оформление в Гостехнадзоре на себя и сопроводим снятие техники с регистрационного учёта.'],
+    inspection: ['Техосмотр самоходной техники в Гостехнадзоре Москвы и МО', 'Поможем подготовить технику и пройти процедуру технического осмотра самоходной техники в Гостехнадзоре.'],
   }[page.key];
   const canonical = `${site.baseUrl}/${page.slug}/`;
   const description = `${page.description} Стоимость от 5 000 ₽, ориентировочный срок 3–5 рабочих дней.`;
   const pageFaq = [
-    ['Как проходит работа с Гостехнадзором по этой услуге?', 'Сначала проверяем документы и исходные данные, затем уточняем порядок обращения в Гостехнадзор и готовим комплект в рамках выбранной услуги.'],
+    ['Как проходит работа с Гостехнадзором по этой услуге?', 'Сначала анализируем задачу и исходные данные, затем уточняем порядок обращения в Гостехнадзор и готовим комплект в рамках выбранной услуги.'],
     ['Какие документы потребуются для обращения в Гостехнадзор?', 'Предварительный список указан на странице. Точный комплект зависит от вида техники, региона, истории владения и выбранного регистрационного действия.'],
     ['Сколько стоит услуга?', 'Стоимость начинается от 5 000 ₽. Точная сумма зависит от региона, вида техники, комплекта документов и сложности ситуации.'],
     ['Какой ориентировочный срок?', 'Большинство стандартных действий выполняется в течение 3–5 рабочих дней после получения полного комплекта документов. Срок зависит от региона и графика Гостехнадзора.'],
-    ['Можно ли начать дистанционно?', 'Да. Отправьте сведения о технике и имеющиеся документы на предварительную проверку. Специалист сообщит дальнейший порядок обращения в Гостехнадзор.'],
+    ['Можно ли начать дистанционно?', 'Да. Отправьте сведения о технике и имеющиеся документы специалисту для оценки ситуации. Мы согласуем дальнейший порядок обращения в Гостехнадзор.'],
   ];
   const breadcrumb = {
     '@context': 'https://schema.org',
@@ -772,7 +778,7 @@ ${head({ title: `${page.h1} — ТехУчёт`, description, canonical, prefix:
     <section class="service-hero">
       <div class="container"><nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>•</span><span>${page.short}</span></nav>
         <div class="service-hero__grid"><div><p class="eyebrow">ТехУчёт • Москва и Московская область</p><h1>${landing?.[0] || page.h1}</h1><p>${landing?.[1] || page.description}</p>${offerBenefits(page.key === 'deregistration' ? '2–5' : '3–5')}${offerActions(page.short, page.key)}</div>
-        <div class="service-summary" id="how"><h2>Что входит в работу</h2><ul>${page.works.map((item) => `<li>${item}</li>`).join('')}</ul><p>Точный порядок определяется после проверки документов.</p></div></div>
+        <div class="service-summary" id="how"><h2>Что входит в работу</h2><ul>${page.works.map((item) => `<li>${item}</li>`).join('')}</ul><p>Точный порядок определяется после анализа ситуации и имеющихся документов.</p></div></div>
       </div>
     </section>
 ${commercialDetails(page)}
@@ -780,7 +786,7 @@ ${commercialDetails(page)}
     <section class="section"><div class="container two-column"><div><p class="eyebrow">Типовые ситуации</p><h2>Когда обращаются</h2><ul class="check-list">${page.situations.map((item) => `<li>${item}</li>`).join('')}</ul></div><div id="documents"><p class="eyebrow">Документы</p><h2>Что подготовить</h2><ul class="check-list">${page.docs.map((item) => `<li>${item}</li>`).join('')}</ul><p class="section-note">Точный перечень зависит от вида техники, региона и истории владения.</p></div></div></section>
 ${serviceExtraSection(page)}
     <section class="section section--alt"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Вопросы по услуге</p><h2>Перед началом работы</h2></div>${faqBlock(pageFaq)}</div></section>
-    <section class="section lead-section" id="page-form"><div class="container lead-layout">${contactPanel()}${simpleFinalForm({ id: `${page.slug}-lead`, prefix: '../', formName: `Получить консультацию: ${page.short}` })}</div></section>
+    <section class="section lead-section" id="page-form"><div class="container lead-layout">${contactPanel('Москва и МО')}${simpleFinalForm({ id: `${page.slug}-lead`, prefix: '../', title: 'Нужно оформить спецтехнику в Гостехнадзоре?', subtitle: 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.', formName: `Получить консультацию: ${page.short}` })}</div></section>
   </main>
   ${footer('../')}
     ${simpleCallbackModal('../')}

@@ -25,7 +25,7 @@ const requiredMain = [
   'ООО «ЮНАТ»',
   'ОГРН 1242500018859',
   'jobstat@bk.ru',
-  'Оставьте номер телефона — проверим документы и подскажем порядок оформления.',
+  'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.',
 ];
 
 const forbidden = [
@@ -102,7 +102,7 @@ for (const value of [
   'Регистрация экскаватора-погрузчика',
   'Регистрация самоходной машины',
   'Постановка другой спецтехники на учёт в Гостехнадзоре',
-  'Проверить документы для переоформления',
+  'Заказать переоформление',
 ]) {
   if (!registrationPage.includes(value)) errors.push(`registraciya/index.html: required advertising content missing "${value}"`);
 }
@@ -124,7 +124,7 @@ for (const value of [
   '<link rel="canonical" href="https://tehuchet24.ru/spb/">',
   'Регистрация самоходной техники в Гостехнадзоре в Санкт-Петербурге и Ленинградской области',
   'Работаем по Санкт-Петербургу и Ленинградской области',
-  'Поможем поставить самоходную технику на учёт в Гостехнадзоре, снять её с учёта, переоформить при смене собственника и проверить документы.',
+  'Поможем поставить самоходную технику на учёт в Гостехнадзоре, снять её с учёта, переоформить при смене собственника и сопроводить оформление под ключ.',
   'Регистрация техники в Санкт-Петербурге и Ленинградской области',
   'Гостехнадзоре Санкт-Петербурга и Ленинградской области',
   'Рассчитать стоимость',
@@ -136,14 +136,25 @@ for (const value of [
   'Снятие техники с учёта в Гостехнадзоре',
   'Техосмотр самоходной техники в Гостехнадзоре',
   'Регистрируем в Гостехнадзоре тракторы, погрузчики, экскаваторы, квадроциклы и другую самоходную технику.',
-  'Нужна регистрация техники в Гостехнадзоре?',
-  'Оставьте номер телефона — проверим документы и подскажем порядок оформления.',
+  'Нужно оформить спецтехнику в Гостехнадзоре?',
+  'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.',
   'href="tel:+79995522001"',
   '"@type":"FAQPage"',
   '"name":"Санкт-Петербург"',
   '"name":"Ленинградская область"',
 ]) {
   if (!spbPage.includes(value)) errors.push(`spb/index.html: required landing content missing "${value}"`);
+}
+
+const requiredMainFaq = [
+  'Сколько стоит постановка техники на учёт?',
+  'Сколько времени занимает оформление?',
+  'Что входит в стоимость услуги?',
+  'Работаете ли вы с юридическими лицами?',
+  'Что делать, если ситуация нестандартная или уже был отказ?',
+];
+for (const question of requiredMainFaq) {
+  if (!main.includes(question)) errors.push(`index.html: commercial FAQ missing "${question}"`);
 }
 
 const requiredGostekhnadzorFaq = [
@@ -153,11 +164,8 @@ const requiredGostekhnadzorFaq = [
   'Как снять самоходную технику с учёта в Гостехнадзоре?',
   'Как проходит перерегистрация техники в Гостехнадзоре?',
 ];
-for (const file of ['index.html', 'spb/index.html']) {
-  const html = file === 'index.html' ? main : spbPage;
-  for (const question of requiredGostekhnadzorFaq) {
-    if (!html.includes(question)) errors.push(`${file}: Gostekhnadzor FAQ missing "${question}"`);
-  }
+for (const question of requiredGostekhnadzorFaq) {
+  if (!spbPage.includes(question)) errors.push(`spb/index.html: Gostekhnadzor FAQ missing "${question}"`);
 }
 
 for (const page of servicePages) {
@@ -165,8 +173,8 @@ for (const page of servicePages) {
   const html = await readFile(join(root, file), 'utf8');
   const heroMatch = html.match(/<section class="service-hero">[\s\S]*?<\/section>/);
   if (!heroMatch || !heroMatch[0].includes('Гостехнадзор')) errors.push(`${file}: first screen must mention Gostekhnadzor`);
-  if (!html.includes('Нужна регистрация техники в Гостехнадзоре?')) errors.push(`${file}: pre-form Gostekhnadzor heading missing`);
-  if (!html.includes('Оставьте номер телефона — проверим документы и подскажем порядок оформления.')) errors.push(`${file}: pre-form explanation missing`);
+  if (!html.includes('Нужно оформить спецтехнику в Гостехнадзоре?')) errors.push(`${file}: pre-form Gostekhnadzor heading missing`);
+  if (!html.includes('Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.')) errors.push(`${file}: pre-form explanation missing`);
   if (!html.includes(`data-form-name="Получить консультацию: ${page.short}"`)) errors.push(`${file}: lead form analytics name changed`);
   for (const question of ['Сколько стоит услуга?', 'Какой ориентировочный срок?', 'Как проходит работа с Гостехнадзором по этой услуге?']) {
     if (!html.includes(question)) errors.push(`${file}: service FAQ missing "${question}"`);

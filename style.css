@@ -583,6 +583,21 @@ p { color: var(--muted); }
   font-size: 18px;
   font-weight: 700;
 }
+.nav-card__meta {
+  display: block;
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.nav-card__meta strong {
+  color: var(--orange);
+}
+.nav-card__btn {
+  margin-top: auto;
+  width: 100%;
+  justify-content: center;
+  pointer-events: none;
+}
 
 /* Secondary Services compact strip in Service Navigation */
 .secondary-services {
