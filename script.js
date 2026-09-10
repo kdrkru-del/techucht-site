@@ -149,11 +149,17 @@
       selectedService = button.dataset.selectService || pageService || 'Консультация';
       const form = modal.querySelector('form');
       modal.querySelector('#callback-title').textContent = isOrder ? 'Заказать услугу' : 'Бесплатная консультация';
+      const desc = modal.querySelector('[data-modal-description]');
+      if (desc) {
+        desc.textContent = isOrder
+          ? 'Оставьте номер — специалист уточнит задачу и стоимость оформления.'
+          : 'Есть вопрос по постановке, снятию или техосмотру? Оставьте номер — специалист свяжется с вами.';
+      }
       const channel = modal.querySelector('[data-document-channel]');
       if (channel) channel.hidden = true;
       form.dataset.selectedService = selectedService;
       form.dataset.formName = isOrder ? `Заказ услуги: ${selectedService}` : 'Бесплатная консультация';
-      form.querySelector('[type="submit"]').textContent = isOrder ? 'Заказать услугу' : 'Бесплатная консультация';
+      form.querySelector('[type="submit"]').textContent = isOrder ? 'Заказать услугу' : 'Получить консультацию';
       open();
     }));
     modal.querySelectorAll('[data-modal-close]').forEach((button) => button.addEventListener('click', close));

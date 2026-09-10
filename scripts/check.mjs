@@ -111,7 +111,7 @@ const inspectionPage = await readFile(join(root, 'tehosmotr/index.html'), 'utf8'
 for (const value of [
   'id="akt-osmotra"',
   'Акт осмотра самоходной техники',
-  'Что проверяем до осмотра',
+  'Что подготавливаем к осмотру',
   'Получить консультацию по акту осмотра',
 ]) {
   if (!inspectionPage.includes(value)) errors.push(`tehosmotr/index.html: required advertising content missing "${value}"`);

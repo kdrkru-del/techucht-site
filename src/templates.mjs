@@ -118,11 +118,11 @@ function trustBlock() {
 }
 
 function serviceNavigation() {
-  return `<section class="service-navigation" id="services"><div class="container"><h2>Что мы делаем</h2><div class="service-navigation__grid service-navigation__grid--main"><a href="registraciya/"><span class="nav-card__title">Постановка на учёт</span><span class="nav-card__desc">Оформление постановки самоходной техники на учёт в Гостехнадзоре Москвы и МО.</span><span class="nav-card__meta"><strong>от 5 000 ₽</strong> · 3–5 рабочих дней</span><span class="btn btn--small btn--primary nav-card__btn">Заказать услугу</span></a><a href="snyatie-s-ucheta/"><span class="nav-card__title">Снятие с учёта</span><span class="nav-card__desc">Сопровождение снятия самоходной техники с регистрационного учёта.</span><span class="nav-card__meta"><strong>от 5 000 ₽</strong> · 2–5 рабочих дней</span><span class="btn btn--small btn--primary nav-card__btn">Заказать услугу</span></a><a href="tehosmotr/"><span class="nav-card__title">Техосмотр</span><span class="nav-card__desc">Помощь в прохождении техосмотра самоходной техники.</span><span class="nav-card__meta"><strong>от 5 000 ₽</strong> · 3–5 рабочих дней</span><span class="btn btn--small btn--primary nav-card__btn">Заказать услугу</span></a></div><div class="secondary-services"><p class="secondary-services__title">Другие вопросы по Гостехнадзору</p><p class="secondary-services__desc" style="color: var(--muted); font-size: 14px; margin-bottom: 12px;">Перерегистрация, восстановление документов, изменение регистрационных данных, сложные случаи.</p><ul class="secondary-services__list"><li><a href="registraciya/#pereregistraciya">Перерегистрация и изменение данных</a></li><li><a href="vosstanovlenie-psm/">Восстановление документов (ПСМ / СТС)</a></li><li><a href="tehosmotr/#akt-osmotra">Помощь с осмотром техники</a></li><li><a href="slozhnye-sluchai/">Сложные случаи и отказы Гостехнадзора</a></li></ul><button class="btn btn--small btn--outline" type="button" data-modal-open data-select-service="Консультация" data-lead-intent="consultation">Получить консультацию</button></div></div></section>`;
+  return `<section class="service-navigation" id="services"><div class="container"><h2>Что мы делаем</h2><div class="service-navigation__grid service-navigation__grid--main"><article class="nav-card nav-card--article"><span class="nav-card__title">Постановка на учёт</span><span class="nav-card__desc">Оформление постановки самоходной техники на учёт в Гостехнадзоре Москвы и МО.</span><span class="nav-card__meta"><strong>от 5 000 ₽</strong> · 3–5 рабочих дней</span><div class="nav-card__actions"><button class="btn btn--small btn--primary nav-card__btn" type="button" data-modal-open data-select-service="Постановка на учёт" data-lead-intent="order" data-service-event="registration">Заказать услугу</button><a class="text-link nav-card__more" href="registraciya/">Подробнее →</a></div></article><article class="nav-card nav-card--article"><span class="nav-card__title">Снятие с учёта</span><span class="nav-card__desc">Сопровождение снятия самоходной техники с регистрационного учёта.</span><span class="nav-card__meta"><strong>от 5 000 ₽</strong> · 2–5 рабочих дней</span><div class="nav-card__actions"><button class="btn btn--small btn--primary nav-card__btn" type="button" data-modal-open data-select-service="Снятие с учёта" data-lead-intent="order" data-service-event="deregistration">Заказать услугу</button><a class="text-link nav-card__more" href="snyatie-s-ucheta/">Подробнее →</a></div></article><article class="nav-card nav-card--article"><span class="nav-card__title">Техосмотр</span><span class="nav-card__desc">Помощь в прохождении техосмотра самоходной техники.</span><span class="nav-card__meta"><strong>от 5 000 ₽</strong> · 3–5 рабочих дней</span><div class="nav-card__actions"><button class="btn btn--small btn--primary nav-card__btn" type="button" data-modal-open data-select-service="Технический осмотр" data-lead-intent="order" data-service-event="inspection">Заказать услугу</button><a class="text-link nav-card__more" href="tehosmotr/">Подробнее →</a></div></article></div><div class="secondary-services"><p class="secondary-services__title">Другие вопросы по Гостехнадзору</p><p class="secondary-services__desc" style="color: var(--muted); font-size: 14px; margin-bottom: 12px;">Перерегистрация, восстановление документов, изменение регистрационных данных, сложные случаи.</p><ul class="secondary-services__list"><li><a href="registraciya/#pereregistraciya">Перерегистрация и изменение данных</a></li><li><a href="vosstanovlenie-psm/">Восстановление документов (ПСМ / СТС)</a></li><li><a href="tehosmotr/#akt-osmotra">Помощь с осмотром техники</a></li><li><a href="slozhnye-sluchai/">Сложные случаи и отказы Гостехнадзора</a></li></ul><button class="btn btn--small btn--outline" type="button" data-modal-open data-select-service="Консультация" data-lead-intent="consultation">Получить консультацию</button></div></div></section>`;
 }
 
 function commercialDetails(page) {
-  if (page.key === 'registration') return `<section class="section section--alt"><div class="container two-column"><div><h2>Что берём на себя</h2><ul class="check-list">${['Анализ ПСМ / ЭПСМ', 'Анализ документов собственника', 'Подготовка заявления', 'Формирование комплекта документов', 'Сопровождение осмотра', 'Сопровождение регистрации', 'Помощь в нестандартных ситуациях'].map(x => `<li>${x}</li>`).join('')}</ul></div><div id="owners"><h2>Регистрируем самоходную технику</h2><p>Для физических лиц, ИП и организаций.</p><ul class="equipment-list">${['Тракторы', 'Погрузчики', 'Экскаваторы', 'Квадроциклы', 'Снегоходы', 'Коммунальная техника', 'Дорожно-строительная техника', 'Иная самоходная техника'].map(x => `<li>${x}</li>`).join('')}</ul></div></div></section>`;
+  if (page.key === 'registration') return `<section class="section section--alt"><div class="container two-column"><div><h2>Что берём на себя</h2><ul class="check-list">${['Подготовка ПСМ / ЭПСМ к оформлению', 'Формирование комплекта документов собственника', 'Подготовка заявления', 'Формирование комплекта документов', 'Сопровождение осмотра', 'Сопровождение регистрации', 'Помощь в нестандартных ситуациях'].map(x => `<li>${x}</li>`).join('')}</ul></div><div id="owners"><h2>Регистрируем самоходную технику</h2><p>Для физических лиц, ИП и организаций.</p><ul class="equipment-list">${['Тракторы', 'Погрузчики', 'Экскаваторы', 'Квадроциклы', 'Снегоходы', 'Коммунальная техника', 'Дорожно-строительная техника', 'Иная самоходная техника'].map(x => `<li>${x}</li>`).join('')}</ul></div></div></section>`;
   if (page.key === 'deregistration') return `<section class="section section--alt"><div class="container"><h2>Когда требуется снятие с учёта</h2><p>Обратитесь за оформлением, если ваша задача связана с одной из ситуаций:</p><ul class="equipment-list">${['Продажа техники', 'Утилизация', 'Вывоз в другой регион', 'Изменение собственника', 'Прекращение регистрации', 'Другие регистрационные действия'].map(x => `<li>${x}</li>`).join('')}</ul><p class="section-note">Подготовим документы и сопроводим снятие с учёта в Гостехнадзоре до результата.</p></div></section>`;
   return '';
 }
@@ -226,12 +226,12 @@ function simpleHeroForm() {
     ${honeypot()}
     <div class="form-card__header">
       <p class="eyebrow">Заявка</p>
-      <h2>Бесплатная консультация</h2>
-      <p>Специалист перезвонит и уточнит детали.</p>
+      <h2>Рассчитать стоимость</h2>
+      <p>Оставьте номер — специалист уточнит задачу и стоимость оформления.</p>
     </div>
     ${simpleContactFields('hero')}
     ${consentField('hero-consent')}
-    <button class="btn btn--primary btn--full" type="submit">Бесплатная консультация</button>
+    <button class="btn btn--primary btn--full" type="submit">Получить расчёт</button>
     ${formStatus()}
   </form>`;
 }
@@ -257,12 +257,12 @@ function simpleCallbackModal(prefix = '') {
     <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="callback-title">
       <button class="icon-button modal__close" type="button" aria-label="Закрыть окно" data-modal-close>×</button>
       <h2 id="callback-title">Бесплатная консультация</h2>
-      <p data-modal-description>Есть вопрос по постановке или снятию с учёта? Оставьте заявку — специалист свяжется с вами.</p>
+      <p data-modal-description>Есть вопрос по постановке, снятию или техосмотру? Оставьте номер — специалист свяжется с вами.</p>
       <form data-lead-form data-form-name="Обратный звонок" novalidate>
         ${honeypot()}
         ${simpleContactFields('callback')}
         ${consentField('callback-consent', prefix)}
-        <button class="btn btn--primary btn--full" type="submit">Бесплатная консультация</button>
+        <button class="btn btn--primary btn--full" type="submit">Получить консультацию</button>
         ${formStatus()}
       </form>
     </div>
@@ -356,7 +356,7 @@ function mobileBar(href = '#lead-form') {
   </div>`;
 }
 
-function footer(prefix = '', { homeHref = null, serviceLinks = null } = {}) {
+function footer(prefix = '', { homeHref = null, serviceLinks = null, description = 'Сопровождение регистрационных действий со спецтехникой в Гостехнадзоре Москвы и Московской области.' } = {}) {
   const home = homeHref || prefix || './';
   const links = serviceLinks || [
     [`${prefix}registraciya/`, 'Постановка на учёт'],
@@ -370,7 +370,7 @@ function footer(prefix = '', { homeHref = null, serviceLinks = null } = {}) {
     <div class="container footer__grid">
       <div class="footer__brand">
         <a class="logo" href="${home}"><img class="logo__img" src="${prefix}logo.png" width="1024" height="682" alt="ТехУчёт — Гостехнадзор"></a>
-        <p>Компания по сопровождению регистрационных действий с самоходной техникой по всей России.</p>
+        <p>${description}</p>
       </div>
       <div><h2>Услуги</h2>${links.map(([href, label]) => `<a href="${href}">${label}</a>`).join('')}</div>
       <div><h2>Контакты</h2><a class="track-phone" href="${site.phoneHref}">${site.phone}</a><a class="track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a><a class="track-telegram" href="${site.telegram}" target="_blank" rel="noopener">Telegram</a><a class="footer-max track-max is-disabled" aria-label="MAX" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">${maxContactContent()}</a><a class="track-email" href="${site.emailHref}">${site.email}</a><span>${site.hours}</span></div>
@@ -447,7 +447,7 @@ function serviceExtraSection(page) {
             <h3>Что входит в сопровождение</h3>
             <ul class="check-list">
               <li>Подготовка и анализ комплекта документов</li>
-              <li>Проверка основания смены собственника</li>
+              <li>Оформление оснований перехода права собственности</li>
               <li>Подготовка заявления и комплекта документов</li>
               <li>Сопровождение регистрационных действий</li>
               <li>Информирование о необходимых шагах и сроках</li>
@@ -468,10 +468,10 @@ function serviceExtraSection(page) {
         <div class="section-heading section-heading--left">
           <p class="eyebrow">Осмотр техники</p>
           <h2>Акт осмотра самоходной техники</h2>
-          <p>Помогаем подготовить документы и организовать сопровождение осмотра самоходной техники, когда для регистрационных действий требуется акт осмотра. Предварительно проверяем сведения о собственнике, документы на технику и идентификационные данные.</p>
+          <p>Помогаем подготовить документы и организовать сопровождение осмотра самоходной техники, когда для регистрационных действий требуется акт осмотра. Предварительно подготавливаем документы и сведения о собственнике, технике и идентификационных данных.</p>
         </div>
         <div class="service-detail__panel service-detail__panel--wide">
-          <h3>Что проверяем до осмотра</h3>
+          <h3>Что подготавливаем к осмотру</h3>
           <ul class="check-list service-detail__list--columns">
             <li>Паспорт самоходной машины или сведения об ЭПСМ</li>
             <li>Документы о праве собственности</li>
@@ -533,21 +533,21 @@ ${head({
     </section>
 
     ${serviceNavigation()}
-    <section class="stats" aria-label="Опыт компании">
-      <div class="container stats__grid stats__grid--two">
-        <div class="stat"><strong><span data-counter="3200">3 200</span>+</strong><span>выполненных регистраций</span><small>Опыт регистрационных действий</small></div>
-        <div class="stat"><strong><span data-counter="7">7</span> лет</strong><span>работы</span><small>Опыт сопровождения регистраций</small></div>
-      </div>
-      <p class="regions-note container">Также рассматриваем обращения из других регионов России. Возможность сопровождения зависит от региона и конкретной ситуации.</p>
-    </section>
-
-    ${trustBlock()}
     <section class="section section--alt" id="situations">
       <div class="container">
         <div class="section-heading"><p class="eyebrow">Проблемные ситуации</p><h2>Разберём ситуацию и предложим порядок действий</h2><p>Поможем разобраться в нестандартном случае и сопроводить оформление в Гостехнадзоре.</p></div>
         <div class="problem-grid">${problems.slice(0, 4).map(([title, text, service = 'Отказ или сложная ситуация', event = 'complex_case']) => `<article class="problem-card"><h3>${title}</h3><p>${text}</p><a class="text-link" href="#lead-form" data-modal-open data-select-service="${service}" data-situation="${title}" data-service-event="${event}">Получить консультацию</a></article>`).join('')}</div>
       </div>
     </section>
+
+    <section class="stats" aria-label="Опыт компании">
+      <div class="container stats__grid stats__grid--two">
+        <div class="stat"><strong><span data-counter="3200">3 200</span>+</strong><span>выполненных регистраций</span><small>Опыт регистрационных действий</small></div>
+        <div class="stat"><strong><span data-counter="7">7</span> лет</strong><span>работы</span><small>Опыт сопровождения регистраций</small></div>
+      </div>
+    </section>
+
+    ${trustBlock()}
 
     <section class="section" id="process">
       <div class="container">
@@ -595,14 +595,14 @@ ${head({
 
     <section class="section section--alt" id="documents">
       <div class="container documents-layout">
-        <div class="section-heading section-heading--left"><p class="eyebrow">Документы</p><h2>Что понадобится для оформления</h2><p>Комплект зависит от техники и регистрационного действия. После обращения специалист сообщит, какие документы понадобятся именно в вашем случае.</p></div>
-        <div class="documents-tool" data-documents-tool>
-          <div class="segmented" role="group" aria-label="Тип собственника"><button type="button" class="is-active" data-owner="person">Физическое лицо</button><button type="button" data-owner="company">ИП или организация</button></div>
-          <div class="tabs" role="tablist" aria-label="Регистрационное действие"><button type="button" class="is-active" data-action="registration">Постановка на учёт</button><button type="button" data-action="deregistration">Снятие с учёта</button><button type="button" data-action="restore">Восстановление документов</button><button type="button" data-action="inspection">Технический осмотр</button></div>
-          <ul class="document-list" data-document-list><li>Паспорт собственника</li><li>Бумажный ПСМ или электронный паспорт (ЭПСМ)</li><li>Документ о праве собственности</li><li>Полис ОСАГО — когда требуется</li><li>Документы на номерные компоненты — при наличии изменений</li></ul>
-          <p class="tool-note">Ориентировочный перечень для начала работы. Специалист уточнит необходимые документы по вашей задаче.</p>
-          <div style="margin-top: 18px;"><button class="btn btn--primary" type="button" data-modal-open data-select-service="Регистрация спецтехники" data-lead-intent="order">Заказать оформление</button></div>
-        </div>
+        <div class="section-heading section-heading--left"><p class="eyebrow">Документы</p><h2>Что понадобится для начала оформления</h2></div>
+        <ul class="check-list">
+          <li>Паспорт самоходной машины (ПСМ) или сведения об ЭПСМ</li>
+          <li>Документ о праве собственности (договор купли-продажи, дарения и т. д.)</li>
+          <li>Паспорт собственника или реквизиты организации</li>
+        </ul>
+        <p class="section-note">Остальной комплект зависит от ситуации — необходимые документы подготовим в рамках оформления.</p>
+        <div style="margin-top: 18px;"><button class="btn btn--primary" type="button" data-modal-open data-select-service="Регистрация спецтехники" data-lead-intent="order">Заказать оформление</button></div>
       </div>
     </section>
 
@@ -615,7 +615,7 @@ ${head({
 
     <section class="rules-section" style="padding-bottom: 0;">
       <div class="container">
-        <div class="info-strip"><strong>Работаем с учётом актуальных правил регистрации с 1 сентября 2026 года.</strong><span><a class="text-link" href="https://publication.pravo.gov.ru/document/0001202605290095" target="_blank" rel="noopener">Официальный источник</a></span></div>
+        <div class="info-strip"><strong>Работаем с учётом актуальных правил регистрации с 1 сентября 2026 года.</strong></div>
       </div>
     </section>
 
@@ -728,6 +728,7 @@ ${head({
   </main>
   ${footer('../', {
     homeHref: './',
+    description: 'Сопровождение регистрационных действий со спецтехникой в Гостехнадзоре Санкт-Петербурга и Ленинградской области.',
     serviceLinks: [
       ['#registration', 'Постановка на учёт'],
       ['#reregistration', 'Перерегистрация'],

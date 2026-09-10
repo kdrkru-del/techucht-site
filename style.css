@@ -546,7 +546,8 @@ p { color: var(--muted); }
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
-.service-navigation__grid--main a {
+.service-navigation__grid--main a,
+.service-navigation__grid--main .nav-card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -559,7 +560,8 @@ p { color: var(--muted); }
   position: relative;
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.service-navigation__grid--main a:hover {
+.service-navigation__grid--main a:hover,
+.service-navigation__grid--main .nav-card:hover {
   border-color: var(--orange);
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
@@ -592,11 +594,21 @@ p { color: var(--muted); }
 .nav-card__meta strong {
   color: var(--orange);
 }
-.nav-card__btn {
+.nav-card__actions {
   margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  justify-content: center;
-  pointer-events: none;
+  gap: 12px;
+}
+.nav-card__btn {
+  pointer-events: auto;
+}
+.nav-card__more {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 /* Secondary Services compact strip in Service Navigation */
