@@ -106,11 +106,29 @@ function serviceSchema({ name, description, url }) {
 
 
 function offerBenefits(term = '3–5', region = 'Москва и МО') {
-  return `<ul class="offer-benefits" id="price"><li><strong>от 5 000 ₽</strong><span>Стоимость услуг</span></li><li><strong>${term} рабочих дней</strong><span>Ориентировочный срок</span></li><li>По договору</li><li>${region}</li><li>Для физлиц и организаций</li></ul>`;
+  return `<ul class="offer-benefits" id="price"><li><strong>от 5 000 ₽</strong><span>Стоимость услуг</span></li><li><strong>${term} рабочих дней</strong><span>Ориентировочный срок</span></li><li>По договору</li><li>${region}</li><li>Для физлиц и организаций</li><li>Без очередей и личных визитов в Гостехнадзор</li></ul>`;
 }
 
 function offerActions(service = 'Консультация', event = '') {
   return `<div class="hero__actions offer-actions"><button class="btn btn--primary" type="button" data-modal-open data-select-service="${service}" data-lead-intent="order" data-service-event="${event}">Заказать услугу</button><button class="btn btn--outline" type="button" data-modal-open data-select-service="${service}" data-lead-intent="consultation" data-service-event="${event}">Бесплатная консультация</button><a class="offer-whatsapp track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp ↗</a></div>`;
+}
+
+function b2bBlock() {
+  return `<section class="section b2b-section" id="b2b">
+    <div class="container">
+      <div class="b2b-card">
+        <div class="b2b-card__content">
+          <p class="eyebrow">Для организаций и парков</p>
+          <h2>Для юридических лиц и парков спецтехники</h2>
+          <p class="b2b-card__desc">Работаем по договору с компаниями и владельцами парка техники. Безналичный расчёт, закрывающие документы, постановка и снятие нескольких единиц техники.</p>
+          <p class="b2b-card__note">Несколько единиц техники? Рассчитаем стоимость сопровождения по всему парку.</p>
+        </div>
+        <div class="b2b-card__action">
+          <button class="btn btn--primary" type="button" data-modal-open data-select-service="Регистрация спецтехники" data-lead-intent="order">Получить расчёт</button>
+        </div>
+      </div>
+    </div>
+  </section>`;
 }
 
 function trustBlock() {
@@ -122,8 +140,8 @@ function serviceNavigation() {
 }
 
 function commercialDetails(page) {
-  if (page.key === 'registration') return `<section class="section section--alt"><div class="container two-column"><div><h2>Что берём на себя</h2><ul class="check-list">${['Подготовка заявления и комплекта документов для подачи', 'Формирование комплекта документов собственника', 'Сопровождение осмотра', 'Сопровождение регистрационной процедуры', 'Взаимодействие с Гостехнадзором', 'Сопровождение до получения результата', 'Помощь в нестандартных ситуациях'].map(x => `<li>${x}</li>`).join('')}</ul></div><div id="owners"><h2>Регистрируем самоходную технику</h2><p>Для физических лиц, ИП и организаций.</p><ul class="equipment-list">${['Тракторы', 'Погрузчики', 'Экскаваторы', 'Квадроциклы', 'Снегоходы', 'Коммунальная техника', 'Дорожно-строительная техника', 'Иная самоходная техника'].map(x => `<li>${x}</li>`).join('')}</ul></div></div></section>`;
-  if (page.key === 'deregistration') return `<section class="section section--alt"><div class="container"><h2>Когда требуется снятие с учёта</h2><p>Обратитесь за оформлением, если ваша задача связана с одной из ситуаций:</p><ul class="equipment-list">${['Продажа техники', 'Утилизация', 'Вывоз в другой регион', 'Изменение собственника', 'Прекращение регистрации', 'Другие регистрационные действия'].map(x => `<li>${x}</li>`).join('')}</ul><p class="section-note">Подготовим документы и сопроводим снятие с учёта в Гостехнадзоре до результата.</p></div></section>`;
+  if (page.key === 'registration') return `<section class="section section--alt"><div class="container two-column"><div><h2>Что берём на себя</h2><ul class="check-list">${['Подготовка заявления и комплекта документов для подачи', 'Формирование комплекта документов собственника', 'Сопровождение осмотра', 'Сопровождение регистрационной процедуры', 'Взаимодействие с Гостехнадзором', 'Сопровождение до получения результата', 'Помощь в нестандартных ситуациях'].map(x => `<li>${x}</li>`).join('')}</ul></div><div id="owners"><h2>Регистрируем самоходную технику</h2><p>Для физических лиц, ИП и организаций. Постановка нескольких единиц техники и сопровождение парков спецтехники.</p><ul class="equipment-list">${['Тракторы', 'Погрузчики', 'Экскаваторы', 'Квадроциклы', 'Снегоходы', 'Коммунальная техника', 'Дорожно-строительная техника', 'Иная самоходная техника'].map(x => `<li>${x}</li>`).join('')}</ul></div></div></section>`;
+  if (page.key === 'deregistration') return `<section class="section section--alt"><div class="container"><h2>Когда требуется снятие с учёта</h2><p>Обратитесь за оформлением, если ваша задача связана с одной из ситуаций:</p><ul class="equipment-list">${['Продажа техники', 'Утилизация', 'Вывоз в другой регион', 'Изменение собственника', 'Прекращение регистрации', 'Снятие с учёта парка техники', 'Другие регистрационные действия'].map(x => `<li>${x}</li>`).join('')}</ul><p class="section-note">Работаем по договору с компаниями и частными владельцами. Подготовим документы и сопроводим снятие с учёта в Гостехнадзоре до результата.</p></div></section>`;
   return '';
 }
 
@@ -468,7 +486,7 @@ function serviceExtraSection(page) {
         <div class="section-heading section-heading--left">
           <p class="eyebrow">Осмотр техники</p>
           <h2>Акт осмотра самоходной техники</h2>
-          <p>Помогаем подготовить документы и организовать сопровождение осмотра самоходной техники, когда для регистрационных действий требуется акт осмотра. Предварительно подготавливаем документы и сведения о собственнике, технике и идентификационных данных.</p>
+          <p>Помогаем подготовить документы и организовать сопровождение осмотра самоходной техники, когда для регистрационных действий требуется акт осмотра. В зависимости от ситуации можем организовать осмотр по месту нахождения техники в Москве и Московской области.</p>
         </div>
         <div class="service-detail__panel service-detail__panel--wide">
           <h3>Что подготавливаем к осмотру</h3>
@@ -539,6 +557,8 @@ ${head({
         <div class="problem-grid">${problems.slice(0, 4).map(([title, text, service = 'Отказ или сложная ситуация', event = 'complex_case']) => `<article class="problem-card"><h3>${title}</h3><p>${text}</p><a class="text-link" href="#lead-form" data-modal-open data-select-service="${service}" data-situation="${title}" data-service-event="${event}">Получить консультацию</a></article>`).join('')}</div>
       </div>
     </section>
+
+    ${b2bBlock()}
 
     <section class="stats" aria-label="Опыт компании">
       <div class="container stats__grid stats__grid--two">
@@ -755,6 +775,8 @@ export function servicePage(page) {
   const pageFaq = [
     ['Как проходит работа с Гостехнадзором по этой услуге?', 'Сначала анализируем задачу и исходные данные, затем уточняем порядок обращения в Гостехнадзор и готовим комплект в рамках выбранной услуги.'],
     ['Какие документы потребуются для обращения в Гостехнадзор?', 'Предварительный список указан на странице. Точный комплект зависит от вида техники, региона, истории владения и выбранного регистрационного действия.'],
+    ['Нужно ли везти технику в Гостехнадзор?', 'Не всегда. В зависимости от ситуации можем организовать осмотр по месту нахождения техники в Москве и Московской области.'],
+    ['Госпошлины входят в стоимость услуги?', 'Нет. Стоимость сопровождения — от 5 000 ₽. Государственные пошлины оплачиваются отдельно.'],
     ['Сколько стоит услуга?', 'Стоимость начинается от 5 000 ₽. Точная сумма зависит от региона, вида техники, комплекта документов и сложности ситуации.'],
     ['Какой ориентировочный срок?', 'Большинство стандартных действий выполняется в течение 3–5 рабочих дней после получения полного комплекта документов. Срок зависит от региона и графика Гостехнадзора.'],
     ['Можно ли начать дистанционно?', 'Да. Отправьте сведения о технике и имеющиеся документы специалисту для оценки ситуации. Мы согласуем дальнейший порядок обращения в Гостехнадзор.'],
