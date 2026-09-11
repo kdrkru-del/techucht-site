@@ -129,7 +129,6 @@ function b2bBlock() {
     <div class="container">
       <div class="b2b-card">
         <div class="b2b-card__content">
-          <p class="eyebrow">Для организаций и парков</p>
           <h2>Для юридических лиц и парков спецтехники</h2>
           <p class="b2b-card__desc">Работаем по договору с компаниями и владельцами парков техники. Безналичный расчёт, закрывающие документы, постановка и снятие нескольких единиц техники.</p>
           <p class="b2b-card__note">Несколько единиц техники? Рассчитаем стоимость сопровождения.</p>
@@ -147,7 +146,6 @@ function advantageBlock() {
     <div class="container">
       <div class="advantage-strip">
         <div class="advantage-strip__content">
-          <p class="eyebrow">Ключевое преимущество</p>
           <h2>Без привоза техники</h2>
           <p class="advantage-strip__desc">Помогаем оформить регистрационные действия без привоза техники на осмотр. Берём все этапы сопровождения в Гостехнадзоре на себя.</p>
         </div>
@@ -218,7 +216,6 @@ function serviceNavigation() {
   return `<section class="service-navigation" id="services">
     <div class="container">
       <div class="section-heading">
-        <p class="eyebrow">Услуги Гостехнадзора</p>
         <h2>Все услуги по регистрации спецтехники</h2>
         <p>Берём оформление на себя: готовим документы, сопровождаем регистрационные процедуры и доводим до результата.</p>
       </div>
@@ -341,7 +338,6 @@ function simpleHeroForm() {
   return `<form class="form-card hero-form" id="hero-lead" data-lead-form data-form-name="Форма первого экрана" novalidate>
     ${honeypot()}
     <div class="form-card__header">
-      <p class="eyebrow">Заявка</p>
       <h2>Рассчитать стоимость</h2>
       <p>Оставьте номер — специалист уточнит задачу и стоимость оформления.</p>
     </div>
@@ -355,7 +351,7 @@ function simpleHeroForm() {
 function simpleFinalForm({ id = 'main-lead', prefix = '', title = 'Нужно оформить спецтехнику в Гостехнадзоре?', subtitle = 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.', formName = 'Оформление спецтехники в Гостехнадзоре' } = {}) {
   return `<form class="form-card lead-form" id="${id}" data-lead-form data-form-name="${formName}" novalidate>
     ${honeypot()}
-    <div class="form-card__header"><p class="eyebrow">Заявка</p><h2>${title}</h2><p>${subtitle}</p></div>
+    <div class="form-card__header"><h2>${title}</h2><p>${subtitle}</p></div>
     ${simpleContactFields(id)}
     ${consentField(`${id}-consent`, prefix)}
     <button class="btn btn--primary btn--full" type="submit">Заказать услугу</button>
@@ -399,7 +395,6 @@ function heroForm() {
   return `<form class="form-card hero-form" id="hero-lead" data-lead-form data-form-name="Форма первого экрана" novalidate>
     ${honeypot()}
     <div class="form-card__header">
-      <p class="eyebrow">Расчёт стоимости</p>
       <h2>Уточните задачу</h2>
       <span data-step-label>Шаг 1 из 2</span>
     </div>
@@ -428,7 +423,7 @@ function heroForm() {
 function finalForm({ id = 'main-lead', selected = '', prefix = '', title = 'Получите консультацию по оформлению техники' } = {}) {
   return `<form class="form-card lead-form" id="${id}" data-lead-form data-form-name="${title}" novalidate>
     ${honeypot()}
-    <div class="form-card__header"><p class="eyebrow">Заявка</p><h2>${title}</h2><p>Специалист уточнит задачу и назовёт точную стоимость сопровождения.</p></div>
+    <div class="form-card__header"><h2>${title}</h2><p>Специалист уточнит задачу и назовёт точную стоимость сопровождения.</p></div>
     <div class="form-grid">
       <label class="field" for="${id}-name"><span>Имя</span><input id="${id}-name" name="name" type="text" autocomplete="name" placeholder="Необязательно"></label>
       <label class="field" for="${id}-phone"><span>Телефон *</span><input id="${id}-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
@@ -508,7 +503,6 @@ function faqBlock(items = faq) {
 function contactPanel(region = null) {
   const regionRow = region ? `<div><dt>Регион</dt><dd>${region}</dd></div>` : `<div><dt>Сопровождение</dt><dd>Под ключ</dd></div>`;
   return `<aside class="contact-panel">
-    <p class="eyebrow">Связаться напрямую</p>
     <a class="contact-panel__primary track-phone" href="${site.phoneHref}">${site.phone}</a>
     ${quickContacts({ modifier: 'quick-contacts--contact', includePhone: false })}
     <a class="contact-panel__email track-email" href="${site.emailHref}">${site.email}</a>
@@ -519,7 +513,7 @@ function contactPanel(region = null) {
 function spbLeadForm({ id, title, text, buttonText, formName }) {
   return `<form class="form-card lead-form" id="${id}" data-lead-form data-form-name="${formName}" data-selected-service="${spbLanding.defaultService}" novalidate>
     ${honeypot()}
-    <div class="form-card__header"><p class="eyebrow">Заявка</p><h2>${title}</h2><p>${text}</p></div>
+    <div class="form-card__header"><h2>${title}</h2><p>${text}</p></div>
     ${simpleContactFields(id)}
     ${consentField(`${id}-consent`, '../')}
     <button class="btn btn--primary btn--full" type="submit">${buttonText}</button>
@@ -529,7 +523,6 @@ function spbLeadForm({ id, title, text, buttonText, formName }) {
 
 function spbContactPanel() {
   return `<aside class="contact-panel">
-    <p class="eyebrow">Связаться напрямую</p>
     <h2>Регистрация техники в Санкт-Петербурге и Ленинградской области</h2>
     <a class="contact-panel__primary track-phone" href="${site.phoneHref}">${site.phone}</a>
     ${quickContacts({ modifier: 'quick-contacts--contact', includePhone: false })}
@@ -543,7 +536,6 @@ function serviceExtraSection(page) {
     return `<section class="section section--alt service-detail" id="pereregistraciya">
       <div class="container">
         <div class="section-heading section-heading--left">
-          <p class="eyebrow">Переоформление техники</p>
           <h2>Перерегистрация и смена собственника самоходной техники в Гостехнадзоре</h2>
           <p>Помогаем подготовить документы для переоформления самоходной техники при смене собственника, продаже, передаче по договору или изменении регистрационных данных. До начала работ формируем и выверяем полный комплект документов для Гостехнадзора, основание перехода права и сведения о новом собственнике.</p>
         </div>
@@ -583,7 +575,6 @@ function serviceExtraSection(page) {
     return `<section class="section section--alt service-detail" id="akt-osmotra">
       <div class="container">
         <div class="section-heading section-heading--left">
-          <p class="eyebrow">Осмотр техники</p>
           <h2>Акт осмотра самоходной техники</h2>
           <p>Помогаем подготовить документы и сопровождаем процедуру осмотра самоходной техники, когда для регистрационных действий требуется акт осмотра. Помогаем оформить необходимые документы без привоза техники на осмотр.</p>
         </div>
@@ -655,7 +646,7 @@ ${head({
 
     <section class="section section--alt" id="situations">
       <div class="container">
-        <div class="section-heading"><p class="eyebrow">Проблемные ситуации</p><h2>Разберём ситуацию и предложим порядок действий</h2><p>Поможем разобраться в нестандартном случае и сопроводить оформление в Гостехнадзоре.</p></div>
+        <div class="section-heading"><h2>Разберём ситуацию и предложим порядок действий</h2><p>Поможем разобраться в нестандартном случае и сопроводить оформление в Гостехнадзоре.</p></div>
         <div class="problem-grid">${problems.slice(0, 6).map(([title, text, service = 'Отказ или сложная ситуация', event = 'complex_case']) => `<article class="problem-card"><h3>${title}</h3><p>${text}</p><a class="text-link" href="#lead-form" data-modal-open data-select-service="${service}" data-situation="${title}" data-service-event="${event}" data-lead-intent="consultation">Получить консультацию</a></article>`).join('')}</div>
       </div>
     </section>
@@ -673,7 +664,7 @@ ${head({
 
     <section class="section" id="process">
       <div class="container">
-        <div class="section-heading"><p class="eyebrow">Как проходит работа</p><h2>Как проходит оформление</h2></div>
+        <div class="section-heading"><h2>Как проходит оформление</h2></div>
         <ol class="process-flow">
           <li class="process-flow__step">
             <div class="process-flow__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
@@ -710,7 +701,7 @@ ${head({
 
     <section class="section section--alt" id="documents">
       <div class="container documents-layout">
-        <div class="section-heading section-heading--left"><p class="eyebrow">Документы</p><h2>Что нужно предоставить</h2></div>
+        <div class="section-heading section-heading--left"><h2>Что нужно предоставить</h2></div>
         <ul class="check-list">
           <li>ПСМ или сведения об ЭПСМ</li>
           <li>Документ о праве собственности</li>
@@ -723,7 +714,7 @@ ${head({
 
     <section class="section" id="cases">
       <div class="container">
-        <div class="section-heading"><p class="eyebrow">Практические примеры</p><h2>Примеры задач, с которыми мы работаем</h2><p>Сроки и порядок действий приведены как примеры. Результат зависит от документов и конкретной ситуации.</p></div>
+        <div class="section-heading"><h2>Примеры задач, с которыми мы работаем</h2><p>Сроки и порядок действий приведены как примеры. Результат зависит от документов и конкретной ситуации.</p></div>
         <div class="case-grid">${cases.filter(c => ['Экскаватор-погрузчик JCB 3CX', 'Трактор МТЗ-82', 'Мини-погрузчик Bobcat S650'].includes(c.title)).map((item) => `<article class="case-card"><h3>${item.title}</h3><dl><div><dt>Ситуация</dt><dd>${item.situation}</dd></div><div><dt>Возможное решение</dt><dd>${item.solution}</dd></div><div><dt>Ориентировочный срок</dt><dd>${item.term}</dd></div></dl><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Пример задачи: ${item.title}">Обсудить похожую задачу</a></article>`).join('')}</div>
       </div>
     </section>
@@ -734,7 +725,7 @@ ${head({
       </div>
     </section>
 
-    <section class="section section--alt" id="faq"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Частые вопросы</p><h2>Коротко о главном</h2><p>Остались вопросы по оформлению техники? Оставьте заявку на консультацию.</p></div>${faqBlock(mainFaq)}</div></section>
+    <section class="section section--alt" id="faq"><div class="container faq-layout"><div class="section-heading section-heading--left"><h2>Коротко о главном</h2><p>Остались вопросы по оформлению техники? Оставьте заявку на консультацию.</p></div>${faqBlock(mainFaq)}</div></section>
 
     <section class="section lead-section" id="lead-form"><div class="container lead-layout">${contactPanel()}${simpleFinalForm({ title: 'Нужно оформить спецтехнику в Гостехнадзоре?', subtitle: 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.', formName: 'Оформление спецтехники в Гостехнадзоре' })}</div></section>
   </main>
@@ -785,7 +776,6 @@ ${head({
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="container hero__grid">
         <div class="hero__content">
-          <p class="hero__badge">Санкт-Петербург и Ленинградская область</p>
           <h1>${spbLanding.h1} под ключ</h1>
           <p class="hero__subtitle">${spbLanding.subtitle}</p>
           ${offerBenefits('3–5', 'Санкт-Петербург и ЛО')}
@@ -801,35 +791,35 @@ ${head({
     ${trustBlock()}
     <section class="section" id="services">
       <div class="container">
-        <div class="section-heading"><p class="eyebrow">Услуги</p><h2>Регистрационные действия с самоходной техникой</h2><p>Помогаем владельцам техники из Санкт-Петербурга и Ленинградской области согласовать порядок оформления и зарегистрировать технику под ключ.</p></div>
+        <div class="section-heading"><h2>Регистрационные действия с самоходной техникой</h2><p>Помогаем владельцам техники из Санкт-Петербурга и Ленинградской области согласовать порядок оформления и зарегистрировать технику под ключ.</p></div>
         <div class="problem-grid">${spbLanding.services.map((service) => `<article class="problem-card"${service.anchor ? ` id="${service.anchor}"` : ''} data-spb-service-card><h3>${service.title}</h3><p>${service.description}</p><a class="text-link" href="#form" data-select-service="${service.service}" data-service-event="${service.event}">Оставить заявку</a></article>`).join('')}</div>
       </div>
     </section>
 
     <section class="section section--alt" id="vehicles">
       <div class="container two-column">
-        <div class="section-heading section-heading--left"><p class="eyebrow">Виды техники</p><h2>Зарегистрируем разные виды самоходной техники</h2><p>Регистрируем в Гостехнадзоре тракторы, погрузчики, экскаваторы, квадроциклы и другую самоходную технику.</p></div>
+        <div class="section-heading section-heading--left"><h2>Зарегистрируем разные виды самоходной техники</h2><p>Регистрируем в Гостехнадзоре тракторы, погрузчики, экскаваторы, квадроциклы и другую самоходную технику.</p></div>
         <div class="service-detail__panel"><ul class="check-list service-detail__list--columns">${spbLanding.techTypes.map((item) => `<li>${item}</li>`).join('')}</ul></div>
       </div>
     </section>
 
     <section class="rules-section" id="region">
       <div class="container rules-layout">
-        <div><p class="eyebrow">Регион работы</p><h2>Работаем по Санкт-Петербургу и Ленинградской области</h2></div>
+        <div><h2>Работаем по Санкт-Петербургу и Ленинградской области</h2></div>
         <div><p>Принимаем обращения владельцев самоходной техники из Санкт-Петербурга и населённых пунктов Ленинградской области.</p><a class="text-link" href="#form" data-select-service="${spbLanding.defaultService}" data-service-event="registration">Обсудить задачу</a></div>
       </div>
     </section>
 
     <section class="section" id="process">
       <div class="container">
-        <div class="section-heading"><p class="eyebrow">Как мы работаем</p><h2>Четыре понятных этапа</h2></div>
+        <div class="section-heading"><h2>Четыре понятных этапа</h2></div>
         <div class="service-detail__grid">${processSteps.map(([title, text], index) => `<article class="service-detail__panel"><p class="eyebrow">Этап ${index + 1}</p><h3>${title}</h3><p>${text}</p></article>`).join('')}</div>
       </div>
     </section>
 
     <section class="section section--alt" id="cases">
       <div class="container">
-        <div class="section-heading"><p class="eyebrow">С чем можно обратиться</p><h2>Регистрационные задачи без лишних шагов</h2><p>Сначала уточним ситуацию и документы, затем согласуем подходящее регистрационное действие.</p></div>
+        <div class="section-heading"><h2>Регистрационные задачи без лишних шагов</h2><p>Сначала уточним ситуацию и документы, затем согласуем подходящее регистрационное действие.</p></div>
         <div class="two-column">
           <div class="service-detail__panel"><ul class="check-list">${spbLanding.situations.slice(0, 4).map((item) => `<li>${item}</li>`).join('')}</ul></div>
           <div class="service-detail__panel"><ul class="check-list">${spbLanding.situations.slice(4).map((item) => `<li>${item}</li>`).join('')}</ul><a class="text-link" href="#form" data-select-service="${spbLanding.defaultService}" data-service-event="registration">Уточнить порядок оформления</a></div>
@@ -837,7 +827,7 @@ ${head({
       </div>
     </section>
 
-    <section class="section" id="faq"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Частые вопросы</p><h2>Регистрация техники в Санкт-Петербурге и области</h2><p>Ответы основаны на действующих услугах ТехУчёт24. Точный порядок определим при обращении.</p></div>${faqBlock(spbLanding.faq)}</div></section>
+    <section class="section" id="faq"><div class="container faq-layout"><div class="section-heading section-heading--left"><h2>Регистрация техники в Санкт-Петербурге и области</h2><p>Ответы основаны на действующих услугах ТехУчёт24. Точный порядок определим при обращении.</p></div>${faqBlock(spbLanding.faq)}</div></section>
 
     <section class="section lead-section" id="form"><div class="container lead-layout">${spbContactPanel()}${spbLeadForm({ id: 'spb-final-form', title: 'Нужно оформить спецтехнику в Гостехнадзоре?', text: 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.', buttonText: 'Заказать услугу', formName: 'СПб — повторная форма' })}</div></section>
   </main>
@@ -894,16 +884,16 @@ ${head({ title: `${page.h1} — ТехУчёт`, description, canonical, prefix:
   ${header('../')}
   <main id="main">
     <section class="service-hero">
-      <div class="container"><nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>•</span><span>${page.short}</span></nav>
-        <div class="service-hero__grid"><div><p class="eyebrow">ТехУчёт • Москва и Московская область</p><h1>${landing?.[0] || page.h1}</h1><p>${landing?.[1] || page.description}</p>${offerBenefits(page.key === 'deregistration' ? '2–5' : '3–5')}${offerActions(page.short, page.key)}</div>
+      <div class="container">
+        <div class="service-hero__grid"><div><h1>${landing?.[0] || page.h1}</h1><p>${landing?.[1] || page.description}</p>${offerBenefits(page.key === 'deregistration' ? '2–5' : '3–5')}${offerActions(page.short, page.key)}</div>
         <div class="service-summary" id="how"><h2>Что входит в работу</h2><ul>${page.works.map((item) => `<li>${item}</li>`).join('')}</ul><p>Точный порядок определяется после анализа ситуации и имеющихся документов.</p></div></div>
       </div>
     </section>
 ${commercialDetails(page)}
     ${trustBlock()}
-    <section class="section"><div class="container two-column"><div><p class="eyebrow">Типовые ситуации</p><h2>Когда обращаются</h2><ul class="check-list">${page.situations.map((item) => `<li>${item}</li>`).join('')}</ul></div><div id="documents"><p class="eyebrow">Документы</p><h2>Что подготовить</h2><ul class="check-list">${page.docs.map((item) => `<li>${item}</li>`).join('')}</ul><p class="section-note">Точный перечень зависит от вида техники, региона и истории владения.</p></div></div></section>
+    <section class="section"><div class="container two-column"><div><h2>Когда обращаются</h2><ul class="check-list">${page.situations.map((item) => `<li>${item}</li>`).join('')}</ul></div><div id="documents"><h2>Что подготовить</h2><ul class="check-list">${page.docs.map((item) => `<li>${item}</li>`).join('')}</ul><p class="section-note">Точный перечень зависит от вида техники, региона и истории владения.</p></div></div></section>
 ${serviceExtraSection(page)}
-    <section class="section section--alt"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Вопросы по услуге</p><h2>Перед началом работы</h2></div>${faqBlock(pageFaq)}</div></section>
+    <section class="section section--alt"><div class="container faq-layout"><div class="section-heading section-heading--left"><h2>Перед началом работы</h2></div>${faqBlock(pageFaq)}</div></section>
     <section class="section lead-section" id="page-form"><div class="container lead-layout">${contactPanel()}${simpleFinalForm({ id: `${page.slug}-lead`, prefix: '../', title: 'Нужно оформить спецтехнику в Гостехнадзоре?', subtitle: 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.', formName: `Получить консультацию: ${page.short}` })}</div></section>
   </main>
   ${footer('../')}
@@ -934,10 +924,10 @@ export function legalPage(type) {
     <h2>3. Действия с данными</h2><p>Сбор, запись, систематизация, хранение, уточнение, использование, передача через Cloudflare Worker в Telegram и другим техническим поставщикам для доставки заявки оператору, блокирование и удаление.</p>
     <h2>4. Срок и отзыв согласия</h2><p>Согласие действует до достижения целей обработки или до его отзыва. Отозвать согласие можно письмом на <a href="${site.emailHref}">${site.email}</a>. Отзыв не влияет на законность обработки, выполненной до его получения.</p>
     <h2>5. Подтверждение</h2><p>Я подтверждаю, что указанные мной данные принадлежат мне, а предоставленная информация является достоверной.</p>`;
-  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: `${title} — ТехУчёт`, description: `${title} сайта ТехУчёт.`, canonical, prefix: '../', schemas: [organizationSchema()] })}</head><body>${header('../')}<main id="main" class="legal"><div class="container legal__inner"><nav class="breadcrumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>•</span><span>${title}</span></nav><p class="eyebrow">Юридическая информация</p><h1>${title}</h1><p class="legal__updated">Редакция от 8 августа 2026 года</p>${isPrivacy ? privacyContent : consentContent}</div></main>${footer('../')}${simpleCallbackModal('../')}${mobileBar('../')}</body></html>`;
+  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: `${title} — ТехУчёт`, description: `${title} сайта ТехУчёт.`, canonical, prefix: '../', schemas: [organizationSchema()] })}</head><body>${header('../')}<main id="main" class="legal"><div class="container legal__inner"><h1>${title}</h1><p class="legal__updated">Редакция от 8 августа 2026 года</p>${isPrivacy ? privacyContent : consentContent}</div></main>${footer('../')}${simpleCallbackModal('../')}${mobileBar('../')}</body></html>`;
 }
 
 export function notFoundPage({ nested = false } = {}) {
   const prefix = nested ? '../' : '';
-  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: 'Страница не найдена — ТехУчёт', description: 'Запрошенная страница не найдена.', canonical: `${site.baseUrl}/404`, prefix, schemas: [organizationSchema()] })}</head><body>${header(prefix)}<main class="not-found"><div class="container"><p class="eyebrow">Ошибка 404</p><h1>Такой страницы нет</h1><p>Вернитесь на главную или свяжитесь с нами — поможем с оформлением самоходной техники.</p><div class="hero__actions"><a class="btn btn--primary" href="${prefix || './'}">На главную</a><a class="btn btn--outline track-phone" href="${site.phoneHref}">${site.phone}</a></div></div></main>${footer(prefix)}${mobileBar(prefix)}</body></html>`;
+  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: 'Страница не найдена — ТехУчёт', description: 'Запрошенная страница не найдена.', canonical: `${site.baseUrl}/404`, prefix, schemas: [organizationSchema()] })}</head><body>${header(prefix)}<main class="not-found"><div class="container"><h1>Такой страницы нет</h1><p>Вернитесь на главную или свяжитесь с нами — поможем с оформлением самоходной техники.</p><div class="hero__actions"><a class="btn btn--primary" href="${prefix || './'}">На главную</a><a class="btn btn--outline track-phone" href="${site.phoneHref}">${site.phone}</a></div></div></main>${footer(prefix)}${mobileBar(prefix)}</body></html>`;
 }
