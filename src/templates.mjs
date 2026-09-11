@@ -105,8 +105,19 @@ function serviceSchema({ name, description, url }) {
 }
 
 
-function offerBenefits(term = '3–5', region = 'Москва и МО') {
-  return `<ul class="offer-benefits" id="price"><li><strong>от 5 000 ₽</strong><span>Стоимость услуг</span></li><li><strong>${term} рабочих дней</strong><span>Ориентировочный срок</span></li><li>По договору</li><li>${region}</li><li>Для физлиц и организаций</li><li>Без очередей и личных визитов в Гостехнадзор</li></ul>`;
+function mainOfferBenefits() {
+  return `<ul class="offer-benefits" id="price">
+    <li><strong>Без привоза техники</strong><span>на осмотр</span></li>
+    <li><strong>от 5 000 ₽</strong><span>Стоимость услуг</span></li>
+    <li>Без личных визитов</li>
+    <li>По договору</li>
+    <li>Для физических и юридических лиц</li>
+  </ul>`;
+}
+
+function offerBenefits(term = '3–5', region = '') {
+  const regionItem = region ? `<li>${region}</li>` : '';
+  return `<ul class="offer-benefits" id="price"><li><strong>от 5 000 ₽</strong><span>Стоимость услуг</span></li><li><strong>${term} рабочих дней</strong><span>Ориентировочный срок</span></li><li>По договору</li>${regionItem}<li>Для физлиц и организаций</li><li>Без очередей и личных визитов в Гостехнадзор</li></ul>`;
 }
 
 function offerActions(service = 'Консультация', event = '') {
@@ -120,11 +131,28 @@ function b2bBlock() {
         <div class="b2b-card__content">
           <p class="eyebrow">Для организаций и парков</p>
           <h2>Для юридических лиц и парков спецтехники</h2>
-          <p class="b2b-card__desc">Работаем по договору с компаниями и владельцами парка техники. Безналичный расчёт, закрывающие документы, постановка и снятие нескольких единиц техники.</p>
-          <p class="b2b-card__note">Несколько единиц техники? Рассчитаем стоимость сопровождения по всему парку.</p>
+          <p class="b2b-card__desc">Работаем по договору с компаниями и владельцами парков техники. Безналичный расчёт, закрывающие документы, постановка и снятие нескольких единиц техники.</p>
+          <p class="b2b-card__note">Несколько единиц техники? Рассчитаем стоимость сопровождения.</p>
         </div>
         <div class="b2b-card__action">
           <button class="btn btn--primary" type="button" data-modal-open data-select-service="Регистрация спецтехники" data-lead-intent="order">Получить расчёт</button>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+function advantageBlock() {
+  return `<section class="section section--highlight advantage-section" id="no-transport">
+    <div class="container">
+      <div class="advantage-strip">
+        <div class="advantage-strip__content">
+          <p class="eyebrow">Ключевое преимущество</p>
+          <h2>Без привоза техники</h2>
+          <p class="advantage-strip__desc">Помогаем оформить регистрационные действия без привоза техники на осмотр. Берём все этапы сопровождения в Гостехнадзоре на себя.</p>
+        </div>
+        <div class="advantage-strip__action">
+          <button class="btn btn--primary" type="button" data-modal-open data-select-service="Консультация" data-lead-intent="consultation">Узнать подробнее</button>
         </div>
       </div>
     </div>
@@ -136,7 +164,77 @@ function trustBlock() {
 }
 
 function serviceNavigation() {
-  return `<section class="service-navigation" id="services"><div class="container"><h2>Что мы делаем</h2><div class="service-navigation__grid service-navigation__grid--main"><article class="nav-card nav-card--article"><span class="nav-card__title">Постановка на учёт</span><span class="nav-card__desc">Оформление постановки самоходной техники на учёт в Гостехнадзоре Москвы и МО.</span><span class="nav-card__meta"><strong>от 5 000 ₽</strong> · 3–5 рабочих дней</span><div class="nav-card__actions"><button class="btn btn--small btn--primary nav-card__btn" type="button" data-modal-open data-select-service="Постановка на учёт" data-lead-intent="order" data-service-event="registration">Заказать услугу</button><a class="text-link nav-card__more" href="registraciya/">Подробнее →</a></div></article><article class="nav-card nav-card--article"><span class="nav-card__title">Снятие с учёта</span><span class="nav-card__desc">Сопровождение снятия самоходной техники с регистрационного учёта.</span><span class="nav-card__meta"><strong>от 5 000 ₽</strong> · 2–5 рабочих дней</span><div class="nav-card__actions"><button class="btn btn--small btn--primary nav-card__btn" type="button" data-modal-open data-select-service="Снятие с учёта" data-lead-intent="order" data-service-event="deregistration">Заказать услугу</button><a class="text-link nav-card__more" href="snyatie-s-ucheta/">Подробнее →</a></div></article><article class="nav-card nav-card--article"><span class="nav-card__title">Техосмотр</span><span class="nav-card__desc">Помощь в прохождении техосмотра самоходной техники.</span><span class="nav-card__meta"><strong>от 5 000 ₽</strong> · 3–5 рабочих дней</span><div class="nav-card__actions"><button class="btn btn--small btn--primary nav-card__btn" type="button" data-modal-open data-select-service="Технический осмотр" data-lead-intent="order" data-service-event="inspection">Заказать услугу</button><a class="text-link nav-card__more" href="tehosmotr/">Подробнее →</a></div></article></div><div class="secondary-services"><p class="secondary-services__title">Другие вопросы по Гостехнадзору</p><p class="secondary-services__desc" style="color: var(--muted); font-size: 14px; margin-bottom: 12px;">Перерегистрация, восстановление документов, изменение регистрационных данных, сложные случаи.</p><ul class="secondary-services__list"><li><a href="registraciya/#pereregistraciya">Перерегистрация и изменение данных</a></li><li><a href="vosstanovlenie-psm/">Восстановление документов (ПСМ / СТС)</a></li><li><a href="tehosmotr/#akt-osmotra">Помощь с осмотром техники</a></li><li><a href="slozhnye-sluchai/">Сложные случаи и отказы Гостехнадзора</a></li></ul><button class="btn btn--small btn--outline" type="button" data-modal-open data-select-service="Консультация" data-lead-intent="consultation">Получить консультацию</button></div></div></section>`;
+  const allServices = [
+    {
+      title: 'Постановка на учёт',
+      desc: 'Оформление постановки самоходной техники на учёт в Гостехнадзоре. Сопровождение под ключ до получения СТС и номеров.',
+      meta: '<strong>от 5 000 ₽</strong> · 3–5 рабочих дней',
+      service: 'Постановка на учёт',
+      event: 'registration',
+      url: 'registraciya/',
+    },
+    {
+      title: 'Снятие с учёта',
+      desc: 'Сопровождение снятия самоходной техники с регистрационного учёта в Гостехнадзоре при продаже, смене владельца или утилизации.',
+      meta: '<strong>от 5 000 ₽</strong> · 2–5 рабочих дней',
+      service: 'Снятие с учёта',
+      event: 'deregistration',
+      url: 'snyatie-s-ucheta/',
+    },
+    {
+      title: 'Перерегистрация',
+      desc: 'Внесение изменений в регистрационные данные Гостехнадзора при смене собственника, договора лизинга или реквизитов.',
+      meta: '<strong>от 5 000 ₽</strong> · 3–5 рабочих дней',
+      service: 'Внесение изменений',
+      event: 'registration',
+      url: 'registraciya/#pereregistraciya',
+    },
+    {
+      title: 'Техосмотр',
+      desc: 'Подготовка комплекта документов и сопровождение обязательного технического осмотра самоходной техники в Гостехнадзоре.',
+      meta: '<strong>от 5 000 ₽</strong> · 3–5 рабочих дней',
+      service: 'Технический осмотр',
+      event: 'inspection',
+      url: 'tehosmotr/',
+    },
+    {
+      title: 'Сложные случаи',
+      desc: 'Разбор отказов Гостехнадзора, неполных цепочек договоров, проблем с номерами агрегатов и нестандартных ситуаций.',
+      meta: '<strong>от 5 000 ₽</strong> · от 3 рабочих дней',
+      service: 'Отказ или сложная ситуация',
+      event: 'complex_case',
+      url: 'slozhnye-sluchai/',
+    },
+    {
+      title: 'Восстановление документов',
+      desc: 'Помощь при утрате или повреждении ПСМ либо СТС для дальнейшего оформления техники в Гостехнадзоре.',
+      meta: '<strong>от 5 000 ₽</strong> · 3–5 рабочих дней',
+      service: 'Восстановление ПСМ и СТС',
+      event: 'restore_psm',
+      url: 'vosstanovlenie-psm/',
+    },
+  ];
+
+  return `<section class="service-navigation" id="services">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Услуги Гостехнадзора</p>
+        <h2>Все услуги по регистрации спецтехники</h2>
+        <p>Берём оформление на себя: готовим документы, сопровождаем регистрационные процедуры и доводим до результата.</p>
+      </div>
+      <div class="service-navigation__grid service-navigation__grid--main">
+        ${allServices.map((item) => `<article class="nav-card nav-card--article">
+          <span class="nav-card__title">${item.title}</span>
+          <span class="nav-card__desc">${item.desc}</span>
+          <span class="nav-card__meta">${item.meta}</span>
+          <div class="nav-card__actions">
+            <button class="btn btn--small btn--primary nav-card__btn" type="button" data-modal-open data-select-service="${item.service}" data-lead-intent="order" data-service-event="${item.event}">Заказать услугу</button>
+            <a class="text-link nav-card__more" href="${item.url}">Подробнее →</a>
+          </div>
+        </article>`).join('')}
+      </div>
+    </div>
+  </section>`;
 }
 
 function commercialDetails(page) {
@@ -374,7 +472,7 @@ function mobileBar(href = '#lead-form') {
   </div>`;
 }
 
-function footer(prefix = '', { homeHref = null, serviceLinks = null, description = 'Сопровождение регистрационных действий со спецтехникой в Гостехнадзоре Москвы и Московской области.' } = {}) {
+function footer(prefix = '', { homeHref = null, serviceLinks = null, description = 'Сопровождение регистрационных действий со спецтехникой в Гостехнадзоре под ключ.' } = {}) {
   const home = homeHref || prefix || './';
   const links = serviceLinks || [
     [`${prefix}registraciya/`, 'Постановка на учёт'],
@@ -407,13 +505,14 @@ function faqBlock(items = faq) {
   return `<div class="faq-list">${items.map(([question, answer], index) => `<article class="faq-item"><h3><button type="button" aria-expanded="${index === 0 ? 'true' : 'false'}" data-faq-button><span>${question}</span><span class="faq-icon" aria-hidden="true">+</span></button></h3><div class="faq-answer"${index === 0 ? '' : ' hidden'}><p>${answer}</p></div></article>`).join('')}</div>`;
 }
 
-function contactPanel(region = 'Москва и МО') {
+function contactPanel(region = null) {
+  const regionRow = region ? `<div><dt>Регион</dt><dd>${region}</dd></div>` : `<div><dt>Сопровождение</dt><dd>Под ключ</dd></div>`;
   return `<aside class="contact-panel">
     <p class="eyebrow">Связаться напрямую</p>
     <a class="contact-panel__primary track-phone" href="${site.phoneHref}">${site.phone}</a>
     ${quickContacts({ modifier: 'quick-contacts--contact', includePhone: false })}
     <a class="contact-panel__email track-email" href="${site.emailHref}">${site.email}</a>
-    <dl><div><dt>Режим работы</dt><dd>${site.hours}</dd></div><div><dt>Стоимость услуг</dt><dd>от 5 000 ₽</dd></div><div><dt>Ориентировочный срок</dt><dd>3–5 рабочих дней</dd></div><div><dt>Регион</dt><dd>${region}</dd></div></dl>
+    <dl><div><dt>Режим работы</dt><dd>${site.hours}</dd></div><div><dt>Стоимость услуг</dt><dd>от 5 000 ₽</dd></div><div><dt>Ориентировочный срок</dt><dd>3–5 рабочих дней</dd></div>${regionRow}</dl>
   </aside>`;
 }
 
@@ -486,7 +585,7 @@ function serviceExtraSection(page) {
         <div class="section-heading section-heading--left">
           <p class="eyebrow">Осмотр техники</p>
           <h2>Акт осмотра самоходной техники</h2>
-          <p>Помогаем подготовить документы и организовать сопровождение осмотра самоходной техники, когда для регистрационных действий требуется акт осмотра. В зависимости от ситуации можем организовать осмотр по месту нахождения техники в Москве и Московской области.</p>
+          <p>Помогаем подготовить документы и сопровождаем процедуру осмотра самоходной техники, когда для регистрационных действий требуется акт осмотра. Помогаем оформить необходимые документы без привоза техники на осмотр.</p>
         </div>
         <div class="service-detail__panel service-detail__panel--wide">
           <h3>Что подготавливаем к осмотру</h3>
@@ -511,8 +610,8 @@ function serviceExtraSection(page) {
 }
 
 export function mainPage() {
-  const title = 'Регистрация самоходной техники в Гостехнадзоре — Москва и МО | ТехУчёт';
-  const description = 'Постановка, перерегистрация и снятие самоходной техники с учёта в Гостехнадзоре. Тракторы, погрузчики, экскаваторы и другая техника.';
+  const title = 'Регистрация спецтехники в Гостехнадзоре под ключ | ТехУчёт';
+  const description = 'Постановка на учёт, снятие с учёта, перерегистрация и техосмотр самоходной техники в Гостехнадзоре. Сопровождение под ключ для физических и юридических лиц.';
   const canonical = `${site.baseUrl}/`;
   return `<!DOCTYPE html>
 <html lang="ru">
@@ -538,9 +637,9 @@ ${head({
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="container hero__grid">
         <div class="hero__content">
-          <h1>Регистрация спецтехники в Гостехнадзоре Москвы и МО под ключ</h1>
-          <p class="hero__subtitle">Постановка на учёт, снятие с учёта и техосмотр самоходной техники. Берём оформление в Гостехнадзоре на себя и сопровождаем до результата.</p>
-          ${offerBenefits()}
+          <h1>Регистрация спецтехники в Гостехнадзоре под ключ</h1>
+          <p class="hero__subtitle">Постановка на учёт, снятие с учёта, перерегистрация и техосмотр самоходной техники. Берём сопровождение оформления на себя.</p>
+          ${mainOfferBenefits()}
           ${offerActions()}
         </div>
         <div class="form-stack">
@@ -551,10 +650,13 @@ ${head({
     </section>
 
     ${serviceNavigation()}
+
+    ${advantageBlock()}
+
     <section class="section section--alt" id="situations">
       <div class="container">
         <div class="section-heading"><p class="eyebrow">Проблемные ситуации</p><h2>Разберём ситуацию и предложим порядок действий</h2><p>Поможем разобраться в нестандартном случае и сопроводить оформление в Гостехнадзоре.</p></div>
-        <div class="problem-grid">${problems.slice(0, 4).map(([title, text, service = 'Отказ или сложная ситуация', event = 'complex_case']) => `<article class="problem-card"><h3>${title}</h3><p>${text}</p><a class="text-link" href="#lead-form" data-modal-open data-select-service="${service}" data-situation="${title}" data-service-event="${event}">Получить консультацию</a></article>`).join('')}</div>
+        <div class="problem-grid">${problems.slice(0, 6).map(([title, text, service = 'Отказ или сложная ситуация', event = 'complex_case']) => `<article class="problem-card"><h3>${title}</h3><p>${text}</p><a class="text-link" href="#lead-form" data-modal-open data-select-service="${service}" data-situation="${title}" data-service-event="${event}" data-lead-intent="consultation">Получить консультацию</a></article>`).join('')}</div>
       </div>
     </section>
 
@@ -577,39 +679,32 @@ ${head({
             <div class="process-flow__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
             <div class="process-flow__body">
               <h3>Оставляете заявку</h3>
-              <p>Вы оставляете заявку или отправляете документы.</p>
+              <p>Оставляете заявку на сайте или связываетесь с нами напрямую.</p>
             </div>
           </li>
           <li class="process-flow__step">
             <div class="process-flow__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
             <div class="process-flow__body">
-              <h3>Уточняем задачу</h3>
+              <h3>Уточняем задачу и комплект документов</h3>
               <p>Бесплатно разбираем ситуацию и требования Гостехнадзора.</p>
-            </div>
-          </li>
-          <li class="process-flow__step">
-            <div class="process-flow__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-            <div class="process-flow__body">
-              <h3>Сообщаем стоимость и срок</h3>
-              <p>Объясняем, сколько стоит оформление и сколько времени займёт.</p>
             </div>
           </li>
           <li class="process-flow__step">
             <div class="process-flow__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg></div>
             <div class="process-flow__body">
-              <h3>Заключаем договор</h3>
-              <p>Заключаем официальный договор и готовим документы.</p>
+              <h3>Сопровождаем оформление</h3>
+              <p>Готовим необходимые документы и берём взаимодействие с ведомством на себя.</p>
             </div>
           </li>
           <li class="process-flow__step">
             <div class="process-flow__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
             <div class="process-flow__body">
-              <h3>Сопровождаем до результата</h3>
-              <p>Сопровождаем процедуру оформления в Гостехнадзоре до выдачи документов.</p>
+              <h3>Вы получаете результат</h3>
+              <p>Получаете готовые регистрационные документы (СТС) и государственные знаки.</p>
             </div>
           </li>
         </ol>
-        <div class="info-strip"><strong>Как правило, 3–5 рабочих дней после получения полного комплекта документов.</strong><span>Точный срок зависит от региона, вида регистрационного действия, комплекта документов и графика работы соответствующего подразделения Гостехнадзора.</span></div>
+        <div class="info-strip"><strong>Как правило, 3–5 рабочих дней после получения полного комплекта документов.</strong><span>Точный срок зависит от вида регистрационного действия, комплекта документов и графика работы соответствующего подразделения Гостехнадзора.</span></div>
       </div>
     </section>
 
@@ -641,10 +736,10 @@ ${head({
 
     <section class="section section--alt" id="faq"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Частые вопросы</p><h2>Коротко о главном</h2><p>Остались вопросы по оформлению техники? Оставьте заявку на консультацию.</p></div>${faqBlock(mainFaq)}</div></section>
 
-    <section class="section lead-section" id="lead-form"><div class="container lead-layout">${contactPanel('Москва и МО')}${simpleFinalForm({ title: 'Нужно оформить спецтехнику в Гостехнадзоре?', subtitle: 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.', formName: 'Оформление спецтехники в Гостехнадзоре' })}</div></section>
+    <section class="section lead-section" id="lead-form"><div class="container lead-layout">${contactPanel()}${simpleFinalForm({ title: 'Нужно оформить спецтехнику в Гостехнадзоре?', subtitle: 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.', formName: 'Оформление спецтехники в Гостехнадзоре' })}</div></section>
   </main>
   ${footer()}
-    ${simpleCallbackModal()}
+  ${simpleCallbackModal()}
   ${mobileBar()}
 </body>
 </html>`;
@@ -775,7 +870,7 @@ export function servicePage(page) {
   const pageFaq = [
     ['Как проходит работа с Гостехнадзором по этой услуге?', 'Сначала анализируем задачу и исходные данные, затем уточняем порядок обращения в Гостехнадзор и готовим комплект в рамках выбранной услуги.'],
     ['Какие документы потребуются для обращения в Гостехнадзор?', 'Предварительный список указан на странице. Точный комплект зависит от вида техники, региона, истории владения и выбранного регистрационного действия.'],
-    ['Нужно ли везти технику в Гостехнадзор?', 'Не всегда. В зависимости от ситуации можем организовать осмотр по месту нахождения техники в Москве и Московской области.'],
+    ['Нужно ли привозить технику?', 'Нет, услуга может быть оказана без привоза техники на осмотр. Детали зависят от конкретной ситуации.'],
     ['Госпошлины входят в стоимость услуги?', 'Нет. Стоимость сопровождения — от 5 000 ₽. Государственные пошлины оплачиваются отдельно.'],
     ['Сколько стоит услуга?', 'Стоимость начинается от 5 000 ₽. Точная сумма зависит от региона, вида техники, комплекта документов и сложности ситуации.'],
     ['Какой ориентировочный срок?', 'Большинство стандартных действий выполняется в течение 3–5 рабочих дней после получения полного комплекта документов. Срок зависит от региона и графика Гостехнадзора.'],
@@ -809,7 +904,7 @@ ${commercialDetails(page)}
     <section class="section"><div class="container two-column"><div><p class="eyebrow">Типовые ситуации</p><h2>Когда обращаются</h2><ul class="check-list">${page.situations.map((item) => `<li>${item}</li>`).join('')}</ul></div><div id="documents"><p class="eyebrow">Документы</p><h2>Что подготовить</h2><ul class="check-list">${page.docs.map((item) => `<li>${item}</li>`).join('')}</ul><p class="section-note">Точный перечень зависит от вида техники, региона и истории владения.</p></div></div></section>
 ${serviceExtraSection(page)}
     <section class="section section--alt"><div class="container faq-layout"><div class="section-heading section-heading--left"><p class="eyebrow">Вопросы по услуге</p><h2>Перед началом работы</h2></div>${faqBlock(pageFaq)}</div></section>
-    <section class="section lead-section" id="page-form"><div class="container lead-layout">${contactPanel('Москва и МО')}${simpleFinalForm({ id: `${page.slug}-lead`, prefix: '../', title: 'Нужно оформить спецтехнику в Гостехнадзоре?', subtitle: 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.', formName: `Получить консультацию: ${page.short}` })}</div></section>
+    <section class="section lead-section" id="page-form"><div class="container lead-layout">${contactPanel()}${simpleFinalForm({ id: `${page.slug}-lead`, prefix: '../', title: 'Нужно оформить спецтехнику в Гостехнадзоре?', subtitle: 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.', formName: `Получить консультацию: ${page.short}` })}</div></section>
   </main>
   ${footer('../')}
     ${simpleCallbackModal('../')}
