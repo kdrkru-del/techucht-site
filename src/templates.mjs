@@ -107,12 +107,72 @@ function serviceSchema({ name, description, url }) {
 
 function mainOfferBenefits() {
   return `<ul class="offer-benefits" id="price">
-    <li><strong>Без привоза техники</strong><span>на осмотр</span></li>
-    <li><strong>от 5 000 ₽</strong><span>Стоимость услуг</span></li>
+    <li><strong>Без привоза техники</strong></li>
     <li>Без личных визитов</li>
+    <li><strong>от 5 000 ₽</strong><span>Стоимость услуг</span></li>
     <li>По договору</li>
     <li>Для физических и юридических лиц</li>
   </ul>`;
+}
+
+function mainHeroActions() {
+  return `<div class="hero__actions offer-actions">
+    <button class="btn btn--primary" type="button" data-modal-open data-select-service="Консультация" data-lead-intent="order">Узнать стоимость</button>
+    <a class="btn btn--outline track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">Написать в WhatsApp</a>
+  </div>`;
+}
+
+function takeCareBlock() {
+  return `<section class="section section--alt take-care-section" id="care">
+    <div class="container">
+      <div class="section-heading section-heading--left">
+        <h2>Берём оформление на себя</h2>
+      </div>
+      <div class="take-care-grid">
+        <article class="take-care-card">
+          <div class="take-care-card__icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h3>Один специалист сопровождает вашу задачу</h3>
+          <p>От первого обращения до завершения оформления.</p>
+        </article>
+        <article class="take-care-card">
+          <div class="take-care-card__icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h3>Без личного посещения ведомства</h3>
+          <p>Берём сопровождение процедуры на себя.</p>
+        </article>
+        <article class="take-care-card">
+          <div class="take-care-card__icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <h3>По договору</h3>
+          <p>Фиксируем услугу и условия сотрудничества.</p>
+        </article>
+        <article class="take-care-card">
+          <div class="take-care-card__icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+          </div>
+          <h3>Для компаний и владельцев техники</h3>
+          <p>Безналичный расчёт и закрывающие документы для организаций.</p>
+        </article>
+      </div>
+      <div class="take-care-trust">
+        <span>Работаем по договору</span>
+        <span class="take-care-trust__dot" aria-hidden="true">·</span>
+        <span>${site.company}</span>
+        <span class="take-care-trust__dot" aria-hidden="true">·</span>
+        <span>Безналичный расчёт</span>
+        <span class="take-care-trust__dot" aria-hidden="true">·</span>
+        <span>Закрывающие документы</span>
+        <span class="take-care-trust__dot" aria-hidden="true">·</span>
+        <span>Для физических и юридических лиц</span>
+        <span class="take-care-trust__dot" aria-hidden="true">·</span>
+        <span>Сопровождение до результата</span>
+      </div>
+    </div>
+  </section>`;
 }
 
 function offerBenefits(term = '3–5', region = '') {
@@ -338,8 +398,8 @@ function simpleHeroForm() {
   return `<form class="form-card hero-form" id="hero-lead" data-lead-form data-form-name="Форма первого экрана" novalidate>
     ${honeypot()}
     <div class="form-card__header">
-      <h2>Рассчитать стоимость</h2>
-      <p>Оставьте номер — специалист уточнит задачу и стоимость оформления.</p>
+      <h2>Узнать стоимость оформления</h2>
+      <p>Оставьте номер — специалист уточнит задачу и назовёт стоимость услуги.</p>
     </div>
     ${simpleContactFields('hero')}
     ${consentField('hero-consent')}
@@ -601,8 +661,8 @@ function serviceExtraSection(page) {
 }
 
 export function mainPage() {
-  const title = 'Регистрация спецтехники в Гостехнадзоре под ключ | ТехУчёт';
-  const description = 'Постановка на учёт, снятие с учёта, перерегистрация и техосмотр самоходной техники в Гостехнадзоре. Сопровождение под ключ для физических и юридических лиц.';
+  const title = 'Регистрация, снятие с учёта и техосмотр спецтехники | ТехУчёт';
+  const description = 'Постановка и снятие спецтехники с учёта, техосмотр, перерегистрация и восстановление ПСМ и СТС. Сопровождение под ключ. Стоимость от 5 000 ₽.';
   const canonical = `${site.baseUrl}/`;
   return `<!DOCTYPE html>
 <html lang="ru">
@@ -628,10 +688,10 @@ ${head({
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="container hero__grid">
         <div class="hero__content">
-          <h1>Регистрация спецтехники в Гостехнадзоре под ключ</h1>
-          <p class="hero__subtitle">Постановка на учёт, снятие с учёта, перерегистрация и техосмотр самоходной техники. Берём сопровождение оформления на себя.</p>
+          <h1>Регистрация, снятие с учёта и техосмотр спецтехники под ключ</h1>
+          <p class="hero__subtitle">Помогаем с постановкой и снятием с учёта, техосмотром, перерегистрацией и восстановлением ПСМ и СТС. Берём сопровождение оформления на себя.</p>
           ${mainOfferBenefits()}
-          ${offerActions()}
+          ${mainHeroActions()}
         </div>
         <div class="form-stack">
           ${simpleHeroForm()}
@@ -639,6 +699,8 @@ ${head({
         </div>
       </div>
     </section>
+
+    ${takeCareBlock()}
 
     ${serviceNavigation()}
 

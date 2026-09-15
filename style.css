@@ -905,3 +905,109 @@ p { color: var(--muted); }
     width: 100%;
   }
 }
+
+/* Take care block */
+.take-care-section {
+  padding-block: 46px;
+  border-bottom: 1px solid var(--line);
+}
+.take-care-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 24px;
+}
+.take-care-card {
+  padding: 22px 20px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s ease;
+}
+.take-care-card:hover {
+  border-color: var(--orange);
+}
+.take-care-card__icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius);
+  background: rgba(255, 159, 28, 0.12);
+  color: var(--orange);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+.take-care-card h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 750;
+  line-height: 1.35;
+  color: var(--text);
+}
+.take-care-card p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.take-care-trust {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 14px;
+  margin-top: 26px;
+  padding: 14px 18px;
+  background: rgba(16, 24, 39, 0.7);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 550;
+}
+.take-care-trust__dot {
+  color: var(--orange);
+  font-weight: 800;
+}
+
+/* Consent validation state */
+.consent.is-invalid {
+  padding: 6px 8px;
+  background: rgba(255, 115, 115, 0.08);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius);
+  animation: consentShake 0.3s ease-in-out;
+}
+.consent.is-invalid span {
+  color: #ff9999;
+}
+@keyframes consentShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+@media (max-width: 900px) {
+  .take-care-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .hero__content h1 {
+    font-size: clamp(23px, 5.5vw, 28px);
+    line-height: 1.15;
+  }
+  .take-care-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .take-care-trust {
+    font-size: 12px;
+    gap: 6px 10px;
+    text-align: center;
+  }
+}
+

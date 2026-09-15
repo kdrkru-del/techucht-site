@@ -252,6 +252,15 @@
     document.querySelectorAll('[data-lead-form]').forEach((form) => {
       form.addEventListener('input', () => trackGoal('lead_form_start'), { once: true });
       form.addEventListener('submit', (event) => submitLead(event, form));
+
+      const consent = form.querySelector('input[name="consent"]');
+      if (consent) {
+        consent.addEventListener('change', () => {
+          if (consent.checked) {
+            consent.closest('.consent')?.classList.remove('is-invalid');
+          }
+        });
+      }
     });
   }
 
@@ -264,10 +273,28 @@
     const button = form.querySelector('button[type="submit"]');
     const phone = form.querySelector('input[name="phone"]');
     const phoneValid = phone && phone.value.replace(/\D/g, '').length >= 11;
+    const consent = form.querySelector('input[name="consent"]');
+    const consentValid = consent ? consent.checked : true;
+
     phone?.classList.toggle('is-invalid', !phoneValid);
-    if (!form.checkValidity() || !phoneValid) {
+    consent?.closest('.consent')?.classList.toggle('is-invalid', !consentValid);
+
+    if (!phoneValid) {
+      phone?.focus();
+      setStatus(status, 'Укажите корректный номер телефона.', false);
+      return;
+    }
+
+    if (!consentValid) {
+      consent?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      consent?.focus();
+      setStatus(status, 'Отметьте согласие на обработку персональных данных.', false);
+      return;
+    }
+
+    if (!form.checkValidity()) {
       form.reportValidity();
-      setStatus(status, 'Проверьте обязательные поля и номер телефона.', false);
+      setStatus(status, 'Заполните обязательные поля формы.', false);
       return;
     }
     const honeypot = form.querySelector('input[name="_honey"]');
