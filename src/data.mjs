@@ -11,8 +11,8 @@ export const site = {
   telegram: 'https://t.me/Romatran',
   // Персональная ссылка MAX, скопированная владельцем из приложения.
   maxUrl: 'https://max.ru/u/f9LHodD0cOIyRnk4XSMp9LQv3nUe6pWwsL4DqMp_p80p0ISba6wNwFpIQy4',
-  email: 'jobstat@bk.ru',
-  emailHref: 'mailto:jobstat@bk.ru',
+  email: 'techuchet24@ya.ru',
+  emailHref: 'mailto:techuchet24@ya.ru',
   hours: 'Ежедневно с 09:00 до 20:00',
   baseUrl: 'https://tehuchet24.ru',
   formEndpoint: 'https://zelsrez-leads.roman-k-0b3.workers.dev/api/lead',
