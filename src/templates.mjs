@@ -580,12 +580,7 @@ function callbackModal(prefix = '') {
 }
 
 function mobileBar(href = '#lead-form') {
-  return `<div class="mobile-bar" aria-label="Быстрые действия">
-    <a class="quick-contact quick-contact--phone track-phone" href="${site.phoneHref}">Позвонить</a>
-    <a class="quick-contact quick-contact--whatsapp track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a>
-    <a class="quick-contact quick-contact--telegram track-telegram" href="${site.telegram}" target="_blank" rel="noopener">Telegram</a>
-    <a class="quick-contact quick-contact--max track-max is-disabled" aria-label="MAX" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">${maxContactContent()}</a>
-  </div>`;
+  return '';
 }
 
 function footer(prefix = '', { homeHref = null, serviceLinks = null, description = 'Сопровождение регистрационных действий со спецтехникой в Гостехнадзоре под ключ.' } = {}) {
@@ -600,19 +595,48 @@ function footer(prefix = '', { homeHref = null, serviceLinks = null, description
   ];
   return `<footer class="footer" id="contacts">
     <div class="container footer__grid">
-      <div class="footer__brand">
-        <a class="logo" href="${home}"><img class="logo__img" src="${prefix}logo.png" width="1024" height="682" alt="ТехУчёт — Гостехнадзор"></a>
+      <div class="footer__col footer__brand">
+        <a class="logo" href="${home}" aria-label="${site.brand} — главная">
+          <img class="logo__img" src="${prefix}logo.png" width="1024" height="682" alt="${site.brand} — Гостехнадзор">
+        </a>
         <p>${description}</p>
       </div>
-      <div><h2>Услуги</h2>${links.map(([href, label]) => `<a href="${href}">${label}</a>`).join('')}</div>
-      <div><h2>Контакты</h2><a class="track-phone" href="${site.phoneHref}">${site.phone}</a><a class="track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a><a class="track-telegram" href="${site.telegram}" target="_blank" rel="noopener">Telegram</a><a class="footer-max track-max is-disabled" aria-label="MAX" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">${maxContactContent()}</a><a class="track-email" href="${site.emailHref}">${site.email}</a><span>${site.hours}</span></div>
-      <div><h2>Реквизиты</h2><span>${site.company}</span><span>ИНН ${site.inn}</span><span>КПП ${site.kpp}</span><span>ОГРН ${site.ogrn}</span></div>
+      <div class="footer__col footer__services">
+        <h2>Услуги</h2>
+        <nav class="footer__nav" aria-label="Услуги в футере">
+          ${links.map(([href, label]) => `<a href="${href}">${label}</a>`).join('')}
+        </nav>
+      </div>
+      <div class="footer__col footer__contacts">
+        <h2>Контакты</h2>
+        <div class="footer__contacts-list">
+          <a class="footer__phone track-phone" href="${site.phoneHref}">${site.phone}</a>
+          <a class="track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="track-telegram" href="${site.telegram}" target="_blank" rel="noopener">Telegram</a>
+          <a class="footer-max track-max is-disabled" aria-label="MAX" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">${maxContactContent()}</a>
+          <a class="track-email" href="${site.emailHref}">${site.email}</a>
+          <span class="footer__hours">${site.hours}</span>
+        </div>
+      </div>
+      <div class="footer__col footer__legal">
+        <h2>Реквизиты</h2>
+        <div class="footer__requisites">
+          <span class="footer__company">${site.company}</span>
+          <span>ИНН ${site.inn}</span>
+          <span>КПП ${site.kpp}</span>
+          <span>ОГРН ${site.ogrn}</span>
+        </div>
+      </div>
     </div>
     <div class="container footer__bottom">
-      <span>© <span data-current-year>${new Date().getFullYear()}</span> ${site.brand}</span>
-      <a href="${prefix}privacy/">Политика конфиденциальности</a>
-      <a href="${prefix}consent/">Согласие на обработку данных</a>
-      <a href="https://voltrena.ru" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary, #f5a623); text-decoration: underline; text-underline-offset: 3px;">Создание и продвижение: voltrena.ru</a>
+      <div class="footer__copy">
+        <span>© <span data-current-year>${new Date().getFullYear()}</span> ${site.brand}</span>
+      </div>
+      <div class="footer__bottom-links">
+        <a href="${prefix}privacy/">Политика конфиденциальности</a>
+        <a href="${prefix}consent/">Согласие на обработку данных</a>
+        <a class="footer__credit" href="https://voltrena.ru" target="_blank" rel="noopener noreferrer">Создание и продвижение: voltrena.ru</a>
+      </div>
     </div>
   </footer>`;
 }
