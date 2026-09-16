@@ -344,10 +344,9 @@ function serviceNavigation() {
         ${allServices.map((item) => `<article class="nav-card nav-card--article">
           <span class="nav-card__title">${item.title}</span>
           <span class="nav-card__desc">${item.desc}</span>
-          <span class="nav-card__meta">${item.meta}</span>
-          <div class="nav-card__actions">
-            <button class="btn btn--small btn--primary nav-card__btn" type="button" data-modal-open data-select-service="${item.service}" data-lead-intent="order" data-service-event="${item.event}">Заказать услугу</button>
-            <a class="text-link nav-card__more" href="${item.url}">Подробнее →</a>
+          <div class="nav-card__footer">
+            <span class="nav-card__meta">${item.meta}</span>
+            <a class="nav-card__more" href="${item.url}">Подробнее →</a>
           </div>
         </article>`).join('')}
       </div>
