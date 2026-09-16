@@ -279,7 +279,7 @@ function advantageBlock() {
 }
 
 function trustBlock() {
-  return `<section class="trust-strip"><div class="container"><h2>Работаем по договору</h2><ul><li>Работаем с физлицами и организациями</li><li>Бесплатная первичная консультация</li><li>Берём оформление в Гостехнадзоре на себя</li></ul><p>${site.company} · ИНН ${site.inn} · КПП ${site.kpp} · ОГРН ${site.ogrn}</p></div></section>`;
+  return `<section class="trust-strip"><div class="container"><h2>Работаем по договору</h2><ul><li>Работаем с физлицами и организациями</li><li>Бесплатная первичная консультация</li><li>Берём оформление в Гостехнадзоре на себя</li></ul></div></section>`;
 }
 
 function serviceNavigation() {
@@ -617,13 +617,10 @@ function footer(prefix = '', { homeHref = null, serviceLinks = null, description
           <span class="footer__hours">${site.hours}</span>
         </div>
       </div>
-      <div class="footer__col footer__legal">
-        <h2>Реквизиты</h2>
-        <div class="footer__requisites">
-          <span class="footer__company">${site.company}</span>
-          <span>ИНН ${site.inn}</span>
-          <span>КПП ${site.kpp}</span>
-          <span>ОГРН ${site.ogrn}</span>
+      <div class="footer__col footer__address">
+        <h2>Адрес</h2>
+        <div class="footer__address-content">
+          <p class="footer__address-text">${site.address}</p>
         </div>
       </div>
     </div>

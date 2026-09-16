@@ -29,8 +29,6 @@ const requiredMain = [
   'Получить расчёт',
   'data-counter="3200">3 200',
   'data-counter="7">7',
-  'ООО «ЮНАТ»',
-  'ОГРН 1242500018859',
   'jobstat@bk.ru',
   'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.',
   'Понятные условия работы',
@@ -39,6 +37,7 @@ const requiredMain = [
   'Для физических лиц и организаций',
   'Стоимость известна заранее',
   'Всегда на связи',
+  'Москва, Космонавта Волкова, 20, кабинет 415',
 ];
 
 const forbidden = [
@@ -93,6 +92,28 @@ for (const value of ['href="vosstanovlenie-psm/"']) {
 for (const value of ['id="service-restore_sts"', 'id="service-documents"', 'id="service-plates"', 'Получение или замена регистрационных документов', 'Получение или замена номерных знаков']) {
   if (main.includes(value)) errors.push(`index.html: removed service card returned "${value}"`);
 }
+
+for (const file of htmlFiles) {
+  const html = await readFile(join(root, file), 'utf8');
+  const footerMatch = html.match(/<footer class="footer"[^>]*>([\s\S]*?)<\/footer>/);
+  if (footerMatch) {
+    if (!footerMatch[1].includes('Москва, Космонавта Волкова, 20, кабинет 415')) errors.push(`${file}: address missing from footer`);
+    for (const banned of ['ООО «ЮНАТ»', '2536345868', '253601001', '1242500018859']) {
+      if (footerMatch[1].includes(banned)) errors.push(`${file}: visible footer must not contain "${banned}"`);
+    }
+  }
+  const trustMatch = html.match(/<section class="trust-strip"[^>]*>([\s\S]*?)<\/section>/);
+  if (trustMatch) {
+    for (const banned of ['ООО «ЮНАТ»', '2536345868', '253601001', '1242500018859']) {
+      if (trustMatch[1].includes(banned)) errors.push(`${file}: trust-strip must not contain "${banned}"`);
+    }
+  }
+}
+
+const privacyHtml = await readFile(join(root, 'privacy/index.html'), 'utf8');
+if (!privacyHtml.includes('ООО «ЮНАТ»')) errors.push('privacy/index.html: ООО «ЮНАТ» must be preserved in legal document');
+const consentHtml = await readFile(join(root, 'consent/index.html'), 'utf8');
+if (!consentHtml.includes('ООО «ЮНАТ»')) errors.push('consent/index.html: ООО «ЮНАТ» must be preserved in legal document');
 
 const advertisingLandings = [
   'registraciya/index.html',
@@ -203,7 +224,7 @@ for (const page of servicePages) {
 }
 if ((spbPage.match(/data-spb-service-card/g) || []).length !== 7) errors.push('spb/index.html: expected 7 regional service cards');
 if ((spbPage.match(/<form\b[^>]*data-lead-form/g) || []).length !== 3) errors.push('spb/index.html: expected hero, final and callback forms');
-if (/Москв/.test(spbPage)) errors.push('spb/index.html: Moscow text leaked into regional landing');
+if (/Москв/.test(spbPage.replace(/<footer[\s\S]*?<\/footer>/, ''))) errors.push('spb/index.html: Moscow text leaked into regional landing');
 if (!spbPage.includes('../site-config.js?v=12') || !spbPage.includes('../script.js?v=12')) errors.push('spb/index.html: shared scripts missing');
 
 for (const id of ['services', 'vehicles', 'process', 'cases', 'faq', 'form', 'registration', 'reregistration', 'deregistration', 'inspection']) {
