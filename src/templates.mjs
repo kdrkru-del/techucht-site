@@ -107,11 +107,14 @@ function serviceSchema({ name, description, url }) {
 
 function mainOfferBenefits() {
   return `<ul class="offer-benefits" id="price">
-    <li><strong>Без привоза техники</strong></li>
-    <li>Без личных визитов</li>
-    <li><strong>от 5 000 ₽</strong><span>Стоимость услуг</span></li>
-    <li>По договору</li>
-    <li>Для физических и юридических лиц</li>
+    <li class="offer-benefits__item offer-benefits__item--accent"><strong>Без привоза техники</strong></li>
+    <li class="offer-benefits__item"><span>Без личных визитов</span></li>
+    <li class="offer-benefits__item offer-benefits__item--price">
+      <strong class="price-value">от 5 000 ₽</strong>
+      <span class="price-caption">Стоимость услуг</span>
+    </li>
+    <li class="offer-benefits__item"><span>По договору</span></li>
+    <li class="offer-benefits__item offer-benefits__item--full"><span>Для физических и юридических лиц</span></li>
   </ul>`;
 }
 
@@ -234,8 +237,8 @@ function workConditionsBlock() {
 }
 
 function offerBenefits(term = '3–5', region = '') {
-  const regionItem = region ? `<li>${region}</li>` : '';
-  return `<ul class="offer-benefits" id="price"><li><strong>от 5 000 ₽</strong><span>Стоимость услуг</span></li><li><strong>${term} рабочих дней</strong><span>Ориентировочный срок</span></li><li>По договору</li>${regionItem}<li>Для физлиц и организаций</li><li>Без очередей и личных визитов в Гостехнадзор</li></ul>`;
+  const regionItem = region ? `<li class="offer-benefits__item"><span>${region}</span></li>` : '';
+  return `<ul class="offer-benefits" id="price"><li class="offer-benefits__item offer-benefits__item--price"><strong class="price-value">от 5 000 ₽</strong><span class="price-caption">Стоимость услуг</span></li><li class="offer-benefits__item offer-benefits__item--term"><strong class="price-value">${term} рабочих дней</strong><span class="price-caption">Ориентировочный срок</span></li><li class="offer-benefits__item"><span>По договору</span></li>${regionItem}<li class="offer-benefits__item"><span>Для физлиц и организаций</span></li><li class="offer-benefits__item offer-benefits__item--full"><span>Без очередей и личных визитов в Гостехнадзор</span></li></ul>`;
 }
 
 function offerActions(service = 'Консультация', event = '') {
@@ -388,7 +391,7 @@ function header(prefix = '', sectionBase = null, { homeHref = null, situationsId
       </nav>
       <div class="header__actions">
         <a class="header__phone track-phone" href="${site.phoneHref}">${site.phone}</a>
-        ${quickContacts({ modifier: 'quick-contacts--header', includePhone: false })}
+        <a class="quick-contact quick-contact--whatsapp track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a>
         <button class="btn btn--small btn--outline" type="button" data-modal-open>Бесплатная консультация</button>
       </div>
       <button class="menu-button" type="button" aria-label="Открыть меню" aria-controls="mobile-menu" aria-expanded="false" data-menu-button>
@@ -753,7 +756,6 @@ ${head({
         </div>
         <div class="form-stack">
           ${simpleHeroForm()}
-          <div class="form-quick-contacts"><span>Или свяжитесь напрямую</span>${quickContacts({ modifier: 'quick-contacts--form' })}</div>
         </div>
       </div>
     </section>

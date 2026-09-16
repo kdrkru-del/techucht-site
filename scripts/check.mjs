@@ -228,7 +228,7 @@ if (!js.includes('"MAX_URL": "https://max.ru/u/f9LHodD0cOIyRnk4XSMp9LQv3nUe6pWws
 if (!js.includes('zelsrez-leads.roman-k-0b3.workers.dev/api/lead')) errors.push('site-config.js: Telegram lead endpoint missing');
 
 const mainMaxLinks = (main.match(/class="[^"]*track-max/g) || []).length;
-if (mainMaxLinks < 6) errors.push(`index.html: expected MAX in all contact areas, found ${mainMaxLinks}`);
+if (mainMaxLinks < 4) errors.push(`index.html: expected MAX in all remaining contact areas, found ${mainMaxLinks}`);
 if (/href="[^"]*max\.ru/i.test(main)) errors.push('index.html: MAX URL must come from site-config.js');
 const mainMaxTags = main.match(/<a class="[^"]*track-max[^"]*"[^>]*>[\s\S]*?<\/a>/g) || [];
 if (mainMaxTags.some((tag) => /999[\s-]*552|79995522001/.test(tag))) errors.push('index.html: phone must not be displayed inside MAX buttons');
