@@ -38,6 +38,7 @@ const requiredMain = [
   'Стоимость известна заранее',
   'Всегда на связи',
   'Москва, Космонавта Волкова, 20, кабинет 415',
+  '<meta name="mailru-domain" content="YAbXlGEdCBXNKxOH" />',
 ];
 
 const forbidden = [

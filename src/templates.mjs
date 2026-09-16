@@ -748,6 +748,7 @@ export function mainPage() {
   return `<!DOCTYPE html>
 <html lang="ru">
 <head>
+  <meta name="mailru-domain" content="YAbXlGEdCBXNKxOH" />
 ${head({
   title,
   description,
