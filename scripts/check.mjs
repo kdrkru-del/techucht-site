@@ -59,6 +59,8 @@ const forbidden = [
   'Восстановление ПСМ и ЭПСМ',
   'Восстановление ЭПСМ',
   'восстановить ЭПСМ',
+  '+7 999 552-20-01',
+  '79995522001',
 ];
 
 const errors = [];
@@ -151,7 +153,7 @@ for (const value of [
   'Регистрируем в Гостехнадзоре тракторы, погрузчики, экскаваторы, квадроциклы и другую самоходную технику.',
   'Нужно оформить спецтехнику в Гостехнадзоре?',
   'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.',
-  'href="tel:+79995522001"',
+  'href="tel:+79257577888"',
   '"@type":"FAQPage"',
   '"name":"Санкт-Петербург"',
   '"name":"Ленинградская область"',
@@ -231,7 +233,7 @@ const mainMaxLinks = (main.match(/class="[^"]*track-max/g) || []).length;
 if (mainMaxLinks < 3) errors.push(`index.html: expected MAX in all remaining contact areas, found ${mainMaxLinks}`);
 if (/href="[^"]*max\.ru/i.test(main)) errors.push('index.html: MAX URL must come from site-config.js');
 const mainMaxTags = main.match(/<a class="[^"]*track-max[^"]*"[^>]*>[\s\S]*?<\/a>/g) || [];
-if (mainMaxTags.some((tag) => /999[\s-]*552|79995522001/.test(tag))) errors.push('index.html: phone must not be displayed inside MAX buttons');
+if (mainMaxTags.some((tag) => /925[\s-]*757|79257577888|999[\s-]*552|79995522001/.test(tag))) errors.push('index.html: phone must not be displayed inside MAX buttons');
 if (!main.includes('href="favicon.png?v=3"')) errors.push('index.html: favicon missing');
 
 const clientScript = await readFile(join(root, 'script.js'), 'utf8');
