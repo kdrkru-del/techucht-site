@@ -990,8 +990,83 @@ p { color: var(--muted); }
   75% { transform: translateX(4px); }
 }
 
+/* Work conditions block */
+.conditions-section {
+  padding-block: 56px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.conditions-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+.conditions-card {
+  padding: 22px 20px;
+  background: var(--panel);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s ease;
+}
+.conditions-card:hover {
+  border-color: var(--orange);
+}
+.conditions-card__icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius);
+  background: rgba(255, 159, 28, 0.12);
+  color: var(--orange);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+.conditions-card h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 750;
+  line-height: 1.35;
+  color: var(--text);
+}
+.conditions-card p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.conditions-note {
+  margin-top: 24px;
+  padding: 16px 20px;
+  background: rgba(16, 24, 39, 0.7);
+  border: 1px solid var(--line-soft);
+  border-left: 3px solid var(--orange);
+  border-radius: var(--radius);
+  text-align: center;
+}
+.conditions-note p {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.45;
+}
+.conditions-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 24px;
+}
+
 @media (max-width: 900px) {
   .take-care-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .conditions-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -1009,5 +1084,25 @@ p { color: var(--muted); }
     gap: 6px 10px;
     text-align: center;
   }
+  .conditions-section {
+    padding-block: 40px;
+  }
+  .conditions-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .conditions-note {
+    text-align: left;
+    padding: 12px 14px;
+  }
+  .conditions-note p {
+    font-size: 14px;
+  }
+  .conditions-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .conditions-actions .btn {
+    width: 100%;
+  }
 }
-

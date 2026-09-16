@@ -159,17 +159,75 @@ function takeCareBlock() {
         </article>
       </div>
       <div class="take-care-trust">
-        <span>Работаем по договору</span>
-        <span class="take-care-trust__dot" aria-hidden="true">·</span>
-        <span>${site.company}</span>
+        <span>По договору</span>
         <span class="take-care-trust__dot" aria-hidden="true">·</span>
         <span>Безналичный расчёт</span>
         <span class="take-care-trust__dot" aria-hidden="true">·</span>
         <span>Закрывающие документы</span>
         <span class="take-care-trust__dot" aria-hidden="true">·</span>
-        <span>Для физических и юридических лиц</span>
+        <span>Для физических лиц и организаций</span>
         <span class="take-care-trust__dot" aria-hidden="true">·</span>
         <span>Сопровождение до результата</span>
+      </div>
+    </div>
+  </section>`;
+}
+
+function workConditionsBlock() {
+  const conditions = [
+    {
+      title: 'Работаем по договору',
+      desc: 'До начала работы согласовываем услугу и условия сотрудничества.',
+      icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
+    },
+    {
+      title: 'Стоимость известна заранее',
+      desc: 'Перед началом работы сообщаем стоимость сопровождения по вашей задаче.',
+      icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
+    },
+    {
+      title: 'Один специалист ведёт задачу',
+      desc: 'Вы знаете, с кем связаться и на каком этапе находится оформление.',
+      icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+    },
+    {
+      title: 'Безналичный расчёт',
+      desc: 'Работаем с физическими лицами и организациями.',
+      icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>`,
+    },
+    {
+      title: 'Закрывающие документы',
+      desc: 'После оказания услуги предоставляем необходимые документы по расчёту.',
+      icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`,
+    },
+    {
+      title: 'Всегда на связи',
+      desc: 'По ходу работы можно уточнить статус задачи у специалиста.',
+      icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+    },
+  ];
+
+  return `<section class="section conditions-section" id="conditions">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Понятные условия работы</h2>
+        <p>Без скрытых обещаний: заранее согласовываем услугу, стоимость и порядок работы.</p>
+      </div>
+      <div class="conditions-grid">
+        ${conditions.map((item) => `<article class="conditions-card">
+          <div class="conditions-card__icon" aria-hidden="true">
+            ${item.icon}
+          </div>
+          <h3>${item.title}</h3>
+          <p>${item.desc}</p>
+        </article>`).join('')}
+      </div>
+      <div class="conditions-note">
+        <p>Сначала разбираемся в вашей задаче, называем стоимость и только после этого начинаем работу.</p>
+      </div>
+      <div class="conditions-actions">
+        <button class="btn btn--primary" type="button" data-modal-open data-select-service="Консультация" data-lead-intent="order">Узнать стоимость</button>
+        <a class="btn btn--outline track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">Написать в WhatsApp</a>
       </div>
     </div>
   </section>`;
@@ -701,6 +759,8 @@ ${head({
     </section>
 
     ${takeCareBlock()}
+
+    ${workConditionsBlock()}
 
     ${serviceNavigation()}
 
