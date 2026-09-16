@@ -265,7 +265,7 @@ function serviceNavigation() {
     },
     {
       title: 'Восстановление ПСМ и СТС',
-      desc: 'Помогаем восстановить ПСМ или СТС при утрате или повреждении.',
+      desc: 'Помогаем восстановить ПСМ или СТС в Гостехнадзоре при утрате или повреждении.',
       meta: '<strong>от 5 000 ₽</strong> · 3–5 рабочих дней',
       service: 'Восстановление ПСМ и СТС',
       event: 'restore_psm',
@@ -276,7 +276,7 @@ function serviceNavigation() {
   return `<section class="service-navigation" id="services">
     <div class="container">
       <div class="section-heading">
-        <h2>Все услуги по регистрации спецтехники</h2>
+        <h2>Все услуги по оформлению спецтехники в Гостехнадзоре</h2>
         <p>Берём оформление на себя: готовим документы, сопровождаем регистрационные процедуры и доводим до результата.</p>
       </div>
       <div class="service-navigation__grid service-navigation__grid--main">
@@ -688,7 +688,7 @@ ${head({
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="container hero__grid">
         <div class="hero__content">
-          <h1>Регистрация, снятие с учёта и техосмотр спецтехники под ключ</h1>
+          <h1>Регистрация, снятие с учёта и техосмотр спецтехники в Гостехнадзоре под ключ</h1>
           <p class="hero__subtitle">Помогаем с постановкой и снятием с учёта, техосмотром, перерегистрацией и восстановлением ПСМ и СТС. Берём сопровождение оформления на себя.</p>
           ${mainOfferBenefits()}
           ${mainHeroActions()}
