@@ -17,16 +17,17 @@ const htmlFiles = [
 const requiredMain = [
   '<title>Регистрация, снятие с учёта и техосмотр спецтехники | ТехУчёт</title>',
   'content="Постановка и снятие спецтехники с учёта, техосмотр, перерегистрация и восстановление ПСМ и СТС. Сопровождение под ключ. Стоимость от 5 000 ₽."',
-  'Регистрация, снятие с учёта и техосмотр спецтехники в Гостехнадзоре под ключ',
+  'Официальное сопровождение спецтехники в Гостехнадзоре под ключ',
+  'ЦЕНТР СОПРОВОЖДЕНИЯ В ГОСТЕХНАДЗОРЕ',
+  'Берём на себя регистрацию, снятие с учёта и техосмотр любой самоходной техники.',
   'от 5 000 ₽',
-  'Помогаем с постановкой и снятием с учёта, техосмотром, перерегистрацией и восстановлением ПСМ и СТС. Берём сопровождение оформления на себя.',
   'Без привоза техники',
   'Без личных визитов',
   'Берём оформление на себя',
   'Один специалист сопровождает вашу задачу',
   'Без личного посещения ведомства',
-  'Узнать стоимость оформления',
-  'Получить расчёт',
+  'Узнать условия и стоимость',
+  'Бесплатная консультация',
   'data-counter="3200">3 200',
   'data-counter="7">7',
   'techuchet24@ya.ru',
@@ -302,8 +303,8 @@ for (const file of htmlFiles.filter((file) => !file.startsWith('404'))) {
     if (!/name="phone"[^>]*type="tel"/.test(form)) errors.push(`${file}: form ${index + 1} missing phone field`);
     if (!/class="[^"]*ym-disable-keys[^"]*"[^>]*name="name"/.test(form)) errors.push(`${file}: form ${index + 1} name field is not protected from Webvisor`);
     if (!/class="[^"]*ym-disable-keys[^"]*"[^>]*name="phone"/.test(form)) errors.push(`${file}: form ${index + 1} phone field is not protected from Webvisor`);
-    if (!/name="comment"[^>]*type="text"/.test(form)) errors.push(`${file}: form ${index + 1} missing optional task field`);
-    if (/<select\b|<textarea\b|type="radio"|name="(?:region|service|tech|owner)"/.test(form)) {
+    if (!/name="comment"[^>]*type="text"/.test(form) && !/name="service"/.test(form)) errors.push(`${file}: form ${index + 1} missing optional task field`);
+    if (/name="(?:region|tech|owner)"/.test(form) || /<textarea\b/.test(form) || (/<select\b/.test(form) && !/name="service"/.test(form))) {
       errors.push(`${file}: form ${index + 1} contains fields other than name, phone and optional task`);
     }
   });

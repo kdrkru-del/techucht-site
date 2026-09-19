@@ -461,12 +461,24 @@ function simpleHeroForm() {
   return `<form class="form-card hero-form" id="hero-lead" data-lead-form data-form-name="Форма первого экрана" novalidate>
     ${honeypot()}
     <div class="form-card__header">
-      <h2>Узнать стоимость оформления</h2>
-      <p>Оставьте номер — специалист уточнит задачу и назовёт стоимость услуги.</p>
+      <p class="hero-form__eyebrow">Узнать условия и стоимость</p>
     </div>
-    ${simpleContactFields('hero')}
+    <div class="form-grid">
+      <label class="field" for="hero-name"><span>Имя *</span><input class="ym-disable-keys" id="hero-name" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required></label>
+      <label class="field" for="hero-phone"><span>Телефон *</span><input class="ym-disable-keys" id="hero-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
+    </div>
+    <label class="field" for="hero-service"><span>Что нужно сделать</span>
+      <select id="hero-service" name="service">
+        <option value="">Выберите услугу</option>
+        <option value="Постановка на учёт">Постановка на учёт</option>
+        <option value="Снятие с учёта">Снятие с учёта</option>
+        <option value="Техосмотр">Техосмотр</option>
+        <option value="Консультация">Консультация</option>
+      </select>
+    </label>
     ${consentField('hero-consent')}
-    <button class="btn btn--primary btn--full" type="submit">Получить расчёт</button>
+    <button class="btn btn--primary btn--full" type="submit">Узнать условия и стоимость</button>
+    <button class="btn btn--outline btn--full hero-form__consultation" type="button" data-modal-open data-select-service="Консультация" data-lead-intent="consultation">Бесплатная консультация</button>
     ${formStatus()}
   </form>`;
 }
@@ -773,10 +785,10 @@ ${head({
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="container hero__grid">
         <div class="hero__content">
-          <h1>Регистрация, снятие с учёта и техосмотр спецтехники в Гостехнадзоре под ключ</h1>
-          <p class="hero__subtitle">Помогаем с постановкой и снятием с учёта, техосмотром, перерегистрацией и восстановлением ПСМ и СТС. Берём сопровождение оформления на себя.</p>
+          <p class="hero__eyebrow">ЦЕНТР СОПРОВОЖДЕНИЯ В ГОСТЕХНАДЗОРЕ</p>
+          <h1>Официальное сопровождение спецтехники в Гостехнадзоре под ключ</h1>
+          <p class="hero__subtitle">Берём на себя регистрацию, снятие с учёта и техосмотр любой самоходной техники. Без очередей, без бюрократии и без доставки машин на осмотр.</p>
           ${mainOfferBenefits()}
-          ${mainHeroActions()}
         </div>
         <div class="form-stack">
           ${simpleHeroForm()}

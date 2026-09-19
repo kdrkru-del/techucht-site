@@ -649,6 +649,32 @@ p {
   line-height: 1.55;
 }
 
+/* Eyebrow label above H1 */
+.hero__eyebrow {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--secondary);
+  opacity: 0.85;
+}
+
+/* Hero form header label */
+.hero-form__eyebrow {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.25;
+  margin: 0;
+}
+
+/* Consultation secondary button inside hero form */
+.hero-form__consultation {
+  margin-top: 8px;
+}
+
 /* Benefits Grid in Hero */
 .offer-benefits {
   display: grid;
