@@ -75,53 +75,23 @@
   </header>
   <main id="main">
     <section class="hero">
-      <picture class="hero__media" aria-hidden="true"><source srcset="assets/images/hero_bg-720.webp 720w, assets/images/hero_bg-900.webp 900w, assets/images/hero_bg.webp 1376w" sizes="100vw" type="image/webp"><img src="assets/images/hero_bg.jpg" width="1376" height="768" alt="" fetchpriority="high" decoding="async"></picture>
+      <picture class="hero__media" aria-hidden="true"><source srcset="assets/images/hero_bg-720.webp 720w, assets/images/hero_bg-900.webp 900w, assets/images/hero_bg.webp 1440w" sizes="100vw" type="image/webp"><img src="assets/images/hero_bg.jpg" width="1440" height="810" alt="" fetchpriority="high" decoding="async"></picture>
       <div class="hero__shade" aria-hidden="true"></div>
-      <div class="container hero__grid">
+      <div class="container hero__wrap">
         <div class="hero__content">
-          <p class="hero__eyebrow">ЦЕНТР СОПРОВОЖДЕНИЯ В ГОСТЕХНАДЗОРЕ</p>
-          <h1>Официальное сопровождение спецтехники в Гостехнадзоре под ключ</h1>
-          <p class="hero__subtitle">Берём на себя регистрацию, снятие с учёта и техосмотр любой самоходной техники. Без очередей, без бюрократии и без доставки машин на осмотр.</p>
-          <ul class="offer-benefits" id="price">
-    <li class="offer-benefits__item offer-benefits__item--accent"><strong>Без привоза техники</strong></li>
-    <li class="offer-benefits__item"><span>Без личных визитов</span></li>
-    <li class="offer-benefits__item offer-benefits__item--price">
-      <strong class="price-value">от 5 000 ₽</strong>
-      <span class="price-caption">Стоимость услуг</span>
-    </li>
-    <li class="offer-benefits__item"><span>По договору</span></li>
-    <li class="offer-benefits__item offer-benefits__item--full"><span>Для физических и юридических лиц</span></li>
-  </ul>
-        </div>
-        <div class="form-stack">
-          <form class="form-card hero-form" id="hero-lead" data-lead-form data-form-name="Форма первого экрана" novalidate>
-    <div class="honeypot" aria-hidden="true">
-    <label>Оставьте поле пустым <input class="ym-disable-keys" type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
-  </div>
-    <div class="form-card__header">
-      <p class="hero-form__eyebrow">Узнать условия и стоимость</p>
-    </div>
-    <div class="form-grid">
-      <label class="field" for="hero-name"><span>Имя *</span><input class="ym-disable-keys" id="hero-name" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required></label>
-      <label class="field" for="hero-phone"><span>Телефон *</span><input class="ym-disable-keys" id="hero-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
-    </div>
-    <label class="field" for="hero-service"><span>Что нужно сделать</span>
-      <select id="hero-service" name="service">
-        <option value="">Выберите услугу</option>
-        <option value="Постановка на учёт">Постановка на учёт</option>
-        <option value="Снятие с учёта">Снятие с учёта</option>
-        <option value="Техосмотр">Техосмотр</option>
-        <option value="Консультация">Консультация</option>
-      </select>
-    </label>
-    <label class="consent" for="hero-consent">
-    <input id="hero-consent" name="consent" type="checkbox" required>
-    <span>Я соглашаюсь на <a href="consent/" target="_blank">обработку персональных данных</a> и принимаю <a href="privacy/" target="_blank">Политику конфиденциальности</a>.</span>
-  </label>
-    <button class="btn btn--primary btn--full" type="submit">Узнать условия и стоимость</button>
-    <button class="btn btn--outline btn--full hero-form__consultation" type="button" data-modal-open data-select-service="Консультация" data-lead-intent="consultation">Бесплатная консультация</button>
-    <p class="form-status" role="status" aria-live="polite" data-form-status></p>
-  </form>
+          <p class="hero__eyebrow">Центр сопровождения в Гостехнадзоре</p>
+          <h1>Регистрация и техосмотр спецтехники — без очередей и визитов</h1>
+          <p class="hero__subtitle">Берём на себя постановку на учёт, снятие и техосмотр любой самоходной техники. Быстро, по договору, с закрывающими документами.</p>
+          <ul class="hero__badges">
+            <li>Без привоза техники</li>
+            <li>От 5 000 ₽</li>
+            <li>3–5 рабочих дней</li>
+            <li>Для физлиц и организаций</li>
+          </ul>
+          <div class="hero__cta">
+            <button class="btn btn--hero-primary" type="button" data-modal-open data-select-service="Консультация" data-lead-intent="consultation">Бесплатная консультация</button>
+            <a class="btn btn--hero-outline track-whatsapp" href="https://wa.me/79257577888" target="_blank" rel="noopener">Написать в WhatsApp</a>
+          </div>
         </div>
       </div>
     </section>

@@ -781,17 +781,23 @@ ${head({
   ${header()}
   <main id="main">
     <section class="hero">
-      <picture class="hero__media" aria-hidden="true"><source srcset="assets/images/hero_bg-720.webp 720w, assets/images/hero_bg-900.webp 900w, assets/images/hero_bg.webp 1376w" sizes="100vw" type="image/webp"><img src="assets/images/hero_bg.jpg" width="1376" height="768" alt="" fetchpriority="high" decoding="async"></picture>
+      <picture class="hero__media" aria-hidden="true"><source srcset="assets/images/hero_bg-720.webp 720w, assets/images/hero_bg-900.webp 900w, assets/images/hero_bg.webp 1440w" sizes="100vw" type="image/webp"><img src="assets/images/hero_bg.jpg" width="1440" height="810" alt="" fetchpriority="high" decoding="async"></picture>
       <div class="hero__shade" aria-hidden="true"></div>
-      <div class="container hero__grid">
+      <div class="container hero__wrap">
         <div class="hero__content">
-          <p class="hero__eyebrow">ЦЕНТР СОПРОВОЖДЕНИЯ В ГОСТЕХНАДЗОРЕ</p>
-          <h1>Официальное сопровождение спецтехники в Гостехнадзоре под ключ</h1>
-          <p class="hero__subtitle">Берём на себя регистрацию, снятие с учёта и техосмотр любой самоходной техники. Без очередей, без бюрократии и без доставки машин на осмотр.</p>
-          ${mainOfferBenefits()}
-        </div>
-        <div class="form-stack">
-          ${simpleHeroForm()}
+          <p class="hero__eyebrow">Центр сопровождения в Гостехнадзоре</p>
+          <h1>Регистрация и техосмотр спецтехники — без очередей и визитов</h1>
+          <p class="hero__subtitle">Берём на себя постановку на учёт, снятие и техосмотр любой самоходной техники. Быстро, по договору, с закрывающими документами.</p>
+          <ul class="hero__badges">
+            <li>Без привоза техники</li>
+            <li>От 5 000 ₽</li>
+            <li>3–5 рабочих дней</li>
+            <li>Для физлиц и организаций</li>
+          </ul>
+          <div class="hero__cta">
+            <button class="btn btn--hero-primary" type="button" data-modal-open data-select-service="Консультация" data-lead-intent="consultation">Бесплатная консультация</button>
+            <a class="btn btn--hero-outline track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">Написать в WhatsApp</a>
+          </div>
         </div>
       </div>
     </section>
