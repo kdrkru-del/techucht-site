@@ -507,7 +507,18 @@ function simpleCallbackModal(prefix = '') {
       <p data-modal-description>Есть вопрос по постановке, снятию или техосмотру? Оставьте номер — специалист свяжется с вами.</p>
       <form data-lead-form data-form-name="Обратный звонок" novalidate>
         ${honeypot()}
-        ${simpleContactFields('callback')}
+        <div class="form-grid">
+          <label class="field" for="callback-name"><span>Имя *</span><input class="ym-disable-keys" id="callback-name" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" required></label>
+          <label class="field" for="callback-phone"><span>Телефон *</span><input class="ym-disable-keys" id="callback-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required></label>
+        </div>
+        <label class="field" for="callback-service"><span>Что нужно сделать</span>
+          <select id="callback-service" name="service">
+            <option value="Консультация" selected>Консультация</option>
+            <option value="Постановка на учёт">Постановка на учёт</option>
+            <option value="Снятие с учёта">Снятие с учёта</option>
+            <option value="Техосмотр">Техосмотр</option>
+          </select>
+        </label>
         ${consentField('callback-consent', prefix)}
         <button class="btn btn--primary btn--full" type="submit">Получить консультацию</button>
         ${formStatus()}
@@ -783,7 +794,7 @@ ${head({
     <section class="hero">
       <picture class="hero__media" aria-hidden="true"><source srcset="assets/images/hero_bg-720.webp 720w, assets/images/hero_bg-900.webp 900w, assets/images/hero_bg.webp 1440w" sizes="100vw" type="image/webp"><img src="assets/images/hero_bg.jpg" width="1440" height="810" alt="" fetchpriority="high" decoding="async"></picture>
       <div class="hero__shade" aria-hidden="true"></div>
-      <div class="container hero__wrap">
+      <div class="container">
         <div class="hero__content">
           <p class="hero__eyebrow">Центр сопровождения в Гостехнадзоре</p>
           <h1>Регистрация и техосмотр спецтехники — без очередей и визитов</h1>
