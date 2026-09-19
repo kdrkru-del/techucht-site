@@ -602,23 +602,23 @@ p {
   height: 100%;
   object-fit: cover;
   object-position: center bottom;
-  opacity: 1;
-  filter: saturate(1.05) contrast(1.02);
+  opacity: 0.55;
+  filter: saturate(0.7) contrast(0.95) brightness(1.05);
 }
 
 .hero__shade {
   z-index: -1;
   background: 
     linear-gradient(90deg, 
-      rgba(246, 248, 251, 0.90) 0%, 
-      rgba(246, 248, 251, 0.76) 38%, 
-      rgba(246, 248, 251, 0.28) 68%, 
-      rgba(246, 248, 251, 0.06) 100%),
+      rgba(246, 248, 251, 1.00) 0%, 
+      rgba(246, 248, 251, 1.00) 45%, 
+      rgba(246, 248, 251, 0.60) 65%, 
+      rgba(246, 248, 251, 0.10) 100%),
     linear-gradient(180deg, 
-      rgba(255, 255, 255, 0.50) 0%, 
-      transparent 18%, 
-      transparent 82%, 
-      rgba(246, 248, 251, 0.88) 100%);
+      rgba(246, 248, 251, 0.60) 0%, 
+      transparent 15%, 
+      transparent 85%, 
+      rgba(246, 248, 251, 0.80) 100%);
 }
 
 .hero__grid {
@@ -644,8 +644,8 @@ p {
 .hero__subtitle {
   max-width: 640px;
   margin-bottom: 24px;
-  color: var(--muted);
-  font-size: 17.5px;
+  color: #4A5568;
+  font-size: 17px;
   line-height: 1.55;
 }
 
@@ -658,7 +658,7 @@ p {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--secondary);
-  opacity: 0.85;
+  opacity: 1;
 }
 
 /* Hero form header label */
