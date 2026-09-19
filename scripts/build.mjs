@@ -79,6 +79,7 @@ await output('site-config.js', `window.TECHUCHET_CONFIG = ${JSON.stringify(publi
 
 const urls = ['', 'spb/', ...servicePages.map((page) => `${page.slug}/`), 'privacy/', 'consent/'];
 
+
 await output('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((path) => `  <url><loc>${site.baseUrl}/${path}</loc><lastmod>2026-08-23</lastmod></url>`).join('\n')}
@@ -96,8 +97,8 @@ await output('site.webmanifest', JSON.stringify({
   short_name: 'ТехУчёт',
   start_url: './',
   display: 'standalone',
-  background_color: '#0a101b',
-  theme_color: '#0a101b',
+  background_color: '#F6F8FB',
+  theme_color: '#17324D',
   icons: [{ src: 'favicon.png', sizes: '1254x1254', type: 'image/png' }],
 }, null, 2));
 
@@ -111,7 +112,7 @@ await mkdir(join(dist, 'server'), { recursive: true });
 await mkdir(join(dist, 'client'), { recursive: true });
 
 for (const file of [
-  'index.html', '404.html', 'style.css', 'script.js', 'site-config.js', 'favicon.png', 'logo.png', 'og.png',
+  'index.html', '404.html', 'style.css', 'script.js', 'site-config.js', 'favicon.png', 'logo.png', 'logo-dark.png', 'og.png',
   'robots.txt', 'sitemap.xml', 'site.webmanifest', 'yandex_51c60f752ea2994f.html',
 ]) {
   await copyFile(join(root, file), join(dist, 'client', file));

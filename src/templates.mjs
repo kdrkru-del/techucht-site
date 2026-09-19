@@ -16,7 +16,7 @@ function head({ title, description, canonical, prefix = '', schemas = [] }) {
   return `
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0a101b">
+  <meta name="theme-color" content="#17324D">
   <meta name="description" content="${description}">
   <link rel="canonical" href="${canonical}">
   <meta property="og:locale" content="ru_RU">
@@ -31,6 +31,9 @@ function head({ title, description, canonical, prefix = '', schemas = [] }) {
   <meta name="twitter:description" content="${description}">
   <meta name="twitter:image" content="${site.baseUrl}/og.png">
   <title>${title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="${prefix}favicon.png?v=3">
   <link rel="shortcut icon" type="image/png" href="${prefix}favicon.png?v=3">
   <link rel="apple-touch-icon" href="${prefix}favicon.png?v=3">
@@ -380,7 +383,7 @@ function header(prefix = '', sectionBase = null, { homeHref = null, situationsId
   return `<header class="header" id="header">
     <div class="container header__inner">
       <a class="logo" href="${home}" aria-label="ТехУчёт — главная">
-        <img class="logo__img" src="${prefix}logo.png" width="1024" height="682" alt="ТехУчёт — Гостехнадзор">
+        <img class="logo__img" src="${prefix}logo-dark.png" width="1024" height="682" alt="ТехУчёт — Гостехнадзор">
       </a>
       <nav class="nav" aria-label="Основная навигация">
         <a href="${sections}#services">Услуги</a>

@@ -3,8 +3,8 @@
   "short_name": "ТехУчёт",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#0a101b",
-  "theme_color": "#0a101b",
+  "background_color": "#F6F8FB",
+  "theme_color": "#17324D",
   "icons": [
     {
       "src": "favicon.png",
