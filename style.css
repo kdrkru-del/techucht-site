@@ -1145,7 +1145,7 @@ p {
    ================================================== */
 .take-care-section {
   padding: 80px 0;
-  background: #FFFFFF;
+  background: var(--bg);
   border-bottom: 1px solid var(--line);
 }
 
@@ -1208,7 +1208,7 @@ p {
   gap: 8px 16px;
   margin-top: 32px;
   padding: 12px 24px;
-  background: var(--panel-muted);
+  background: #FFFFFF;
   border: 1px solid var(--line);
   border-radius: var(--radius-full);
   font-size: 13.5px;
@@ -1222,11 +1222,11 @@ p {
 }
 
 /* ==================================================
-   ПОНЯТНЫЕ УСЛОВИЯ РАБОТЫ (#F6F8FB, 3x2 Grid)
+   ПОНЯТНЫЕ УСЛОВИЯ РАБОТЫ (White, 3x2 Grid)
    ================================================== */
 .conditions-section {
   padding: 84px 0;
-  background: var(--bg);
+  background: #FFFFFF;
   border-bottom: 1px solid var(--line);
 }
 

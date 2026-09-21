@@ -813,11 +813,11 @@ ${head({
       </div>
     </section>
 
+    ${serviceNavigation()}
+
     ${takeCareBlock()}
 
     ${workConditionsBlock()}
-
-    ${serviceNavigation()}
 
     ${advantageBlock()}
 
