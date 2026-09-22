@@ -8,6 +8,7 @@ const htmlFiles = [
   'index.html',
   'spb/index.html',
   ...servicePages.map((page) => `${page.slug}/index.html`),
+  'kontakty/index.html',
   'privacy/index.html',
   'consent/index.html',
   '404.html',
@@ -36,7 +37,7 @@ const requiredMain = [
   'Для физических лиц и организаций',
   'Стоимость известна заранее',
   'Всегда на связи',
-  'Москва, Космонавта Волкова, 20, кабинет 415',
+  'Москва, улица Космонавта Волкова, 20, кабинет 415',
   '<meta name="mailru-domain" content="YAbXlGEdCBXNKxOH" />',
 ];
 
@@ -98,7 +99,7 @@ for (const file of htmlFiles) {
   const html = await readFile(join(root, file), 'utf8');
   const footerMatch = html.match(/<footer class="footer"[^>]*>([\s\S]*?)<\/footer>/);
   if (footerMatch) {
-    if (!footerMatch[1].includes('Москва, Космонавта Волкова, 20, кабинет 415')) errors.push(`${file}: address missing from footer`);
+    if (!footerMatch[1].includes('Москва, улица Космонавта Волкова, 20, кабинет 415')) errors.push(`${file}: address missing from footer`);
     for (const banned of ['ООО «ЮНАТ»', '2536345868', '253601001', '1242500018859']) {
       if (footerMatch[1].includes(banned)) errors.push(`${file}: visible footer must not contain "${banned}"`);
     }

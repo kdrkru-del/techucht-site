@@ -377,7 +377,7 @@ function quickContacts({ modifier = '', includePhone = true } = {}) {
   </div>`;
 }
 
-function header(prefix = '', sectionBase = null, { homeHref = null, situationsId = 'situations' } = {}) {
+function header(prefix = '', sectionBase = null, { homeHref = null, situationsId = 'situations', isRegional = false } = {}) {
   const home = homeHref || prefix || './';
   const sections = sectionBase || home;
   return `<header class="header" id="header">
@@ -390,6 +390,7 @@ function header(prefix = '', sectionBase = null, { homeHref = null, situationsId
         <a href="${sections}#${situationsId}">Сложные ситуации</a>
         <a href="${sections}#process">Как работаем</a>
         <a href="${sections}#faq">Вопросы</a>
+        <a href="${prefix}kontakty/">Контакты</a>
       </nav>
       <div class="header__actions">
         <a class="header__phone track-phone" href="${site.phoneHref}">${site.phone}</a>
@@ -407,8 +408,26 @@ function header(prefix = '', sectionBase = null, { homeHref = null, situationsId
           <a href="${sections}#${situationsId}">Сложные ситуации</a>
           <a href="${sections}#process">Как работаем</a>
           <a href="${sections}#faq">Вопросы</a>
+          <a href="${prefix}kontakty/">Контакты</a>
         </nav>
-        ${quickContacts({ modifier: 'quick-contacts--menu' })}
+        <div class="mobile-menu__contacts">
+          <div class="mobile-menu__phone-wrap">
+            <a class="mobile-menu__phone track-phone" href="${site.phoneHref}">${site.phone}</a>
+            <span class="mobile-menu__hours">${site.hours}</span>
+          </div>
+          <div class="mobile-menu__messengers" aria-label="Мессенджеры">
+            <a class="quick-contact quick-contact--whatsapp track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="quick-contact quick-contact--telegram track-telegram" href="${site.telegram}" target="_blank" rel="noopener">Telegram</a>
+            <a class="quick-contact quick-contact--max track-max is-disabled" aria-label="MAX" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">${maxContactContent()}</a>
+          </div>
+          <div class="mobile-menu__info">
+            <a class="mobile-menu__email track-email" href="${site.emailHref}">${site.email}</a>
+            ${isRegional ? '' : `<p class="mobile-menu__address">${site.address}</p>`}
+          </div>
+          <div class="mobile-menu__action">
+            <button class="btn btn--primary btn--full" type="button" data-modal-open>Бесплатная консультация</button>
+          </div>
+        </div>
       </div>
     </div>
   </header>`;
@@ -946,7 +965,7 @@ ${head({
 </head>
 <body>
   <a class="skip-link" href="#main">К основному содержанию</a>
-  ${header('../', './', { homeHref: './', situationsId: 'cases' })}
+  ${header('../', './', { homeHref: './', situationsId: 'cases', isRegional: true })}
   <main id="main">
     <section class="hero hero--regional">
       <picture class="hero__media" aria-hidden="true"><source srcset="../assets/images/hero_bg-720.webp 720w, ../assets/images/hero_bg-900.webp 900w, ../assets/images/hero_bg.webp 1376w" sizes="100vw" type="image/webp"><img src="../assets/images/hero_bg.jpg" width="1376" height="768" alt="" fetchpriority="high" decoding="async"></picture>
@@ -1107,4 +1126,175 @@ export function legalPage(type) {
 export function notFoundPage({ nested = false } = {}) {
   const prefix = nested ? '../' : '';
   return `<!DOCTYPE html><html lang="ru"><head>${head({ title: 'Страница не найдена — ТехУчёт', description: 'Запрошенная страница не найдена.', canonical: `${site.baseUrl}/404`, prefix, schemas: [organizationSchema()] })}</head><body>${header(prefix)}<main class="not-found"><div class="container"><h1>Такой страницы нет</h1><p>Вернитесь на главную или свяжитесь с нами — поможем с оформлением самоходной техники.</p><div class="hero__actions"><a class="btn btn--primary" href="${prefix || './'}">На главную</a><a class="btn btn--outline track-phone" href="${site.phoneHref}">${site.phone}</a></div></div></main>${footer(prefix)}${mobileBar(prefix)}</body></html>`;
+}
+
+export function contactsPage() {
+  const title = 'Контакты — Центр сопровождения спецтехники ТехУчёт в Гостехнадзоре';
+  const description = 'Контакты центра сопровождения в Гостехнадзоре «ТехУчёт». Телефон: +7 925 757-78-88, WhatsApp, Telegram, MAX, email: techuchet24@ya.ru. Офис: Москва, улица Космонавта Волкова, 20.';
+  const canonical = `${site.baseUrl}/kontakty/`;
+
+  const breadcrumbsSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Главная', item: `${site.baseUrl}/` },
+      { '@type': 'ListItem', position: 2, name: 'Контакты', item: canonical },
+    ],
+  };
+
+  const contactPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: 'Контакты — Центр сопровождения спецтехники «ТехУчёт»',
+    url: canonical,
+    description: 'Контакты центра сопровождения в Гостехнадзоре «ТехУчёт».',
+  };
+
+  const localBusinessSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: `ТехУчёт — ${site.company}`,
+    telephone: site.phone,
+    email: site.email,
+    url: canonical,
+    image: `${site.baseUrl}/logo.png`,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'улица Космонавта Волкова, 20, кабинет 415',
+      addressLocality: 'Москва',
+      addressCountry: 'RU',
+    },
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '09:00',
+      closes: '20:00',
+    },
+  };
+
+  return `<!DOCTYPE html>
+<html lang="ru">
+<head>
+${head({
+  title,
+  description,
+  canonical,
+  prefix: '../',
+  schemas: [organizationSchema(), contactPageSchema, localBusinessSchema, breadcrumbsSchema],
+})}
+</head>
+<body>
+  <a class="skip-link" href="#main">К основному содержанию</a>
+  ${header('../')}
+  <main id="main">
+    <section class="service-hero contacts-hero">
+      <div class="container">
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+          <a href="../">Главная</a>
+          <span aria-hidden="true">/</span>
+          <span>Контакты</span>
+        </nav>
+        <h1>Контакты центра сопровождения «ТехУчёт»</h1>
+        <p class="contacts-hero__subtitle">Консультируем, подготавливаем документы и сопровождаем регистрационные действия со спецтехникой в Гостехнадзоре. Работаем ежедневно с 09:00 до 20:00.</p>
+      </div>
+    </section>
+
+    <section class="section contacts-section">
+      <div class="container">
+        <div class="contacts-grid">
+          <article class="contacts-card">
+            <div class="contacts-card__header">
+              <div class="contacts-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <h2>Телефон</h2>
+            </div>
+            <a class="contacts-card__main-link track-phone" href="${site.phoneHref}">${site.phone}</a>
+            <p class="contacts-card__desc">${site.hours} · Без выходных</p>
+            <div class="contacts-card__action">
+              <button class="btn btn--small btn--outline" type="button" data-modal-open>Заказать звонок</button>
+            </div>
+          </article>
+
+          <article class="contacts-card">
+            <div class="contacts-card__header">
+              <div class="contacts-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              </div>
+              <h2>Мессенджеры</h2>
+            </div>
+            <p class="contacts-card__desc">Быстрая консультация и предварительная оценка документов онлайн:</p>
+            <div class="contacts-card__messengers">
+              <a class="quick-contact quick-contact--whatsapp track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a>
+              <a class="quick-contact quick-contact--telegram track-telegram" href="${site.telegram}" target="_blank" rel="noopener">Telegram</a>
+              <a class="quick-contact quick-contact--max track-max is-disabled" aria-label="MAX" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">${maxContactContent()}</a>
+            </div>
+            <p class="contacts-card__subnote">Отвечаем в течение 5–10 минут в рабочее время</p>
+          </article>
+
+          <article class="contacts-card">
+            <div class="contacts-card__header">
+              <div class="contacts-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <h2>Электронная почта</h2>
+            </div>
+            <a class="contacts-card__main-link track-email" href="${site.emailHref}">${site.email}</a>
+            <p class="contacts-card__desc">Для отправки сканов документов, договоров, реквизитов и официальных запросов.</p>
+          </article>
+
+          <article class="contacts-card">
+            <div class="contacts-card__header">
+              <div class="contacts-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <h2>Офис в Москве</h2>
+            </div>
+            <p class="contacts-card__address">${site.address}</p>
+            <p class="contacts-card__desc">м. Войковская / МЦД Красный Балтиец (5–10 минут пешком). Приём по предварительной записи.</p>
+            <div class="contacts-card__action">
+              <a class="btn btn--small btn--outline" href="https://yandex.ru/maps/?text=Москва,+улица+Космонавта+Волкова,+20" target="_blank" rel="noopener noreferrer">Открыть на Яндекс.Картах ↗</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt contacts-requisites-section">
+      <div class="container">
+        <div class="section-heading section-heading--left">
+          <h2>Реквизиты организации</h2>
+          <p>Работаем официально по договору. Безналичный расчёт для юридических лиц и ИП с предоставлением всех закрывающих документов.</p>
+        </div>
+        <div class="contacts-requisites-card">
+          <dl class="contacts-requisites-grid">
+            <div><dt>Полное наименование</dt><dd>${site.company}</dd></div>
+            <div><dt>ИНН</dt><dd>${site.inn}</dd></div>
+            <div><dt>КПП</dt><dd>${site.kpp}</dd></div>
+            <div><dt>ОГРН</dt><dd>${site.ogrn}</dd></div>
+            <div><dt>Юридический адрес</dt><dd>${site.address}</dd></div>
+            <div><dt>Режим работы</dt><dd>${site.hours}</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="section lead-section" id="page-form">
+      <div class="container lead-layout">
+        ${contactPanel()}
+        ${simpleFinalForm({
+          id: 'contacts-lead',
+          prefix: '../',
+          title: 'Остались вопросы или нужна помощь?',
+          subtitle: 'Оставьте номер — специалист свяжется с вами и проконсультирует.',
+          formName: 'Запрос со страницы контактов',
+        })}
+      </div>
+    </section>
+  </main>
+  ${footer('../')}
+  ${simpleCallbackModal('../')}
+  ${mobileBar('#page-form')}
+</body>
+</html>`;
 }

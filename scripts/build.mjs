@@ -2,7 +2,7 @@ import { access, copyFile, cp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { site, servicePages, documentLists } from '../src/data.mjs';
-import { legalPage, mainPage, notFoundPage, servicePage, spbPage } from '../src/templates.mjs';
+import { contactsPage, legalPage, mainPage, notFoundPage, servicePage, spbPage } from '../src/templates.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(root, 'dist');
@@ -58,6 +58,7 @@ for (const page of servicePages) {
   await output(`${page.slug}/index.html`, servicePage(page));
 }
 
+await output('kontakty/index.html', contactsPage());
 await output('privacy/index.html', legalPage('privacy'));
 await output('consent/index.html', legalPage('consent'));
 await output('404.html', notFoundPage());
@@ -77,7 +78,7 @@ const publicConfig = {
 
 await output('site-config.js', `window.TECHUCHET_CONFIG = ${JSON.stringify(publicConfig, null, 2)};\n`);
 
-const urls = ['', 'spb/', ...servicePages.map((page) => `${page.slug}/`), 'privacy/', 'consent/'];
+const urls = ['', 'spb/', ...servicePages.map((page) => `${page.slug}/`), 'kontakty/', 'privacy/', 'consent/'];
 
 
 await output('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
@@ -88,6 +89,7 @@ ${urls.map((path) => `  <url><loc>${site.baseUrl}/${path}</loc><lastmod>2026-08-
 
 await output('robots.txt', `User-agent: *
 Allow: /
+Clean-param: yclid&utm_source&utm_medium&utm_campaign&utm_content&utm_term /
 
 Sitemap: ${site.baseUrl}/sitemap.xml
 `);
@@ -119,7 +121,7 @@ for (const file of [
 }
 
 for (const directory of [
-  'assets', '404', 'spb', ...servicePages.map((page) => page.slug), 'privacy', 'consent',
+  'assets', '404', 'spb', ...servicePages.map((page) => page.slug), 'kontakty', 'privacy', 'consent',
 ]) {
   await cp(join(root, directory), join(dist, 'client', directory), { recursive: true });
 }
