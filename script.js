@@ -65,6 +65,7 @@
     initPhoneMasks();
     initHeroForm();
     initLeadForms();
+    initAbandonedCapture();
     initFaq();
     initDocumentsTool();
     initServiceSelection();
@@ -264,8 +265,154 @@
     });
   }
 
+  function normalizePhone(raw) {
+    let digits = String(raw || '').replace(/\D/g, '');
+    if (digits.startsWith('8')) digits = `7${digits.slice(1)}`;
+    if (!digits.startsWith('7') && digits.length === 10) digits = `7${digits}`;
+    return digits.length === 11 ? `+${digits}` : '';
+  }
+
+  function initAbandonedCapture() {
+    document.querySelectorAll('[data-lead-form]').forEach((form) => {
+      const phoneInput = form.querySelector('input[name="phone"], input[type="tel"]');
+      const nameInput = form.querySelector('input[name="name"]');
+      if (!phoneInput) return;
+
+      let abandonedTimer = null;
+
+      const scheduleSend = (delayMs) => {
+        if (form.dataset.submitting === 'true' || form.dataset.submitted === 'true') return;
+        const norm = normalizePhone(phoneInput.value);
+        if (!norm) return;
+        if (sessionStorage.getItem(`tehuchet_abandoned_${norm}`)) return;
+
+        if (abandonedTimer) clearTimeout(abandonedTimer);
+        abandonedTimer = setTimeout(() => {
+          sendAbandoned(norm);
+        }, delayMs);
+      };
+
+      const sendAbandoned = async (norm) => {
+        if (form.dataset.submitting === 'true' || form.dataset.submitted === 'true') return;
+        if (sessionStorage.getItem(`tehuchet_abandoned_${norm}`)) return;
+        try { sessionStorage.setItem(`tehuchet_abandoned_${norm}`, '1'); } catch { /* Storage disabled */ }
+
+        const attribution = getAttribution();
+        const clientId = await getMetrikaClientId();
+        const service = form.dataset.selectedService || selectedService || 'Консультация';
+        const nameVal = nameInput ? nameInput.value.trim() : '';
+
+        const payload = {
+          service,
+          phone: norm,
+          name: nameVal,
+          source: 'tehuchet24.ru',
+          page: window.location.href,
+          page_url: window.location.href,
+          page_title: document.title,
+          entry_page: document.referrer || '',
+          landing_url: attribution.landing_url || window.location.href,
+          form_name: `${form.dataset.formName || 'Форма'} (Брошенный ввод)`,
+          abandoned: true,
+          fields: {
+            phone: norm,
+            name: nameVal,
+            service,
+            comment: '⚠️ Внимание: клиент ввёл номер на сайте ТехУчёт, но не завершил отправку (брошенный ввод)',
+          },
+          utm: {
+            utm_source: attribution.utm_source || '',
+            utm_medium: attribution.utm_medium || '',
+            utm_campaign: attribution.utm_campaign || '',
+            utm_content: attribution.utm_content || '',
+            utm_term: attribution.utm_term || '',
+            yclid: attribution.yclid || '',
+          },
+          utm_source: attribution.utm_source || '',
+          utm_medium: attribution.utm_medium || '',
+          utm_campaign: attribution.utm_campaign || '',
+          utm_content: attribution.utm_content || '',
+          utm_term: attribution.utm_term || '',
+          yclid: attribution.yclid || '',
+          client_id: clientId || '',
+          date_time: new Date().toLocaleString('ru-RU', { dateStyle: 'long', timeStyle: 'medium' }),
+          created_at: new Date().toISOString(),
+        };
+
+        trackGoal('lead_abandoned_captured');
+
+        if (CONFIG.FORM_ENDPOINT) {
+          fetch(CONFIG.FORM_ENDPOINT, {
+            method: 'POST',
+            headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            keepalive: true,
+          }).catch((err) => {
+            console.warn('[ТехУчёт] Ошибка отправки брошенного ввода:', err);
+          });
+        }
+      };
+
+      phoneInput.addEventListener('input', () => {
+        scheduleSend(15000);
+      });
+
+      phoneInput.addEventListener('blur', () => {
+        scheduleSend(5000);
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+          const norm = normalizePhone(phoneInput.value);
+          if (norm) sendAbandoned(norm);
+        }
+      });
+
+      window.addEventListener('pagehide', () => {
+        const norm = normalizePhone(phoneInput.value);
+        if (norm) sendAbandoned(norm);
+      });
+    });
+  }
+
+  function renderErrorFallback(status, form) {
+    if (!status) return;
+    const phoneInput = form.querySelector('input[name="phone"]');
+    const nameInput = form.querySelector('input[name="name"]');
+    const phoneVal = phoneInput ? phoneInput.value.trim() : '';
+    const nameVal = nameInput ? nameInput.value.trim() : '';
+    const service = form.dataset.selectedService || selectedService || 'Консультация';
+    const textMsg = encodeURIComponent(
+      `Здравствуйте! Заявка с сайта tehuchet24.ru:\n• Услуга: ${service}${phoneVal ? `\n• Телефон: ${phoneVal}` : ''}${nameVal ? `\n• Имя: ${nameVal}` : ''}`
+    );
+    const tel = CONFIG.PHONE || '+7 925 757-78-88';
+    const telHref = CONFIG.PHONE_HREF || 'tel:+79257577888';
+    const waBase = CONFIG.WHATSAPP_URL || 'https://wa.me/79257577888';
+    const tgBase = CONFIG.TELEGRAM_URL || 'https://t.me/Romatran';
+    const waUrl = `${waBase}${waBase.includes('?') ? '&' : '?'}text=${textMsg}`;
+    const tgUrl = `${tgBase}${tgBase.includes('?') ? '&' : '?'}text=${textMsg}`;
+
+    status.innerHTML = `
+      <div class="lead-fallback-actions">
+        <p class="lead-fallback-title">Не удалось отправить заявку через форму связи. Свяжитесь напрямую в 1 клик — специалист на связи:</p>
+        <div class="lead-fallback-buttons">
+          <a class="btn-fallback btn-fallback--tel track-phone" href="${telHref}">Позвонить: ${tel}</a>
+          <a class="btn-fallback btn-fallback--wa track-whatsapp" href="${waUrl}" target="_blank" rel="noopener">Написать в WhatsApp</a>
+          <a class="btn-fallback btn-fallback--tg track-telegram" href="${tgUrl}" target="_blank" rel="noopener">Написать в Telegram</a>
+        </div>
+      </div>
+    `;
+    status.classList.remove('is-success');
+    status.querySelectorAll('.track-phone').forEach((link) => link.addEventListener('click', () => trackGoal('click_phone')));
+    status.querySelectorAll('.track-whatsapp').forEach((link) => link.addEventListener('click', () => trackGoal('click_whatsapp')));
+    status.querySelectorAll('.track-telegram').forEach((link) => link.addEventListener('click', () => trackGoal('click_telegram')));
+  }
+
   async function submitLead(event, form) {
     event.preventDefault();
+
+    trackGoal('lead_form_submit');
+    form.dataset.submitted = 'true';
 
     if (form.dataset.submitting === 'true') return;
 
@@ -315,7 +462,7 @@
       form.dispatchEvent(new CustomEvent('lead:success', { bubbles: true }));
     } catch (error) {
       console.error('[ТехУчёт] Ошибка отправки формы:', error);
-      setStatus(status, `Не удалось отправить заявку. Позвоните ${CONFIG.PHONE || '+7 925 757-78-88'} или повторите попытку.`, false);
+      renderErrorFallback(status, form);
       trackGoal('lead_form_error');
     } finally {
       form.dataset.submitting = 'false';
@@ -343,6 +490,12 @@
       page_url: window.location.href,
       page_title: document.title,
       landing_url: attribution.landing_url || window.location.href,
+      fields: {
+        phone: payload.phone || '',
+        name: payload.name || '',
+        service,
+        comment: payload.comment || `Заявка с формы: ${form.dataset.formName || 'Форма сайта'}`,
+      },
       utm: {
         utm_source: attribution.utm_source || '',
         utm_medium: attribution.utm_medium || '',

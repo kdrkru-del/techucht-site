@@ -1175,6 +1175,62 @@ p {
   color: var(--success);
 }
 
+.lead-fallback-actions {
+  margin-top: 14px;
+  padding: 16px;
+  background: var(--danger-light, rgba(239, 68, 68, 0.08));
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: var(--radius-md, 8px);
+  text-align: left;
+}
+.lead-fallback-title {
+  margin: 0 0 12px;
+  color: #DC2626;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.lead-fallback-buttons {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+.btn-fallback {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm, 6px);
+  font-size: 13.5px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 160ms ease, transform 120ms ease;
+}
+.btn-fallback:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+.btn-fallback--tel {
+  color: #FFFFFF;
+  background: var(--navy, #17324D);
+}
+.btn-fallback--wa {
+  color: #FFFFFF;
+  background: var(--whatsapp, #25D366);
+}
+.btn-fallback--tg {
+  color: #FFFFFF;
+  background: var(--telegram, #229ED9);
+}
+@media (min-width: 600px) {
+  .lead-fallback-buttons {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 .honeypot {
   position: fixed;
   top: -10000px;
