@@ -63,8 +63,8 @@ function organizationSchema() {
     openingHoursSpecification: {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      opens: '09:00',
-      closes: '20:00',
+      opens: '08:00',
+      closes: '19:00',
     },
     contactPoint: {
       '@type': 'ContactPoint',
@@ -1167,8 +1167,8 @@ export function contactsPage() {
     openingHoursSpecification: {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      opens: '09:00',
-      closes: '20:00',
+      opens: '08:00',
+      closes: '19:00',
     },
   };
 
@@ -1195,7 +1195,7 @@ ${head({
           <span>Контакты</span>
         </nav>
         <h1>Контакты центра сопровождения «ТехУчёт»</h1>
-        <p class="contacts-hero__subtitle">Консультируем, подготавливаем документы и сопровождаем регистрационные действия со спецтехникой в Гостехнадзоре. Работаем ежедневно с 09:00 до 20:00.</p>
+        <p class="contacts-hero__subtitle">Консультируем, подготавливаем документы и сопровождаем регистрационные действия со спецтехникой в Гостехнадзоре. Работаем ежедневно с 08:00 до 19:00.</p>
       </div>
     </section>
 

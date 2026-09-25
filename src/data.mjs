@@ -13,7 +13,7 @@ export const site = {
   maxUrl: 'https://max.ru/u/f9LHodD0cOIyRnk4XSMp9LQv3nUe6pWwsL4DqMp_p80p0ISba6wNwFpIQy4',
   email: 'techuchet24@ya.ru',
   emailHref: 'mailto:techuchet24@ya.ru',
-  hours: 'Ежедневно с 09:00 до 20:00',
+  hours: 'Ежедневно с 08:00 до 19:00',
   baseUrl: 'https://tehuchet24.ru',
   formEndpoint: 'https://zelsrez-leads.roman-k-0b3.workers.dev/api/lead',
   yandexMetrikaId: '111852031',
