@@ -794,6 +794,7 @@ export function mainPage() {
 <html lang="ru">
 <head>
   <meta name="mailru-domain" content="YAbXlGEdCBXNKxOH" />
+  <meta name="yandex-verification" content="97c871531f08a479" />
 ${head({
   title,
   description,
