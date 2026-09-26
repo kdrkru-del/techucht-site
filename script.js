@@ -191,19 +191,54 @@
   }
 
   function initPhoneMasks() {
+    function formatPhone(val) {
+      let digits = val.replace(/\D/g, '');
+      if (!digits.length) return '';
+      if (digits.startsWith('8')) digits = `7${digits.slice(1)}`;
+      else if (!digits.startsWith('7')) digits = `7${digits}`;
+      digits = digits.slice(0, 11);
+
+      let res = '+7 (';
+      if (digits.length > 1) res += digits.slice(1, Math.min(4, digits.length));
+      if (digits.length >= 4) res += `) ${digits.slice(4, Math.min(7, digits.length))}`;
+      if (digits.length >= 7) res += `-${digits.slice(7, Math.min(9, digits.length))}`;
+      if (digits.length >= 9) res += `-${digits.slice(9, 11)}`;
+      return res;
+    }
+
     document.querySelectorAll('input[type="tel"]').forEach((input) => {
-      input.addEventListener('input', () => {
-        let digits = input.value.replace(/\D/g, '');
-        if (digits.startsWith('8')) digits = `7${digits.slice(1)}`;
-        if (!digits.startsWith('7') && digits.length) digits = `7${digits}`;
-        digits = digits.slice(0, 11);
-        if (!digits.length) return;
-        const parts = ['+7'];
-        if (digits.length > 1) parts.push(` (${digits.slice(1, 4)}`);
-        if (digits.length >= 4) parts.push(`) ${digits.slice(4, 7)}`);
-        if (digits.length >= 7) parts.push(`-${digits.slice(7, 9)}`);
-        if (digits.length >= 9) parts.push(`-${digits.slice(9, 11)}`);
-        input.value = parts.join('');
+      input.addEventListener('focus', () => {
+        if (!input.value || input.value.trim() === '') {
+          input.value = '+7 (';
+          setTimeout(() => {
+            input.setSelectionRange(input.value.length, input.value.length);
+          }, 0);
+        }
+      });
+
+      input.addEventListener('input', (e) => {
+        const cur = input.value;
+        const digits = cur.replace(/\D/g, '');
+        if (!digits || (digits === '7' && cur.length <= 4)) {
+          if (e.inputType === 'deleteContentBackward' || e.inputType === 'deleteContentForward') {
+            input.value = '';
+            return;
+          }
+        }
+        input.value = formatPhone(cur);
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && input.value.length <= 4) {
+          input.value = '';
+        }
+      });
+
+      input.addEventListener('blur', () => {
+        const digits = input.value.replace(/\D/g, '');
+        if (digits.length <= 1) {
+          input.value = '';
+        }
       });
     });
   }
