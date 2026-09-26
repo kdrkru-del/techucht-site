@@ -383,7 +383,7 @@ function header(prefix = '', sectionBase = null, { homeHref = null, situationsId
   return `<header class="header" id="header">
     <div class="container header__inner">
       <a class="logo" href="${home}" aria-label="ТехУчёт — главная">
-        <img class="logo__img" src="${prefix}logo-dark.png" width="1024" height="682" alt="ТехУчёт — Гостехнадзор">
+        <img class="logo__img" src="${prefix}logo-dark.png?v=2" width="932" height="268" alt="ТехУчёт — Гостехнадзор">
       </a>
       <nav class="nav" aria-label="Основная навигация">
         <a href="${sections}#services">Услуги</a>
@@ -641,7 +641,7 @@ function footer(prefix = '', { homeHref = null, serviceLinks = null, description
     <div class="container footer__grid">
       <div class="footer__col footer__brand">
         <a class="logo" href="${home}" aria-label="${site.brand} — главная">
-          <img class="logo__img" src="${prefix}logo.png" width="1024" height="682" alt="${site.brand} — Гостехнадзор">
+          <img class="logo__img" src="${prefix}logo.png?v=2" width="932" height="268" alt="${site.brand} — Гостехнадзор">
         </a>
         <p>${description}</p>
       </div>

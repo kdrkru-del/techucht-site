@@ -262,7 +262,7 @@ p {
 
 .logo__img {
   width: auto;
-  height: 58px;
+  height: 54px;
   object-fit: contain;
 }
 
@@ -2810,7 +2810,7 @@ p {
   html { scroll-padding-top: 72px; }
   .container { width: min(100% - 24px, var(--container)); }
   .header { height: 68px; }
-  .logo__img { height: 42px; }
+  .logo__img { height: 34px; }
   .header__phone { font-size: 14px; }
   .header__actions .quick-contact--whatsapp { min-height: 34px; padding: 6px 10px; font-size: 12px; }
   .menu-button { width: 38px; height: 38px; padding: 6px; }
@@ -2859,7 +2859,7 @@ p {
   .container { width: calc(100% - 20px); }
   .header__inner { gap: 6px; }
   .header__actions { gap: 6px; }
-  .header .logo__img { height: 38px; }
+  .header .logo__img { height: 28px; }
   .header__phone { font-size: 12.5px; }
   .header__actions .quick-contact--whatsapp { min-height: 30px; padding: 4px 8px; font-size: 11px; }
   .menu-button { width: 34px; height: 34px; padding: 5px; }
