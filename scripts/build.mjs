@@ -83,7 +83,7 @@ const urls = ['', 'spb/', ...servicePages.map((page) => `${page.slug}/`), 'konta
 
 await output('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((path) => `  <url><loc>${site.baseUrl}/${path}</loc><lastmod>2026-08-23</lastmod></url>`).join('\n')}
+${urls.map((path) => `  <url><loc>${site.baseUrl}/${path}</loc><lastmod>2026-09-27</lastmod></url>`).join('\n')}
 </urlset>
 `);
 
