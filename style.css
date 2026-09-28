@@ -2873,3 +2873,18 @@ p {
     transition-duration: 0.01ms !important;
   }
 }
+
+h3.nav-card__title {
+  margin-top: 0;
+}
+
+.nav-card__title-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.nav-card__title-link:hover {
+  color: var(--secondary);
+}
+

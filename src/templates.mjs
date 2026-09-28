@@ -12,10 +12,11 @@ import {
 
 const jsonLd = (data) => JSON.stringify(data).replace(/</g, '\\u003c');
 
-function head({ title, description, canonical, prefix = '', schemas = [] }) {
+function head({ title, description, canonical, prefix = '', schemas = [], robots = 'index, follow' }) {
   return `
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="${robots}">
   <meta name="theme-color" content="#17324D">
   <meta name="description" content="${description}">
   <link rel="canonical" href="${canonical}">
@@ -44,8 +45,8 @@ function head({ title, description, canonical, prefix = '', schemas = [] }) {
   ${schemas.map((schema) => `<script type="application/ld+json">${jsonLd(schema)}</script>`).join('\n  ')}`;
 }
 
-function organizationSchema() {
-  return {
+function organizationSchema({ includeAddress = true } = {}) {
+  const schema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: site.company,
@@ -54,6 +55,7 @@ function organizationSchema() {
     logo: `${site.baseUrl}/logo.png`,
     telephone: site.phone,
     email: site.email,
+    sameAs: [site.whatsapp, site.telegram],
     identifier: [
       { '@type': 'PropertyValue', name: 'ИНН', value: site.inn },
       { '@type': 'PropertyValue', name: 'КПП', value: site.kpp },
@@ -75,6 +77,25 @@ function organizationSchema() {
       availableLanguage: 'Russian',
     },
   };
+  if (includeAddress) {
+    schema.address = {
+      '@type': 'PostalAddress',
+      streetAddress: 'улица Космонавта Волкова, 20, кабинет 415',
+      addressLocality: 'Москва',
+      addressCountry: 'RU',
+    };
+  }
+  return schema;
+}
+
+function websiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: site.brand,
+    alternateName: 'ТехУчёт — центр сопровождения в Гостехнадзоре',
+    url: `${site.baseUrl}/`,
+  };
 }
 
 function faqSchema(items) {
@@ -89,15 +110,19 @@ function faqSchema(items) {
   };
 }
 
-function serviceSchema({ name, description, url }) {
+function serviceSchema({ name, description, url, areaServed = null }) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
     name,
     description,
     url,
-    provider: { '@type': 'Organization', name: site.company, url: `${site.baseUrl}/` },
-    areaServed: { '@type': 'Country', name: 'Россия' },
+    provider: { '@type': 'Organization', name: site.company, alternateName: site.brand, url: `${site.baseUrl}/` },
+    areaServed: areaServed || [
+      { '@type': 'City', name: 'Москва' },
+      { '@type': 'AdministrativeArea', name: 'Московская область' },
+      { '@type': 'Country', name: 'Россия' },
+    ],
     offers: {
       '@type': 'Offer',
       priceCurrency: 'RUB',
@@ -288,52 +313,58 @@ function trustBlock() {
 function serviceNavigation() {
   const allServices = [
     {
-      title: 'Постановка на учёт',
+      title: 'Регистрация спецтехники',
       desc: 'Оформление постановки самоходной техники на учёт в Гостехнадзоре. Сопровождение под ключ до получения СТС и номеров.',
       meta: '<strong>от 5 000 ₽</strong> · 3–5 рабочих дней',
       service: 'Постановка на учёт',
       event: 'registration',
       url: 'registraciya/',
+      linkText: 'Постановка на учёт →',
     },
     {
-      title: 'Снятие с учёта',
+      title: 'Снятие спецтехники с учёта',
       desc: 'Сопровождение снятия самоходной техники с регистрационного учёта в Гостехнадзоре при продаже, смене владельца или утилизации.',
       meta: '<strong>от 5 000 ₽</strong> · 2–5 рабочих дней',
       service: 'Снятие с учёта',
       event: 'deregistration',
       url: 'snyatie-s-ucheta/',
+      linkText: 'Снять с учёта →',
     },
     {
-      title: 'Перерегистрация',
+      title: 'Перерегистрация спецтехники',
       desc: 'Внесение изменений в регистрационные данные Гостехнадзора при смене собственника, договора лизинга или реквизитов.',
       meta: '<strong>от 5 000 ₽</strong> · 3–5 рабочих дней',
       service: 'Внесение изменений',
       event: 'registration',
       url: 'registraciya/#pereregistraciya',
+      linkText: 'Переоформление →',
     },
     {
-      title: 'Техосмотр',
-      desc: 'Помогаем пройти техосмотр удалённо, без привоза техники на осмотр. Спецтехника, автомобили, грузовой и большегрузный транспорт.',
+      title: 'Техосмотр спецтехники',
+      desc: 'Помогаем пройти технический осмотр в Гостехнадзоре без привоза техники. Тракторы, погрузчики, экскаваторы и дорожные машины.',
       meta: '<strong>от 5 000 ₽</strong> · 3–5 рабочих дней',
       service: 'Технический осмотр',
       event: 'inspection',
       url: 'tehosmotr/',
+      linkText: 'Пройти техосмотр →',
     },
     {
-      title: 'Сложные случаи',
+      title: 'Помощь при отказе Гостехнадзора',
       desc: 'Разбор отказов Гостехнадзора, неполных цепочек договоров, проблем с номерами агрегатов и нестандартных ситуаций.',
       meta: '<strong>от 5 000 ₽</strong> · от 3 рабочих дней',
       service: 'Отказ или сложная ситуация',
       event: 'complex_case',
       url: 'slozhnye-sluchai/',
+      linkText: 'Разбор отказа →',
     },
     {
       title: 'Восстановление ПСМ и СТС',
-      desc: 'Помогаем восстановить ПСМ или СТС в Гостехнадзоре при утрате или повреждении.',
+      desc: 'Помогаем получить дубликат ПСМ или оформить <a class="text-link" href="vosstanovlenie-sts/">восстановление СТС</a> в Гостехнадзоре при утрате либо повреждении.',
       meta: '<strong>от 5 000 ₽</strong> · 3–5 рабочих дней',
       service: 'Восстановление ПСМ и СТС',
       event: 'restore_psm',
       url: 'vosstanovlenie-psm/',
+      linkText: 'Восстановление ПСМ →',
     },
   ];
 
@@ -345,11 +376,11 @@ function serviceNavigation() {
       </div>
       <div class="service-navigation__grid service-navigation__grid--main">
         ${allServices.map((item) => `<article class="nav-card nav-card--article">
-          <span class="nav-card__title">${item.title}</span>
+          <h3 class="nav-card__title"><a class="nav-card__title-link" href="${item.url}">${item.title}</a></h3>
           <span class="nav-card__desc">${item.desc}</span>
           <div class="nav-card__footer">
             <span class="nav-card__meta">${item.meta}</span>
-            <a class="nav-card__more" href="${item.url}">Подробнее →</a>
+            <a class="nav-card__more" href="${item.url}">${item.linkText}</a>
           </div>
         </article>`).join('')}
       </div>
@@ -358,8 +389,168 @@ function serviceNavigation() {
 }
 
 function commercialDetails(page) {
-  if (page.key === 'registration') return `<section class="section section--alt"><div class="container two-column"><div><h2>Что берём на себя</h2><ul class="check-list">${['Подготовка заявления и комплекта документов для подачи', 'Формирование комплекта документов собственника', 'Сопровождение осмотра', 'Сопровождение регистрационной процедуры', 'Взаимодействие с Гостехнадзором', 'Сопровождение до получения результата', 'Помощь в нестандартных ситуациях'].map(x => `<li>${x}</li>`).join('')}</ul></div><div id="owners"><h2>Регистрируем самоходную технику</h2><p>Для физических лиц, ИП и организаций. Постановка нескольких единиц техники и сопровождение парков спецтехники.</p><ul class="equipment-list">${['Тракторы', 'Погрузчики', 'Экскаваторы', 'Квадроциклы', 'Снегоходы', 'Коммунальная техника', 'Дорожно-строительная техника', 'Иная самоходная техника'].map(x => `<li>${x}</li>`).join('')}</ul></div></div></section>`;
-  if (page.key === 'deregistration') return `<section class="section section--alt"><div class="container"><h2>Когда требуется снятие с учёта</h2><p>Обратитесь за оформлением, если ваша задача связана с одной из ситуаций:</p><ul class="equipment-list">${['Продажа техники', 'Утилизация', 'Вывоз в другой регион', 'Изменение собственника', 'Прекращение регистрации', 'Снятие с учёта парка техники', 'Другие регистрационные действия'].map(x => `<li>${x}</li>`).join('')}</ul><p class="section-note">Работаем по договору с компаниями и частными владельцами. Подготовим документы и сопроводим снятие с учёта в Гостехнадзоре до результата.</p></div></section>`;
+  if (page.key === 'registration') {
+    return `<section class="section section--alt" id="owners">
+      <div class="container">
+        <div class="section-heading section-heading--left">
+          <h2>Какую технику можно поставить на учёт в Гостехнадзоре</h2>
+          <p>Регистрируем самоходную технику всех категорий для физических лиц, индивидуальных предпринимателей и юридических лиц (включая технику в лизинге и парки машин).</p>
+        </div>
+        <div class="problem-grid">
+          <article class="problem-card">
+            <h3>Тракторы и сельхозтехника</h3>
+            <p>Постановка на учёт колёсных и гусеничных тракторов (МТЗ, Беларус, John Deere, Кировец и др.), комбайнов и прицепного оборудования по бумажному ПСМ или электронному ЭПСМ.</p>
+          </article>
+          <article class="problem-card">
+            <h3>Вилочные, фронтальные и мини-погрузчики</h3>
+            <p>Регистрация складских электро- и автопогрузчиков мощностью свыше 4 кВт, фронтальных, телескопических и мини-погрузчиков (Bobcat, Toyota, LiuGong, XCMG).</p>
+          </article>
+          <article class="problem-card">
+            <h3>Экскаваторы и экскаваторы-погрузчики</h3>
+            <p>Оформление в Гостехнадзоре колёсных и гусеничных экскаваторов, экскаваторов-погрузчиков (JCB 3CX/4CX, CAT, Komatsu, Terex) для строительных компаний и частных владельцев.</p>
+          </article>
+          <article class="problem-card">
+            <h3>Квадроциклы, мотовездеходы и снегоходы</h3>
+            <p>Регистрация внедорожной мототехники (категории AI и AII) при покупке новой техники в салоне, ввозе из-за рубежа или переоформлении с рук по договору купли-продажи.</p>
+          </article>
+          <article class="problem-card">
+            <h3>Дорожно-строительная и коммунальная техника</h3>
+            <p>Постановка на учёт катков, асфальтоукладчиков, автогрейдеров, бульдозеров, буровых установок и коммунальных уборочных машин.</p>
+          </article>
+          <article class="problem-card">
+            <h3>Регистрация для юридических лиц и ИП</h3>
+            <p>Работаем по официальному договору с безналичной оплатой и предоставлением закрывающих документов. Помогаем сформировать комплект документов и зарегистрировать как одну единицу, так и весь парк спецтехники.</p>
+          </article>
+        </div>
+      </div>
+    </section>`;
+  }
+
+  if (page.key === 'deregistration') {
+    return `<section class="section section--alt">
+      <div class="container">
+        <div class="section-heading section-heading--left">
+          <h2>Продажа, смена собственника и утилизация спецтехники</h2>
+          <p>Порядок снятия самоходной машины с учёта в Гостехнадзоре и итоговый документ зависят от причины обращения:</p>
+        </div>
+        <div class="problem-grid">
+          <article class="problem-card">
+            <h3>Продажа техники и смена собственника</h3>
+            <p>Перед передачей трактора, погрузчика или экскаватора покупателю прежний владелец снимает машину с учёта. Гостехнадзор вносит отметку в ПСМ (или ЭПСМ), после чего возможна <a class="text-link" href="../registraciya/#pereregistraciya">перерегистрация на нового собственника</a>.</p>
+          </article>
+          <article class="problem-card">
+            <h3>Списание и утилизация</h3>
+            <p>Если техника физически изношена и не подлежит восстановлению, оформляется снятие с учёта в связи с утилизацией. Сдаются СТС и госномер, выдаётся документ об утилизации, и ФНС прекращает начисление транспортного налога.</p>
+          </article>
+          <article class="problem-card">
+            <h3>Выкуп из лизинга или смена региона</h3>
+            <p>При завершении договора лизинга и переходе спецтехники на баланс лизингополучателя, а также при переезде собственника в другой субъект РФ проводим снятие с учёта по договору.</p>
+          </article>
+        </div>
+      </div>
+    </section>`;
+  }
+
+  if (page.key === 'inspection') {
+    return `<section class="section section--alt">
+      <div class="container">
+        <div class="section-heading section-heading--left">
+          <h2>Для какой техники требуется техосмотр в Гостехнадзоре</h2>
+          <p>Государственный технический осмотр обязателен для всех эксплуатируемых самоходных машин, поднадзорных органам Гостехнадзора:</p>
+        </div>
+        <div class="problem-grid">
+          <article class="problem-card">
+            <h3>Тракторы, погрузчики и экскаваторы</h3>
+            <p>Ежегодный технический осмотр колёсных и гусеничных тракторов, складских вилочных и фронтальных погрузчиков, экскаваторов-погрузчиков и дорожно-строительных машин.</p>
+          </article>
+          <article class="problem-card">
+            <h3>Что получает собственник</h3>
+            <p>По итогам процедуры оформляется свидетельство о прохождении технического осмотра (допуск к эксплуатации) либо <a class="text-link" href="#akt-osmotra">акт технического осмотра</a> для постановки техники на учёт или перерегистрации.</p>
+          </article>
+          <article class="problem-card">
+            <h3>Техосмотр для парков юридических лиц</h3>
+            <p>Сопровождаем плановый техосмотр для строительных, складских, аграрных и коммунальных предприятий по безналичному расчёту с закрывающими документами.</p>
+          </article>
+        </div>
+      </div>
+    </section>`;
+  }
+
+  if (page.key === 'restore_psm') {
+    return `<section class="section section--alt">
+      <div class="container">
+        <div class="section-heading section-heading--left">
+          <h2>В каких случаях оформляется дубликат ПСМ и как проходит процедура</h2>
+          <p>Паспорт самоходной машины (ПСМ) — основной правоустанавливающий и технический документ. Без него невозможны ни продажа, ни постановка спецтехники на учёт в Гостехнадзоре.</p>
+        </div>
+        <div class="problem-grid">
+          <article class="problem-card">
+            <h3>Утеря или хищение бумажного ПСМ</h3>
+            <p>Готовим заявление, письменное объяснение обстоятельств утраты и комплект документов о праве собственности для получения официального дубликата ПСМ в подразделении Гостехнадзора.</p>
+          </article>
+          <article class="problem-card">
+            <h3>Износ бланка или отсутствие свободных полей</h3>
+            <p>Если бумажный ПСМ повреждён, выцвел, надорван либо в нём закончились графы для записи нового владельца, старый бланк сдаётся в Гостехнадзор в обмен на новый дубликат.</p>
+          </article>
+          <article class="problem-card">
+            <h3>Отличие от восстановления СТС</h3>
+            <p>Если оригинал ПСМ сохранён у вас на руках, а потеряна только ламинированная карточка учёта, дубликат ПСМ не нужен — достаточно оформить <a class="text-link" href="../vosstanovlenie-sts/">восстановление свидетельства о регистрации (СТС)</a>.</p>
+          </article>
+        </div>
+      </div>
+    </section>`;
+  }
+
+  if (page.key === 'restore_sts') {
+    return `<section class="section section--alt">
+      <div class="container">
+        <div class="section-heading section-heading--left">
+          <h2>Чем восстановление СТС отличается от восстановления ПСМ</h2>
+          <p>Свидетельство о регистрации самоходной машины (СТС) подтверждает, что спецтехника состоит на государственном учёте и допущена к работе.</p>
+        </div>
+        <div class="problem-grid">
+          <article class="problem-card">
+            <h3>Когда нужен дубликат СТС</h3>
+            <p>Карточка СТС постоянно находится у механизатора или водителя и чаще всего теряется или приходит в негодность на объекте. При наличии оригинала ПСМ (или ЭПСМ) дубликат СТС оформляется в Гостехнадзоре за 3–5 рабочих дней.</p>
+          </article>
+          <article class="problem-card">
+            <h3>Замена СТС при смене данных собственника</h3>
+            <p>Новое свидетельство о регистрации также выдаётся при переименовании юридического лица, смене адреса регистрации собственника или внесении изменений в конструкцию машины.</p>
+          </article>
+          <article class="problem-card">
+            <h3>Если утеряны и СТС, и ПСМ</h3>
+            <p>Когда утрачены оба документа одновременно, сначала выполняется <a class="text-link" href="../vosstanovlenie-psm/">восстановление дубликата ПСМ в Гостехнадзоре</a>, и одновременно с ним выдаётся новое СТС.</p>
+          </article>
+        </div>
+      </div>
+    </section>`;
+  }
+
+  if (page.key === 'complex_case') {
+    return `<section class="section section--alt">
+      <div class="container">
+        <div class="section-heading section-heading--left">
+          <h2>Типичные причины отказа Гостехнадзора и порядок решения</h2>
+          <p>Даже при наличии самой техники инспекция отказывает в приёме документов, если нарушены формальные требования к цепочке переходов права собственности или оформлению ПСМ.</p>
+        </div>
+        <div class="problem-grid">
+          <article class="problem-card">
+            <h3>Разрыв цепочки договоров купли-продажи</h3>
+            <p>Если спецтехника перепродавалась через нескольких владельцев без промежуточной постановки на учёт, восстанавливаем и выверяем полный комплект договоров и актов приёма-передачи до последнего собственника.</p>
+          </article>
+          <article class="problem-card">
+            <h3>Техника не снята с учёта прежним владельцем</h3>
+            <p>Помогаем урегулировать вопрос со старой регистрацией и провести <a class="text-link" href="../snyatie-s-ucheta/">снятие спецтехники с прежнего учёта</a> для последующего оформления на нового покупателя.</p>
+          </article>
+          <article class="problem-card">
+            <h3>Ошибки в ПСМ, ЭПСМ и договорах</h3>
+            <p>Устраняем неточности в номерах рамы, двигателя или коробки передач, отсутствующие печати в бумажном ПСМ или незавершённую передачу прав собственника в системе ЭПСМ.</p>
+          </article>
+        </div>
+      </div>
+    </section>`;
+  }
+
   return '';
 }
 
@@ -717,6 +908,114 @@ function spbContactPanel() {
   </aside>`;
 }
 
+function serviceProcessAndPricingSection(page) {
+  const processByKey = {
+    registration: {
+      heading: 'Как проходит постановка на учёт, сроки и стоимость',
+      lead: 'Берём на себя все этапы взаимодействия с подразделением Гостехнадзора — от первичной проверки ПСМ/ЭПСМ до передачи готового свидетельства о регистрации и госномера.',
+      steps: [
+        ['1. Проверка документов и расчёт', 'Изучаем ПСМ или выписку ЭПСМ, договор купли-продажи и акт приёма-передачи. Сразу называем фиксированную стоимость сопровождения.'],
+        ['2. Подготовка заявления и комплекта', 'Заполняем заявление установленного образца, формируем пакет документов от физлица, ИП или юридического лица и реквизиты госпошлин.'],
+        ['3. Подача в Гостехнадзор и осмотр', 'Сопровождаем подачу комплекта документов и процедуру сверки номерных агрегатов без необходимости везти спецтехнику в инспекцию.'],
+        ['4. Получение СТС и госзнака', 'Через 3–5 рабочих дней передаём вам свидетельство о регистрации (СТС), государственный регистрационный знак и ПСМ с отметкой о постановке на учёт.'],
+      ],
+      priceNote: 'Стоимость сопровождения постановки спецтехники на учёт — от 5 000 ₽. Государственные пошлины Гостехнадзора (за выдачу госномера, свидетельства о регистрации и внесение изменений в ПСМ) оплачиваются отдельно по официальным реквизитам.',
+    },
+    deregistration: {
+      heading: 'Сроки, стоимость и порядок снятия спецтехники с учёта',
+      lead: 'Процедура занимает от 2 до 5 рабочих дней после передачи комплекта документов и регистрационного знака.',
+      steps: [
+        ['1. Определение основания снятия', 'Уточняем цель: отчуждение (продажа новому собственнику), списание в утилизацию, выкуп из лизинга или переезд в другой регион.'],
+        ['2. Формирование заявления и пакета', 'Готовим заявление в Гостехнадзор, проверяем наличие отметок в ПСМ/ЭПСМ и комплектность правоустанавливающих бумаг.'],
+        ['3. Сдача госномера и сопровождение в ведомстве', 'Представляем интересы собственника в подразделении Гостехнадзора и сдаём государственный регистрационный знак.'],
+        ['4. Выдача документов с отметкой о снятии', 'Вы получаете бумажный ПСМ с печатью о снятии с учёта (или обновлённый статус в ЭПСМ) либо документ об утилизации машины.'],
+      ],
+      priceNote: 'Стоимость сопровождения снятия с учёта — от 5 000 ₽. Для юридических лиц работаем по договору с безналичным расчётом и закрывающими документами, включая массовое снятие с учёта парков техники.',
+    },
+    inspection: {
+      heading: 'Как проходит техосмотр спецтехники, сроки и стоимость',
+      lead: 'Оформление занимает 3–5 рабочих дней и позволяет своевременно получить допуск самоходной машины к эксплуатации или акт осмотра для регистрации.',
+      steps: [
+        ['1. Проверка СТС и паспорта машины', 'Сверяем идентификационные номера (VIN, заводской номер рамы и двигателя) по документам собственника.'],
+        ['2. Подготовка заявления и пошлин', 'Формируем заявление на проведение государственного технического осмотра и реквизиты для оплаты государственной пошлины.'],
+        ['3. Сопровождение процедуры в Гостехнадзоре', 'Берём взаимодействие с инспекцией на себя без необходимости транспортировать технику на эвакуаторе.'],
+        ['4. Получение результата', 'Передаём оформленное свидетельство о прохождении технического осмотра или акт осмотра самоходной машины.'],
+      ],
+      priceNote: 'Стоимость сопровождения техосмотра — от 5 000 ₽ за единицу. Для корпоративных парков спецтехники рассчитываем смету по списку машин и работаем по официальному договору.',
+    },
+    restore_psm: {
+      heading: 'Порядок получения дубликата ПСМ, сроки и стоимость',
+      lead: 'Восстановление паспорта самоходной машины в Гостехнадзоре занимает от 3 до 5 рабочих дней при наличии подтверждающих документов о праве собственности.',
+      steps: [
+        ['1. Сбор доказательств права собственности', 'Формируем комплект из договоров купли-продажи, актов приёма-передачи, учётных карточек, СТС или архивных копий ПСМ.'],
+        ['2. Подготовка заявления и объяснения', 'Составляем заявление на выдачу дубликата ПСМ и юридически грамотное объяснение обстоятельств утраты или порчи бланка.'],
+        ['3. Обращение в Гостехнадзор', 'Подаём комплект в подразделение Гостехнадзора и сопровождаем процедуру сверки учётных и заводских данных машины.'],
+        ['4. Получение дубликата ПСМ', 'Передаём собственнику новый дубликат паспорта самоходной машины и, при необходимости, сразу оформляем постановку на учёт.'],
+      ],
+      priceNote: 'Стоимость сопровождения восстановления ПСМ — от 5 000 ₽. Точная сумма зависит от того, состояла ли техника на учёте в Гостехнадзоре и какие документы сохранились у владельца.',
+    },
+    restore_sts: {
+      heading: 'Порядок восстановления СТС, сроки и стоимость',
+      lead: 'При наличии оригинала ПСМ или действующего ЭПСМ получение нового свидетельства о регистрации занимает 3–5 рабочих дней.',
+      steps: [
+        ['1. Сверка учётных данных по ПСМ', 'Проверяем записи о текущей регистрации и собственнике в паспорте самоходной машины или системе ЭПСМ.'],
+        ['2. Оформление заявления в Гостехнадзор', 'Готовим заявление на выдачу нового СТС взамен утраченного или пришедшего в негодность, а также реквизиты госпошлины.'],
+        ['3. Подача комплекта в инспекцию', 'Представляем документы в Гостехнадзор для оформления дубликата свидетельства и внесения новой серии СТС в ПСМ.'],
+        ['4. Передача нового СТС собственнику', 'Вы получаете новое свидетельство о регистрации самоходной машины и ПСМ с актуальной отметкой Гостехнадзора.'],
+      ],
+      priceNote: 'Стоимость сопровождения восстановления СТС — от 5 000 ₽. Работаем с физическими лицами, ИП и организациями по договору.',
+    },
+    complex_case: {
+      heading: 'Как мы решаем сложные случаи и отказы Гостехнадзора',
+      lead: 'Первичный разбор документов и текста отказа проводим бесплатно — до начала работ вы понимаете точный план действий, сроки и итоговую стоимость.',
+      steps: [
+        ['1. Правовой аудит отказа и документов', 'Изучаем письменный отказ инспекции, ПСМ/ЭПСМ и всю цепочку договоров купли-продажи от последнего зарегистрированного владельца.'],
+        ['2. Устранение причины отказа', 'Восстанавливаем недостающие договоры и акты, исправляем ошибки в реквизитах, оформляем снятие со старого учёта или дубликат ПСМ.'],
+        ['3. Формирование выверенного пакета', 'Собираем полный комплект документов в строгом соответствии с действующими правилами государственной регистрации самоходных машин.'],
+        ['4. Повторная подача и получение СТС', 'Сопровождаем повторное обращение в Гостехнадзор до успешной постановки спецтехники на учёт.'],
+      ],
+      priceNote: 'Стоимость сопровождения — от 5 000 ₽ и зависит от количества недостающих документов и необходимых регистрационных процедур.',
+    },
+  }[page.key];
+
+  if (!processByKey) return '';
+
+  return `<section class="section">
+    <div class="container">
+      <div class="section-heading section-heading--left">
+        <h2>${processByKey.heading}</h2>
+        <p>${processByKey.lead}</p>
+      </div>
+      <div class="service-detail__grid">
+        ${processByKey.steps.map(([title, text]) => `<article class="service-detail__panel"><h3>${title}</h3><p>${text}</p></article>`).join('')}
+      </div>
+      <div class="info-strip" style="margin-top: 24px;">
+        <strong>Прозрачные условия работы для физлиц и организаций</strong>
+        <span>${processByKey.priceNote}</span>
+      </div>
+    </div>
+  </section>`;
+}
+
+function relatedServicesSection(page) {
+  if (!page.relatedLinks || !page.relatedLinks.length) return '';
+  return `<section class="section">
+    <div class="container">
+      <div class="section-heading section-heading--left">
+        <h2>Смежные услуги и частые ситуации</h2>
+        <p>Выберите профильную страницу, если ваша задача включает дополнительные регистрационные действия в Гостехнадзоре:</p>
+      </div>
+      <div class="problem-grid">
+        ${page.relatedLinks.map(([href, title, desc]) => `<article class="problem-card">
+          <h3><a class="nav-card__title-link" href="${href}">${title}</a></h3>
+          <p>${desc}</p>
+          <a class="text-link" href="${href}">${title} →</a>
+        </article>`).join('')}
+      </div>
+    </div>
+  </section>`;
+}
+
 function serviceExtraSection(page) {
   if (page.key === 'registration') {
     return `<section class="section section--alt service-detail" id="pereregistraciya">
@@ -787,8 +1086,8 @@ function serviceExtraSection(page) {
 }
 
 export function mainPage() {
-  const title = 'Регистрация спецтехники в Гостехнадзоре — постановка на учёт и техосмотр | ТехУчёт';
-  const description = 'Регистрация спецтехники и самоходной техники в Гостехнадзоре под ключ: постановка и снятие с учёта, техосмотр, перерегистрация и восстановление ПСМ и СТС. Стоимость от 5 000 ₽.';
+  const title = 'Оформление спецтехники в Гостехнадзоре — постановка, снятие и техосмотр | ТехУчёт';
+  const description = 'Центр сопровождения в Гостехнадзоре «ТехУчёт»: постановка спецтехники на учёт, снятие с учёта, техосмотр, перерегистрация и восстановление ПСМ и СТС. От 5 000 ₽.';
   const canonical = `${site.baseUrl}/`;
   return `<!DOCTYPE html>
 <html lang="ru">
@@ -801,7 +1100,8 @@ ${head({
   canonical,
   schemas: [
     organizationSchema(),
-    serviceSchema({ name: 'Сопровождение регистрации самоходной техники', description, url: canonical }),
+    websiteSchema(),
+    serviceSchema({ name: 'Сопровождение регистрационных действий со спецтехникой в Гостехнадзоре', description, url: canonical }),
     faqSchema(mainFaq),
   ],
 })}
@@ -812,7 +1112,7 @@ ${head({
   ${header()}
   <main id="main">
     <section class="hero">
-      <picture class="hero__media" aria-hidden="true"><source srcset="assets/images/hero_bg-720.webp 720w, assets/images/hero_bg-900.webp 900w, assets/images/hero_bg.webp 1440w" sizes="100vw" type="image/webp"><img src="assets/images/hero_bg.jpg" width="1440" height="810" alt="" fetchpriority="high" decoding="async"></picture>
+      <picture class="hero__media"><source srcset="assets/images/hero_bg-720.webp 720w, assets/images/hero_bg-900.webp 900w, assets/images/hero_bg.webp 1376w" sizes="100vw" type="image/webp"><img src="assets/images/hero_bg.jpg" width="1376" height="768" alt="Самоходная спецтехника и экскаватор-погрузчик — сопровождение оформления в Гостехнадзоре" fetchpriority="high" decoding="async"></picture>
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="container">
         <div class="hero__content">
@@ -900,7 +1200,7 @@ ${head({
       <div class="container documents-layout">
         <div class="section-heading section-heading--left"><h2>Что нужно предоставить</h2></div>
         <ul class="check-list">
-          <li>ПСМ или сведения об ЭПСМ</li>
+          <li>ПСМ или сведения об ЭПСМ (при утере поможем с <a class="text-link" href="vosstanovlenie-psm/">восстановлением ПСМ</a> или <a class="text-link" href="vosstanovlenie-sts/">восстановлением СТС</a>)</li>
           <li>Документ о праве собственности</li>
           <li>Паспорт собственника или реквизиты организации</li>
         </ul>
@@ -939,11 +1239,11 @@ export function spbPage() {
     name: spbLanding.h1,
     description: spbLanding.description,
     url: canonical,
+    areaServed: [
+      { '@type': 'City', name: 'Санкт-Петербург' },
+      { '@type': 'AdministrativeArea', name: 'Ленинградская область' },
+    ],
   });
-  regionalService.areaServed = [
-    { '@type': 'City', name: 'Санкт-Петербург' },
-    { '@type': 'AdministrativeArea', name: 'Ленинградская область' },
-  ];
   const breadcrumb = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -960,7 +1260,7 @@ ${head({
   description: spbLanding.description,
   canonical,
   prefix: '../',
-  schemas: [organizationSchema(), regionalService, faqSchema(spbLanding.faq), breadcrumb],
+  schemas: [organizationSchema({ includeAddress: false }), regionalService, faqSchema(spbLanding.faq), breadcrumb],
 })}
   <link rel="preload" href="../assets/images/hero_bg.webp" as="image" type="image/webp" imagesrcset="../assets/images/hero_bg-720.webp 720w, ../assets/images/hero_bg-900.webp 900w, ../assets/images/hero_bg.webp 1376w" imagesizes="100vw" fetchpriority="high">
 </head>
@@ -969,7 +1269,7 @@ ${head({
   ${header('../', './', { homeHref: './', situationsId: 'cases', isRegional: true })}
   <main id="main">
     <section class="hero hero--regional">
-      <picture class="hero__media" aria-hidden="true"><source srcset="../assets/images/hero_bg-720.webp 720w, ../assets/images/hero_bg-900.webp 900w, ../assets/images/hero_bg.webp 1376w" sizes="100vw" type="image/webp"><img src="../assets/images/hero_bg.jpg" width="1376" height="768" alt="" fetchpriority="high" decoding="async"></picture>
+      <picture class="hero__media"><source srcset="../assets/images/hero_bg-720.webp 720w, ../assets/images/hero_bg-900.webp 900w, ../assets/images/hero_bg.webp 1376w" sizes="100vw" type="image/webp"><img src="../assets/images/hero_bg.jpg" width="1376" height="768" alt="Регистрация самоходной техники и спецтехники в Гостехнадзоре Санкт-Петербурга и Ленинградской области" fetchpriority="high" decoding="async"></picture>
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="container hero__grid">
         <div class="hero__content">
@@ -1047,34 +1347,24 @@ ${head({
 }
 
 export function servicePage(page) {
-  const landing = {
-    registration: ['Регистрация спецтехники и постановка на учёт в Гостехнадзоре Москвы и МО под ключ', 'Берём регистрацию спецтехники и оформление в Гостехнадзоре на себя: сопровождаем постановку самоходной техники на учёт до результата.'],
-    deregistration: ['Снятие спецтехники с учёта в Гостехнадзоре Москвы и МО', 'Берём оформление в Гостехнадзоре на себя и сопроводим снятие спецтехники и самоходной техники с регистрационного учёта.'],
-    inspection: ['Техосмотр спецтехники и самоходной техники в Гостехнадзоре Москвы и МО', 'Поможем подготовить технику и пройти процедуру технического осмотра спецтехники и самоходной техники в Гостехнадзоре.'],
-  }[page.key];
   const canonical = `${site.baseUrl}/${page.slug}/`;
-  const description = `${page.description} Стоимость от 5 000 ₽, ориентировочный срок 3–5 рабочих дней.`;
-  const pageFaq = [
-    ['Как проходит работа с Гостехнадзором по этой услуге?', 'Сначала анализируем задачу и исходные данные, затем уточняем порядок обращения в Гостехнадзор и готовим комплект в рамках выбранной услуги.'],
-    ['Какие документы потребуются для обращения в Гостехнадзор?', 'Предварительный список указан на странице. Точный комплект зависит от вида техники, региона, истории владения и выбранного регистрационного действия.'],
-    ['Нужно ли привозить технику?', 'Нет, услуга может быть оказана без привоза техники на осмотр. Детали зависят от конкретной ситуации.'],
-    ['Госпошлины входят в стоимость услуги?', 'Нет. Стоимость сопровождения — от 5 000 ₽. Государственные пошлины оплачиваются отдельно.'],
-    ['Сколько стоит услуга?', 'Стоимость начинается от 5 000 ₽. Точная сумма зависит от региона, вида техники, комплекта документов и сложности ситуации.'],
-    ['Какой ориентировочный срок?', 'Большинство стандартных действий выполняется в течение 3–5 рабочих дней после получения полного комплекта документов. Срок зависит от региона и графика Гостехнадзора.'],
-    ['Можно ли начать дистанционно?', 'Да. Отправьте сведения о технике и имеющиеся документы специалисту для оценки ситуации. Мы согласуем дальнейший порядок обращения в Гостехнадзор.'],
-  ];
+  const title = page.title || `${page.h1} — ТехУчёт`;
+  const description = page.description;
+  const pageFaq = page.faq;
+  const breadcrumbLabel = page.breadcrumbName || page.short;
   const breadcrumb = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Главная', item: `${site.baseUrl}/` },
-      { '@type': 'ListItem', position: 2, name: page.short, item: canonical },
+      { '@type': 'ListItem', position: 2, name: 'Услуги', item: `${site.baseUrl}/#services` },
+      { '@type': 'ListItem', position: 3, name: breadcrumbLabel, item: canonical },
     ],
   };
   return `<!DOCTYPE html>
 <html lang="ru">
 <head>
-${head({ title: `${page.h1} — ТехУчёт`, description, canonical, prefix: '../', schemas: [organizationSchema(), serviceSchema({ name: page.h1, description, url: canonical }), faqSchema(pageFaq), breadcrumb] })}
+${head({ title, description, canonical, prefix: '../', schemas: [organizationSchema(), serviceSchema({ name: page.h1, description, url: canonical }), faqSchema(pageFaq), breadcrumb] })}
 </head>
 <body>
   <a class="skip-link" href="#main">К основному содержанию</a>
@@ -1082,15 +1372,24 @@ ${head({ title: `${page.h1} — ТехУчёт`, description, canonical, prefix:
   <main id="main">
     <section class="service-hero">
       <div class="container">
-        <div class="service-hero__grid"><div><h1>${landing?.[0] || page.h1}</h1><p>${landing?.[1] || page.description}</p>${offerBenefits(page.key === 'deregistration' ? '2–5' : '3–5')}${offerActions(page.short, page.key)}</div>
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+          <a href="../">Главная</a>
+          <span aria-hidden="true">/</span>
+          <a href="../#services">Услуги</a>
+          <span aria-hidden="true">/</span>
+          <span>${breadcrumbLabel}</span>
+        </nav>
+        <div class="service-hero__grid"><div><h1>${page.h1}</h1><p>${page.heroLead || page.description}</p>${offerBenefits(page.key === 'deregistration' ? '2–5' : '3–5')}${offerActions(page.short, page.key)}</div>
         <div class="service-summary" id="how"><h2>Что входит в работу</h2><ul>${page.works.map((item) => `<li>${item}</li>`).join('')}</ul><p>Точный порядок определяется после анализа ситуации и имеющихся документов.</p></div></div>
       </div>
     </section>
 ${commercialDetails(page)}
     ${trustBlock()}
-    <section class="section"><div class="container two-column"><div><h2>Когда обращаются</h2><ul class="check-list">${page.situations.map((item) => `<li>${item}</li>`).join('')}</ul></div><div id="documents"><h2>Что подготовить</h2><ul class="check-list">${page.docs.map((item) => `<li>${item}</li>`).join('')}</ul><p class="section-note">Точный перечень зависит от вида техники, региона и истории владения.</p></div></div></section>
+    <section class="section"><div class="container two-column"><div><h2>Когда обращаются</h2><ul class="check-list">${page.situations.map((item) => `<li>${item}</li>`).join('')}</ul></div><div id="documents"><h2>Какие документы нужны</h2><ul class="check-list">${page.docs.map((item) => `<li>${item}</li>`).join('')}</ul><p class="section-note">Точный перечень зависит от вида техники, статуса собственника (физлицо, ИП или юрлицо) и истории владения.</p></div></div></section>
+${serviceProcessAndPricingSection(page)}
 ${serviceExtraSection(page)}
-    <section class="section section--alt"><div class="container faq-layout"><div class="section-heading section-heading--left"><h2>Перед началом работы</h2></div>${faqBlock(pageFaq)}</div></section>
+${relatedServicesSection(page)}
+    <section class="section section--alt"><div class="container faq-layout"><div class="section-heading section-heading--left"><h2>Частые вопросы по услуге</h2></div>${faqBlock(pageFaq)}</div></section>
     <section class="section lead-section" id="page-form"><div class="container lead-layout">${contactPanel()}${simpleFinalForm({ id: `${page.slug}-lead`, prefix: '../', title: 'Нужно оформить спецтехнику в Гостехнадзоре?', subtitle: 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.', formName: `Получить консультацию: ${page.short}` })}</div></section>
   </main>
   ${footer('../')}
@@ -1121,17 +1420,17 @@ export function legalPage(type) {
     <h2>3. Действия с данными</h2><p>Сбор, запись, систематизация, хранение, уточнение, использование, передача через Cloudflare Worker в Telegram и другим техническим поставщикам для доставки заявки оператору, блокирование и удаление.</p>
     <h2>4. Срок и отзыв согласия</h2><p>Согласие действует до достижения целей обработки или до его отзыва. Отозвать согласие можно письмом на <a href="${site.emailHref}">${site.email}</a>. Отзыв не влияет на законность обработки, выполненной до его получения.</p>
     <h2>5. Подтверждение</h2><p>Я подтверждаю, что указанные мной данные принадлежат мне, а предоставленная информация является достоверной.</p>`;
-  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: `${title} — ТехУчёт`, description: `${title} сайта ТехУчёт.`, canonical, prefix: '../', schemas: [organizationSchema()] })}</head><body>${header('../')}<main id="main" class="legal"><div class="container legal__inner"><h1>${title}</h1><p class="legal__updated">Редакция от 8 августа 2026 года</p>${isPrivacy ? privacyContent : consentContent}</div></main>${footer('../')}${simpleCallbackModal('../')}${mobileBar('../')}</body></html>`;
+  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: `${title} — ТехУчёт`, description: `${title} сайта ТехУчёт.`, canonical, prefix: '../', schemas: [organizationSchema()], robots: 'noindex, follow' })}</head><body>${header('../')}<main id="main" class="legal"><div class="container legal__inner"><h1>${title}</h1><p class="legal__updated">Редакция от 8 августа 2026 года</p>${isPrivacy ? privacyContent : consentContent}</div></main>${footer('../')}${simpleCallbackModal('../')}${mobileBar('../')}</body></html>`;
 }
 
 export function notFoundPage({ nested = false } = {}) {
   const prefix = nested ? '../' : '';
-  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: 'Страница не найдена — ТехУчёт', description: 'Запрошенная страница не найдена.', canonical: `${site.baseUrl}/404`, prefix, schemas: [organizationSchema()] })}</head><body>${header(prefix)}<main class="not-found"><div class="container"><h1>Такой страницы нет</h1><p>Вернитесь на главную или свяжитесь с нами — поможем с оформлением самоходной техники.</p><div class="hero__actions"><a class="btn btn--primary" href="${prefix || './'}">На главную</a><a class="btn btn--outline track-phone" href="${site.phoneHref}">${site.phone}</a></div></div></main>${footer(prefix)}${mobileBar(prefix)}</body></html>`;
+  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: 'Страница не найдена — ТехУчёт', description: 'Запрошенная страница не найдена.', canonical: `${site.baseUrl}/404`, prefix, schemas: [organizationSchema()], robots: 'noindex, follow' })}</head><body>${header(prefix)}<main class="not-found"><div class="container"><h1>Такой страницы нет</h1><p>Вернитесь на главную или свяжитесь с нами — поможем с оформлением самоходной техники.</p><div class="hero__actions"><a class="btn btn--primary" href="${prefix || './'}">На главную</a><a class="btn btn--outline track-phone" href="${site.phoneHref}">${site.phone}</a></div></div></main>${footer(prefix)}${mobileBar(prefix)}</body></html>`;
 }
 
 export function contactsPage() {
-  const title = 'Контакты — Регистрация спецтехники в Гостехнадзоре | ТехУчёт';
-  const description = 'Контакты центра регистрации спецтехники и самоходной техники в Гостехнадзоре «ТехУчёт». Телефон: +7 925 757-78-88, WhatsApp, Telegram, MAX, email: techuchet24@ya.ru. Офис: Москва, улица Космонавта Волкова, 20.';
+  const title = 'Контакты ТехУчёт — телефон, адрес офиса в Москве и реквизиты';
+  const description = 'Контактная информация центра «ТехУчёт» (ООО «ЮНАТ»): телефон +7 925 757-78-88, WhatsApp, Telegram, MAX, почта techuchet24@ya.ru. Офис: Москва, ул. Космонавта Волкова, 20, каб. 415.';
   const canonical = `${site.baseUrl}/kontakty/`;
 
   const breadcrumbsSchema = {
@@ -1146,9 +1445,9 @@ export function contactsPage() {
   const contactPageSchema = {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
-    name: 'Контакты — Центр сопровождения спецтехники «ТехУчёт»',
+    name: 'Контакты компании «ТехУчёт»',
     url: canonical,
-    description: 'Контакты центра сопровождения в Гостехнадзоре «ТехУчёт».',
+    description: 'Телефон, мессенджеры, электронная почта, адрес офиса и реквизиты компании «ТехУчёт».',
   };
 
   const localBusinessSchema = {
@@ -1195,8 +1494,8 @@ ${head({
           <span aria-hidden="true">/</span>
           <span>Контакты</span>
         </nav>
-        <h1>Контакты центра сопровождения «ТехУчёт»</h1>
-        <p class="contacts-hero__subtitle">Регистрация спецтехники, постановка и снятие с учёта, техосмотр самоходной техники в Гостехнадзоре. Консультируем, подготавливаем документы и сопровождаем оформление под ключ. Работаем ежедневно с 08:00 до 19:00.</p>
+        <h1>Контакты компании «ТехУчёт»</h1>
+        <p class="contacts-hero__subtitle">Свяжитесь с нами удобным способом: по телефону, в мессенджерах или по электронной почте. Принимаем обращения и консультируем ежедневно с 08:00 до 19:00.</p>
       </div>
     </section>
 
@@ -1277,6 +1576,7 @@ ${head({
             <div><dt>Режим работы</dt><dd>${site.hours}</dd></div>
           </dl>
         </div>
+        <p class="section-note" style="margin-top: 20px;">Ищете описание конкретной процедуры? Перейдите в профильный раздел: <a class="text-link" href="../registraciya/">Регистрация спецтехники</a> · <a class="text-link" href="../snyatie-s-ucheta/">Снятие с учёта</a> · <a class="text-link" href="../tehosmotr/">Техосмотр</a> · <a class="text-link" href="../vosstanovlenie-psm/">Восстановление ПСМ</a> · <a class="text-link" href="../vosstanovlenie-sts/">Восстановление СТС</a> · <a class="text-link" href="../slozhnye-sluchai/">Сложные случаи</a>.</p>
       </div>
     </section>
 

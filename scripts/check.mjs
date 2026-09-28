@@ -16,8 +16,8 @@ const htmlFiles = [
 ];
 
 const requiredMain = [
-  '<title>Регистрация спецтехники в Гостехнадзоре — постановка на учёт и техосмотр | ТехУчёт</title>',
-  'content="Регистрация спецтехники и самоходной техники в Гостехнадзоре под ключ: постановка и снятие с учёта, техосмотр, перерегистрация и восстановление ПСМ и СТС. Стоимость от 5 000 ₽."',
+  '<title>Оформление спецтехники в Гостехнадзоре — постановка, снятие и техосмотр | ТехУчёт</title>',
+  'content="Центр сопровождения в Гостехнадзоре «ТехУчёт»: постановка спецтехники на учёт, снятие с учёта, техосмотр, перерегистрация и восстановление ПСМ и СТС. От 5 000 ₽."',
   'Регистрация и техосмотр спецтехники — без очередей и визитов',
   'Центр сопровождения в Гостехнадзоре',
   'Берём на себя постановку на учёт, снятие и техосмотр любой самоходной техники.',
@@ -309,9 +309,81 @@ for (const file of htmlFiles.filter((file) => !file.startsWith('404'))) {
   });
 }
 
+// SEO structural & uniqueness checks
+const seoIndexableFiles = [
+  'index.html',
+  'spb/index.html',
+  ...servicePages.map((page) => `${page.slug}/index.html`),
+  'kontakty/index.html',
+];
+const noindexFiles = ['privacy/index.html', 'consent/index.html', '404.html', '404/index.html'];
+const seenTitles = new Map();
+const seenDescriptions = new Map();
+const seenH1s = new Map();
+
+for (const file of htmlFiles) {
+  const html = await readFile(join(root, file), 'utf8');
+  const h1Matches = [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/g)];
+  if (h1Matches.length !== 1) errors.push(`${file}: expected exactly 1 <h1>, found ${h1Matches.length}`);
+
+  const jsonLdScripts = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+  if (!jsonLdScripts.length) errors.push(`${file}: missing JSON-LD structured data`);
+  for (const match of jsonLdScripts) {
+    try {
+      JSON.parse(match[1]);
+    } catch (err) {
+      errors.push(`${file}: invalid JSON-LD (${err.message})`);
+    }
+  }
+}
+
+for (const file of seoIndexableFiles) {
+  const html = await readFile(join(root, file), 'utf8');
+  if (!html.includes('<meta name="robots" content="index, follow">')) {
+    errors.push(`${file}: missing index, follow robots directive`);
+  }
+  const titleMatch = html.match(/<title>([\s\S]*?)<\/title>/);
+  const descMatch = html.match(/<meta name="description" content="([^"]*)">/);
+  const h1Match = html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/);
+
+  if (titleMatch) {
+    const t = titleMatch[1].trim();
+    if (seenTitles.has(t)) errors.push(`${file}: duplicate <title> with ${seenTitles.get(t)}`);
+    seenTitles.set(t, file);
+  }
+  if (descMatch) {
+    const d = descMatch[1].trim();
+    if (seenDescriptions.has(d)) errors.push(`${file}: duplicate meta description with ${seenDescriptions.get(d)}`);
+    seenDescriptions.set(d, file);
+  }
+  if (h1Match) {
+    const h = h1Match[1].trim();
+    if (seenH1s.has(h)) errors.push(`${file}: duplicate <h1> with ${seenH1s.get(h)}`);
+    seenH1s.set(h, file);
+  }
+}
+
+for (const file of noindexFiles) {
+  const html = await readFile(join(root, file), 'utf8');
+  if (!html.includes('<meta name="robots" content="noindex, follow">')) {
+    errors.push(`${file}: expected noindex, follow robots directive`);
+  }
+}
+
+for (const page of servicePages) {
+  const file = `${page.slug}/index.html`;
+  const html = await readFile(join(root, file), 'utf8');
+  if (!html.includes('<nav class="breadcrumbs"')) errors.push(`${file}: missing visible breadcrumbs nav`);
+}
+
+if (sitemap.includes('/privacy/') || sitemap.includes('/consent/')) {
+  errors.push('sitemap.xml: noindex legal pages must not be included in sitemap.xml');
+}
+
 if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
 }
 
 console.log(`Checked ${htmlFiles.length} HTML files.`);
+

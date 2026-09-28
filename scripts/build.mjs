@@ -79,11 +79,11 @@ const publicConfig = {
 await output('site-config.js', `window.TECHUCHET_CONFIG = ${JSON.stringify(publicConfig, null, 2)};\n`);
 
 const urls = ['', 'spb/', ...servicePages.map((page) => `${page.slug}/`), 'kontakty/', 'privacy/', 'consent/'];
-
+const sitemapUrls = ['', 'spb/', ...servicePages.map((page) => `${page.slug}/`), 'kontakty/'];
 
 await output('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((path) => `  <url><loc>${site.baseUrl}/${path}</loc><lastmod>2026-09-27</lastmod></url>`).join('\n')}
+${sitemapUrls.map((path) => `  <url><loc>${site.baseUrl}/${path}</loc><lastmod>2026-09-28</lastmod></url>`).join('\n')}
 </urlset>
 `);
 
