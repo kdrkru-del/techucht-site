@@ -374,6 +374,18 @@ for (const page of servicePages) {
   const file = `${page.slug}/index.html`;
   const html = await readFile(join(root, file), 'utf8');
   if (!html.includes('<nav class="breadcrumbs"')) errors.push(`${file}: missing visible breadcrumbs nav`);
+  if (page.key === 'complex_case') {
+    if (html.includes('"price":"') || html.includes('5 000 ₽') || html.includes('15 000 ₽')) {
+      errors.push(`${file}: complex_case must not contain a fixed starting price`);
+    }
+    if (!html.includes('Стоимость рассчитывается после уточнения ситуации')) {
+      errors.push(`${file}: complex_case missing individual pricing wording`);
+    }
+  } else {
+    if (!html.includes('"price":"5000"') || !html.includes('от 5 000 ₽')) {
+      errors.push(`${file}: standard service page must have "price":"5000" and "от 5 000 ₽"`);
+    }
+  }
 }
 
 if (sitemap.includes('/privacy/') || sitemap.includes('/consent/')) {

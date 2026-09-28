@@ -110,7 +110,19 @@ function faqSchema(items) {
   };
 }
 
-function serviceSchema({ name, description, url, areaServed = null }) {
+function serviceSchema({ name, description, url, areaServed = null, includePrice = true }) {
+  const offers = includePrice
+    ? {
+        '@type': 'Offer',
+        priceCurrency: 'RUB',
+        price: '5000',
+        description: 'Стоимость от 5 000 ₽. Точная стоимость определяется после уточнения задачи.',
+      }
+    : {
+        '@type': 'Offer',
+        priceCurrency: 'RUB',
+        description: 'Стоимость рассчитывается после уточнения ситуации.',
+      };
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -123,12 +135,7 @@ function serviceSchema({ name, description, url, areaServed = null }) {
       { '@type': 'AdministrativeArea', name: 'Московская область' },
       { '@type': 'Country', name: 'Россия' },
     ],
-    offers: {
-      '@type': 'Offer',
-      priceCurrency: 'RUB',
-      price: '5000',
-      description: 'Стоимость от 5 000 ₽. Точная стоимость определяется после уточнения задачи.',
-    },
+    offers,
   };
 }
 
@@ -264,9 +271,9 @@ function workConditionsBlock() {
   </section>`;
 }
 
-function offerBenefits(term = '3–5', region = '') {
+function offerBenefits(term = '3–5', region = '', priceText = 'от 5 000 ₽') {
   const regionItem = region ? `<li class="offer-benefits__item"><span>${region}</span></li>` : '';
-  return `<ul class="offer-benefits" id="price"><li class="offer-benefits__item offer-benefits__item--price"><strong class="price-value">от 5 000 ₽</strong><span class="price-caption">Стоимость услуг</span></li><li class="offer-benefits__item offer-benefits__item--term"><strong class="price-value">${term} рабочих дней</strong><span class="price-caption">Ориентировочный срок</span></li><li class="offer-benefits__item"><span>По договору</span></li>${regionItem}<li class="offer-benefits__item"><span>Для физлиц и организаций</span></li><li class="offer-benefits__item offer-benefits__item--full"><span>Без очередей и личных визитов в Гостехнадзор</span></li></ul>`;
+  return `<ul class="offer-benefits" id="price"><li class="offer-benefits__item offer-benefits__item--price"><strong class="price-value">${priceText}</strong><span class="price-caption">Стоимость услуг</span></li><li class="offer-benefits__item offer-benefits__item--term"><strong class="price-value">${term} рабочих дней</strong><span class="price-caption">Ориентировочный срок</span></li><li class="offer-benefits__item"><span>По договору</span></li>${regionItem}<li class="offer-benefits__item"><span>Для физлиц и организаций</span></li><li class="offer-benefits__item offer-benefits__item--full"><span>Без очередей и личных визитов в Гостехнадзор</span></li></ul>`;
 }
 
 function offerActions(service = 'Консультация', event = '') {
@@ -351,7 +358,7 @@ function serviceNavigation() {
     {
       title: 'Помощь при отказе Гостехнадзора',
       desc: 'Разбор отказов Гостехнадзора, неполных цепочек договоров, проблем с номерами агрегатов и нестандартных ситуаций.',
-      meta: '<strong>от 5 000 ₽</strong> · от 3 рабочих дней',
+      meta: '<strong>Стоимость рассчитывается после уточнения ситуации</strong>',
       service: 'Отказ или сложная ситуация',
       event: 'complex_case',
       url: 'slozhnye-sluchai/',
@@ -877,13 +884,13 @@ function faqBlock(items = faq) {
   return `<div class="faq-list">${items.map(([question, answer], index) => `<article class="faq-item"><h3><button type="button" aria-expanded="${index === 0 ? 'true' : 'false'}" data-faq-button><span>${question}</span><span class="faq-icon" aria-hidden="true">+</span></button></h3><div class="faq-answer"${index === 0 ? '' : ' hidden'}><p>${answer}</p></div></article>`).join('')}</div>`;
 }
 
-function contactPanel(region = null) {
+function contactPanel(region = null, priceText = 'от 5 000 ₽') {
   const regionRow = region ? `<div><dt>Регион</dt><dd>${region}</dd></div>` : `<div><dt>Сопровождение</dt><dd>Под ключ</dd></div>`;
   return `<aside class="contact-panel">
     <a class="contact-panel__primary track-phone" href="${site.phoneHref}">${site.phone}</a>
     ${quickContacts({ modifier: 'quick-contacts--contact', includePhone: false })}
     <a class="contact-panel__email track-email" href="${site.emailHref}">${site.email}</a>
-    <dl><div><dt>Режим работы</dt><dd>${site.hours}</dd></div><div><dt>Стоимость услуг</dt><dd>от 5 000 ₽</dd></div><div><dt>Ориентировочный срок</dt><dd>3–5 рабочих дней</dd></div>${regionRow}</dl>
+    <dl><div><dt>Режим работы</dt><dd>${site.hours}</dd></div><div><dt>Стоимость услуг</dt><dd>${priceText}</dd></div><div><dt>Ориентировочный срок</dt><dd>3–5 рабочих дней</dd></div>${regionRow}</dl>
   </aside>`;
 }
 
@@ -974,7 +981,7 @@ function serviceProcessAndPricingSection(page) {
         ['3. Формирование выверенного пакета', 'Собираем полный комплект документов в строгом соответствии с действующими правилами государственной регистрации самоходных машин.'],
         ['4. Повторная подача и получение СТС', 'Сопровождаем повторное обращение в Гостехнадзор до успешной постановки спецтехники на учёт.'],
       ],
-      priceNote: 'Стоимость сопровождения — от 5 000 ₽ и зависит от количества недостающих документов и необходимых регистрационных процедур.',
+      priceNote: 'Стоимость рассчитывается после уточнения ситуации и зависит от количества недостающих документов и необходимых регистрационных процедур.',
     },
   }[page.key];
 
@@ -1352,6 +1359,8 @@ export function servicePage(page) {
   const description = page.description;
   const pageFaq = page.faq;
   const breadcrumbLabel = page.breadcrumbName || page.short;
+  const isComplexCase = page.key === 'complex_case';
+  const servicePriceText = isComplexCase ? 'Стоимость рассчитывается после уточнения ситуации' : 'от 5 000 ₽';
   const breadcrumb = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -1364,7 +1373,7 @@ export function servicePage(page) {
   return `<!DOCTYPE html>
 <html lang="ru">
 <head>
-${head({ title, description, canonical, prefix: '../', schemas: [organizationSchema(), serviceSchema({ name: page.h1, description, url: canonical }), faqSchema(pageFaq), breadcrumb] })}
+${head({ title, description, canonical, prefix: '../', schemas: [organizationSchema(), serviceSchema({ name: page.h1, description, url: canonical, includePrice: !isComplexCase }), faqSchema(pageFaq), breadcrumb] })}
 </head>
 <body>
   <a class="skip-link" href="#main">К основному содержанию</a>
@@ -1379,7 +1388,7 @@ ${head({ title, description, canonical, prefix: '../', schemas: [organizationSch
           <span aria-hidden="true">/</span>
           <span>${breadcrumbLabel}</span>
         </nav>
-        <div class="service-hero__grid"><div><h1>${page.h1}</h1><p>${page.heroLead || page.description}</p>${offerBenefits(page.key === 'deregistration' ? '2–5' : '3–5')}${offerActions(page.short, page.key)}</div>
+        <div class="service-hero__grid"><div><h1>${page.h1}</h1><p>${page.heroLead || page.description}</p>${offerBenefits(page.key === 'deregistration' ? '2–5' : '3–5', '', servicePriceText)}${offerActions(page.short, page.key)}</div>
         <div class="service-summary" id="how"><h2>Что входит в работу</h2><ul>${page.works.map((item) => `<li>${item}</li>`).join('')}</ul><p>Точный порядок определяется после анализа ситуации и имеющихся документов.</p></div></div>
       </div>
     </section>
@@ -1390,7 +1399,7 @@ ${serviceProcessAndPricingSection(page)}
 ${serviceExtraSection(page)}
 ${relatedServicesSection(page)}
     <section class="section section--alt"><div class="container faq-layout"><div class="section-heading section-heading--left"><h2>Частые вопросы по услуге</h2></div>${faqBlock(pageFaq)}</div></section>
-    <section class="section lead-section" id="page-form"><div class="container lead-layout">${contactPanel()}${simpleFinalForm({ id: `${page.slug}-lead`, prefix: '../', title: 'Нужно оформить спецтехнику в Гостехнадзоре?', subtitle: 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.', formName: `Получить консультацию: ${page.short}` })}</div></section>
+    <section class="section lead-section" id="page-form"><div class="container lead-layout">${contactPanel(null, servicePriceText)}${simpleFinalForm({ id: `${page.slug}-lead`, prefix: '../', title: 'Нужно оформить спецтехнику в Гостехнадзоре?', subtitle: 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.', formName: `Получить консультацию: ${page.short}` })}</div></section>
   </main>
   ${footer('../')}
     ${simpleCallbackModal('../')}
