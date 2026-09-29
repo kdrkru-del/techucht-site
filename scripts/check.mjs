@@ -39,6 +39,7 @@ const requiredMain = [
   'Всегда на связи',
   'Москва, улица Космонавта Волкова, 20, кабинет 415',
   '<meta name="mailru-domain" content="YAbXlGEdCBXNKxOH" />',
+  '<meta name="mitgo-verification" content="952b0442-52fa-420b-9544-fb436c92285f" />',
 ];
 
 const forbidden = [

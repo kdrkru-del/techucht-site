@@ -1101,6 +1101,7 @@ export function mainPage() {
 <head>
   <meta name="mailru-domain" content="YAbXlGEdCBXNKxOH" />
   <meta name="yandex-verification" content="97c871531f08a479" />
+  <meta name="mitgo-verification" content="952b0442-52fa-420b-9544-fb436c92285f" />
 ${head({
   title,
   description,
