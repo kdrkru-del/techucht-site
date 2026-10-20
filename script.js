@@ -70,7 +70,7 @@
     initDocumentsTool();
     initServiceSelection();
     initClickTracking();
-    initCallbackWidget();
+    initChatWidget();
   });
 
   function initContacts() {
@@ -288,8 +288,8 @@
   function initLeadForms() {
     document.querySelectorAll('[data-lead-form]').forEach((form) => {
       form.addEventListener('input', () => {
-        if (form.dataset.formName === 'Callback widget') {
-          trackGoal('callback_form_start');
+        if (form.dataset.formName === 'Chat callback widget' || form.dataset.formName === 'Callback widget') {
+          // micro-event handled inside chat flow
         } else {
           trackGoal('lead_form_start');
         }
@@ -495,8 +495,8 @@
     setButtonLoading(button, true);
     setStatus(status, 'Отправляем заявку…', null);
 
-    if (form.dataset.formName === 'Callback widget') {
-      trackGoal('callback_submit_click');
+    if (form.dataset.formName === 'Chat callback widget' || form.dataset.formName === 'Callback widget') {
+      // Chat callback widget: real conversion goal lead_form_success fires only after successful 200 OK below
     } else {
       trackGoal('lead_form_submit');
     }
@@ -768,122 +768,388 @@
     });
   }
 
-  function initCallbackWidget() {
-    const widget = document.getElementById('callback-widget');
+  function initChatWidget() {
+    const widget = document.getElementById('chat-widget');
     if (!widget) return;
 
-    const isClosed = () => {
+    const launcher = widget.querySelector('[data-chat-launcher]');
+    const openBtn = widget.querySelector('[data-chat-open]');
+    const dismissBtns = widget.querySelectorAll('[data-chat-dismiss]');
+    const minimizeBtns = widget.querySelectorAll('[data-chat-minimize]');
+    const backdrop = widget.querySelector('[data-chat-backdrop]');
+    const body = widget.querySelector('[data-chat-body]');
+    const messagesContainer = widget.querySelector('[data-chat-messages]');
+    const typingIndicator = widget.querySelector('[data-chat-typing]');
+    const quickRepliesContainer = widget.querySelector('[data-chat-quick-replies]');
+    const formBox = widget.querySelector('[data-chat-form-box]');
+    const form = formBox?.querySelector('form');
+    const phoneInput = form?.querySelector('input[name="phone"]');
+    const backBtn = formBox?.querySelector('[data-chat-back]');
+    const successBox = widget.querySelector('[data-chat-success]');
+    const waSuccessBtn = successBox?.querySelector('[data-chat-wa-success]');
+    const inputForm = widget.querySelector('[data-chat-input-form]');
+    const textInput = widget.querySelector('[data-chat-input]');
+
+    let dialogueStarted = false;
+    let currentService = '';
+    let currentServiceKey = '';
+    let userQuestion = '';
+
+    const SERVICES = [
+      {
+        key: 'registration',
+        label: 'Поставить технику на учёт',
+        serviceName: 'Постановка техники на учёт',
+        botReply: 'Хорошо. Поможем с постановкой спецтехники на учёт.',
+        waText: 'Здравствуйте! Интересует постановка техники на учёт в Гостехнадзоре.'
+      },
+      {
+        key: 'deregistration',
+        label: 'Снять технику с учёта',
+        serviceName: 'Снятие техники с учёта',
+        botReply: 'Поможем со снятием спецтехники с учёта. Специалист уточнит ситуацию и необходимые документы.',
+        waText: 'Здравствуйте! Интересует снятие спецтехники с учёта в Гостехнадзоре.'
+      },
+      {
+        key: 'inspection',
+        label: 'Техосмотр',
+        serviceName: 'Техосмотр спецтехники',
+        botReply: 'Поможем с техосмотром техники. Специалист уточнит вид транспорта и вашу задачу.',
+        waText: 'Здравствуйте! Интересует техосмотр спецтехники.'
+      },
+      {
+        key: 'restore',
+        label: 'Восстановить ПСМ / СТС',
+        serviceName: 'Восстановление ПСМ / СТС',
+        botReply: 'Поможем с восстановлением ПСМ или СТС. Специалист уточнит, какой документ утрачен или повреждён.',
+        waText: 'Здравствуйте! Интересует восстановление ПСМ или СТС спецтехники.'
+      },
+      {
+        key: 'complex',
+        label: 'Сложная ситуация / отказ',
+        serviceName: 'Сложная ситуация в Гостехнадзоре',
+        botReply: 'Опишите ситуацию в двух словах или оставьте номер — специалист разберётся подробнее.',
+        waText: 'Здравствуйте! Нужна помощь в сложной ситуации с Гостехнадзором.'
+      },
+      {
+        key: 'other',
+        label: 'Другое',
+        serviceName: 'Консультация по спецтехнике',
+        botReply: 'Понял вас. Поможем решить вашу задачу по спецтехнике в Гостехнадзоре.',
+        waText: 'Здравствуйте! Нужна консультация по спецтехнике в Гостехнадзоре.'
+      }
+    ];
+
+    const isDismissed = () => {
       try {
-        return sessionStorage.getItem('techuchet_callback_closed') === 'true';
+        return sessionStorage.getItem('techuchet_chat_dismissed') === 'true';
       } catch {
         return false;
       }
     };
 
-    if (isClosed()) {
-      widget.classList.add('is-closed');
-      return;
+    const isInteracted = () => {
+      try {
+        return sessionStorage.getItem('techuchet_chat_interacted') === 'true';
+      } catch {
+        return false;
+      }
+    };
+
+    if (isDismissed()) {
+      widget.classList.add('is-dismissed');
     }
 
-    const triggerBtn = widget.querySelector('[data-callback-open]');
-    const compactCard = widget.querySelector('[data-callback-compact]');
-    const backdrop = widget.querySelector('[data-callback-backdrop]');
-    const minimizeBtns = widget.querySelectorAll('[data-callback-minimize]');
-    const dismissBtns = widget.querySelectorAll('[data-callback-dismiss]');
-    const formWrapper = widget.querySelector('[data-callback-form-wrapper]');
-    const successBox = widget.querySelector('[data-callback-success]');
-    const form = widget.querySelector('form');
-    const phoneInput = form?.querySelector('input[type="tel"]');
-
-    let revealed = false;
-    const reveal = () => {
-      if (revealed || isClosed()) return;
-      revealed = true;
-      widget.classList.add('is-visible');
+    const scrollToBottom = () => {
+      if (!body) return;
+      window.requestAnimationFrame(() => {
+        body.scrollTo({ top: body.scrollHeight, behavior: 'smooth' });
+      });
     };
 
-    const isMobile = window.innerWidth <= 640;
-    const revealDelay = isMobile ? 8000 : 6000;
-    const revealScrollFraction = isMobile ? 0.20 : 0.15;
-
-    const timer = window.setTimeout(reveal, revealDelay);
-
-    const onScroll = () => {
-      if (revealed || isClosed()) {
-        window.removeEventListener('scroll', onScroll);
-        return;
-      }
-      const scrollPos = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (docHeight > 0 && scrollPos / docHeight >= revealScrollFraction) {
-        reveal();
-        window.clearTimeout(timer);
-        window.removeEventListener('scroll', onScroll);
-      }
+    const showTyping = (show) => {
+      if (!typingIndicator) return;
+      typingIndicator.hidden = !show;
+      if (show) scrollToBottom();
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
 
-    const openPanel = () => {
-      reveal();
-      widget.classList.add('is-expanded');
-      triggerBtn?.setAttribute('aria-expanded', 'true');
-      trackGoal('callback_widget_open');
+    const appendBotMessage = (text) => {
+      if (!messagesContainer) return;
+      const msg = document.createElement('div');
+      msg.className = 'chat-msg chat-msg--bot';
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-msg__bubble';
+      bubble.textContent = text;
+      msg.appendChild(bubble);
+      messagesContainer.appendChild(msg);
+      scrollToBottom();
+    };
+
+    const appendUserMessage = (text) => {
+      if (!messagesContainer) return;
+      const msg = document.createElement('div');
+      msg.className = 'chat-msg chat-msg--user';
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-msg__bubble';
+      bubble.textContent = text;
+      msg.appendChild(bubble);
+      messagesContainer.appendChild(msg);
+      scrollToBottom();
+    };
+
+    const showQuickReplies = (items) => {
+      if (!quickRepliesContainer) return;
+      quickRepliesContainer.innerHTML = '';
+      items.forEach((item) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'chat-replies__btn';
+        btn.textContent = item.text;
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          item.onClick();
+        });
+        quickRepliesContainer.appendChild(btn);
+      });
+      quickRepliesContainer.hidden = false;
+      scrollToBottom();
+    };
+
+    const hideQuickReplies = () => {
+      if (!quickRepliesContainer) return;
+      quickRepliesContainer.hidden = true;
+      quickRepliesContainer.innerHTML = '';
+    };
+
+    const getWaUrl = (text) => {
+      const base = CONFIG.WHATSAPP_URL || 'https://wa.me/79257577888';
+      return `${base}?text=${encodeURIComponent(text)}`;
+    };
+
+    const startDialogue = () => {
+      if (dialogueStarted) return;
+      dialogueStarted = true;
+
+      showTyping(true);
       window.setTimeout(() => {
-        phoneInput?.focus();
-      }, 100);
+        showTyping(false);
+        appendBotMessage('Здравствуйте! Помогу разобраться с оформлением спецтехники в Гостехнадзоре.');
+
+        showTyping(true);
+        window.setTimeout(() => {
+          showTyping(false);
+          appendBotMessage('Какая услуга вас интересует?');
+          showQuickReplies(
+            SERVICES.map((s) => ({
+              text: s.label,
+              onClick: () => selectService(s)
+            }))
+          );
+        }, 900);
+      }, 600);
     };
 
-    const minimizePanel = () => {
-      widget.classList.remove('is-expanded');
-      triggerBtn?.setAttribute('aria-expanded', 'false');
-      triggerBtn?.focus();
+    const selectService = (s) => {
+      trackGoal('chat_service_selected');
+      currentService = s.serviceName;
+      currentServiceKey = s.key;
+      hideQuickReplies();
+      appendUserMessage(s.label);
+
+      showTyping(true);
+      window.setTimeout(() => {
+        showTyping(false);
+        appendBotMessage(s.botReply);
+
+        showTyping(true);
+        window.setTimeout(() => {
+          showTyping(false);
+          appendBotMessage('Хотите, чтобы специалист уточнил детали и назвал стоимость?');
+          showContactOptions();
+        }, 600);
+      }, 600);
     };
 
-    const dismissWidget = () => {
-      widget.classList.remove('is-expanded', 'is-visible');
-      widget.classList.add('is-closed');
+    const showContactOptions = () => {
+      showQuickReplies([
+        { text: 'Да, перезвоните мне', onClick: openCallbackFlow },
+        { text: 'Написать в WhatsApp', onClick: openWhatsAppFlow },
+        { text: 'Задать вопрос здесь', onClick: openFreeQuestionFlow }
+      ]);
+    };
+
+    const openCallbackFlow = () => {
+      trackGoal('chat_callback_open');
+      hideQuickReplies();
+      appendUserMessage('Да, перезвоните мне');
+
+      showTyping(true);
+      window.setTimeout(() => {
+        showTyping(false);
+        appendBotMessage('Оставьте номер телефона — специалист ТехУчёт свяжется с вами и ответит на все вопросы.');
+
+        if (form) {
+          const serviceInput = form.querySelector('input[name="service"]');
+          const commentInput = form.querySelector('input[name="comment"]');
+          if (serviceInput) serviceInput.value = currentService || 'Обратный звонок из чата';
+          if (commentInput) {
+            commentInput.value = userQuestion
+              ? `Вопрос клиента: ${userQuestion}`
+              : `Заказ звонка по услуге: ${currentService || 'Общая консультация'}`;
+          }
+        }
+        if (formBox) formBox.hidden = false;
+        scrollToBottom();
+        window.setTimeout(() => phoneInput?.focus(), 150);
+      }, 400);
+    };
+
+    const openWhatsAppFlow = () => {
+      trackGoal('chat_whatsapp_click');
+      hideQuickReplies();
+      appendUserMessage('Написать в WhatsApp');
+
+      const item = SERVICES.find((s) => s.key === currentServiceKey);
+      const waText = item ? item.waText : (userQuestion ? `Здравствуйте! Вопрос: ${userQuestion}` : 'Здравствуйте! Интересует оформление спецтехники в Гостехнадзоре.');
+      const waUrl = getWaUrl(waText);
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+
+      appendBotMessage('Открываю диалог в WhatsApp. Если понадобится обратный звонок — нажмите кнопку ниже:');
+      showQuickReplies([
+        { text: 'Заказать звонок по телефону', onClick: openCallbackFlow }
+      ]);
+    };
+
+    const openFreeQuestionFlow = () => {
+      hideQuickReplies();
+      appendUserMessage('Хочу задать вопрос здесь');
+      appendBotMessage('Напишите ваш вопрос в строке внизу — мы передадим его специалисту.');
+      window.setTimeout(() => textInput?.focus(), 100);
+    };
+
+    const handleTextInputSubmit = (e) => {
+      e?.preventDefault();
+      const q = textInput?.value.trim();
+      if (!q) return;
+      userQuestion = q;
+      if (textInput) textInput.value = '';
+      appendUserMessage(q);
+
+      showTyping(true);
+      window.setTimeout(() => {
+        showTyping(false);
+        appendBotMessage('Спасибо! Чтобы специалист мог ответить на ваш вопрос, оставьте номер телефона или напишите нам в WhatsApp.');
+        showQuickReplies([
+          { text: 'Оставить номер телефона', onClick: openCallbackFlow },
+          { text: 'Написать в WhatsApp', onClick: openWhatsAppFlow }
+        ]);
+      }, 600);
+    };
+
+    inputForm?.addEventListener('submit', handleTextInputSubmit);
+
+    backBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (formBox) formBox.hidden = true;
+      showContactOptions();
+    });
+
+    form?.addEventListener('lead:success', () => {
+      if (formBox) formBox.hidden = true;
+      if (successBox) {
+        successBox.hidden = false;
+        if (waSuccessBtn) {
+          const item = SERVICES.find((s) => s.key === currentServiceKey);
+          const waText = item ? item.waText : (userQuestion ? `Здравствуйте! Вопрос из чата: ${userQuestion}` : 'Здравствуйте! Заявка из чата на сайте.');
+          waSuccessBtn.href = getWaUrl(waText);
+        }
+      }
+      scrollToBottom();
+    });
+
+    const openChat = (isAuto = false) => {
+      widget.classList.remove('is-dismissed');
+      widget.classList.add('is-open');
       try {
-        sessionStorage.setItem('techuchet_callback_closed', 'true');
+        sessionStorage.setItem('techuchet_chat_interacted', 'true');
+      } catch {
+        /* storage disabled */
+      }
+      if (isAuto) {
+        trackGoal('chat_auto_open');
+      } else {
+        trackGoal('chat_manual_open');
+      }
+
+      if (!dialogueStarted) {
+        startDialogue();
+      } else {
+        scrollToBottom();
+      }
+    };
+
+    const minimizeChat = () => {
+      widget.classList.remove('is-open');
+      openBtn?.focus();
+    };
+
+    const dismissChat = () => {
+      widget.classList.remove('is-open');
+      widget.classList.add('is-dismissed');
+      try {
+        sessionStorage.setItem('techuchet_chat_dismissed', 'true');
       } catch {
         /* storage disabled */
       }
     };
 
-    triggerBtn?.addEventListener('click', (e) => {
+    openBtn?.addEventListener('click', (e) => {
       e.stopPropagation();
-      openPanel();
-    });
-
-    compactCard?.addEventListener('click', (e) => {
-      if (e.target.closest('[data-callback-dismiss]') || e.target.closest('.track-whatsapp')) return;
-      openPanel();
+      openChat(false);
     });
 
     minimizeBtns.forEach((btn) => btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      minimizePanel();
+      minimizeChat();
     }));
 
     dismissBtns.forEach((btn) => btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      dismissWidget();
+      dismissChat();
     }));
 
-    backdrop?.addEventListener('click', minimizePanel);
+    backdrop?.addEventListener('click', minimizeChat);
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && widget.classList.contains('is-expanded')) {
-        minimizePanel();
+      if (e.key === 'Escape' && widget.classList.contains('is-open')) {
+        minimizeChat();
       }
     });
 
-    form?.addEventListener('lead:success', () => {
-      if (formWrapper) formWrapper.hidden = true;
-      if (successBox) successBox.hidden = false;
-      window.setTimeout(() => {
-        minimizePanel();
-      }, 12000);
+    // Auto-open logic
+    let formInteracted = false;
+    const markFormInteraction = () => {
+      formInteracted = true;
+    };
+
+    document.querySelectorAll('.lead-section input, .lead-section textarea, #callback-modal input').forEach((el) => {
+      el.addEventListener('focus', markFormInteraction, { once: true });
+      el.addEventListener('input', markFormInteraction, { once: true });
     });
+
+    const isMobile = window.innerWidth <= 640;
+    if (!isDismissed() && !isInteracted()) {
+      window.setTimeout(() => {
+        if (isDismissed() || isInteracted() || formInteracted) return;
+        if (document.querySelector('.modal.is-open')) return;
+
+        if (isMobile) {
+          return;
+        }
+
+        openChat(true);
+      }, 5000);
+    }
   }
 })();
 

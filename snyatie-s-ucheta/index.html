@@ -243,59 +243,39 @@
       </div>
     </div>
   </footer>
-  <div class="callback-widget" id="callback-widget" aria-live="polite">
-    <div class="callback-widget__backdrop" data-callback-backdrop aria-hidden="true"></div>
+  <div class="chat-widget" id="chat-widget" aria-live="polite">
+    <div class="chat-widget__backdrop" data-chat-backdrop aria-hidden="true"></div>
 
-    <div class="callback-widget__compact" data-callback-compact>
-      <div class="callback-widget__compact-header">
-        <div class="callback-widget__avatar" aria-hidden="true">
-          <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="42" height="42" rx="21" fill="url(#cw-avatar-grad)"/>
-            <defs>
-              <linearGradient id="cw-avatar-grad" x1="0" y1="0" x2="42" y2="42" gradientUnits="userSpaceOnUse">
-                <stop stop-color="#17324D"/>
-                <stop offset="1" stop-color="#2F5D8A"/>
-              </linearGradient>
-            </defs>
-            <path d="M21 11C17.6863 11 15 13.6863 15 17V19.5C15 22.8137 17.6863 25.5 21 25.5C24.3137 25.5 27 22.8137 27 19.5V17C27 13.6863 24.3137 11 21 11Z" fill="#FFFFFF"/>
-            <path d="M12.5 32C12.5 27.5817 16.0817 24 20.5 24H21.5C25.9183 24 29.5 27.5817 29.5 32V33H12.5V32Z" fill="#CBD5E1"/>
-            <path d="M14 17.5V20.5C14 21.0523 14.4477 21.5 15 21.5H15.5V16.5H15C14.4477 16.5 14 16.9477 14 17.5Z" fill="#D89B3C"/>
-            <path d="M28 17.5V20.5C28 21.0523 27.5523 21.5 27 21.5H26.5V16.5H27C27.5523 16.5 28 16.9477 28 17.5Z" fill="#D89B3C"/>
+    <!-- Collapsed Launcher -->
+    <div class="chat-widget__launcher" data-chat-launcher>
+      <button class="chat-widget__launcher-btn" type="button" aria-label="Открыть онлайн-помощник ТехУчёт" data-chat-open>
+        <span class="chat-widget__launcher-icon-wrap" aria-hidden="true">
+          <svg class="chat-widget__launcher-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
           </svg>
-          <span class="callback-widget__status-dot" aria-label="В сети"></span>
-        </div>
-        <div class="callback-widget__compact-info">
-          <strong class="callback-widget__name">Специалист ТехУчёт</strong>
-          <span class="callback-widget__sub">Ответим на ваши вопросы</span>
-        </div>
-        <button class="callback-widget__close-btn" type="button" aria-label="Скрыть виджет" data-callback-dismiss title="Скрыть на эту сессию">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
-      </div>
-      <div class="callback-widget__compact-action">
-        <button class="callback-widget__trigger-btn" type="button" aria-expanded="false" aria-controls="callback-widget-panel" data-callback-open>
-          <span class="callback-widget__trigger-icon" aria-hidden="true">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          </span>
-          <span class="callback-widget__trigger-text">
-            <strong>Заказать звонок</strong>
-            <small>Перезвоним в удобное время</small>
-          </span>
-        </button>
-        <a class="callback-widget__wa-pill track-whatsapp" href="https://wa.me/79257577888?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%81%D0%BF%D0%B5%D1%86%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B8%20%D0%B2%20%D0%93%D0%BE%D1%81%D1%82%D0%B5%D1%85%D0%BD%D0%B0%D0%B4%D0%B7%D0%BE%D1%80%D0%B5." target="_blank" rel="noopener" aria-label="Написать в WhatsApp" title="Написать в WhatsApp">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.93 11.93 0 0 0 12.06 0C5.46 0 .09 5.37.09 11.97c0 2.11.55 4.17 1.6 5.99L0 24l6.23-1.63a11.9 11.9 0 0 0 5.83 1.51h.01c6.6 0 11.97-5.37 11.97-11.97 0-3.2-1.25-6.21-3.52-8.43zM12.07 21.88h-.01a9.9 9.9 0 0 1-5.05-1.39l-.36-.21-3.75.98 1-3.65-.24-.38a9.88 9.88 0 0 1-1.52-5.26c0-5.46 4.45-9.91 9.92-9.91 2.65 0 5.14 1.03 7.01 2.9a9.85 9.85 0 0 1 2.9 7.01c0 5.46-4.45 9.91-9.9 9.91zm5.43-7.42c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.18.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.18-.3-.02-.46.13-.61.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.68-1.64-.93-2.25-.25-.59-.5-.51-.68-.52-.18-.01-.38-.01-.58-.01-.2 0-.53.08-.8.38-.28.3-1.05 1.03-1.05 2.51s1.08 2.91 1.23 3.11c.15.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35z"/></svg>
-        </a>
-      </div>
+          <span class="chat-widget__pulse-dot"></span>
+        </span>
+        <span class="chat-widget__launcher-text">
+          <span class="chat-widget__launcher-title">Есть вопрос?</span>
+          <span class="chat-widget__launcher-sub">Помощник онлайн</span>
+        </span>
+      </button>
+      <button class="chat-widget__launcher-dismiss" type="button" aria-label="Скрыть" data-chat-dismiss title="Скрыть на эту сессию">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
     </div>
 
-    <div class="callback-widget__panel" id="callback-widget-panel" role="dialog" aria-modal="true" aria-labelledby="callback-widget-title" data-callback-panel>
-      <div class="callback-widget__panel-header">
-        <div class="callback-widget__panel-profile">
-          <div class="callback-widget__avatar callback-widget__avatar--small" aria-hidden="true">
-            <svg width="36" height="36" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="42" height="42" rx="21" fill="url(#cw-avatar-grad-sm)"/>
+    <!-- Chat Window -->
+    <div class="chat-widget__window" id="chat-widget-window" role="dialog" aria-modal="true" aria-labelledby="chat-widget-header-title" data-chat-window>
+      
+      <!-- Window Header -->
+      <div class="chat-widget__header">
+        <div class="chat-widget__profile">
+          <div class="chat-widget__avatar" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="42" height="42" rx="21" fill="url(#cw-avatar-grad)"/>
               <defs>
-                <linearGradient id="cw-avatar-grad-sm" x1="0" y1="0" x2="42" y2="42" gradientUnits="userSpaceOnUse">
+                <linearGradient id="cw-avatar-grad" x1="0" y1="0" x2="42" y2="42" gradientUnits="userSpaceOnUse">
                   <stop stop-color="#17324D"/>
                   <stop offset="1" stop-color="#2F5D8A"/>
                 </linearGradient>
@@ -305,78 +285,108 @@
               <path d="M14 17.5V20.5C14 21.0523 14.4477 21.5 15 21.5H15.5V16.5H15C14.4477 16.5 14 16.9477 14 17.5Z" fill="#D89B3C"/>
               <path d="M28 17.5V20.5C28 21.0523 27.5523 21.5 27 21.5H26.5V16.5H27C27.5523 16.5 28 16.9477 28 17.5Z" fill="#D89B3C"/>
             </svg>
-            <span class="callback-widget__status-dot"></span>
+            <span class="chat-widget__status-dot" aria-label="В сети"></span>
           </div>
-          <div class="callback-widget__panel-meta">
-            <strong class="callback-widget__name">Специалист ТехУчёт</strong>
-            <span class="callback-widget__status-badge"><span class="callback-widget__status-dot-inline" aria-hidden="true"></span> На связи</span>
+          <div class="chat-widget__info">
+            <strong class="chat-widget__title" id="chat-widget-header-title">Автопомощник ТехУчёт</strong>
+            <span class="chat-widget__sub"><span class="chat-widget__status-dot-inline"></span> Помогу подобрать услугу</span>
           </div>
         </div>
-        <div class="callback-widget__panel-controls">
-          <button class="callback-widget__control-btn" type="button" aria-label="Свернуть виджет" data-callback-minimize title="Свернуть">
+        <div class="chat-widget__controls">
+          <button class="chat-widget__ctrl-btn" type="button" aria-label="Свернуть чат" data-chat-minimize title="Свернуть">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
           </button>
-          <button class="callback-widget__control-btn" type="button" aria-label="Закрыть виджет" data-callback-dismiss title="Скрыть на эту сессию">
+          <button class="chat-widget__ctrl-btn" type="button" aria-label="Закрыть чат" data-chat-dismiss title="Скрыть на эту сессию">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
         </div>
       </div>
 
-      <div class="callback-widget__panel-body">
-        <div class="callback-widget__form-wrapper" data-callback-form-wrapper>
-          <h3 class="callback-widget__title" id="callback-widget-title">Закажите звонок</h3>
-          <p class="callback-widget__desc">Оставьте номер телефона — специалист ТехУчёт свяжется с вами и ответит на все вопросы.</p>
+      <!-- Window Body (Scrollable Messages Area) -->
+      <div class="chat-widget__body" data-chat-body>
+        <!-- Injected Message Bubbles -->
+        <div class="chat-widget__messages" data-chat-messages></div>
 
-          <form class="callback-widget__form" data-lead-form data-form-name="Callback widget" novalidate>
+        <!-- Typing Indicator -->
+        <div class="chat-typing" data-chat-typing hidden>
+          <div class="chat-typing__avatar" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="42" height="42" rx="21" fill="#17324D"/>
+              <path d="M21 11C17.6863 11 15 13.6863 15 17V19.5C15 22.8137 17.6863 25.5 21 25.5C24.3137 25.5 27 22.8137 27 19.5V17C27 13.6863 24.3137 11 21 11Z" fill="#FFFFFF"/>
+              <path d="M12.5 32C12.5 27.5817 16.0817 24 20.5 24H21.5C25.9183 24 29.5 27.5817 29.5 32V33H12.5V32Z" fill="#CBD5E1"/>
+            </svg>
+          </div>
+          <div class="chat-typing__bubble">
+            <span class="chat-typing__dots"><span></span><span></span><span></span></span>
+            <span class="chat-typing__label">Помощник печатает…</span>
+          </div>
+        </div>
+
+        <!-- Quick Replies Area -->
+        <div class="chat-replies" data-chat-quick-replies hidden></div>
+
+        <!-- In-Chat Callback Form Box -->
+        <div class="chat-form-box" data-chat-form-box hidden>
+          <form class="chat-form" data-lead-form data-form-name="Chat callback widget" novalidate>
             <div class="honeypot" aria-hidden="true">
               <label>Оставьте пустым: <input class="ym-disable-keys" type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
             </div>
-            <input type="hidden" name="service" value="Обратный звонок">
-            <input type="hidden" name="comment" value="Заказ обратного звонка из плавающего виджета">
+            <input type="hidden" name="service" value="Консультация по спецтехнике">
+            <input type="hidden" name="comment" value="Заказ обратного звонка из чата">
 
-            <label class="field callback-widget__field" for="cb-widget-phone">
+            <div class="chat-form__heading">Оставьте номер телефона</div>
+            <p class="chat-form__desc">Специалист ТехУчёт свяжется с вами и ответит на все вопросы.</p>
+
+            <label class="field chat-form__field" for="chat-phone">
               <span>Телефон *</span>
-              <input class="ym-disable-keys" id="cb-widget-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required>
+              <input class="ym-disable-keys" id="chat-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required>
             </label>
 
-            <label class="field callback-widget__field" for="cb-widget-name">
+            <label class="field chat-form__field" for="chat-name">
               <span>Имя (необязательно)</span>
-              <input class="ym-disable-keys" id="cb-widget-name" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться">
+              <input class="ym-disable-keys" id="chat-name" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться">
             </label>
 
-            <label class="consent callback-widget__consent" for="cb-widget-consent">
-              <input id="cb-widget-consent" name="consent" type="checkbox" checked required>
+            <label class="consent chat-form__consent" for="chat-consent">
+              <input id="chat-consent" name="consent" type="checkbox" checked required>
               <span>Нажимая кнопку, вы соглашаетесь с <a href="../privacy/" target="_blank" rel="noopener">политикой конфиденциальности</a> и даёте <a href="../consent/" target="_blank" rel="noopener">согласие на обработку данных</a>.</span>
             </label>
 
-            <button class="btn btn--primary btn--full callback-widget__submit-btn" type="submit">
+            <button class="btn btn--primary btn--full chat-form__submit-btn" type="submit">
               Заказать звонок
+            </button>
+
+            <button class="chat-form__back-btn" type="button" data-chat-back>
+              ← Вернуться к диалогу
             </button>
 
             <p class="form-status" role="status" aria-live="polite" data-form-status></p>
           </form>
-
-          <div class="callback-widget__divider" aria-hidden="true">
-            <span>или напишите напрямую</span>
-          </div>
-
-          <a class="btn btn--outline btn--full callback-widget__wa-btn track-whatsapp" href="https://wa.me/79257577888?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%81%D0%BF%D0%B5%D1%86%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B8%20%D0%B2%20%D0%93%D0%BE%D1%81%D1%82%D0%B5%D1%85%D0%BD%D0%B0%D0%B4%D0%B7%D0%BE%D1%80%D0%B5." target="_blank" rel="noopener">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.93 11.93 0 0 0 12.06 0C5.46 0 .09 5.37.09 11.97c0 2.11.55 4.17 1.6 5.99L0 24l6.23-1.63a11.9 11.9 0 0 0 5.83 1.51h.01c6.6 0 11.97-5.37 11.97-11.97 0-3.2-1.25-6.21-3.52-8.43zM12.07 21.88h-.01a9.9 9.9 0 0 1-5.05-1.39l-.36-.21-3.75.98 1-3.65-.24-.38a9.88 9.88 0 0 1-1.52-5.26c0-5.46 4.45-9.91 9.92-9.91 2.65 0 5.14 1.03 7.01 2.9a9.85 9.85 0 0 1 2.9 7.01c0 5.46-4.45 9.91-9.9 9.91zm5.43-7.42c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.18.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.18-.3-.02-.46.13-.61.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.68-1.64-.93-2.25-.25-.59-.5-.51-.68-.52-.18-.01-.38-.01-.58-.01-.2 0-.53.08-.8.38-.28.3-1.05 1.03-1.05 2.51s1.08 2.91 1.23 3.11c.15.2 2.13 3.25 5.16 4.56.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35z"/></svg>
-            <span>Написать в WhatsApp</span>
-          </a>
         </div>
 
-        <div class="callback-widget__success" data-callback-success hidden>
-          <div class="callback-widget__success-icon" aria-hidden="true">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <!-- In-Chat Success Box -->
+        <div class="chat-success" data-chat-success hidden>
+          <div class="chat-success__icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
           </div>
           <h4>Спасибо! Заявка отправлена</h4>
           <p>Специалист ТехУчёт свяжется с вами в рабочее время (ежедневно с 08:00 до 19:00).</p>
-          <a class="btn btn--outline btn--full callback-widget__wa-btn track-whatsapp" href="https://wa.me/79257577888?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%81%D0%BF%D0%B5%D1%86%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B8%20%D0%B2%20%D0%93%D0%BE%D1%81%D1%82%D0%B5%D1%85%D0%BD%D0%B0%D0%B4%D0%B7%D0%BE%D1%80%D0%B5." target="_blank" rel="noopener">
+          <a class="btn btn--outline btn--full chat-success__wa-btn track-whatsapp" data-chat-wa-success href="https://wa.me/79257577888?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%81%D0%BF%D0%B5%D1%86%D1%82%D0%B5%D1%85%D0%BD%D0%B8%D0%BA%D0%B8%20%D0%B2%20%D0%93%D0%BE%D1%81%D1%82%D0%B5%D1%85%D0%BD%D0%B0%D0%B4%D0%B7%D0%BE%D1%80%D0%B5." target="_blank" rel="noopener">
             Написать в WhatsApp
           </a>
         </div>
       </div>
+
+      <!-- Window Footer (Input Bar) -->
+      <div class="chat-widget__footer">
+        <form class="chat-widget__input-form" data-chat-input-form>
+          <input class="chat-widget__input" type="text" placeholder="Введите ваш вопрос…" aria-label="Сообщение" data-chat-input autocomplete="off">
+          <button class="chat-widget__send-btn" type="submit" aria-label="Отправить вопрос" title="Отправить" data-chat-send>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          </button>
+        </form>
+      </div>
+
     </div>
   </div>
   <div class="modal" id="callback-modal" hidden data-modal>
