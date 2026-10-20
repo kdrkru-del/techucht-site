@@ -133,23 +133,63 @@
     const modal = document.querySelector('[data-modal]');
     if (!modal) return;
     const dialog = modal.querySelector('.modal__dialog');
+    const discountBanner = modal.querySelector('[data-modal-discount]');
     let previousFocus = null;
-    const open = () => {
+    const open = (focusSelector = 'input[name="name"]') => {
       previousFocus = document.activeElement;
       modal.hidden = false;
+      modal.classList.add('is-open');
       document.body.classList.add('modal-open');
       trackGoal('lead_form_open');
-      window.setTimeout(() => dialog?.querySelector('input[name="name"]')?.focus(), 0);
+      window.setTimeout(() => dialog?.querySelector(focusSelector)?.focus(), 0);
     };
     const close = () => {
       modal.hidden = true;
+      modal.classList.remove('is-open', 'modal--discount');
+      if (discountBanner) discountBanner.hidden = true;
       document.body.classList.remove('modal-open');
       if (previousFocus instanceof HTMLElement) previousFocus.focus();
     };
+    const openExitDiscountModal = () => {
+      if (!modal.hidden) return;
+      if (document.querySelector('[data-lead-form][data-submitted="true"]')) return;
+      try {
+        if (sessionStorage.getItem('techuchet_exit_discount_shown') === 'true') return;
+        sessionStorage.setItem('techuchet_exit_discount_shown', 'true');
+      } catch { /* storage disabled */ }
+
+      const chatWidget = document.getElementById('chat-widget');
+      if (chatWidget && chatWidget.classList.contains('is-open')) {
+        chatWidget.classList.remove('is-open');
+      }
+
+      const form = modal.querySelector('form');
+      const titleEl = modal.querySelector('#callback-title');
+      const desc = modal.querySelector('[data-modal-description]');
+      const submitBtn = form?.querySelector('[type="submit"]');
+
+      modal.classList.add('modal--discount');
+      if (discountBanner) discountBanner.hidden = false;
+      if (titleEl) titleEl.textContent = 'Закажите обращение и получите скидку 10%';
+      if (desc) {
+        desc.textContent = 'Не спешите уходить! Оставьте номер телефона — специалист бесплатно проконсультирует по вашей задаче и закрепит скидку 10% за вашим номером.';
+      }
+      if (form) {
+        const baseService = pageService || selectedService || 'Консультация';
+        form.dataset.selectedService = `${baseService} (Скидка 10% при заказе с сайта)`;
+        form.dataset.formName = 'Окно удержания — скидка 10%';
+      }
+      if (submitBtn) submitBtn.textContent = 'Получить скидку 10%';
+      trackGoal('exit_discount_open');
+      open('input[name="phone"]');
+    };
+
     document.querySelectorAll('[data-modal-open]').forEach((button) => button.addEventListener('click', () => {
       const isOrder = button.dataset.leadIntent === 'order';
       selectedService = button.dataset.selectService || pageService || 'Консультация';
       const form = modal.querySelector('form');
+      modal.classList.remove('modal--discount');
+      if (discountBanner) discountBanner.hidden = true;
       modal.querySelector('#callback-title').textContent = isOrder ? 'Заказать услугу' : 'Бесплатная консультация';
       const desc = modal.querySelector('[data-modal-description]');
       if (desc) {
@@ -162,7 +202,7 @@
       form.dataset.selectedService = selectedService;
       form.dataset.formName = isOrder ? `Заказ услуги: ${selectedService}` : 'Бесплатная консультация';
       form.querySelector('[type="submit"]').textContent = isOrder ? 'Заказать услугу' : 'Получить консультацию';
-      open();
+      open('input[name="name"]');
     }));
     modal.querySelectorAll('[data-modal-close]').forEach((button) => button.addEventListener('click', close));
     document.addEventListener('keydown', (event) => {
@@ -174,7 +214,42 @@
         else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
       }
     });
-    modal.addEventListener('lead:success', close);
+    modal.addEventListener('lead:success', () => {
+      window.setTimeout(close, 1400);
+    });
+
+    // Exit-Intent Retention Trigger (Desktop & Mobile)
+    let exitArmed = false;
+    window.setTimeout(() => { exitArmed = true; }, 2000);
+
+    const handleDesktopExitIntent = (e) => {
+      if (!exitArmed) return;
+      if (e.relatedTarget || e.toElement) return;
+      if (typeof e.clientY === 'number' && e.clientY > 24) return;
+      const activeTag = document.activeElement?.tagName;
+      if (activeTag === 'INPUT' || activeTag === 'TEXTAREA' || activeTag === 'SELECT') return;
+      openExitDiscountModal();
+    };
+
+    document.addEventListener('mouseout', handleDesktopExitIntent);
+    document.documentElement.addEventListener('mouseleave', handleDesktopExitIntent);
+
+    // Mobile exit-intent (fast scroll back to top after reading or 40s idle)
+    if (window.innerWidth <= 820) {
+      let maxScrollY = 0;
+      let lastScrollY = window.scrollY;
+      window.addEventListener('scroll', () => {
+        const curY = window.scrollY;
+        if (curY > maxScrollY) maxScrollY = curY;
+        if (exitArmed && maxScrollY > 450 && curY < 120 && lastScrollY - curY > 35) {
+          const activeTag = document.activeElement?.tagName;
+          if (activeTag !== 'INPUT' && activeTag !== 'TEXTAREA' && activeTag !== 'SELECT') {
+            openExitDiscountModal();
+          }
+        }
+        lastScrollY = curY;
+      }, { passive: true });
+    }
   }
 
   function initRegions() {
@@ -522,7 +597,11 @@
     delete payload._honey;
     const attribution = getAttribution();
     const clientId = await getMetrikaClientId();
-    const service = payload.service || form.dataset.selectedService || selectedService || 'Консультация';
+    const rawService = payload.service || form.dataset.selectedService || selectedService || 'Консультация';
+    const isDiscountModal = form.dataset.formName === 'Окно удержания — скидка 10%';
+    const service = isDiscountModal && !String(rawService).includes('Скидка 10%')
+      ? `${rawService} (Скидка 10% при заказе с сайта)`
+      : rawService;
     return {
       ...payload,
       service,
