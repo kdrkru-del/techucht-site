@@ -2956,15 +2956,24 @@ h3.nav-card__title {
 
 .chat-widget__launcher-icon-wrap {
   position: relative;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   color: #FFFFFF;
+}
+
+.chat-widget__avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
 }
 
 .chat-widget__pulse-dot {

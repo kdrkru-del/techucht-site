@@ -639,9 +639,7 @@ function consentField(id, prefix = '') {
 }
 
 function honeypot() {
-  return `<div class="honeypot" aria-hidden="true">
-    <label>Оставьте поле пустым <input class="ym-disable-keys" type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
-  </div>`;
+  return '';
 }
 
 function serviceSelect(id, selected = '') {
@@ -830,16 +828,14 @@ function callbackWidget(prefix = '') {
 
     <!-- Collapsed Launcher -->
     <div class="chat-widget__launcher" data-chat-launcher>
-      <button class="chat-widget__launcher-btn" type="button" aria-label="Открыть онлайн-помощник ТехУчёт" data-chat-open>
+      <button class="chat-widget__launcher-btn" type="button" aria-label="Открыть чат со специалистом ТехУчёт" data-chat-open>
         <span class="chat-widget__launcher-icon-wrap" aria-hidden="true">
-          <svg class="chat-widget__launcher-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-          </svg>
+          <img class="chat-widget__avatar-img" src="${prefix}assets/images/roman-consultant.jpg" alt="Специалист Роман" width="38" height="38">
           <span class="chat-widget__pulse-dot"></span>
         </span>
         <span class="chat-widget__launcher-text">
-          <span class="chat-widget__launcher-title">Есть вопрос?</span>
-          <span class="chat-widget__launcher-sub">Помощник онлайн</span>
+          <span class="chat-widget__launcher-title">Специалист Роман</span>
+          <span class="chat-widget__launcher-sub">Отвечу на ваши вопросы</span>
         </span>
       </button>
       <button class="chat-widget__launcher-dismiss" type="button" aria-label="Скрыть" data-chat-dismiss title="Скрыть на эту сессию">
@@ -854,24 +850,12 @@ function callbackWidget(prefix = '') {
       <div class="chat-widget__header">
         <div class="chat-widget__profile">
           <div class="chat-widget__avatar" aria-hidden="true">
-            <svg width="40" height="40" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="42" height="42" rx="21" fill="url(#cw-avatar-grad)"/>
-              <defs>
-                <linearGradient id="cw-avatar-grad" x1="0" y1="0" x2="42" y2="42" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#17324D"/>
-                  <stop offset="1" stop-color="#2F5D8A"/>
-                </linearGradient>
-              </defs>
-              <path d="M21 11C17.6863 11 15 13.6863 15 17V19.5C15 22.8137 17.6863 25.5 21 25.5C24.3137 25.5 27 22.8137 27 19.5V17C27 13.6863 24.3137 11 21 11Z" fill="#FFFFFF"/>
-              <path d="M12.5 32C12.5 27.5817 16.0817 24 20.5 24H21.5C25.9183 24 29.5 27.5817 29.5 32V33H12.5V32Z" fill="#CBD5E1"/>
-              <path d="M14 17.5V20.5C14 21.0523 14.4477 21.5 15 21.5H15.5V16.5H15C14.4477 16.5 14 16.9477 14 17.5Z" fill="#D89B3C"/>
-              <path d="M28 17.5V20.5C28 21.0523 27.5523 21.5 27 21.5H26.5V16.5H27C27.5523 16.5 28 16.9477 28 17.5Z" fill="#D89B3C"/>
-            </svg>
+            <img class="chat-widget__avatar-img" src="${prefix}assets/images/roman-consultant.jpg" alt="Специалист Роман" width="40" height="40">
             <span class="chat-widget__status-dot" aria-label="В сети"></span>
           </div>
           <div class="chat-widget__info">
-            <strong class="chat-widget__title" id="chat-widget-header-title">Автопомощник ТехУчёт</strong>
-            <span class="chat-widget__sub"><span class="chat-widget__status-dot-inline"></span> Помогу подобрать услугу</span>
+            <strong class="chat-widget__title" id="chat-widget-header-title">Специалист Роман</strong>
+            <span class="chat-widget__sub"><span class="chat-widget__status-dot-inline"></span> Отвечу на ваши вопросы</span>
           </div>
         </div>
         <div class="chat-widget__controls">
@@ -892,15 +876,11 @@ function callbackWidget(prefix = '') {
         <!-- Typing Indicator -->
         <div class="chat-typing" data-chat-typing hidden>
           <div class="chat-typing__avatar" aria-hidden="true">
-            <svg width="24" height="24" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="42" height="42" rx="21" fill="#17324D"/>
-              <path d="M21 11C17.6863 11 15 13.6863 15 17V19.5C15 22.8137 17.6863 25.5 21 25.5C24.3137 25.5 27 22.8137 27 19.5V17C27 13.6863 24.3137 11 21 11Z" fill="#FFFFFF"/>
-              <path d="M12.5 32C12.5 27.5817 16.0817 24 20.5 24H21.5C25.9183 24 29.5 27.5817 29.5 32V33H12.5V32Z" fill="#CBD5E1"/>
-            </svg>
+            <img class="chat-widget__avatar-img" src="${prefix}assets/images/roman-consultant.jpg" alt="" width="24" height="24">
           </div>
           <div class="chat-typing__bubble">
             <span class="chat-typing__dots"><span></span><span></span><span></span></span>
-            <span class="chat-typing__label">Помощник печатает…</span>
+            <span class="chat-typing__label">Роман печатает…</span>
           </div>
         </div>
 
@@ -910,9 +890,6 @@ function callbackWidget(prefix = '') {
         <!-- In-Chat Callback Form Box -->
         <div class="chat-form-box" data-chat-form-box hidden>
           <form class="chat-form" data-lead-form data-form-name="Chat callback widget" novalidate>
-            <div class="honeypot" aria-hidden="true">
-              <label>Оставьте пустым: <input class="ym-disable-keys" type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
-            </div>
             <input type="hidden" name="service" value="Консультация по спецтехнике">
             <input type="hidden" name="comment" value="Заказ обратного звонка из чата">
 

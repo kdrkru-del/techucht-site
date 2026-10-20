@@ -486,7 +486,7 @@
       return;
     }
     const honeypot = form.querySelector('input[name="_honey"]');
-    if (honeypot?.value) {
+    if (honeypot?.value && !phoneValid) {
       setStatus(status, 'Не удалось отправить заявку. Попробуйте ещё раз.', false);
       trackGoal('lead_form_error');
       return;
@@ -519,6 +519,7 @@
 
   async function buildPayload(form) {
     const payload = Object.fromEntries(new FormData(form).entries());
+    delete payload._honey;
     const attribution = getAttribution();
     const clientId = await getMetrikaClientId();
     const service = payload.service || form.dataset.selectedService || selectedService || 'Консультация';
