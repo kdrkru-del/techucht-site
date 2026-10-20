@@ -226,7 +226,7 @@ for (const page of servicePages) {
   }
 }
 if ((spbPage.match(/data-spb-service-card/g) || []).length !== 7) errors.push('spb/index.html: expected 7 regional service cards');
-if ((spbPage.match(/<form\b[^>]*data-lead-form/g) || []).length !== 3) errors.push('spb/index.html: expected hero, final and callback forms');
+if ((spbPage.match(/<form\b[^>]*data-lead-form/g) || []).length !== 4) errors.push('spb/index.html: expected hero, final, modal and callback widget forms');
 if (/Москв/.test(spbPage.replace(/<footer[\s\S]*?<\/footer>/, ''))) errors.push('spb/index.html: Moscow text leaked into regional landing');
 if (!spbPage.includes('../site-config.js?v=12') || !spbPage.includes('../script.js?v=12')) errors.push('spb/index.html: shared scripts missing');
 

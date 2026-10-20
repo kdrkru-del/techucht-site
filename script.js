@@ -70,6 +70,7 @@
     initDocumentsTool();
     initServiceSelection();
     initClickTracking();
+    initCallbackWidget();
   });
 
   function initContacts() {
@@ -286,7 +287,13 @@
 
   function initLeadForms() {
     document.querySelectorAll('[data-lead-form]').forEach((form) => {
-      form.addEventListener('input', () => trackGoal('lead_form_start'), { once: true });
+      form.addEventListener('input', () => {
+        if (form.dataset.formName === 'Callback widget') {
+          trackGoal('callback_form_start');
+        } else {
+          trackGoal('lead_form_start');
+        }
+      }, { once: true });
       form.addEventListener('submit', (event) => submitLead(event, form));
 
       const consent = form.querySelector('input[name="consent"]');
@@ -446,7 +453,6 @@
   async function submitLead(event, form) {
     event.preventDefault();
 
-    trackGoal('lead_form_submit');
     form.dataset.submitted = 'true';
 
     if (form.dataset.submitting === 'true') return;
@@ -488,6 +494,12 @@
     form.dataset.submitting = 'true';
     setButtonLoading(button, true);
     setStatus(status, 'Отправляем заявку…', null);
+
+    if (form.dataset.formName === 'Callback widget') {
+      trackGoal('callback_submit_click');
+    } else {
+      trackGoal('lead_form_submit');
+    }
     try {
       const payload = await buildPayload(form);
       await sendLead(payload);
@@ -755,4 +767,123 @@
       deadlineTimer = window.setTimeout(() => finish(cachedMetrikaClientId), 1000);
     });
   }
+
+  function initCallbackWidget() {
+    const widget = document.getElementById('callback-widget');
+    if (!widget) return;
+
+    const isClosed = () => {
+      try {
+        return sessionStorage.getItem('techuchet_callback_closed') === 'true';
+      } catch {
+        return false;
+      }
+    };
+
+    if (isClosed()) {
+      widget.classList.add('is-closed');
+      return;
+    }
+
+    const triggerBtn = widget.querySelector('[data-callback-open]');
+    const compactCard = widget.querySelector('[data-callback-compact]');
+    const backdrop = widget.querySelector('[data-callback-backdrop]');
+    const minimizeBtns = widget.querySelectorAll('[data-callback-minimize]');
+    const dismissBtns = widget.querySelectorAll('[data-callback-dismiss]');
+    const formWrapper = widget.querySelector('[data-callback-form-wrapper]');
+    const successBox = widget.querySelector('[data-callback-success]');
+    const form = widget.querySelector('form');
+    const phoneInput = form?.querySelector('input[type="tel"]');
+
+    let revealed = false;
+    const reveal = () => {
+      if (revealed || isClosed()) return;
+      revealed = true;
+      widget.classList.add('is-visible');
+    };
+
+    const isMobile = window.innerWidth <= 640;
+    const revealDelay = isMobile ? 8000 : 6000;
+    const revealScrollFraction = isMobile ? 0.20 : 0.15;
+
+    const timer = window.setTimeout(reveal, revealDelay);
+
+    const onScroll = () => {
+      if (revealed || isClosed()) {
+        window.removeEventListener('scroll', onScroll);
+        return;
+      }
+      const scrollPos = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0 && scrollPos / docHeight >= revealScrollFraction) {
+        reveal();
+        window.clearTimeout(timer);
+        window.removeEventListener('scroll', onScroll);
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    const openPanel = () => {
+      reveal();
+      widget.classList.add('is-expanded');
+      triggerBtn?.setAttribute('aria-expanded', 'true');
+      trackGoal('callback_widget_open');
+      window.setTimeout(() => {
+        phoneInput?.focus();
+      }, 100);
+    };
+
+    const minimizePanel = () => {
+      widget.classList.remove('is-expanded');
+      triggerBtn?.setAttribute('aria-expanded', 'false');
+      triggerBtn?.focus();
+    };
+
+    const dismissWidget = () => {
+      widget.classList.remove('is-expanded', 'is-visible');
+      widget.classList.add('is-closed');
+      try {
+        sessionStorage.setItem('techuchet_callback_closed', 'true');
+      } catch {
+        /* storage disabled */
+      }
+    };
+
+    triggerBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openPanel();
+    });
+
+    compactCard?.addEventListener('click', (e) => {
+      if (e.target.closest('[data-callback-dismiss]') || e.target.closest('.track-whatsapp')) return;
+      openPanel();
+    });
+
+    minimizeBtns.forEach((btn) => btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      minimizePanel();
+    }));
+
+    dismissBtns.forEach((btn) => btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dismissWidget();
+    }));
+
+    backdrop?.addEventListener('click', minimizePanel);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && widget.classList.contains('is-expanded')) {
+        minimizePanel();
+      }
+    });
+
+    form?.addEventListener('lead:success', () => {
+      if (formWrapper) formWrapper.hidden = true;
+      if (successBox) successBox.hidden = false;
+      window.setTimeout(() => {
+        minimizePanel();
+      }, 12000);
+    });
+  }
 })();
+
