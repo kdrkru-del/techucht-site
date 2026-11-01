@@ -317,6 +317,38 @@ function trustBlock() {
   return `<section class="trust-strip"><div class="container"><h2>Работаем по договору</h2><ul><li>Работаем с физлицами и организациями</li><li>Бесплатная первичная консультация</li><li>Берём оформление в Гостехнадзоре на себя</li></ul></div></section>`;
 }
 
+function pravaMainSection() {
+  return `<section class="section section--alt" id="prava">
+    <div class="container">
+      <div class="section-heading section-heading--left">
+        <h2>Права на спецтехнику и авто: замена, дубликат и обучение</h2>
+        <p>Помогаем обновить права с истёкшим сроком действия, получить дубликат утерянного удостоверения, а также пройти обучение, подготовку и сдать экзамены на спецтехнику и автомобиль.</p>
+      </div>
+      <div class="problem-grid">
+        <article class="problem-card">
+          <h3><a class="nav-card__title-link" href="prava/">Обновление и замена просроченных прав</a></h3>
+          <p>Если срок действия прав закончился или изменились личные данные — поможем быстро обновить удостоверение тракториста-машиниста и заново получить действующие права.</p>
+          <a class="text-link" href="prava/" data-select-service="Замена и обновление прав">Обновить права →</a>
+        </article>
+        <article class="problem-card">
+          <h3><a class="nav-card__title-link" href="prava/">Восстановление прав (получение дубликата)</a></h3>
+          <p>Удостоверение утеряно, похищено или пришло в негодность? Проверим ситуацию, подготовим пакет документов и сопроводим получение официального дубликата в Гостехнадзоре.</p>
+          <a class="text-link" href="prava/" data-select-service="Восстановление прав (дубликат)">Получить дубликат →</a>
+        </article>
+        <article class="problem-card">
+          <h3><a class="nav-card__title-link" href="prava/#obuchenie">Обучение на права: спецтехника и авто</a></h3>
+          <p>Занимаемся обучением, подготовкой и сопровождением сдачи экзаменов на права на спецтехнику (категории AI–AIV, B, C, D, E, F) и на права на автомобиль через лицензированные учебные центры.</p>
+          <a class="text-link" href="prava/#obuchenie" data-select-service="Обучение на права (спецтехника и авто)">Узнать про обучение →</a>
+        </article>
+      </div>
+      <div class="conditions-actions" style="margin-top: 28px; justify-content: flex-start;">
+        <a class="btn btn--primary" href="prava/">Подробнее о правах и обучении →</a>
+        <button class="btn btn--outline" type="button" data-modal-open data-select-service="Права на спецтехнику и обучение" data-lead-intent="consultation">Получить консультацию по правам</button>
+      </div>
+    </div>
+  </section>`;
+}
+
 function serviceNavigation() {
   const allServices = [
     {
@@ -458,6 +490,43 @@ function commercialDetails(page) {
     </section>`;
   }
 
+  if (page.key === 'prava') {
+    return `<section class="section section--alt service-detail" id="obuchenie">
+      <div class="container">
+        <div class="section-heading section-heading--left">
+          <h2>Обучение на права на спецтехнику и автомобиль, подготовка и сдача экзаменов</h2>
+          <p>Если вы получаете права впервые, открываете новую категорию или хотите пройти переподготовку — мы организуем обучение через учебную организацию с действующей образовательной лицензией и сопроводим вас на экзаменах.</p>
+        </div>
+        <div class="service-detail__grid">
+          <div class="service-detail__panel">
+            <h3>Права на спецтехнику (Гостехнадзор)</h3>
+            <ul class="check-list">
+              <li>Замена просроченных прав тракториста-машиниста (по истечении 10 лет)</li>
+              <li>Получение дубликата удостоверения при утере, краже или порче бланка</li>
+              <li>Категории AI, AII, AIII, AIV — квадроциклы, снегоходы и внедорожный транспорт</li>
+              <li>Категории B, C, D, E, F — тракторы, погрузчики, экскаваторы, бульдозеры и сельхозтехника</li>
+              <li>Открытие дополнительных категорий и присвоение квалификационных разрядов</li>
+            </ul>
+          </div>
+          <div class="service-detail__panel">
+            <h3>Обучение на права на спецтехнику и авто</h3>
+            <ul class="check-list">
+              <li>Обучение на права на спецтехнику и права на автомобиль с нуля</li>
+              <li>Подбор лицензированного учебного центра и программы подготовки</li>
+              <li>Теоретическая и практическая подготовка к сдаче экзаменов</li>
+              <li>Консультация по прохождению медицинской комиссии и оплате госпошлин</li>
+              <li>Сопровождение записи на экзамены и получения готового удостоверения</li>
+            </ul>
+          </div>
+        </div>
+        <div class="service-detail__actions">
+          <a class="btn btn--primary" href="#page-form" data-modal-open data-select-service="Права на спецтехнику и обучение" data-lead-intent="order">Рассчитать стоимость и сроки</a>
+          <p>Конкретную учебную организацию, образовательную программу и сведения о действующей лицензии сообщаем на бесплатной консультации до заключения договора.</p>
+        </div>
+      </div>
+    </section>`;
+  }
+
   if (page.key === 'inspection') {
     return `<section class="section section--alt">
       <div class="container">
@@ -533,6 +602,34 @@ function commercialDetails(page) {
     </section>`;
   }
 
+  if (page.key === 'prava') {
+    return `<section class="section section--alt" id="prava-services">
+      <div class="container">
+        <div class="section-heading section-heading--left">
+          <h2>Услуги по правам: замена, дубликат и обучение под ключ</h2>
+          <p>Помогаем разобраться с документами, сроками и обращением в Гостехнадзор: обновление просроченных прав, получение дубликата при утере, а также обучение и сдача экзаменов на спецтехнику и автомобиль.</p>
+        </div>
+        <div class="problem-grid">
+          <article class="problem-card">
+            <h3>Замена и обновление прав</h3>
+            <p>Подходит, если закончился срок действия удостоверения тракториста-машиниста, изменились личные данные или нужно актуализировать документы. Проверим пакет бумаг, подскажем по медсправке и поможем заново получить действующие права.</p>
+            <a class="text-link" href="#page-form" data-modal-open data-select-service="Замена и обновление прав на спецтехнику" data-lead-intent="order">Оставить заявку на замену →</a>
+          </article>
+          <article class="problem-card">
+            <h3>Восстановление прав (получение дубликата)</h3>
+            <p>Подходит, если удостоверение утеряно, украдено, испорчено или требуется восстановить документы после перерыва. Проверим исходную ситуацию, подскажем список документов и сопроводим получение дубликата в Гостехнадзоре.</p>
+            <a class="text-link" href="#page-form" data-modal-open data-select-service="Восстановление прав (получение дубликата)" data-lead-intent="order">Получить дубликат прав →</a>
+          </article>
+          <article class="problem-card">
+            <h3>Обучение и экзамены: спецтехника и авто</h3>
+            <p>Занимаемся обучением на права на спецтехнику (тракторы, погрузчики, экскаваторы, квадроциклы — категории AI–AIV, B, C, D, E, F) и на права на автомобиль. Подберём лицензированную учебную организацию, организуем подготовку и сопроводим сдачу экзаменов.</p>
+            <a class="text-link" href="#page-form" data-modal-open data-select-service="Обучение на права (спецтехнику и авто)" data-lead-intent="order">Узнать условия обучения →</a>
+          </article>
+        </div>
+      </div>
+    </section>`;
+  }
+
   if (page.key === 'complex_case') {
     return `<section class="section section--alt">
       <div class="container">
@@ -585,6 +682,7 @@ function header(prefix = '', sectionBase = null, { homeHref = null, situationsId
       </a>
       <nav class="nav" aria-label="Основная навигация">
         <a href="${sections}#services">Услуги</a>
+        ${isRegional ? '' : `<a href="${prefix}prava/">Права и обучение</a>`}
         <a href="${sections}#${situationsId}">Сложные ситуации</a>
         <a href="${sections}#process">Как работаем</a>
         <a href="${sections}#faq">Вопросы</a>
@@ -603,6 +701,7 @@ function header(prefix = '', sectionBase = null, { homeHref = null, situationsId
       <div class="container">
         <nav aria-label="Мобильная навигация">
           <a href="${sections}#services">Услуги</a>
+          ${isRegional ? '' : `<a href="${prefix}prava/">Права и обучение</a>`}
           <a href="${sections}#${situationsId}">Сложные ситуации</a>
           <a href="${sections}#process">Как работаем</a>
           <a href="${sections}#faq">Вопросы</a>
@@ -688,6 +787,7 @@ function simpleHeroForm() {
         <option value="Постановка на учёт">Постановка на учёт</option>
         <option value="Снятие с учёта">Снятие с учёта</option>
         <option value="Техосмотр">Техосмотр</option>
+        <option value="Права и обучение (спецтехника / авто)">Права и обучение (спецтехника / авто)</option>
         <option value="Консультация">Консультация</option>
       </select>
     </label>
@@ -739,6 +839,7 @@ function simpleCallbackModal(prefix = '') {
             <option value="Постановка на учёт">Постановка на учёт</option>
             <option value="Снятие с учёта">Снятие с учёта</option>
             <option value="Техосмотр">Техосмотр</option>
+            <option value="Права и обучение (спецтехника / авто)">Права и обучение (спецтехника / авто)</option>
           </select>
         </label>
         ${consentField('callback-consent', prefix)}
@@ -970,6 +1071,7 @@ function footer(prefix = '', { homeHref = null, serviceLinks = null, description
     [`${prefix}vosstanovlenie-sts/`, 'Восстановление СТС'],
     [`${prefix}tehosmotr/`, 'Техосмотр'],
     [`${prefix}slozhnye-sluchai/`, 'Сложные случаи'],
+    [`${prefix}prava/`, 'Права и обучение'],
   ];
   return `<footer class="footer" id="contacts">
     <div class="container footer__grid">
@@ -1107,6 +1209,17 @@ function serviceProcessAndPricingSection(page) {
         ['4. Передача нового СТС собственнику', 'Вы получаете новое свидетельство о регистрации самоходной машины и ПСМ с актуальной отметкой Гостехнадзора.'],
       ],
       priceNote: 'Стоимость сопровождения восстановления СТС — от 5 000 ₽. Работаем с физическими лицами, ИП и организациями по договору.',
+    },
+    prava: {
+      heading: 'Схема работы: замена, восстановление и обучение на права',
+      lead: 'Берём на себя подготовку документов, подбор лицензированного учебного центра и сопровождение до получения удостоверения тракториста-машиниста или водительских прав.',
+      steps: [
+        ['1. Разбор ситуации и подготовка документов', 'Проверяем имеющиеся документы (просроченное удостоверение, карточку обучения или данные для получения прав с нуля) и формируем полный пакет для подачи.'],
+        ['2. Подбор учебной организации и программы', 'Если требуется обучение на спецтехнику или автомобиль, подбираем учебную организацию с действующей лицензией под нужную категорию и заранее сообщаем сведения о лицензии.'],
+        ['3. Подготовка и сдача экзаменов', 'Организуем теоретическую и практическую подготовку, помогаем записаться на экзамены и сопровождаем процедуру сдачи.'],
+        ['4. Выдача готового удостоверения', 'Сопровождаем финальное обращение до получения вами обновлённых прав, официального дубликата или нового удостоверения с открытыми категориями.'],
+      ],
+      priceNote: 'Стоимость сопровождения — от 5 000 ₽. Окончательная сумма зависит от выбранной услуги (замена истёкших прав, получение дубликата или полный курс обучения с нуля на спецтехнику / авто) и фиксируется по договору до начала работ.',
     },
     complex_case: {
       heading: 'Как мы решаем сложные случаи и отказы Гостехнадзора',
@@ -1278,6 +1391,8 @@ ${head({
     </section>
 
     ${serviceNavigation()}
+
+    ${pravaMainSection()}
 
     ${takeCareBlock()}
 
@@ -1725,7 +1840,7 @@ ${head({
             <div><dt>Режим работы</dt><dd>${site.hours}</dd></div>
           </dl>
         </div>
-        <p class="section-note" style="margin-top: 20px;">Ищете описание конкретной процедуры? Перейдите в профильный раздел: <a class="text-link" href="../registraciya/">Регистрация спецтехники</a> · <a class="text-link" href="../snyatie-s-ucheta/">Снятие с учёта</a> · <a class="text-link" href="../tehosmotr/">Техосмотр</a> · <a class="text-link" href="../vosstanovlenie-psm/">Восстановление ПСМ</a> · <a class="text-link" href="../vosstanovlenie-sts/">Восстановление СТС</a> · <a class="text-link" href="../slozhnye-sluchai/">Сложные случаи</a>.</p>
+        <p class="section-note" style="margin-top: 20px;">Ищете описание конкретной процедуры? Перейдите в профильный раздел: <a class="text-link" href="../registraciya/">Регистрация спецтехники</a> · <a class="text-link" href="../snyatie-s-ucheta/">Снятие с учёта</a> · <a class="text-link" href="../tehosmotr/">Техосмотр</a> · <a class="text-link" href="../vosstanovlenie-psm/">Восстановление ПСМ</a> · <a class="text-link" href="../vosstanovlenie-sts/">Восстановление СТС</a> · <a class="text-link" href="../slozhnye-sluchai/">Сложные случаи</a> · <a class="text-link" href="../prava/">Права и обучение</a>.</p>
       </div>
     </section>
 

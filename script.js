@@ -11,6 +11,7 @@
     restore_sts: 'service_restore_sts',
     inspection: 'service_inspection',
     complex_case: 'service_complex_case',
+    prava: 'service_prava',
   };
   const SERVICE_BY_PATH = {
     '/spb/': 'Регистрация спецтехники — Санкт-Петербург и Ленинградская область',
@@ -20,6 +21,7 @@
     '/vosstanovlenie-sts/': 'Восстановление СТС',
     '/tehosmotr/': 'Технический осмотр',
     '/slozhnye-sluchai/': 'Отказ или сложная ситуация',
+    '/prava/': 'Права на спецтехнику и обучение',
   };
   const currentPath = window.location.pathname.replace(/index\.html$/, '');
   const pageService = Object.entries(SERVICE_BY_PATH).find(([path]) => currentPath.endsWith(path))?.[1];
@@ -903,6 +905,13 @@
         serviceName: 'Восстановление ПСМ / СТС',
         botReply: 'Поможем с восстановлением ПСМ или СТС. Специалист уточнит, какой документ утрачен или повреждён.',
         waText: 'Здравствуйте! Интересует восстановление ПСМ или СТС спецтехники.'
+      },
+      {
+        key: 'prava',
+        label: 'Права: замена, дубликат, обучение',
+        serviceName: 'Права на спецтехнику и авто (замена / дубликат / обучение)',
+        botReply: 'Поможем обновить просроченные права, получить дубликат при утере, а также пройти обучение и сдать экзамены (на спецтехнику и на авто).',
+        waText: 'Здравствуйте! Интересует помощь с правами (замена / дубликат / обучение на спецтехнику или авто).'
       },
       {
         key: 'complex',
