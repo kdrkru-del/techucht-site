@@ -152,6 +152,8 @@ for (const value of [
   'Акт осмотра самоходной техники',
   'Что подготавливаем к осмотру',
   'Получить консультацию по акту осмотра',
+  'id="diagnostika-avto"',
+  'Техосмотр и диагностические карты для грузовых и легковых автомобилей',
 ]) {
   if (!inspectionPage.includes(value)) errors.push(`tehosmotr/index.html: required advertising content missing "${value}"`);
 }
