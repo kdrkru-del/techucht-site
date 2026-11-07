@@ -1,6 +1,50 @@
 (() => {
   'use strict';
 
+  function initLocalNetworkGuard() {
+    const host = window.location.hostname;
+    if (host === 'localhost' || host === '127.0.0.1') return;
+    const isLocalUrl = (url) => /^(?:https?|wss?):\/\/(?:127\.0\.0\.1|localhost|\[::1\]|0\.0\.0\.0)(?::|\/|\?|$)/i.test(String(url || ''));
+    if (typeof window.fetch === 'function') {
+      const origFetch = window.fetch;
+      window.fetch = function (input, init) {
+        const url = typeof input === 'string' ? input : (input && input.url) || '';
+        if (isLocalUrl(url)) return Promise.reject(new TypeError('Blocked local network probe'));
+        return origFetch.call(this, input, init);
+      };
+    }
+    if (typeof window.XMLHttpRequest === 'function') {
+      const origOpen = XMLHttpRequest.prototype.open;
+      const origSend = XMLHttpRequest.prototype.send;
+      XMLHttpRequest.prototype.open = function (method, url) {
+        this.__blockedLocal = isLocalUrl(url);
+        if (this.__blockedLocal) return;
+        return origOpen.apply(this, arguments);
+      };
+      XMLHttpRequest.prototype.send = function () {
+        if (this.__blockedLocal) return;
+        return origSend.apply(this, arguments);
+      };
+    }
+    if (typeof window.WebSocket === 'function') {
+      const OrigWS = window.WebSocket;
+      window.WebSocket = function (url, protocols) {
+        if (isLocalUrl(url)) throw new DOMException('Blocked local network probe', 'SecurityError');
+        return protocols !== undefined ? new OrigWS(url, protocols) : new OrigWS(url);
+      };
+      window.WebSocket.prototype = OrigWS.prototype;
+    }
+    if (navigator && typeof navigator.sendBeacon === 'function') {
+      const origBeacon = navigator.sendBeacon;
+      navigator.sendBeacon = function (url, data) {
+        if (isLocalUrl(url)) return false;
+        return origBeacon.call(this, url, data);
+      };
+    }
+  }
+  initLocalNetworkGuard();
+
+
   const CONFIG = window.TECHUCHET_CONFIG || {};
   const METRIKA_ID = String(CONFIG.YANDEX_METRIKA_ID || '').trim();
   const ATTRIBUTION_KEY = 'techuchet_attribution';
