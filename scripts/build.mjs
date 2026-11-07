@@ -1,14 +1,33 @@
 import { access, copyFile, cp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { site, servicePages, documentLists } from '../src/data.mjs';
-import { contactsPage, legalPage, mainPage, notFoundPage, servicePage, spbPage } from '../src/templates.mjs';
+import { site, spbSite, servicePages, documentLists } from '../src/data.mjs';
+import {
+  contactsPage,
+  legalPage,
+  mainPage,
+  notFoundPage,
+  servicePage,
+  spbPage,
+  spbSubdomainMainPage,
+  spbSubdomainServicePage,
+  spbSubdomainContactsPage,
+  spbSubdomainLegalPage,
+  spbSubdomainNotFoundPage,
+} from '../src/templates.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(root, 'dist');
+const distSpb = join(root, 'dist-spb');
 const utf8 = { encoding: 'utf8' };
 
-const staticWorker = `function assetPath(pathname) {
+const staticWorker = `function assetPath(pathname, hostname) {
+  if (hostname === 'spb.tehuchet24.ru') {
+    if (pathname === '/' || pathname === '') return '/spb/index.html';
+    if (pathname.startsWith('/assets/') || pathname.includes('.')) return pathname;
+    if (pathname.endsWith('/')) return '/spb' + pathname + 'index.html';
+    return '/spb' + pathname + '/index.html';
+  }
   if (pathname.endsWith('/')) return pathname + 'index.html';
   if (!pathname.split('/').pop().includes('.')) return pathname + '/index.html';
   return pathname;
@@ -25,7 +44,7 @@ async function fetchAsset(request, env, pathname, status = 200) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const response = await fetchAsset(request, env, assetPath(url.pathname));
+    const response = await fetchAsset(request, env, assetPath(url.pathname, url.hostname));
     if (response.status !== 404) return response;
     const notFoundUrl = new URL(request.url);
     notFoundUrl.pathname = '/404/';
@@ -42,6 +61,12 @@ async function output(relativePath, content) {
   await writeFile(target, content, utf8);
 }
 
+async function outputSpb(relativePath, content) {
+  const target = join(distSpb, relativePath);
+  await mkdir(dirname(target), { recursive: true });
+  await writeFile(target, content, utf8);
+}
+
 async function exists(path) {
   try {
     await access(path);
@@ -51,11 +76,14 @@ async function exists(path) {
   }
 }
 
+// 1. Build main Moscow site
 await output('index.html', mainPage());
 await output('spb/index.html', spbPage());
 
 for (const page of servicePages) {
   await output(`${page.slug}/index.html`, servicePage(page));
+  // Also build SPB subpages under spb/<slug>/
+  await output(`spb/${page.slug}/index.html`, spbSubdomainServicePage(page));
 }
 
 await output('kontakty/index.html', contactsPage());
@@ -63,6 +91,10 @@ await output('privacy/index.html', legalPage('privacy'));
 await output('consent/index.html', legalPage('consent'));
 await output('404.html', notFoundPage());
 await output('404/index.html', notFoundPage({ nested: true }));
+
+await output('spb/kontakty/index.html', spbSubdomainContactsPage());
+await output('spb/privacy/index.html', spbSubdomainLegalPage('privacy'));
+await output('spb/consent/index.html', spbSubdomainLegalPage('consent'));
 
 const publicConfig = {
   PHONE: site.phone,
@@ -104,6 +136,43 @@ await output('site.webmanifest', JSON.stringify({
   icons: [{ src: 'favicon.png', sizes: '1254x1254', type: 'image/png' }],
 }, null, 2));
 
+// 2. Build standalone SPB subdomain bundle in dist-spb/
+await rm(distSpb, { recursive: true, force: true });
+await mkdir(distSpb, { recursive: true });
+
+await outputSpb('index.html', spbSubdomainMainPage());
+for (const page of servicePages) {
+  await outputSpb(`${page.slug}/index.html`, spbSubdomainServicePage(page));
+}
+await outputSpb('kontakty/index.html', spbSubdomainContactsPage());
+await outputSpb('privacy/index.html', spbSubdomainLegalPage('privacy'));
+await outputSpb('consent/index.html', spbSubdomainLegalPage('consent'));
+await outputSpb('404.html', spbSubdomainNotFoundPage());
+await outputSpb('404/index.html', spbSubdomainNotFoundPage({ nested: true }));
+await outputSpb('CNAME', 'spb.tehuchet24.ru\n');
+
+const spbSitemapUrls = ['', ...servicePages.map((page) => `${page.slug}/`), 'kontakty/'];
+await outputSpb('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${spbSitemapUrls.map((path) => `  <url><loc>${spbSite.baseUrl}/${path}</loc><lastmod>2026-09-28</lastmod></url>`).join('\n')}
+</urlset>
+`);
+
+await outputSpb('robots.txt', `User-agent: *
+Allow: /
+Clean-param: yclid&utm_source&utm_medium&utm_campaign&utm_content&utm_term /
+
+Sitemap: ${spbSite.baseUrl}/sitemap.xml
+`);
+
+for (const file of [
+  'style.css', 'script.js', 'site-config.js', 'favicon.png', 'logo.png', 'logo-dark.png', 'og.png', 'site.webmanifest'
+]) {
+  await copyFile(join(root, file), join(distSpb, file));
+}
+await cp(join(root, 'assets'), join(distSpb, 'assets'), { recursive: true });
+
+// 3. Build dist/ hosting bundle
 if (!dist.startsWith(root)) throw new Error('Refusing to write outside the project.');
 await mkdir(dist, { recursive: true });
 await rm(join(dist, 'server'), { recursive: true, force: true });
@@ -134,4 +203,4 @@ if (await exists(hostingConfig)) {
   await copyFile(hostingConfig, join(dist, '.openai', 'hosting.json'));
 }
 
-console.log(`Built ${urls.length + 2} HTML pages and hosting bundle.`);
+console.log(`Built ${urls.length + 2} HTML pages, SPB standalone bundle (${spbSitemapUrls.length} pages in dist-spb/) and hosting bundle.`);

@@ -1,5 +1,6 @@
 import {
   site,
+  spbSite,
   services,
   serviceOptions,
   problems,
@@ -286,7 +287,7 @@ function b2bBlock() {
       <div class="b2b-card">
         <div class="b2b-card__content">
           <h2>Для юридических лиц и парков спецтехники</h2>
-          <p class="b2b-card__desc">Работаем по договору с компаниями и владельцами парков техники. Безналичный расчёт, закрывающие документы, постановка и снятие нескольких единиц техники.</p>
+          <p class="b2b-card__desc">Работаем по договору с компаниями и владельцами парков техники по всей России. Безналичный расчёт, закрывающие документы, постановка и снятие нескольких единиц техники.</p>
           <p class="b2b-card__note">Несколько единиц техники? Рассчитаем стоимость сопровождения.</p>
         </div>
         <div class="b2b-card__action">
@@ -667,6 +668,7 @@ function header(prefix = '', sectionBase = null, { homeHref = null, situationsId
     <div class="container header__inner">
       <a class="logo" href="${home}" aria-label="ТехУчёт — главная">
         <img class="logo__img" src="${prefix}logo-dark.png?v=2" width="932" height="268" alt="ТехУчёт — Гостехнадзор">
+        <span class="logo__tagline">${isRegional ? "Оформление спецтехники в Санкт-Петербурге, ЛО и по всей России" : "Оформление спецтехники в Москве, МО и по всей России"}</span>
       </a>
       <nav class="nav" aria-label="Основная навигация">
         <a href="${sections}#services">Услуги</a>
@@ -1050,7 +1052,7 @@ function mobileBar(href = '#lead-form') {
   return '';
 }
 
-function footer(prefix = '', { homeHref = null, serviceLinks = null, description = 'Сопровождение регистрационных действий со спецтехникой в Гостехнадзоре под ключ.' } = {}) {
+function footer(prefix = '', { homeHref = null, serviceLinks = null, address = site.address, description = 'Сопровождение регистрационных действий со спецтехникой в Гостехнадзоре в Москве, МО и по всей России.' } = {}) {
   const home = homeHref || prefix || './';
   const links = serviceLinks || [
     [`${prefix}registraciya/`, 'Постановка на учёт'],
@@ -1089,7 +1091,7 @@ function footer(prefix = '', { homeHref = null, serviceLinks = null, description
       <div class="footer__col footer__address">
         <h2>Адрес</h2>
         <div class="footer__address-content">
-          <p class="footer__address-text">${site.address}</p>
+          <p class="footer__address-text">${address}</p>
         </div>
       </div>
     </div>
@@ -1137,7 +1139,7 @@ function spbContactPanel() {
     <a class="contact-panel__primary track-phone" href="${site.phoneHref}">${site.phone}</a>
     ${quickContacts({ modifier: 'quick-contacts--contact', includePhone: false })}
     <a class="contact-panel__email track-email" href="${site.emailHref}">${site.email}</a>
-    <dl><div><dt>Регион</dt><dd>Санкт-Петербург и Ленинградская область</dd></div><div><dt>Сопровождение</dt><dd>Под ключ</dd></div><div><dt>Режим работы</dt><dd>${site.hours}</dd></div></dl>
+    <dl><div><dt>Регион</dt><dd>Санкт-Петербург, Ленобласть и вся Россия</dd></div><div><dt>Адрес</dt><dd>Санкт-Петербург, Московский проспект, 2, кабинет 18</dd></div><div><dt>Сопровождение</dt><dd>Под ключ</dd></div><div><dt>Режим работы</dt><dd>${site.hours}</dd></div></dl>
   </aside>`;
 }
 
@@ -1434,7 +1436,7 @@ ${head({
         <div class="hero__content">
           <p class="hero__eyebrow">Центр сопровождения в Гостехнадзоре</p>
           <h1>Регистрация и техосмотр спецтехники — без очередей и визитов</h1>
-          <p class="hero__subtitle">Берём на себя постановку на учёт, снятие и техосмотр любой самоходной техники. Быстро, по договору, с закрывающими документами.</p>
+          <p class="hero__subtitle">Берём на себя постановку на учёт, снятие и техосмотр любой самоходной техники. Оформляем в Москве, МО и по всей России. Быстро, по договору, с закрывающими документами.</p>
           <ul class="hero__badges">
             <li>Без привоза техники</li>
             <li>От 5 000 ₽</li>
@@ -1649,7 +1651,8 @@ ${head({
   </main>
   ${footer('../', {
     homeHref: './',
-    description: 'Сопровождение регистрационных действий со спецтехникой в Гостехнадзоре Санкт-Петербурга и Ленинградской области.',
+    address: 'Офис в Санкт-Петербурге: Санкт-Петербург, Московский проспект, 2, кабинет 18<br>Центральный офис: Москва, улица Космонавта Волкова, 20, кабинет 415',
+    description: 'Сопровождение регистрационных действий со спецтехникой в Гостехнадзоре Санкт-Петербурга, Ленинградской области и по всей России.',
     serviceLinks: [
       ['#registration', 'Постановка на учёт'],
       ['#reregistration', 'Перерегистрация'],
@@ -1922,4 +1925,432 @@ ${head({
   ${mobileBar('#page-form')}
 </body>
 </html>`;
+}
+
+
+// ==========================================
+// SPB SUBDOMAIN TEMPLATES (spb.tehuchet24.ru)
+// ==========================================
+
+export function spbSubdomainMainPage() {
+  const canonical = `${spbSite.baseUrl}/`;
+  const title = 'Оформление спецтехники в Гостехнадзоре — Санкт-Петербург, ЛО и вся Россия | ТехУчёт';
+  const description = 'Центр сопровождения в Гостехнадзоре «ТехУчёт» в Санкт-Петербурге: регистрация спецтехники, снятие с учёта, техосмотр, перерегистрация, восстановление ПСМ и СТС по СПб, ЛО и всей России. От 5 000 ₽.';
+  const regionalService = serviceSchema({
+    name: 'Сопровождение регистрационных действий со спецтехникой в Гостехнадзоре Санкт-Петербурга, ЛО и по всей России',
+    description,
+    url: canonical,
+    areaServed: [
+      { '@type': 'City', name: 'Санкт-Петербург' },
+      { '@type': 'AdministrativeArea', name: 'Ленинградская область' },
+      { '@type': 'Country', name: 'Россия' },
+    ],
+  });
+  const spbFooterAddress = 'Офис в Санкт-Петербурге: Санкт-Петербург, Московский проспект, 2, кабинет 18<br>Центральный офис: Москва, улица Космонавта Волкова, 20, кабинет 415';
+  const spbFooterDesc = 'Сопровождение регистрационных действий со спецтехникой в Гостехнадзоре Санкт-Петербурга, Ленинградской области и по всей России.';
+  const spbServiceLinks = [
+    ['registraciya/', 'Постановка на учёт'],
+    ['snyatie-s-ucheta/', 'Снятие с учёта'],
+    ['registraciya/#pereregistraciya', 'Перерегистрация'],
+    ['tehosmotr/', 'Техосмотр'],
+    ['vosstanovlenie-psm/', 'Восстановление ПСМ'],
+    ['vosstanovlenie-sts/', 'Восстановление СТС'],
+    ['slozhnye-sluchai/', 'Сложные случаи'],
+    ['prava/', 'Права и обучение'],
+  ];
+
+  return `<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta name="mailru-domain" content="YAbXlGEdCBXNKxOH" />
+  <meta name="yandex-verification" content="97c871531f08a479" />
+  <meta name="mitgo-verification" content="952b0442-52fa-420b-9544-fb436c92285f" />
+${head({
+  title,
+  description,
+  canonical,
+  schemas: [
+    organizationSchema({ includeAddress: false }),
+    websiteSchema(),
+    regionalService,
+    faqSchema(mainFaq),
+  ],
+})}
+  <link rel="preload" href="assets/images/hero_bg.webp" as="image" type="image/webp" imagesrcset="assets/images/hero_bg-720.webp 720w, assets/images/hero_bg-900.webp 900w, assets/images/hero_bg.webp 1376w" imagesizes="100vw" fetchpriority="high">
+</head>
+<body>
+  <a class="skip-link" href="#main">К основному содержанию</a>
+  ${header('', './', { homeHref: './', situationsId: 'situations', isRegional: true })}
+  <main id="main">
+    <section class="hero hero--regional">
+      <picture class="hero__media"><source srcset="assets/images/hero_bg-720.webp 720w, assets/images/hero_bg-900.webp 900w, assets/images/hero_bg.webp 1376w" sizes="100vw" type="image/webp"><img src="assets/images/hero_bg.jpg" width="1376" height="768" alt="Самоходная спецтехника — сопровождение оформления в Гостехнадзоре Санкт-Петербурга, ЛО и по всей России" fetchpriority="high" decoding="async"></picture>
+      <div class="hero__shade" aria-hidden="true"></div>
+      <div class="container">
+        <div class="hero__content">
+          <p class="hero__eyebrow">Центр сопровождения в Гостехнадзоре в Санкт-Петербурге</p>
+          <h1>Регистрация и техосмотр спецтехники в Санкт-Петербурге и ЛО — без очередей и визитов</h1>
+          <p class="hero__subtitle">Берём на себя постановку на учёт, снятие и техосмотр любой самоходной техники. Оформляем в Санкт-Петербурге, Ленинградской области и по всей России. Удалённо, без привоза техники, по договору с НДС.</p>
+          <ul class="hero__badges">
+            <li>Без привоза техники</li>
+            <li>Удалённо по всей России</li>
+            <li>От 5 000 ₽</li>
+            <li>3–5 рабочих дней</li>
+            <li>Безнал с НДС</li>
+          </ul>
+          <div class="hero__cta">
+            <button class="btn btn--hero-primary" type="button" data-modal-open data-select-service="Консультация" data-lead-intent="consultation">Бесплатная консультация</button>
+            <a class="btn btn--hero-outline track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">Написать в WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    ${serviceNavigation()}
+
+    ${pravaMainSection()}
+
+    ${takeCareBlock()}
+
+    ${workConditionsBlock()}
+
+    ${advantageBlock()}
+
+    <section class="section section--alt" id="situations">
+      <div class="container">
+        <div class="section-heading"><h2>Разберём ситуацию и предложим порядок действий</h2><p>Поможем разобраться в нестандартном случае и сопроводить оформление в Гостехнадзоре.</p></div>
+        <div class="problem-grid">${problems.slice(0, 6).map(([title, text, service = 'Отказ или сложная ситуация', event = 'complex_case']) => `<article class="problem-card"><h3>${title}</h3><p>${text}</p><a class="text-link" href="#lead-form" data-modal-open data-select-service="${service}" data-situation="${title}" data-service-event="${event}" data-lead-intent="consultation">Получить консультацию</a></article>`).join('')}</div>
+      </div>
+    </section>
+
+    ${b2bBlock()}
+
+    <section class="section" id="process">
+      <div class="container">
+        <div class="section-heading"><h2>Четыре понятных шага к готовым документам</h2><p>Сопровождаем процедуру от первичного анализа до выдачи документов.</p></div>
+        <ol class="process-flow">
+          <li class="process-flow__step">
+            <div class="process-flow__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div class="process-flow__body">
+              <h3>Первичная консультация</h3>
+              <p>Разбираемся в задаче, проверяем документы и согласовываем регламент работы.</p>
+            </div>
+          </li>
+          <li class="process-flow__step">
+            <div class="process-flow__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+            <div class="process-flow__body">
+              <h3>Подготовка комплекта</h3>
+              <p>Формируем заявление и полный пакет документов по требованиям Гостехнадзора.</p>
+            </div>
+          </li>
+          <li class="process-flow__step">
+            <div class="process-flow__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg></div>
+            <div class="process-flow__body">
+              <h3>Сопровождаем оформление</h3>
+              <p>Берём взаимодействие с инспекцией на себя — удалённо, без привоза техники.</p>
+            </div>
+          </li>
+          <li class="process-flow__step">
+            <div class="process-flow__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+            <div class="process-flow__body">
+              <h3>Вы получаете результат</h3>
+              <p>Получаете готовые регистрационные документы (СТС) и государственные знаки.</p>
+            </div>
+          </li>
+        </ol>
+        <div class="info-strip"><strong>Как правило, 3–5 рабочих дней после передачи комплекта документов.</strong><span>Точный срок зависит от вида регистрационного действия и графика работы соответствующего подразделения Гостехнадзора.</span></div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="documents">
+      <div class="container documents-layout">
+        <div class="section-heading section-heading--left"><h2>Что нужно предоставить</h2></div>
+        <ul class="check-list">
+          <li>ПСМ или сведения об ЭПСМ (при утере поможем с <a class="text-link" href="vosstanovlenie-psm/">восстановлением ПСМ</a> или <a class="text-link" href="vosstanovlenie-sts/">восстановлением СТС</a>)</li>
+          <li>Документ о праве собственности</li>
+          <li>Паспорт собственника или реквизиты организации</li>
+        </ul>
+        <p class="section-note">ПСМ / ЭПСМ предоставляется собственником как часть комплекта документов для оформления. Необходимые заявления и квитанции подготовим в рамках оформления.</p>
+        <div style="margin-top: 18px;"><button class="btn btn--primary" type="button" data-modal-open data-select-service="Регистрация спецтехники" data-lead-intent="order">Заказать оформление</button></div>
+      </div>
+    </section>
+
+    <section class="section" id="cases">
+      <div class="container">
+        <div class="section-heading"><h2>Примеры задач, с которыми мы работаем</h2><p>Сроки и порядок действий приведены как примеры. Результат зависит от документов и конкретной ситуации.</p></div>
+        <div class="case-grid">${cases.filter(c => ['Экскаватор-погрузчик JCB 3CX', 'Трактор МТЗ-82', 'Мини-погрузчик Bobcat S650'].includes(c.title)).map((item) => `<article class="case-card"><h3>${item.title}</h3><dl><div><dt>Ситуация</dt><dd>${item.situation}</dd></div><div><dt>Возможное решение</dt><dd>${item.solution}</dd></div><div><dt>Ориентировочный срок</dt><dd>${item.term}</dd></div></dl><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Пример задачи: ${item.title}">Обсудить похожую задачу</a></article>`).join('')}</div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="faq"><div class="container faq-layout"><div class="section-heading section-heading--left"><h2>Коротко о главном</h2><p>Остались вопросы по оформлению техники? Оставьте заявку на консультацию.</p></div>${faqBlock(mainFaq)}</div></section>
+
+    <section class="section lead-section" id="lead-form"><div class="container lead-layout">${contactPanel(null, 'от 5 000 ₽', { address: spbFooterAddress })}${simpleFinalForm({ title: 'Нужно оформить спецтехнику в Гостехнадзоре?', subtitle: 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.', formName: 'СПб поддомен — главная' })}</div></section>
+  </main>
+  ${footer('', { homeHref: './', address: spbFooterAddress, description: spbFooterDesc, serviceLinks: spbServiceLinks })}
+  ${callbackWidget()}
+  ${simpleCallbackModal()}
+  ${mobileBar()}
+</body>
+</html>`;
+}
+
+export function spbSubdomainServicePage(page) {
+  const canonical = `${spbSite.baseUrl}/${page.slug}/`;
+  const title = `${page.short} в Санкт-Петербурге, ЛО и по всей России — ТехУчёт`;
+  const description = `${page.description.replace(/в Москве и Московской области|Москвы и МО/g, 'в Санкт-Петербурге, Ленинградской области и по всей России')}`;
+  const pageFaq = page.faq;
+  const breadcrumbLabel = page.breadcrumbName || page.short;
+  const isComplexCase = page.key === 'complex_case';
+  const servicePriceText = isComplexCase ? 'Стоимость рассчитывается после уточнения ситуации' : 'от 5 000 ₽';
+  const spbFooterAddress = 'Офис в Санкт-Петербурге: Санкт-Петербург, Московский проспект, 2, кабинет 18<br>Центральный офис: Москва, улица Космонавта Волкова, 20, кабинет 415';
+  const spbFooterDesc = 'Сопровождение регистрационных действий со спецтехникой в Гостехнадзоре Санкт-Петербурга, Ленинградской области и по всей России.';
+  const spbServiceLinks = [
+    ['../registraciya/', 'Постановка на учёт'],
+    ['../snyatie-s-ucheta/', 'Снятие с учёта'],
+    ['../registraciya/#pereregistraciya', 'Перерегистрация'],
+    ['../tehosmotr/', 'Техосмотр'],
+    ['../vosstanovlenie-psm/', 'Восстановление ПСМ'],
+    ['../vosstanovlenie-sts/', 'Восстановление СТС'],
+    ['../slozhnye-sluchai/', 'Сложные случаи'],
+    ['../prava/', 'Права и обучение'],
+  ];
+  const breadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Главная', item: `${spbSite.baseUrl}/` },
+      { '@type': 'ListItem', position: 2, name: 'Услуги', item: `${spbSite.baseUrl}/#services` },
+      { '@type': 'ListItem', position: 3, name: breadcrumbLabel, item: canonical },
+    ],
+  };
+
+  return `<!DOCTYPE html>
+<html lang="ru">
+<head>
+${head({
+  title,
+  description,
+  canonical,
+  prefix: '../',
+  schemas: [
+    organizationSchema({ includeAddress: false }),
+    serviceSchema({ name: `${page.h1} — Санкт-Петербург, ЛО и вся Россия`, description, url: canonical, includePrice: !isComplexCase }),
+    faqSchema(pageFaq),
+    breadcrumb,
+  ],
+})}
+</head>
+<body>
+  <a class="skip-link" href="#main">К основному содержанию</a>
+  ${header('../', '../', { homeHref: '../', isRegional: true })}
+  <main id="main">
+    <section class="service-hero">
+      <div class="container">
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+          <a href="../">Главная</a>
+          <span aria-hidden="true">/</span>
+          <a href="../#services">Услуги</a>
+          <span aria-hidden="true">/</span>
+          <span>${breadcrumbLabel}</span>
+        </nav>
+        <div class="service-hero__grid">
+          <div>
+            <h1>${page.h1}</h1>
+            <p>${(page.heroLead || page.description).replace(/в Москве и Московской области|Москвы и МО/g, 'в Санкт-Петербурге, Ленинградской области и по всей России')}</p>
+            ${offerBenefits(page.key === 'deregistration' ? '2–5' : '3–5', 'СПб, ЛО и вся Россия', servicePriceText)}
+            ${offerActions(page.short, page.key)}
+          </div>
+          <div class="service-summary" id="how">
+            <h2>Что входит в работу</h2>
+            <ul>${page.works.map((item) => `<li>${item}</li>`).join('')}</ul>
+            <p>Точный порядок определяется после анализа ситуации и имеющихся документов.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    ${commercialDetails(page)}
+    ${trustBlock()}
+    <section class="section">
+      <div class="container two-column">
+        <div>
+          <h2>Когда обращаются</h2>
+          <ul class="check-list">${page.situations.map((item) => `<li>${item}</li>`).join('')}</ul>
+        </div>
+        <div id="documents">
+          <h2>Какие документы нужны</h2>
+          <ul class="check-list">${page.docs.map((item) => `<li>${item}</li>`).join('')}</ul>
+          <p class="section-note">Точный перечень зависит от вида техники, статуса собственника (физлицо, ИП или юрлицо) и истории владения.</p>
+        </div>
+      </div>
+    </section>
+    ${serviceProcessAndPricingSection(page)}
+    ${serviceExtraSection(page)}
+    ${relatedServicesSection(page)}
+    <section class="section section--alt">
+      <div class="container faq-layout">
+        <div class="section-heading section-heading--left"><h2>Частые вопросы по услуге</h2></div>
+        ${faqBlock(pageFaq)}
+      </div>
+    </section>
+    <section class="section lead-section" id="page-form">
+      <div class="container lead-layout">
+        ${contactPanel(null, servicePriceText, { address: spbFooterAddress })}
+        ${simpleFinalForm({
+          id: `${page.slug}-lead`,
+          prefix: '../',
+          title: 'Нужно оформить спецтехнику в Гостехнадзоре?',
+          subtitle: 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.',
+          formName: `СПб поддомен: ${page.short}`,
+        })}
+      </div>
+    </section>
+  </main>
+  ${footer('../', { homeHref: '../', address: spbFooterAddress, description: spbFooterDesc, serviceLinks: spbServiceLinks })}
+  ${callbackWidget('../')}
+  ${simpleCallbackModal('../')}
+  ${mobileBar('#page-form')}
+</body>
+</html>`;
+}
+
+export function spbSubdomainContactsPage() {
+  const title = 'Контакты ТехУчёт в Санкт-Петербурге — телефон, адрес офиса и реквизиты';
+  const description = 'Контактная информация центра «ТехУчёт» в Санкт-Петербурге: Московский проспект, 2, кабинет 18. Телефон +7 925 757-78-88, WhatsApp, Telegram, MAX. Сопровождение в Гостехнадзоре по СПб, ЛО и всей России.';
+  const canonical = `${spbSite.baseUrl}/kontakty/`;
+  const spbFooterAddress = 'Офис в Санкт-Петербурге: Санкт-Петербург, Московский проспект, 2, кабинет 18<br>Центральный офис: Москва, улица Космонавта Волкова, 20, кабинет 415';
+  const spbFooterDesc = 'Сопровождение регистрационных действий со спецтехникой в Гостехнадзоре Санкт-Петербурга, Ленинградской области и по всей России.';
+  const spbServiceLinks = [
+    ['../registraciya/', 'Постановка на учёт'],
+    ['../snyatie-s-ucheta/', 'Снятие с учёта'],
+    ['../registraciya/#pereregistraciya', 'Перерегистрация'],
+    ['../tehosmotr/', 'Техосмотр'],
+    ['../vosstanovlenie-psm/', 'Восстановление ПСМ'],
+    ['../vosstanovlenie-sts/', 'Восстановление СТС'],
+    ['../slozhnye-sluchai/', 'Сложные случаи'],
+    ['../prava/', 'Права и обучение'],
+  ];
+
+  return `<!DOCTYPE html>
+<html lang="ru">
+<head>
+${head({
+  title,
+  description,
+  canonical,
+  prefix: '../',
+  schemas: [
+    organizationSchema({ includeAddress: false }),
+  ],
+})}
+</head>
+<body>
+  <a class="skip-link" href="#main">К основному содержанию</a>
+  ${header('../', '../', { homeHref: '../', isRegional: true })}
+  <main id="main">
+    <section class="service-hero">
+      <div class="container">
+        <nav class="breadcrumbs" aria-label="Хлебные крошки">
+          <a href="../">Главная</a>
+          <span aria-hidden="true">/</span>
+          <span>Контакты</span>
+        </nav>
+        <h1>Контакты ТехУчёт в Санкт-Петербурге</h1>
+        <p class="hero__subtitle">Офис в Санкт-Петербурге, сопровождение по Санкт-Петербургу, Ленинградской области и по всей России.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container contacts-grid">
+        <div class="contact-card">
+          <h2>Офис в Санкт-Петербурге</h2>
+          <p class="contact-card__address"><strong>Санкт-Петербург, Московский проспект, 2, кабинет 18</strong></p>
+          <p class="contact-card__metro">м. Сенная площадь / Садовая / Спасская</p>
+          <p class="contact-card__hours">${site.hours}</p>
+          <div class="contact-card__actions" style="margin-top: 16px;">
+            <a class="btn btn--primary track-phone" href="${site.phoneHref}">${site.phone}</a>
+            <a class="btn btn--outline track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <h2>Центральный офис</h2>
+          <p class="contact-card__address"><strong>Москва, улица Космонавта Волкова, 20, кабинет 415</strong></p>
+          <p class="contact-card__hours">${site.hours}</p>
+          <p style="margin-top: 12px; color: #4B6382;">Принимаем заявки и оформляем технику дистанционно по всей России.</p>
+        </div>
+
+        <div class="contact-card">
+          <h2>Реквизиты и связь</h2>
+          <p><strong>Email:</strong> <a class="text-link track-email" href="${site.emailHref}">${site.email}</a></p>
+          <p><strong>Telegram:</strong> <a class="text-link track-telegram" href="${site.telegram}" target="_blank" rel="noopener">@Romatran</a></p>
+          <p style="margin-top: 8px;"><strong>${site.company}</strong><br>ИНН ${site.inn} · КПП ${site.kpp}<br>ОГРН ${site.ogrn}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section lead-section" id="page-form">
+      <div class="container lead-layout">
+        ${contactPanel(null, 'от 5 000 ₽', { address: spbFooterAddress })}
+        ${simpleFinalForm({
+          id: 'spb-contacts-lead',
+          prefix: '../',
+          title: 'Остались вопросы или нужна помощь?',
+          subtitle: 'Оставьте номер — специалист свяжется с вами и проконсультирует.',
+          formName: 'СПб поддомен — контакты',
+        })}
+      </div>
+    </section>
+  </main>
+  ${footer('../', { homeHref: '../', address: spbFooterAddress, description: spbFooterDesc, serviceLinks: spbServiceLinks })}
+  ${callbackWidget('../')}
+  ${simpleCallbackModal('../')}
+  ${mobileBar('#page-form')}
+</body>
+</html>`;
+}
+
+export function spbSubdomainLegalPage(type) {
+  const isPrivacy = type === 'privacy';
+  const title = isPrivacy ? 'Политика обработки персональных данных' : 'Согласие на обработку персональных данных';
+  const canonical = `${spbSite.baseUrl}/${type}/`;
+  const spbFooterAddress = 'Офис в Санкт-Петербурге: Санкт-Петербург, Московский проспект, 2, кабинет 18<br>Центральный офис: Москва, улица Космонавта Волкова, 20, кабинет 415';
+  const spbFooterDesc = 'Сопровождение регистрационных действий со спецтехникой в Гостехнадзоре Санкт-Петербурга, Ленинградской области и по всей России.';
+  const spbServiceLinks = [
+    ['../registraciya/', 'Постановка на учёт'],
+    ['../snyatie-s-ucheta/', 'Снятие с учёта'],
+    ['../registraciya/#pereregistraciya', 'Перерегистрация'],
+    ['../tehosmotr/', 'Техосмотр'],
+    ['../vosstanovlenie-psm/', 'Восстановление ПСМ'],
+    ['../vosstanovlenie-sts/', 'Восстановление СТС'],
+    ['../slozhnye-sluchai/', 'Сложные случаи'],
+    ['../prava/', 'Права и обучение'],
+  ];
+
+  const privacyContent = `
+    <p>Настоящая Политика определяет порядок обработки персональных данных посетителей сайта «ТехУчёт» оператором ${site.company}, ИНН ${site.inn}, ОГРН ${site.ogrn}.</p>
+    <h2>1. Какие данные обрабатываются</h2><p>Имя, телефон, регион, город, сведения о виде техники и выбранной услуге, комментарий к заявке, адрес страницы, UTM-метки, yclid и технический идентификатор ClientID Яндекс.Метрики при его наличии.</p>
+    <h2>2. Цели обработки</h2><p>Обработка обращения, обратная связь, расчёт стоимости услуг, подготовка предложения и анализ эффективности рекламных источников. Персональные данные из форм не передаются в Яндекс.Метрику.</p>
+    <h2>3. Правовые основания</h2><p>Согласие пользователя, предоставленное установкой обязательного флажка в форме, а также действия, необходимые для ответа на запрос пользователя и заключения договора.</p>
+    <h2>4. Способы и сроки обработки</h2><p>Данные передаются по защищённому соединению через технический обработчик Cloudflare Worker в Telegram для доставки заявки оператору. Данные хранятся не дольше, чем этого требуют цели обработки и законодательство Российской Федерации.</p>
+    <h2>5. Передача третьим лицам</h2><p>Данные могут обрабатываться Cloudflare, Telegram и другими техническими поставщиками, обеспечивающими работу сайта и передачу заявок, только в объёме, необходимом для оказания соответствующих услуг. Иная передача возможна в случаях, установленных законом.</p>
+    <h2>6. Права пользователя</h2><p>Пользователь может запросить сведения об обработке, уточнение, блокирование или удаление данных, а также отозвать согласие, направив письмо на <a href="${site.emailHref}">${site.email}</a>.</p>
+    <h2>7. Файлы cookie и аналитика</h2><p>Сайт может сохранять технические параметры рекламного перехода и использовать Яндекс.Метрику после указания владельцем действующего идентификатора счётчика. Пользователь может ограничить cookie в настройках браузера.</p>
+    <h2>8. Контакты оператора</h2><p>${site.company}<br>ИНН ${site.inn}, КПП ${site.kpp}, ОГРН ${site.ogrn}<br>Офис в Санкт-Петербурге: Санкт-Петербург, Московский проспект, 2, кабинет 18<br>Центральный офис: Москва, ул. Космонавта Волкова, 20, каб. 415<br>Email: <a href="${site.emailHref}">${site.email}</a><br>Телефон: <a href="${site.phoneHref}">${site.phone}</a></p>`;
+
+  const consentContent = `
+    <p>Устанавливая флажок согласия и отправляя форму на сайте «ТехУчёт», я свободно, своей волей и в своём интересе даю ${site.company}, ИНН ${site.inn}, ОГРН ${site.ogrn}, согласие на обработку моих персональных данных.</p>
+    <h2>1. Состав данных</h2><p>Имя, телефон, регион, город, сведения о виде техники, выбранной услуге и ситуации, комментарий, а также технические данные рекламного перехода: URL страницы, UTM-метки, yclid и ClientID при его наличии.</p>
+    <h2>2. Цели</h2><p>Рассмотрение обращения, обратная связь, консультация, расчёт стоимости, подготовка документов и предложения по выбранной услуге.</p>
+    <h2>3. Действия с данными</h2><p>Сбор, запись, систематизация, хранение, уточнение, использование, передача через Cloudflare Worker в Telegram и другим техническим поставщикам для доставки заявки оператору, блокирование и удаление.</p>
+    <h2>4. Срок и отзыв согласия</h2><p>Согласие действует до достижения целей обработки или до его отзыва. Отозвать согласие можно письмом на <a href="${site.emailHref}">${site.email}</a>. Отзыв не влияет на законность обработки, выполненной до его получения.</p>
+    <h2>5. Подтверждение</h2><p>Я подтверждаю, что указанные мной данные принадлежат мне, а предоставленная информация является достоверной.</p>`;
+
+  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: `${title} — ТехУчёт`, description: `${title} сайта ТехУчёт.`, canonical, prefix: '../', schemas: [organizationSchema({ includeAddress: false })], robots: 'noindex, follow' })}</head><body>${header('../', '../', { homeHref: '../', isRegional: true })}<main id="main" class="legal"><div class="container legal__inner"><h1>${title}</h1><p class="legal__updated">Редакция от 8 августа 2026 года</p>${isPrivacy ? privacyContent : consentContent}</div></main>${footer('../', { homeHref: '../', address: spbFooterAddress, description: spbFooterDesc, serviceLinks: spbServiceLinks })}${simpleCallbackModal('../')}${mobileBar('../')}</body></html>`;
+}
+
+export function spbSubdomainNotFoundPage({ nested = false } = {}) {
+  const prefix = nested ? '../' : '';
+  const canonical = `${spbSite.baseUrl}/404`;
+  const spbFooterAddress = 'Офис в Санкт-Петербурге: Санкт-Петербург, Московский проспект, 2, кабинет 18<br>Центральный офис: Москва, улица Космонавта Волкова, 20, кабинет 415';
+  const spbFooterDesc = 'Сопровождение регистрационных действий со спецтехникой в Гостехнадзоре Санкт-Петербурга, Ленинградской области и по всей России.';
+  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: 'Страница не найдена — ТехУчёт', description: 'Запрошенная страница не найдена.', canonical, prefix, schemas: [organizationSchema({ includeAddress: false })], robots: 'noindex, follow' })}</head><body>${header(prefix, prefix, { homeHref: prefix || './', isRegional: true })}<main class="not-found"><div class="container"><h1>Такой страницы нет</h1><p>Вернитесь на главную или свяжитесь с нами — поможем с оформлением самоходной техники в Санкт-Петербурге, ЛО и по всей России.</p><div class="hero__actions"><a class="btn btn--primary" href="${prefix || './'}">На главную</a><a class="btn btn--outline track-phone" href="${site.phoneHref}">${site.phone}</a></div></div></main>${footer(prefix, { homeHref: prefix || './', address: spbFooterAddress, description: spbFooterDesc })}${mobileBar(prefix)}</body></html>`;
 }

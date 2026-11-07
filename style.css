@@ -3697,3 +3697,18 @@ h3.nav-card__title {
 }
 
 
+
+.logo__tagline {
+  font-size: 11.5px;
+  color: var(--muted, #64748b);
+  max-width: 175px;
+  line-height: 1.25;
+  margin-left: 14px;
+  border-left: 1px solid #cbd5e1;
+  padding-left: 12px;
+  display: inline-block;
+  font-weight: 500;
+}
+@media (max-width: 900px) {
+  .logo__tagline { display: none; }
+}
