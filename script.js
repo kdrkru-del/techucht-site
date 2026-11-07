@@ -1278,7 +1278,15 @@
       }, 600);
     };
 
+    const sendBtn = widget.querySelector('[data-chat-send]');
     inputForm?.addEventListener('submit', handleTextInputSubmit);
+    sendBtn?.addEventListener('click', handleTextInputSubmit);
+    textInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleTextInputSubmit(e);
+      }
+    });
 
     backBtn?.addEventListener('click', (e) => {
       e.preventDefault();
