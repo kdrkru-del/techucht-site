@@ -39,10 +39,11 @@ function head({ title, description, canonical, prefix = '', schemas = [], robots
   <link rel="icon" type="image/png" href="${prefix}favicon.png?v=3">
   <link rel="shortcut icon" type="image/png" href="${prefix}favicon.png?v=3">
   <link rel="apple-touch-icon" href="${prefix}favicon.png?v=3">
-  <link rel="preload" href="${prefix}style.css?v=12" as="style">
-  <link rel="stylesheet" href="${prefix}style.css?v=12">
+  <link rel="preload" href="${prefix}style.css?v=13" as="style">
+  <link rel="stylesheet" href="${prefix}style.css?v=13">
   <script src="${prefix}site-config.js?v=12"></script>
   <script src="${prefix}script.js?v=12" defer></script>
+  <script src="${prefix}cro-tracker.js" data-site="tehuchet24.ru" data-endpoint="http://localhost:4200/api/track" defer></script>
   ${schemas.map((schema) => `<script type="application/ld+json">${jsonLd(schema)}</script>`).join('\n  ')}`;
 }
 
@@ -661,18 +662,19 @@ function quickContacts({ modifier = '', includePhone = true } = {}) {
   </div>`;
 }
 
-function header(prefix = '', sectionBase = null, { homeHref = null, situationsId = 'situations', isRegional = false } = {}) {
+function header(prefix = '', sectionBase = null, { homeHref = null, situationsId = 'situations', isRegional = false, showPrava = null } = {}) {
   const home = homeHref || prefix || './';
   const sections = sectionBase || home;
+  const displayPrava = showPrava !== null ? showPrava : !isRegional;
   return `<header class="header" id="header">
     <div class="container header__inner">
       <a class="logo" href="${home}" aria-label="ТехУчёт — главная">
         <img class="logo__img" src="${prefix}logo-dark.png?v=2" width="932" height="268" alt="ТехУчёт — Гостехнадзор">
-        <span class="logo__tagline">${isRegional ? "Оформление спецтехники в Санкт-Петербурге, ЛО и по всей России" : "Оформление спецтехники в Москве, МО и по всей России"}</span>
+        <span class="logo__tagline">${isRegional ? "Санкт-Петербург, ЛО и вся Россия" : "Москва, МО и по всей России"}</span>
       </a>
       <nav class="nav" aria-label="Основная навигация">
         <a href="${sections}#services">Услуги</a>
-        ${isRegional ? '' : `<a href="${prefix}prava/">Права и обучение</a>`}
+        ${displayPrava ? `<a href="${prefix}prava/">Права и обучение</a>` : ''}
         <a href="${sections}#${situationsId}">Сложные ситуации</a>
         <a href="${sections}#process">Как работаем</a>
         <a href="${sections}#faq">Вопросы</a>
@@ -691,7 +693,7 @@ function header(prefix = '', sectionBase = null, { homeHref = null, situationsId
       <div class="container">
         <nav aria-label="Мобильная навигация">
           <a href="${sections}#services">Услуги</a>
-          ${isRegional ? '' : `<a href="${prefix}prava/">Права и обучение</a>`}
+          ${displayPrava ? `<a href="${prefix}prava/">Права и обучение</a>` : ''}
           <a href="${sections}#${situationsId}">Сложные ситуации</a>
           <a href="${sections}#process">Как работаем</a>
           <a href="${sections}#faq">Вопросы</a>
@@ -1980,22 +1982,21 @@ ${head({
 </head>
 <body>
   <a class="skip-link" href="#main">К основному содержанию</a>
-  ${header('', './', { homeHref: './', situationsId: 'situations', isRegional: true })}
+  ${header('', './', { homeHref: './', situationsId: 'situations', isRegional: true, showPrava: true })}
   <main id="main">
-    <section class="hero hero--regional">
+    <section class="hero">
       <picture class="hero__media"><source srcset="assets/images/hero_bg-720.webp 720w, assets/images/hero_bg-900.webp 900w, assets/images/hero_bg.webp 1376w" sizes="100vw" type="image/webp"><img src="assets/images/hero_bg.jpg" width="1376" height="768" alt="Самоходная спецтехника — сопровождение оформления в Гостехнадзоре Санкт-Петербурга, ЛО и по всей России" fetchpriority="high" decoding="async"></picture>
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="container">
         <div class="hero__content">
-          <p class="hero__eyebrow">Центр сопровождения в Гостехнадзоре в Санкт-Петербурге</p>
-          <h1>Регистрация и техосмотр спецтехники в Санкт-Петербурге и ЛО — без очередей и визитов</h1>
-          <p class="hero__subtitle">Берём на себя постановку на учёт, снятие и техосмотр любой самоходной техники. Оформляем в Санкт-Петербурге, Ленинградской области и по всей России. Удалённо, без привоза техники, по договору с НДС.</p>
+          <p class="hero__eyebrow">Центр сопровождения в Санкт-Петербурге</p>
+          <h1>Регистрация и техосмотр спецтехники — без очередей и визитов</h1>
+          <p class="hero__subtitle">Берём на себя постановку на учёт, снятие и техосмотр любой самоходной техники. Оформляем в Санкт-Петербурге, ЛО и по всей России. Быстро, по договору, с закрывающими документами.</p>
           <ul class="hero__badges">
             <li>Без привоза техники</li>
-            <li>Удалённо по всей России</li>
             <li>От 5 000 ₽</li>
             <li>3–5 рабочих дней</li>
-            <li>Безнал с НДС</li>
+            <li>Для физлиц и организаций</li>
           </ul>
           <div class="hero__cta">
             <button class="btn btn--hero-primary" type="button" data-modal-open data-select-service="Консультация" data-lead-intent="consultation">Бесплатная консультация</button>
@@ -2046,7 +2047,7 @@ ${head({
             <div class="process-flow__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg></div>
             <div class="process-flow__body">
               <h3>Сопровождаем оформление</h3>
-              <p>Берём взаимодействие с инспекцией на себя — удалённо, без привоза техники.</p>
+              <p>Готовим необходимые документы и берём взаимодействие с ведомством на себя.</p>
             </div>
           </li>
           <li class="process-flow__step">
@@ -2057,7 +2058,7 @@ ${head({
             </div>
           </li>
         </ol>
-        <div class="info-strip"><strong>Как правило, 3–5 рабочих дней после передачи комплекта документов.</strong><span>Точный срок зависит от вида регистрационного действия и графика работы соответствующего подразделения Гостехнадзора.</span></div>
+        <div class="info-strip"><strong>Как правило, 3–5 рабочих дней после получения полного комплекта документов.</strong><span>Точный срок зависит от вида регистрационного действия, комплекта документов и графика работы соответствующего подразделения Гостехнадзора.</span></div>
       </div>
     </section>
 
@@ -2069,7 +2070,7 @@ ${head({
           <li>Документ о праве собственности</li>
           <li>Паспорт собственника или реквизиты организации</li>
         </ul>
-        <p class="section-note">ПСМ / ЭПСМ предоставляется собственником как часть комплекта документов для оформления. Необходимые заявления и квитанции подготовим в рамках оформления.</p>
+        <p class="section-note">ПСМ / ЭПСМ предоставляется собственником как часть комплекта документов для оформления. Остальной комплект зависит от ситуации — необходимые документы подготовим в рамках оформления.</p>
         <div style="margin-top: 18px;"><button class="btn btn--primary" type="button" data-modal-open data-select-service="Регистрация спецтехники" data-lead-intent="order">Заказать оформление</button></div>
       </div>
     </section>
@@ -2081,9 +2082,15 @@ ${head({
       </div>
     </section>
 
+    <section class="rules-section" style="padding-bottom: 0;">
+      <div class="container">
+        <div class="info-strip"><strong>Работаем с учётом актуальных правил регистрации с 1 сентября 2026 года.</strong></div>
+      </div>
+    </section>
+
     <section class="section section--alt" id="faq"><div class="container faq-layout"><div class="section-heading section-heading--left"><h2>Коротко о главном</h2><p>Остались вопросы по оформлению техники? Оставьте заявку на консультацию.</p></div>${faqBlock(mainFaq)}</div></section>
 
-    <section class="section lead-section" id="lead-form"><div class="container lead-layout">${contactPanel(null, 'от 5 000 ₽', { address: spbFooterAddress })}${simpleFinalForm({ title: 'Нужно оформить спецтехнику в Гостехнадзоре?', subtitle: 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.', formName: 'СПб поддомен — главная' })}</div></section>
+    <section class="section lead-section" id="lead-form"><div class="container lead-layout">${contactPanel(null, 'от 5 000 ₽')}${simpleFinalForm({ title: 'Нужно оформить спецтехнику в Гостехнадзоре?', subtitle: 'Оставьте заявку — поможем с постановкой на учёт, снятием или техосмотром.', formName: 'СПб поддомен — главная' })}</div></section>
   </main>
   ${footer('', { homeHref: './', address: spbFooterAddress, description: spbFooterDesc, serviceLinks: spbServiceLinks })}
   ${callbackWidget()}
@@ -2141,7 +2148,7 @@ ${head({
 </head>
 <body>
   <a class="skip-link" href="#main">К основному содержанию</a>
-  ${header('../', '../', { homeHref: '../', isRegional: true })}
+  ${header('../', '../', { homeHref: '../', isRegional: true, showPrava: true })}
   <main id="main">
     <section class="service-hero">
       <div class="container">
@@ -2193,7 +2200,7 @@ ${head({
     </section>
     <section class="section lead-section" id="page-form">
       <div class="container lead-layout">
-        ${contactPanel(null, servicePriceText, { address: spbFooterAddress })}
+        ${contactPanel(null, servicePriceText)}
         ${simpleFinalForm({
           id: `${page.slug}-lead`,
           prefix: '../',
@@ -2244,52 +2251,105 @@ ${head({
 </head>
 <body>
   <a class="skip-link" href="#main">К основному содержанию</a>
-  ${header('../', '../', { homeHref: '../', isRegional: true })}
+  ${header('../', '../', { homeHref: '../', isRegional: true, showPrava: true })}
   <main id="main">
-    <section class="service-hero">
+    <section class="service-hero contacts-hero">
       <div class="container">
         <nav class="breadcrumbs" aria-label="Хлебные крошки">
           <a href="../">Главная</a>
           <span aria-hidden="true">/</span>
           <span>Контакты</span>
         </nav>
-        <h1>Контакты ТехУчёт в Санкт-Петербурге</h1>
-        <p class="hero__subtitle">Офис в Санкт-Петербурге, сопровождение по Санкт-Петербургу, Ленинградской области и по всей России.</p>
+        <h1>Контакты компании «ТехУчёт» в Санкт-Петербурге</h1>
+        <p class="contacts-hero__subtitle">Свяжитесь с нами удобным способом: по телефону, в мессенджерах или по электронной почте. Принимаем обращения по Санкт-Петербургу, ЛО и всей России ежедневно с 08:00 до 19:00.</p>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container contacts-grid">
-        <div class="contact-card">
-          <h2>Офис в Санкт-Петербурге</h2>
-          <p class="contact-card__address"><strong>Санкт-Петербург, Московский проспект, 2, кабинет 18</strong></p>
-          <p class="contact-card__metro">м. Сенная площадь / Садовая / Спасская</p>
-          <p class="contact-card__hours">${site.hours}</p>
-          <div class="contact-card__actions" style="margin-top: 16px;">
-            <a class="btn btn--primary track-phone" href="${site.phoneHref}">${site.phone}</a>
-            <a class="btn btn--outline track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a>
-          </div>
-        </div>
+    <section class="section contacts-section">
+      <div class="container">
+        <div class="contacts-grid">
+          <article class="contacts-card">
+            <div class="contacts-card__header">
+              <div class="contacts-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <h2>Телефон</h2>
+            </div>
+            <a class="contacts-card__main-link track-phone" href="${site.phoneHref}">${site.phone}</a>
+            <p class="contacts-card__desc">${site.hours} · Без выходных</p>
+            <div class="contacts-card__action">
+              <button class="btn btn--small btn--outline" type="button" data-modal-open>Заказать звонок</button>
+            </div>
+          </article>
 
-        <div class="contact-card">
-          <h2>Центральный офис</h2>
-          <p class="contact-card__address"><strong>Москва, улица Космонавта Волкова, 20, кабинет 415</strong></p>
-          <p class="contact-card__hours">${site.hours}</p>
-          <p style="margin-top: 12px; color: #4B6382;">Принимаем заявки и оформляем технику дистанционно по всей России.</p>
-        </div>
+          <article class="contacts-card">
+            <div class="contacts-card__header">
+              <div class="contacts-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              </div>
+              <h2>Мессенджеры</h2>
+            </div>
+            <p class="contacts-card__desc">Быстрая консультация и предварительная оценка документов онлайн:</p>
+            <div class="contacts-card__messengers">
+              <a class="quick-contact quick-contact--whatsapp track-whatsapp" href="${site.whatsapp}" target="_blank" rel="noopener">WhatsApp</a>
+              <a class="quick-contact quick-contact--telegram track-telegram" href="${site.telegram}" target="_blank" rel="noopener">Telegram</a>
+              <a class="quick-contact quick-contact--max track-max is-disabled" aria-label="MAX" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">${maxContactContent()}</a>
+            </div>
+            <p class="contacts-card__subnote">Отвечаем в течение 5–10 минут в рабочее время</p>
+          </article>
 
-        <div class="contact-card">
-          <h2>Реквизиты и связь</h2>
-          <p><strong>Email:</strong> <a class="text-link track-email" href="${site.emailHref}">${site.email}</a></p>
-          <p><strong>Telegram:</strong> <a class="text-link track-telegram" href="${site.telegram}" target="_blank" rel="noopener">@Romatran</a></p>
-          <p style="margin-top: 8px;"><strong>${site.company}</strong><br>ИНН ${site.inn} · КПП ${site.kpp}<br>ОГРН ${site.ogrn}</p>
+          <article class="contacts-card">
+            <div class="contacts-card__header">
+              <div class="contacts-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <h2>Электронная почта</h2>
+            </div>
+            <a class="contacts-card__main-link track-email" href="${site.emailHref}">${site.email}</a>
+            <p class="contacts-card__desc">Для отправки сканов документов, договоров, реквизитов и официальных запросов.</p>
+          </article>
+
+          <article class="contacts-card">
+            <div class="contacts-card__header">
+              <div class="contacts-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <h2>Офис в Санкт-Петербурге</h2>
+            </div>
+            <p class="contacts-card__address">Санкт-Петербург, Московский проспект, 2, кабинет 18</p>
+            <p class="contacts-card__desc">м. Сенная площадь / Садовая / Спасская (3–5 минут пешком). Приём по предварительной записи.<br>Центральный офис: Москва, ул. Космонавта Волкова, 20, каб. 415.</p>
+            <div class="contacts-card__action">
+              <a class="btn btn--small btn--outline" href="https://yandex.ru/maps/?text=Санкт-Петербург,+Московский+проспект,+2" target="_blank" rel="noopener noreferrer">Открыть на Яндекс.Картах ↗</a>
+            </div>
+          </article>
         </div>
+      </div>
+    </section>
+
+    <section class="section section--alt contacts-requisites-section">
+      <div class="container">
+        <div class="section-heading section-heading--left">
+          <h2>Реквизиты организации</h2>
+          <p>Работаем официально по договору. Безналичный расчёт для юридических лиц и ИП с предоставлением всех закрывающих документов.</p>
+        </div>
+        <div class="contacts-requisites-card">
+          <dl class="contacts-requisites-grid">
+            <div><dt>Полное наименование</dt><dd>${site.company}</dd></div>
+            <div><dt>ИНН</dt><dd>${site.inn}</dd></div>
+            <div><dt>КПП</dt><dd>${site.kpp}</dd></div>
+            <div><dt>ОГРН</dt><dd>${site.ogrn}</dd></div>
+            <div><dt>Офис в Санкт-Петербурге</dt><dd>Санкт-Петербург, Московский проспект, 2, кабинет 18</dd></div>
+            <div><dt>Центральный офис</dt><dd>${site.address}</dd></div>
+            <div><dt>Режим работы</dt><dd>${site.hours}</dd></div>
+          </dl>
+        </div>
+        <p class="section-note" style="margin-top: 20px;">Ищете описание конкретной процедуры? Перейдите в профильный раздел: <a class="text-link" href="../registraciya/">Регистрация спецтехники</a> · <a class="text-link" href="../snyatie-s-ucheta/">Снятие с учёта</a> · <a class="text-link" href="../tehosmotr/">Техосмотр</a> · <a class="text-link" href="../vosstanovlenie-psm/">Восстановление ПСМ</a> · <a class="text-link" href="../vosstanovlenie-sts/">Восстановление СТС</a> · <a class="text-link" href="../slozhnye-sluchai/">Сложные случаи</a> · <a class="text-link" href="../prava/">Права и обучение</a>.</p>
       </div>
     </section>
 
     <section class="section lead-section" id="page-form">
       <div class="container lead-layout">
-        ${contactPanel(null, 'от 5 000 ₽', { address: spbFooterAddress })}
+        ${contactPanel(null, 'от 5 000 ₽')}
         ${simpleFinalForm({
           id: 'spb-contacts-lead',
           prefix: '../',
@@ -2344,7 +2404,7 @@ export function spbSubdomainLegalPage(type) {
     <h2>4. Срок и отзыв согласия</h2><p>Согласие действует до достижения целей обработки или до его отзыва. Отозвать согласие можно письмом на <a href="${site.emailHref}">${site.email}</a>. Отзыв не влияет на законность обработки, выполненной до его получения.</p>
     <h2>5. Подтверждение</h2><p>Я подтверждаю, что указанные мной данные принадлежат мне, а предоставленная информация является достоверной.</p>`;
 
-  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: `${title} — ТехУчёт`, description: `${title} сайта ТехУчёт.`, canonical, prefix: '../', schemas: [organizationSchema({ includeAddress: false })], robots: 'noindex, follow' })}</head><body>${header('../', '../', { homeHref: '../', isRegional: true })}<main id="main" class="legal"><div class="container legal__inner"><h1>${title}</h1><p class="legal__updated">Редакция от 8 августа 2026 года</p>${isPrivacy ? privacyContent : consentContent}</div></main>${footer('../', { homeHref: '../', address: spbFooterAddress, description: spbFooterDesc, serviceLinks: spbServiceLinks })}${simpleCallbackModal('../')}${mobileBar('../')}</body></html>`;
+  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: `${title} — ТехУчёт`, description: `${title} сайта ТехУчёт.`, canonical, prefix: '../', schemas: [organizationSchema({ includeAddress: false })], robots: 'noindex, follow' })}</head><body>${header('../', '../', { homeHref: '../', isRegional: true, showPrava: true })}<main id="main" class="legal"><div class="container legal__inner"><h1>${title}</h1><p class="legal__updated">Редакция от 8 августа 2026 года</p>${isPrivacy ? privacyContent : consentContent}</div></main>${footer('../', { homeHref: '../', address: spbFooterAddress, description: spbFooterDesc, serviceLinks: spbServiceLinks })}${simpleCallbackModal('../')}${mobileBar('../')}</body></html>`;
 }
 
 export function spbSubdomainNotFoundPage({ nested = false } = {}) {
@@ -2352,5 +2412,5 @@ export function spbSubdomainNotFoundPage({ nested = false } = {}) {
   const canonical = `${spbSite.baseUrl}/404`;
   const spbFooterAddress = 'Офис в Санкт-Петербурге: Санкт-Петербург, Московский проспект, 2, кабинет 18<br>Центральный офис: Москва, улица Космонавта Волкова, 20, кабинет 415';
   const spbFooterDesc = 'Сопровождение регистрационных действий со спецтехникой в Гостехнадзоре Санкт-Петербурга, Ленинградской области и по всей России.';
-  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: 'Страница не найдена — ТехУчёт', description: 'Запрошенная страница не найдена.', canonical, prefix, schemas: [organizationSchema({ includeAddress: false })], robots: 'noindex, follow' })}</head><body>${header(prefix, prefix, { homeHref: prefix || './', isRegional: true })}<main class="not-found"><div class="container"><h1>Такой страницы нет</h1><p>Вернитесь на главную или свяжитесь с нами — поможем с оформлением самоходной техники в Санкт-Петербурге, ЛО и по всей России.</p><div class="hero__actions"><a class="btn btn--primary" href="${prefix || './'}">На главную</a><a class="btn btn--outline track-phone" href="${site.phoneHref}">${site.phone}</a></div></div></main>${footer(prefix, { homeHref: prefix || './', address: spbFooterAddress, description: spbFooterDesc })}${mobileBar(prefix)}</body></html>`;
+  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: 'Страница не найдена — ТехУчёт', description: 'Запрошенная страница не найдена.', canonical, prefix, schemas: [organizationSchema({ includeAddress: false })], robots: 'noindex, follow' })}</head><body>${header(prefix, prefix, { homeHref: prefix || './', isRegional: true, showPrava: true })}<main class="not-found"><div class="container"><h1>Такой страницы нет</h1><p>Вернитесь на главную или свяжитесь с нами — поможем с оформлением самоходной техники в Санкт-Петербурге, ЛО и по всей России.</p><div class="hero__actions"><a class="btn btn--primary" href="${prefix || './'}">На главную</a><a class="btn btn--outline track-phone" href="${site.phoneHref}">${site.phone}</a></div></div></main>${footer(prefix, { homeHref: prefix || './', address: spbFooterAddress, description: spbFooterDesc })}${mobileBar(prefix)}</body></html>`;
 }

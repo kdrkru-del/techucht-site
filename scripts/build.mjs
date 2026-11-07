@@ -44,6 +44,38 @@ async function fetchAsset(request, env, pathname, status = 200) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname === '/api/lead') {
+      if (request.method === 'OPTIONS') {
+        return new Response(null, {
+          status: 204,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Accept'
+          }
+        });
+      }
+      if (request.method === 'POST') {
+        const bodyText = await request.text();
+        const upstream = await fetch('https://zelsrez-leads.roman-k-0b3.workers.dev/api/lead', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Origin': 'https://tehuchet24.ru'
+          },
+          body: bodyText
+        });
+        const respText = await upstream.text();
+        return new Response(respText, {
+          status: upstream.status,
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'Access-Control-Allow-Origin': '*'
+          }
+        });
+      }
+    }
     const response = await fetchAsset(request, env, assetPath(url.pathname, url.hostname));
     if (response.status !== 404) return response;
     const notFoundUrl = new URL(request.url);
@@ -104,6 +136,7 @@ const publicConfig = {
   MAX_URL: site.maxUrl,
   EMAIL: site.email,
   FORM_ENDPOINT: site.formEndpoint,
+  FALLBACK_FORM_ENDPOINT: `https://formsubmit.co/ajax/${site.email}`,
   YANDEX_METRIKA_ID: site.yandexMetrikaId,
   DOCUMENT_LISTS: documentLists,
 };
@@ -166,7 +199,7 @@ Sitemap: ${spbSite.baseUrl}/sitemap.xml
 `);
 
 for (const file of [
-  'style.css', 'script.js', 'site-config.js', 'favicon.png', 'logo.png', 'logo-dark.png', 'og.png', 'site.webmanifest'
+  'style.css', 'script.js', 'site-config.js', 'cro-tracker.js', 'favicon.png', 'logo.png', 'logo-dark.png', 'og.png', 'site.webmanifest'
 ]) {
   await copyFile(join(root, file), join(distSpb, file));
 }
@@ -183,7 +216,7 @@ await mkdir(join(dist, 'server'), { recursive: true });
 await mkdir(join(dist, 'client'), { recursive: true });
 
 for (const file of [
-  'index.html', '404.html', 'style.css', 'script.js', 'site-config.js', 'favicon.png', 'logo.png', 'logo-dark.png', 'og.png',
+  'index.html', '404.html', 'style.css', 'script.js', 'site-config.js', 'cro-tracker.js', 'favicon.png', 'logo.png', 'logo-dark.png', 'og.png',
   'robots.txt', 'sitemap.xml', 'site.webmanifest', 'yandex_51c60f752ea2994f.html', 'yandex_97c871531f08a479.html',
 ]) {
   await copyFile(join(root, file), join(dist, 'client', file));

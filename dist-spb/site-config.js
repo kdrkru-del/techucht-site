@@ -6,6 +6,7 @@ window.TECHUCHET_CONFIG = {
   "MAX_URL": "https://max.ru/u/f9LHodD0cOIyRnk4XSMp9LQv3nUe6pWwsL4DqMp_p80p0ISba6wNwFpIQy4",
   "EMAIL": "techuchet24@ya.ru",
   "FORM_ENDPOINT": "https://zelsrez-leads.roman-k-0b3.workers.dev/api/lead",
+  "FALLBACK_FORM_ENDPOINT": "https://formsubmit.co/ajax/techuchet24@ya.ru",
   "YANDEX_METRIKA_ID": "111852031",
   "DOCUMENT_LISTS": {
     "person": {

@@ -26,10 +26,11 @@
   <link rel="icon" type="image/png" href="../favicon.png?v=3">
   <link rel="shortcut icon" type="image/png" href="../favicon.png?v=3">
   <link rel="apple-touch-icon" href="../favicon.png?v=3">
-  <link rel="preload" href="../style.css?v=12" as="style">
-  <link rel="stylesheet" href="../style.css?v=12">
+  <link rel="preload" href="../style.css?v=13" as="style">
+  <link rel="stylesheet" href="../style.css?v=13">
   <script src="../site-config.js?v=12"></script>
   <script src="../script.js?v=12" defer></script>
+  <script src="../cro-tracker.js" data-site="tehuchet24.ru" data-endpoint="http://localhost:4200/api/track" defer></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"ООО «ЮНАТ»","alternateName":"ТехУчёт","url":"https://tehuchet24.ru/","logo":"https://tehuchet24.ru/logo.png","telephone":"+7 925 757-78-88","email":"techuchet24@ya.ru","sameAs":["https://wa.me/79257577888","https://t.me/Romatran"],"identifier":[{"@type":"PropertyValue","name":"ИНН","value":"2536345868"},{"@type":"PropertyValue","name":"КПП","value":"253601001"},{"@type":"PropertyValue","name":"ОГРН","value":"1242500018859"}],"areaServed":{"@type":"Country","name":"Россия"},"openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"08:00","closes":"19:00"},"contactPoint":{"@type":"ContactPoint","telephone":"+7 925 757-78-88","email":"techuchet24@ya.ru","contactType":"customer service","areaServed":"RU","availableLanguage":"Russian"}}</script>
 </head>
 <body>
@@ -38,11 +39,11 @@
     <div class="container header__inner">
       <a class="logo" href="../" aria-label="ТехУчёт — главная">
         <img class="logo__img" src="../logo-dark.png?v=2" width="932" height="268" alt="ТехУчёт — Гостехнадзор">
-        <span class="logo__tagline">Оформление спецтехники в Санкт-Петербурге, ЛО и по всей России</span>
+        <span class="logo__tagline">Санкт-Петербург, ЛО и вся Россия</span>
       </a>
       <nav class="nav" aria-label="Основная навигация">
         <a href="../#services">Услуги</a>
-        
+        <a href="../prava/">Права и обучение</a>
         <a href="../#situations">Сложные ситуации</a>
         <a href="../#process">Как работаем</a>
         <a href="../#faq">Вопросы</a>
@@ -61,7 +62,7 @@
       <div class="container">
         <nav aria-label="Мобильная навигация">
           <a href="../#services">Услуги</a>
-          
+          <a href="../prava/">Права и обучение</a>
           <a href="../#situations">Сложные ситуации</a>
           <a href="../#process">Как работаем</a>
           <a href="../#faq">Вопросы</a>
@@ -89,44 +90,97 @@
     </div>
   </header>
   <main id="main">
-    <section class="service-hero">
+    <section class="service-hero contacts-hero">
       <div class="container">
         <nav class="breadcrumbs" aria-label="Хлебные крошки">
           <a href="../">Главная</a>
           <span aria-hidden="true">/</span>
           <span>Контакты</span>
         </nav>
-        <h1>Контакты ТехУчёт в Санкт-Петербурге</h1>
-        <p class="hero__subtitle">Офис в Санкт-Петербурге, сопровождение по Санкт-Петербургу, Ленинградской области и по всей России.</p>
+        <h1>Контакты компании «ТехУчёт» в Санкт-Петербурге</h1>
+        <p class="contacts-hero__subtitle">Свяжитесь с нами удобным способом: по телефону, в мессенджерах или по электронной почте. Принимаем обращения по Санкт-Петербургу, ЛО и всей России ежедневно с 08:00 до 19:00.</p>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container contacts-grid">
-        <div class="contact-card">
-          <h2>Офис в Санкт-Петербурге</h2>
-          <p class="contact-card__address"><strong>Санкт-Петербург, Московский проспект, 2, кабинет 18</strong></p>
-          <p class="contact-card__metro">м. Сенная площадь / Садовая / Спасская</p>
-          <p class="contact-card__hours">Ежедневно с 08:00 до 19:00</p>
-          <div class="contact-card__actions" style="margin-top: 16px;">
-            <a class="btn btn--primary track-phone" href="tel:+79257577888">+7 925 757-78-88</a>
-            <a class="btn btn--outline track-whatsapp" href="https://wa.me/79257577888" target="_blank" rel="noopener">WhatsApp</a>
-          </div>
-        </div>
+    <section class="section contacts-section">
+      <div class="container">
+        <div class="contacts-grid">
+          <article class="contacts-card">
+            <div class="contacts-card__header">
+              <div class="contacts-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <h2>Телефон</h2>
+            </div>
+            <a class="contacts-card__main-link track-phone" href="tel:+79257577888">+7 925 757-78-88</a>
+            <p class="contacts-card__desc">Ежедневно с 08:00 до 19:00 · Без выходных</p>
+            <div class="contacts-card__action">
+              <button class="btn btn--small btn--outline" type="button" data-modal-open>Заказать звонок</button>
+            </div>
+          </article>
 
-        <div class="contact-card">
-          <h2>Центральный офис</h2>
-          <p class="contact-card__address"><strong>Москва, улица Космонавта Волкова, 20, кабинет 415</strong></p>
-          <p class="contact-card__hours">Ежедневно с 08:00 до 19:00</p>
-          <p style="margin-top: 12px; color: #4B6382;">Принимаем заявки и оформляем технику дистанционно по всей России.</p>
-        </div>
+          <article class="contacts-card">
+            <div class="contacts-card__header">
+              <div class="contacts-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              </div>
+              <h2>Мессенджеры</h2>
+            </div>
+            <p class="contacts-card__desc">Быстрая консультация и предварительная оценка документов онлайн:</p>
+            <div class="contacts-card__messengers">
+              <a class="quick-contact quick-contact--whatsapp track-whatsapp" href="https://wa.me/79257577888" target="_blank" rel="noopener">WhatsApp</a>
+              <a class="quick-contact quick-contact--telegram track-telegram" href="https://t.me/Romatran" target="_blank" rel="noopener">Telegram</a>
+              <a class="quick-contact quick-contact--max track-max is-disabled" aria-label="MAX" aria-disabled="true" title="Ссылка на MAX будет добавлена после её получения">MAX</a>
+            </div>
+            <p class="contacts-card__subnote">Отвечаем в течение 5–10 минут в рабочее время</p>
+          </article>
 
-        <div class="contact-card">
-          <h2>Реквизиты и связь</h2>
-          <p><strong>Email:</strong> <a class="text-link track-email" href="mailto:techuchet24@ya.ru">techuchet24@ya.ru</a></p>
-          <p><strong>Telegram:</strong> <a class="text-link track-telegram" href="https://t.me/Romatran" target="_blank" rel="noopener">@Romatran</a></p>
-          <p style="margin-top: 8px;"><strong>ООО «ЮНАТ»</strong><br>ИНН 2536345868 · КПП 253601001<br>ОГРН 1242500018859</p>
+          <article class="contacts-card">
+            <div class="contacts-card__header">
+              <div class="contacts-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <h2>Электронная почта</h2>
+            </div>
+            <a class="contacts-card__main-link track-email" href="mailto:techuchet24@ya.ru">techuchet24@ya.ru</a>
+            <p class="contacts-card__desc">Для отправки сканов документов, договоров, реквизитов и официальных запросов.</p>
+          </article>
+
+          <article class="contacts-card">
+            <div class="contacts-card__header">
+              <div class="contacts-card__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <h2>Офис в Санкт-Петербурге</h2>
+            </div>
+            <p class="contacts-card__address">Санкт-Петербург, Московский проспект, 2, кабинет 18</p>
+            <p class="contacts-card__desc">м. Сенная площадь / Садовая / Спасская (3–5 минут пешком). Приём по предварительной записи.<br>Центральный офис: Москва, ул. Космонавта Волкова, 20, каб. 415.</p>
+            <div class="contacts-card__action">
+              <a class="btn btn--small btn--outline" href="https://yandex.ru/maps/?text=Санкт-Петербург,+Московский+проспект,+2" target="_blank" rel="noopener noreferrer">Открыть на Яндекс.Картах ↗</a>
+            </div>
+          </article>
         </div>
+      </div>
+    </section>
+
+    <section class="section section--alt contacts-requisites-section">
+      <div class="container">
+        <div class="section-heading section-heading--left">
+          <h2>Реквизиты организации</h2>
+          <p>Работаем официально по договору. Безналичный расчёт для юридических лиц и ИП с предоставлением всех закрывающих документов.</p>
+        </div>
+        <div class="contacts-requisites-card">
+          <dl class="contacts-requisites-grid">
+            <div><dt>Полное наименование</dt><dd>ООО «ЮНАТ»</dd></div>
+            <div><dt>ИНН</dt><dd>2536345868</dd></div>
+            <div><dt>КПП</dt><dd>253601001</dd></div>
+            <div><dt>ОГРН</dt><dd>1242500018859</dd></div>
+            <div><dt>Офис в Санкт-Петербурге</dt><dd>Санкт-Петербург, Московский проспект, 2, кабинет 18</dd></div>
+            <div><dt>Центральный офис</dt><dd>Центральный офис: Москва, улица Космонавта Волкова, 20, кабинет 415</dd></div>
+            <div><dt>Режим работы</dt><dd>Ежедневно с 08:00 до 19:00</dd></div>
+          </dl>
+        </div>
+        <p class="section-note" style="margin-top: 20px;">Ищете описание конкретной процедуры? Перейдите в профильный раздел: <a class="text-link" href="../registraciya/">Регистрация спецтехники</a> · <a class="text-link" href="../snyatie-s-ucheta/">Снятие с учёта</a> · <a class="text-link" href="../tehosmotr/">Техосмотр</a> · <a class="text-link" href="../vosstanovlenie-psm/">Восстановление ПСМ</a> · <a class="text-link" href="../vosstanovlenie-sts/">Восстановление СТС</a> · <a class="text-link" href="../slozhnye-sluchai/">Сложные случаи</a> · <a class="text-link" href="../prava/">Права и обучение</a>.</p>
       </div>
     </section>
 

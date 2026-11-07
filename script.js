@@ -137,12 +137,14 @@
     const dialog = modal.querySelector('.modal__dialog');
     const discountBanner = modal.querySelector('[data-modal-discount]');
     let previousFocus = null;
-    const open = (focusSelector = 'input[name="name"]') => {
+    const open = (focusSelector = 'input[name="name"]', { isAutoExit = false } = {}) => {
       previousFocus = document.activeElement;
       modal.hidden = false;
       modal.classList.add('is-open');
       document.body.classList.add('modal-open');
-      trackGoal('lead_form_open');
+      if (!isAutoExit) {
+        trackGoal('lead_form_open');
+      }
       window.setTimeout(() => dialog?.querySelector(focusSelector)?.focus(), 0);
     };
     const close = () => {
@@ -183,7 +185,7 @@
       }
       if (submitBtn) submitBtn.textContent = 'Получить скидку 10%';
       trackGoal('exit_discount_open');
-      open('input[name="phone"]');
+      open('input[name="phone"]', { isAutoExit: true });
     };
 
     document.querySelectorAll('[data-modal-open]').forEach((button) => button.addEventListener('click', () => {
@@ -222,7 +224,7 @@
 
     // Exit-Intent Retention Trigger (Desktop & Mobile)
     let exitArmed = false;
-    window.setTimeout(() => { exitArmed = true; }, 2000);
+    window.setTimeout(() => { exitArmed = true; }, 25000);
 
     const handleDesktopExitIntent = (e) => {
       if (!exitArmed) return;
@@ -243,7 +245,7 @@
       window.addEventListener('scroll', () => {
         const curY = window.scrollY;
         if (curY > maxScrollY) maxScrollY = curY;
-        if (exitArmed && maxScrollY > 450 && curY < 120 && lastScrollY - curY > 35) {
+        if (exitArmed && maxScrollY > 900 && curY < 120 && lastScrollY - curY > 35) {
           const activeTag = document.activeElement?.tagName;
           if (activeTag !== 'INPUT' && activeTag !== 'TEXTAREA' && activeTag !== 'SELECT') {
             openExitDiscountModal();
@@ -460,16 +462,9 @@
 
         trackGoal('lead_abandoned_captured');
 
-        if (CONFIG.FORM_ENDPOINT) {
-          fetch(CONFIG.FORM_ENDPOINT, {
-            method: 'POST',
-            headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-            keepalive: true,
-          }).catch((err) => {
-            console.warn('[ТехУчёт] Ошибка отправки брошенного ввода:', err);
-          });
-        }
+        sendLead(payload, { keepalive: true }).catch((err) => {
+          console.warn('[ТехУчёт] Ошибка отправки брошенного ввода:', err);
+        });
       };
 
       phoneInput.addEventListener('input', () => {
@@ -643,18 +638,50 @@
     };
   }
 
-  async function sendLead(payload) {
-    if (!CONFIG.FORM_ENDPOINT) throw new Error('Form endpoint is not configured');
-    const response = await fetch(CONFIG.FORM_ENDPOINT, {
+  async function postJsonEndpoint(endpoint, payload, { timeoutMs = 6500, keepalive = false } = {}) {
+    const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    const timer = controller ? window.setTimeout(() => controller.abort(), timeoutMs) : null;
+    const fetchOpts = {
       method: 'POST',
       headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
-    });
-    let result = null;
-    try { result = await response.json(); } catch { result = null; }
-    const accepted = result?.ok === true || String(result?.success).toLowerCase() === 'true';
-    if (!response.ok || !accepted) throw new Error(result?.message || `HTTP ${response.status}`);
-    return result;
+      keepalive,
+      signal: controller ? controller.signal : undefined,
+    };
+    try {
+      const response = endpoint === CONFIG.FORM_ENDPOINT
+        ? await fetch(CONFIG.FORM_ENDPOINT, fetchOpts)
+        : await fetch(endpoint, fetchOpts);
+      let result = null;
+      try { result = await response.json(); } catch { result = null; }
+      const accepted = result?.ok === true || String(result?.success).toLowerCase() === 'true';
+      if (!response.ok || !accepted) {
+        throw new Error(result?.message || result?.error || `HTTP ${response.status}`);
+      }
+      return result;
+    } finally {
+      if (timer) window.clearTimeout(timer);
+    }
+  }
+
+  async function sendLead(payload, options = {}) {
+    const endpoints = [
+      '/api/lead',
+      CONFIG.FORM_ENDPOINT,
+      CONFIG.FALLBACK_FORM_ENDPOINT || 'https://formsubmit.co/ajax/techuchet24@ya.ru',
+    ].filter(Boolean);
+
+    const uniqueEndpoints = [...new Set(endpoints)];
+    let lastError = new Error('Form endpoint is not configured');
+
+    for (const endpoint of uniqueEndpoints) {
+      try {
+        return await postJsonEndpoint(endpoint, payload, options);
+      } catch (err) {
+        lastError = err;
+      }
+    }
+    throw lastError;
   }
 
   function setButtonLoading(button, loading) {
@@ -1237,7 +1264,7 @@
         }
 
         openChat(true);
-      }, 5000);
+      }, 25000);
     }
   }
 })();

@@ -29,10 +29,11 @@
   <link rel="icon" type="image/png" href="favicon.png?v=3">
   <link rel="shortcut icon" type="image/png" href="favicon.png?v=3">
   <link rel="apple-touch-icon" href="favicon.png?v=3">
-  <link rel="preload" href="style.css?v=12" as="style">
-  <link rel="stylesheet" href="style.css?v=12">
+  <link rel="preload" href="style.css?v=13" as="style">
+  <link rel="stylesheet" href="style.css?v=13">
   <script src="site-config.js?v=12"></script>
   <script src="script.js?v=12" defer></script>
+  <script src="cro-tracker.js" data-site="tehuchet24.ru" data-endpoint="http://localhost:4200/api/track" defer></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"ООО «ЮНАТ»","alternateName":"ТехУчёт","url":"https://tehuchet24.ru/","logo":"https://tehuchet24.ru/logo.png","telephone":"+7 925 757-78-88","email":"techuchet24@ya.ru","sameAs":["https://wa.me/79257577888","https://t.me/Romatran"],"identifier":[{"@type":"PropertyValue","name":"ИНН","value":"2536345868"},{"@type":"PropertyValue","name":"КПП","value":"253601001"},{"@type":"PropertyValue","name":"ОГРН","value":"1242500018859"}],"areaServed":{"@type":"Country","name":"Россия"},"openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"08:00","closes":"19:00"},"contactPoint":{"@type":"ContactPoint","telephone":"+7 925 757-78-88","email":"techuchet24@ya.ru","contactType":"customer service","areaServed":"RU","availableLanguage":"Russian"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"ТехУчёт","alternateName":"ТехУчёт — центр сопровождения в Гостехнадзоре","url":"https://tehuchet24.ru/"}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Сопровождение регистрационных действий со спецтехникой в Гостехнадзоре Санкт-Петербурга, ЛО и по всей России","description":"Центр сопровождения в Гостехнадзоре «ТехУчёт» в Санкт-Петербурге: регистрация спецтехники, снятие с учёта, техосмотр, перерегистрация, восстановление ПСМ и СТС по СПб, ЛО и всей России. От 5 000 ₽.","url":"https://spb.tehuchet24.ru/","provider":{"@type":"Organization","name":"ООО «ЮНАТ»","alternateName":"ТехУчёт","url":"https://tehuchet24.ru/"},"areaServed":[{"@type":"City","name":"Санкт-Петербург"},{"@type":"AdministrativeArea","name":"Ленинградская область"},{"@type":"Country","name":"Россия"}],"offers":{"@type":"Offer","priceCurrency":"RUB","price":"5000","description":"Стоимость от 5 000 ₽. Точная стоимость определяется после уточнения задачи."}}</script>
@@ -45,11 +46,11 @@
     <div class="container header__inner">
       <a class="logo" href="./" aria-label="ТехУчёт — главная">
         <img class="logo__img" src="logo-dark.png?v=2" width="932" height="268" alt="ТехУчёт — Гостехнадзор">
-        <span class="logo__tagline">Оформление спецтехники в Санкт-Петербурге, ЛО и по всей России</span>
+        <span class="logo__tagline">Санкт-Петербург, ЛО и вся Россия</span>
       </a>
       <nav class="nav" aria-label="Основная навигация">
         <a href="./#services">Услуги</a>
-        
+        <a href="prava/">Права и обучение</a>
         <a href="./#situations">Сложные ситуации</a>
         <a href="./#process">Как работаем</a>
         <a href="./#faq">Вопросы</a>
@@ -68,7 +69,7 @@
       <div class="container">
         <nav aria-label="Мобильная навигация">
           <a href="./#services">Услуги</a>
-          
+          <a href="prava/">Права и обучение</a>
           <a href="./#situations">Сложные ситуации</a>
           <a href="./#process">Как работаем</a>
           <a href="./#faq">Вопросы</a>
@@ -96,20 +97,19 @@
     </div>
   </header>
   <main id="main">
-    <section class="hero hero--regional">
+    <section class="hero">
       <picture class="hero__media"><source srcset="assets/images/hero_bg-720.webp 720w, assets/images/hero_bg-900.webp 900w, assets/images/hero_bg.webp 1376w" sizes="100vw" type="image/webp"><img src="assets/images/hero_bg.jpg" width="1376" height="768" alt="Самоходная спецтехника — сопровождение оформления в Гостехнадзоре Санкт-Петербурга, ЛО и по всей России" fetchpriority="high" decoding="async"></picture>
       <div class="hero__shade" aria-hidden="true"></div>
       <div class="container">
         <div class="hero__content">
-          <p class="hero__eyebrow">Центр сопровождения в Гостехнадзоре в Санкт-Петербурге</p>
-          <h1>Регистрация и техосмотр спецтехники в Санкт-Петербурге и ЛО — без очередей и визитов</h1>
-          <p class="hero__subtitle">Берём на себя постановку на учёт, снятие и техосмотр любой самоходной техники. Оформляем в Санкт-Петербурге, Ленинградской области и по всей России. Удалённо, без привоза техники, по договору с НДС.</p>
+          <p class="hero__eyebrow">Центр сопровождения в Санкт-Петербурге</p>
+          <h1>Регистрация и техосмотр спецтехники — без очередей и визитов</h1>
+          <p class="hero__subtitle">Берём на себя постановку на учёт, снятие и техосмотр любой самоходной техники. Оформляем в Санкт-Петербурге, ЛО и по всей России. Быстро, по договору, с закрывающими документами.</p>
           <ul class="hero__badges">
             <li>Без привоза техники</li>
-            <li>Удалённо по всей России</li>
             <li>От 5 000 ₽</li>
             <li>3–5 рабочих дней</li>
-            <li>Безнал с НДС</li>
+            <li>Для физлиц и организаций</li>
           </ul>
           <div class="hero__cta">
             <button class="btn btn--hero-primary" type="button" data-modal-open data-select-service="Консультация" data-lead-intent="consultation">Бесплатная консультация</button>
@@ -390,7 +390,7 @@
             <div class="process-flow__icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg></div>
             <div class="process-flow__body">
               <h3>Сопровождаем оформление</h3>
-              <p>Берём взаимодействие с инспекцией на себя — удалённо, без привоза техники.</p>
+              <p>Готовим необходимые документы и берём взаимодействие с ведомством на себя.</p>
             </div>
           </li>
           <li class="process-flow__step">
@@ -401,7 +401,7 @@
             </div>
           </li>
         </ol>
-        <div class="info-strip"><strong>Как правило, 3–5 рабочих дней после передачи комплекта документов.</strong><span>Точный срок зависит от вида регистрационного действия и графика работы соответствующего подразделения Гостехнадзора.</span></div>
+        <div class="info-strip"><strong>Как правило, 3–5 рабочих дней после получения полного комплекта документов.</strong><span>Точный срок зависит от вида регистрационного действия, комплекта документов и графика работы соответствующего подразделения Гостехнадзора.</span></div>
       </div>
     </section>
 
@@ -413,7 +413,7 @@
           <li>Документ о праве собственности</li>
           <li>Паспорт собственника или реквизиты организации</li>
         </ul>
-        <p class="section-note">ПСМ / ЭПСМ предоставляется собственником как часть комплекта документов для оформления. Необходимые заявления и квитанции подготовим в рамках оформления.</p>
+        <p class="section-note">ПСМ / ЭПСМ предоставляется собственником как часть комплекта документов для оформления. Остальной комплект зависит от ситуации — необходимые документы подготовим в рамках оформления.</p>
         <div style="margin-top: 18px;"><button class="btn btn--primary" type="button" data-modal-open data-select-service="Регистрация спецтехники" data-lead-intent="order">Заказать оформление</button></div>
       </div>
     </section>
@@ -422,6 +422,12 @@
       <div class="container">
         <div class="section-heading"><h2>Примеры задач, с которыми мы работаем</h2><p>Сроки и порядок действий приведены как примеры. Результат зависит от документов и конкретной ситуации.</p></div>
         <div class="case-grid"><article class="case-card"><h3>Экскаватор-погрузчик JCB 3CX</h3><dl><div><dt>Ситуация</dt><dd>В договоре купли-продажи обнаружены ошибки, из-за которых документы могли не принять.</dd></div><div><dt>Возможное решение</dt><dd>На основании предоставленного ПСМ подготовили комплект документов, исправили договор купли-продажи и акт приёма-передачи для постановки на учёт.</dd></div><div><dt>Ориентировочный срок</dt><dd>4 рабочих дня</dd></div></dl><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Пример задачи: Экскаватор-погрузчик JCB 3CX">Обсудить похожую задачу</a></article><article class="case-card"><h3>Трактор МТЗ-82</h3><dl><div><dt>Ситуация</dt><dd>Техника продана, но предыдущий собственник не завершил регистрационные действия.</dd></div><div><dt>Возможное решение</dt><dd>Разобрали историю владения по документам, подготовили комплект для снятия и последующей постановки техники на нового владельца.</dd></div><div><dt>Ориентировочный срок</dt><dd>3 рабочих дня</dd></div></dl><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Пример задачи: Трактор МТЗ-82">Обсудить похожую задачу</a></article><article class="case-card"><h3>Мини-погрузчик Bobcat S650</h3><dl><div><dt>Ситуация</dt><dd>Паспорт самоходной машины был повреждён, часть данных читалась плохо.</dd></div><div><dt>Возможное решение</dt><dd>Получили необходимые документы от собственника и подготовили обращение для восстановления документа и дальнейшей регистрации.</dd></div><div><dt>Ориентировочный срок</dt><dd>5 рабочих дней</dd></div></dl><a class="text-link" href="#lead-form" data-select-service="Отказ или сложная ситуация" data-situation="Пример задачи: Мини-погрузчик Bobcat S650">Обсудить похожую задачу</a></article></div>
+      </div>
+    </section>
+
+    <section class="rules-section" style="padding-bottom: 0;">
+      <div class="container">
+        <div class="info-strip"><strong>Работаем с учётом актуальных правил регистрации с 1 сентября 2026 года.</strong></div>
       </div>
     </section>
 
