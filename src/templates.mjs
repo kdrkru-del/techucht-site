@@ -43,7 +43,6 @@ function head({ title, description, canonical, prefix = '', schemas = [], robots
   <link rel="stylesheet" href="${prefix}style.css?v=13">
   <script src="${prefix}site-config.js?v=12"></script>
   <script src="${prefix}script.js?v=12" defer></script>
-  <script src="${prefix}cro-tracker.js" data-site="tehuchet24.ru" data-endpoint="http://localhost:4200/api/track" defer></script>
   ${schemas.map((schema) => `<script type="application/ld+json">${jsonLd(schema)}</script>`).join('\n  ')}`;
 }
 

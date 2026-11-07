@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <title>ТехУчёт Lead Bridge</title>
+</head>
+<body>
+<script>
+(() => {
+  'use strict';
+  const isAllowedOrigin = (origin) => {
+    if (!origin) return false;
+    try {
+      const { hostname } = new URL(origin);
+      return hostname === 'tehuchet24.ru' || hostname.endsWith('.tehuchet24.ru');
+    } catch {
+      return false;
+    }
+  };
+  window.addEventListener('message', async (event) => {
+    if (!isAllowedOrigin(event.origin)) return;
+    const data = event.data;
+    if (!data || data.type !== 'TECHUCHET_LEAD_SUBMIT' || !data.id || !data.payload) return;
+    try {
+      const response = await fetch(data.endpoint || "https://zelsrez-leads.roman-k-0b3.workers.dev/api/lead", {
+        method: 'POST',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(data.payload),
+      });
+      let result = null;
+      try { result = await response.json(); } catch { result = null; }
+      const ok = response.ok && (result?.ok === true || String(result?.success).toLowerCase() === 'true');
+      event.source?.postMessage({ type: 'TECHUCHET_LEAD_RESULT', id: data.id, ok, result, status: response.status }, event.origin);
+    } catch (err) {
+      event.source?.postMessage({ type: 'TECHUCHET_LEAD_RESULT', id: data.id, ok: false, error: String(err?.message || err) }, event.origin);
+    }
+  });
+  if (window.parent && window.parent !== window) {
+    window.parent.postMessage({ type: 'TECHUCHET_BRIDGE_READY' }, '*');
+  }
+})();
+</script>
+</body>
+</html>

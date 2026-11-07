@@ -471,7 +471,7 @@
           service,
           phone: norm,
           name: nameVal,
-          source: 'tehuchet24.ru',
+          source: window.location.hostname || 'tehuchet24.ru',
           page: window.location.href,
           page_url: window.location.href,
           page_title: document.title,
@@ -651,7 +651,7 @@
       _template: 'table',
       date_time: new Date().toLocaleString('ru-RU', { dateStyle: 'long', timeStyle: 'medium' }),
       created_at: new Date().toISOString(),
-      source: 'tehuchet24.ru',
+      source: window.location.hostname || 'tehuchet24.ru',
       page: window.location.href,
       entry_page: document.referrer || '',
       form_name: form.dataset.formName || 'Форма сайта',
@@ -708,10 +708,75 @@
     }
   }
 
+  let bridgeFramePromise = null;
+  function getMainDomainBridgeFrame(bridgeOrigin = 'https://tehuchet24.ru') {
+    if (bridgeFramePromise) return bridgeFramePromise;
+    bridgeFramePromise = new Promise((resolve, reject) => {
+      const iframe = document.createElement('iframe');
+      iframe.src = `${bridgeOrigin}/lead-bridge.html`;
+      iframe.style.display = 'none';
+      iframe.setAttribute('aria-hidden', 'true');
+      const timer = window.setTimeout(() => {
+        bridgeFramePromise = null;
+        iframe.remove();
+        reject(new Error('Bridge load timeout'));
+      }, 5000);
+      const onReady = (event) => {
+        if (event.origin === bridgeOrigin && event.data?.type === 'TECHUCHET_BRIDGE_READY') {
+          window.clearTimeout(timer);
+          window.removeEventListener('message', onReady);
+          resolve(iframe);
+        }
+      };
+      window.addEventListener('message', onReady);
+      iframe.addEventListener('load', () => {
+        window.setTimeout(() => {
+          window.clearTimeout(timer);
+          window.removeEventListener('message', onReady);
+          resolve(iframe);
+        }, 120);
+      });
+      document.body.appendChild(iframe);
+    });
+    return bridgeFramePromise;
+  }
+
+  async function sendViaMainDomainBridge(payload, { timeoutMs = 6500 } = {}) {
+    const bridgeOrigin = 'https://tehuchet24.ru';
+    const iframe = await getMainDomainBridgeFrame(bridgeOrigin);
+    if (!iframe?.contentWindow) throw new Error('Bridge frame unavailable');
+    const reqId = `lead_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+    return new Promise((resolve, reject) => {
+      const timer = window.setTimeout(() => {
+        window.removeEventListener('message', onResult);
+        reject(new Error('Bridge request timeout'));
+      }, timeoutMs);
+      const onResult = (event) => {
+        if (event.origin !== bridgeOrigin) return;
+        const data = event.data;
+        if (!data || data.type !== 'TECHUCHET_LEAD_RESULT' || data.id !== reqId) return;
+        window.clearTimeout(timer);
+        window.removeEventListener('message', onResult);
+        if (data.ok) resolve(data.result || { ok: true });
+        else reject(new Error(data.error || `HTTP ${data.status || 500}`));
+      };
+      window.addEventListener('message', onResult);
+      iframe.contentWindow.postMessage({
+        type: 'TECHUCHET_LEAD_SUBMIT',
+        id: reqId,
+        endpoint: CONFIG.FORM_ENDPOINT,
+        payload,
+      }, bridgeOrigin);
+    });
+  }
+
   async function sendLead(payload, options = {}) {
+    const isSubdomain = window.location.hostname.endsWith('.tehuchet24.ru') && window.location.hostname !== 'www.tehuchet24.ru';
     const endpoints = [
       '/api/lead',
+      ...(isSubdomain ? ['__bridge__'] : []),
       CONFIG.FORM_ENDPOINT,
+      ...(!isSubdomain ? [] : []),
       CONFIG.FALLBACK_FORM_ENDPOINT || 'https://formsubmit.co/ajax/techuchet24@ya.ru',
     ].filter(Boolean);
 
@@ -720,6 +785,9 @@
 
     for (const endpoint of uniqueEndpoints) {
       try {
+        if (endpoint === '__bridge__') {
+          return await sendViaMainDomainBridge(payload, options);
+        }
         return await postJsonEndpoint(endpoint, payload, options);
       } catch (err) {
         lastError = err;
@@ -866,6 +934,10 @@
       trackLinks: true,
       accurateTrackBounce: true,
       webvisor: true,
+      params: {
+        site_host: window.location.hostname || 'tehuchet24.ru',
+        region_site: (window.location.hostname.startsWith('spb.') || window.location.pathname.startsWith('/spb')) ? 'spb' : 'msk',
+      },
     });
   }
 

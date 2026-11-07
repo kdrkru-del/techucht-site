@@ -143,6 +143,53 @@ const publicConfig = {
 
 await output('site-config.js', `window.TECHUCHET_CONFIG = ${JSON.stringify(publicConfig, null, 2)};\n`);
 
+await output('lead-bridge.html', `<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <title>ТехУчёт Lead Bridge</title>
+</head>
+<body>
+<script>
+(() => {
+  'use strict';
+  const isAllowedOrigin = (origin) => {
+    if (!origin) return false;
+    try {
+      const { hostname } = new URL(origin);
+      return hostname === 'tehuchet24.ru' || hostname.endsWith('.tehuchet24.ru');
+    } catch {
+      return false;
+    }
+  };
+  window.addEventListener('message', async (event) => {
+    if (!isAllowedOrigin(event.origin)) return;
+    const data = event.data;
+    if (!data || data.type !== 'TECHUCHET_LEAD_SUBMIT' || !data.id || !data.payload) return;
+    try {
+      const response = await fetch(data.endpoint || ${JSON.stringify(site.formEndpoint)}, {
+        method: 'POST',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(data.payload),
+      });
+      let result = null;
+      try { result = await response.json(); } catch { result = null; }
+      const ok = response.ok && (result?.ok === true || String(result?.success).toLowerCase() === 'true');
+      event.source?.postMessage({ type: 'TECHUCHET_LEAD_RESULT', id: data.id, ok, result, status: response.status }, event.origin);
+    } catch (err) {
+      event.source?.postMessage({ type: 'TECHUCHET_LEAD_RESULT', id: data.id, ok: false, error: String(err?.message || err) }, event.origin);
+    }
+  });
+  if (window.parent && window.parent !== window) {
+    window.parent.postMessage({ type: 'TECHUCHET_BRIDGE_READY' }, '*');
+  }
+})();
+</script>
+</body>
+</html>
+`);
+
 const urls = ['', 'spb/', ...servicePages.map((page) => `${page.slug}/`), 'kontakty/', 'privacy/', 'consent/'];
 const sitemapUrls = ['', 'spb/', ...servicePages.map((page) => `${page.slug}/`), 'kontakty/'];
 
@@ -216,7 +263,7 @@ await mkdir(join(dist, 'server'), { recursive: true });
 await mkdir(join(dist, 'client'), { recursive: true });
 
 for (const file of [
-  'index.html', '404.html', 'style.css', 'script.js', 'site-config.js', 'favicon.png', 'logo.png', 'logo-dark.png', 'og.png',
+  'index.html', '404.html', 'lead-bridge.html', 'style.css', 'script.js', 'site-config.js', 'favicon.png', 'logo.png', 'logo-dark.png', 'og.png',
   'robots.txt', 'sitemap.xml', 'site.webmanifest', 'yandex_51c60f752ea2994f.html', 'yandex_97c871531f08a479.html',
 ]) {
   await copyFile(join(root, file), join(dist, 'client', file));
