@@ -773,6 +773,7 @@
   async function sendLead(payload, options = {}) {
     const isSubdomain = window.location.hostname.endsWith('.tehuchet24.ru') && window.location.hostname !== 'www.tehuchet24.ru';
     const endpoints = [
+      (CONFIG.LEAD_GATEWAY_URL && !CONFIG.LEAD_GATEWAY_URL.includes('localhost')) ? CONFIG.LEAD_GATEWAY_URL : null,
       '/api/lead',
       ...(isSubdomain ? ['__bridge__'] : []),
       CONFIG.FORM_ENDPOINT,
@@ -1393,3 +1394,27 @@
   }
 })();
 
+
+
+  // Cookie banner compliance
+  function initTechUchetCookieBanner() {
+    if (typeof localStorage !== 'undefined' && !localStorage.getItem('cookie_consent_accepted')) {
+      const banner = document.createElement('div');
+      banner.id = 'tu-cookie-banner';
+      banner.style.cssText = 'position:fixed;bottom:20px;left:20px;right:20px;max-width:520px;background:#17324D;color:#f8fafc;padding:16px 20px;border-radius:10px;box-shadow:0 10px 25px rgba(0,0,0,0.3);z-index:9999;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:12.5px;line-height:1.4;';
+      banner.innerHTML = `
+        <div>Мы используем cookie и аналитику для удобства работы с сайтом. Подробнее в <a href="/privacy/" target="_blank" style="color:#57a2e6;text-decoration:underline;">Политике конфиденциальности</a>.</div>
+        <button type="button" style="background:#2563eb;color:#fff;border:none;padding:8px 16px;border-radius:6px;font-weight:600;cursor:pointer;white-space:nowrap;font-size:12px;">Принять</button>
+      `;
+      banner.querySelector('button').addEventListener('click', () => {
+        localStorage.setItem('cookie_consent_accepted', 'true');
+        banner.remove();
+      });
+      document.body.appendChild(banner);
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTechUchetCookieBanner);
+  } else {
+    initTechUchetCookieBanner();
+  }

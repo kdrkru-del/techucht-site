@@ -42,6 +42,7 @@ function head({ title, description, canonical, prefix = '', schemas = [], robots
   <link rel="preload" href="${prefix}style.css?v=13" as="style">
   <link rel="stylesheet" href="${prefix}style.css?v=13">
   <script src="${prefix}site-config.js?v=12"></script>
+  <script src="${prefix}antifraud-sensor.js?v=1" data-counter="111852031" defer></script>
   <script src="${prefix}script.js?v=12" defer></script>
   ${schemas.map((schema) => `<script type="application/ld+json">${jsonLd(schema)}</script>`).join('\n  ')}`;
 }
@@ -724,7 +725,7 @@ function header(prefix = '', sectionBase = null, { homeHref = null, situationsId
 function consentField(id, prefix = '') {
   return `<label class="consent" for="${id}">
     <input id="${id}" name="consent" type="checkbox" required>
-    <span>Я соглашаюсь на <a href="${prefix}consent/" target="_blank">обработку персональных данных</a> и принимаю <a href="${prefix}privacy/" target="_blank">Политику конфиденциальности</a>.</span>
+    <span>Даю <a href="${prefix}consent/" target="_blank">согласие на обработку персональных данных</a> ООО «ЮНАТ». С <a href="${prefix}privacy/" target="_blank">Политикой конфиденциальности</a> ознакомлен.</span>
   </label>`;
 }
 
@@ -1006,8 +1007,8 @@ function callbackWidget(prefix = '') {
             </label>
 
             <label class="consent chat-form__consent" for="chat-consent">
-              <input id="chat-consent" name="consent" type="checkbox" checked required>
-              <span>Нажимая кнопку, вы соглашаетесь с <a href="${prefix}privacy/" target="_blank" rel="noopener">политикой конфиденциальности</a> и даёте <a href="${prefix}consent/" target="_blank" rel="noopener">согласие на обработку данных</a>.</span>
+              <input id="chat-consent" name="consent" type="checkbox" required>
+              <span>Даю <a href="${prefix}consent/" target="_blank" rel="noopener">согласие на обработку данных</a> ООО «ЮНАТ». С <a href="${prefix}privacy/" target="_blank" rel="noopener">Политикой конфиденциальности</a> ознакомлен.</span>
             </label>
 
             <button class="btn btn--primary btn--full chat-form__submit-btn" type="submit">
@@ -1735,7 +1736,7 @@ export function legalPage(type) {
     <h2>1. Какие данные обрабатываются</h2><p>Имя, телефон, регион, город, сведения о виде техники и выбранной услуге, комментарий к заявке, адрес страницы, UTM-метки, yclid и технический идентификатор ClientID Яндекс.Метрики при его наличии.</p>
     <h2>2. Цели обработки</h2><p>Обработка обращения, обратная связь, расчёт стоимости услуг, подготовка предложения и анализ эффективности рекламных источников. Персональные данные из форм не передаются в Яндекс.Метрику.</p>
     <h2>3. Правовые основания</h2><p>Согласие пользователя, предоставленное установкой обязательного флажка в форме, а также действия, необходимые для ответа на запрос пользователя и заключения договора.</p>
-    <h2>4. Способы и сроки обработки</h2><p>Данные передаются по защищённому соединению через технический обработчик Cloudflare Worker в Telegram для доставки заявки оператору. Данные хранятся не дольше, чем этого требуют цели обработки и законодательство Российской Федерации.</p>
+    <h2>4. Способы и сроки обработки (локализация баз данных в РФ)</h2><p>В соответствии с частью 5 статьи 18 152-ФЗ РФ при сборе персональных данных оператор обеспечивает запись, систематизацию, накопление и хранение персональных данных граждан РФ в базах данных на территории Российской Федерации перед их отправкой в сервисы оповещения (Telegram-боты, диспетчерские интерфейсы). Срок хранения определяется целями обработки и законодательством РФ.</p>
     <h2>5. Передача третьим лицам</h2><p>Данные могут обрабатываться Cloudflare, Telegram и другими техническими поставщиками, обеспечивающими работу сайта и передачу заявок, только в объёме, необходимом для оказания соответствующих услуг. Иная передача возможна в случаях, установленных законом.</p>
     <h2>6. Права пользователя</h2><p>Пользователь может запросить сведения об обработке, уточнение, блокирование или удаление данных, а также отозвать согласие, направив письмо на <a href="${site.emailHref}">${site.email}</a>.</p>
     <h2>7. Файлы cookie и аналитика</h2><p>Сайт может сохранять технические параметры рекламного перехода и использовать Яндекс.Метрику после указания владельцем действующего идентификатора счётчика. Пользователь может ограничить cookie в настройках браузера.</p>
@@ -1747,7 +1748,7 @@ export function legalPage(type) {
     <h2>3. Действия с данными</h2><p>Сбор, запись, систематизация, хранение, уточнение, использование, передача через Cloudflare Worker в Telegram и другим техническим поставщикам для доставки заявки оператору, блокирование и удаление.</p>
     <h2>4. Срок и отзыв согласия</h2><p>Согласие действует до достижения целей обработки или до его отзыва. Отозвать согласие можно письмом на <a href="${site.emailHref}">${site.email}</a>. Отзыв не влияет на законность обработки, выполненной до его получения.</p>
     <h2>5. Подтверждение</h2><p>Я подтверждаю, что указанные мной данные принадлежат мне, а предоставленная информация является достоверной.</p>`;
-  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: `${title} — ТехУчёт`, description: `${title} сайта ТехУчёт.`, canonical, prefix: '../', schemas: [organizationSchema()], robots: 'noindex, follow' })}</head><body>${header('../')}<main id="main" class="legal"><div class="container legal__inner"><h1>${title}</h1><p class="legal__updated">Редакция от 8 августа 2026 года</p>${isPrivacy ? privacyContent : consentContent}</div></main>${footer('../')}${simpleCallbackModal('../')}${mobileBar('../')}</body></html>`;
+  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: `${title} — ТехУчёт`, description: `${title} сайта ТехУчёт.`, canonical, prefix: '../', schemas: [organizationSchema()], robots: 'noindex, follow' })}</head><body>${header('../')}<main id="main" class="legal"><div class="container legal__inner"><h1>${title}</h1><p class="legal__updated">Редакция от 8 ноября 2026 года</p>${isPrivacy ? privacyContent : consentContent}</div></main>${footer('../')}${simpleCallbackModal('../')}${mobileBar('../')}</body></html>`;
 }
 
 export function notFoundPage({ nested = false } = {}) {
@@ -2389,7 +2390,7 @@ export function spbSubdomainLegalPage(type) {
     <h2>1. Какие данные обрабатываются</h2><p>Имя, телефон, регион, город, сведения о виде техники и выбранной услуге, комментарий к заявке, адрес страницы, UTM-метки, yclid и технический идентификатор ClientID Яндекс.Метрики при его наличии.</p>
     <h2>2. Цели обработки</h2><p>Обработка обращения, обратная связь, расчёт стоимости услуг, подготовка предложения и анализ эффективности рекламных источников. Персональные данные из форм не передаются в Яндекс.Метрику.</p>
     <h2>3. Правовые основания</h2><p>Согласие пользователя, предоставленное установкой обязательного флажка в форме, а также действия, необходимые для ответа на запрос пользователя и заключения договора.</p>
-    <h2>4. Способы и сроки обработки</h2><p>Данные передаются по защищённому соединению через технический обработчик Cloudflare Worker в Telegram для доставки заявки оператору. Данные хранятся не дольше, чем этого требуют цели обработки и законодательство Российской Федерации.</p>
+    <h2>4. Способы и сроки обработки (локализация баз данных в РФ)</h2><p>В соответствии с частью 5 статьи 18 152-ФЗ РФ при сборе персональных данных оператор обеспечивает запись, систематизацию, накопление и хранение персональных данных граждан РФ в базах данных на территории Российской Федерации перед их отправкой в сервисы оповещения (Telegram-боты, диспетчерские интерфейсы). Срок хранения определяется целями обработки и законодательством РФ.</p>
     <h2>5. Передача третьим лицам</h2><p>Данные могут обрабатываться Cloudflare, Telegram и другими техническими поставщиками, обеспечивающими работу сайта и передачу заявок, только в объёме, необходимом для оказания соответствующих услуг. Иная передача возможна в случаях, установленных законом.</p>
     <h2>6. Права пользователя</h2><p>Пользователь может запросить сведения об обработке, уточнение, блокирование или удаление данных, а также отозвать согласие, направив письмо на <a href="${site.emailHref}">${site.email}</a>.</p>
     <h2>7. Файлы cookie и аналитика</h2><p>Сайт может сохранять технические параметры рекламного перехода и использовать Яндекс.Метрику после указания владельцем действующего идентификатора счётчика. Пользователь может ограничить cookie в настройках браузера.</p>
@@ -2403,7 +2404,7 @@ export function spbSubdomainLegalPage(type) {
     <h2>4. Срок и отзыв согласия</h2><p>Согласие действует до достижения целей обработки или до его отзыва. Отозвать согласие можно письмом на <a href="${site.emailHref}">${site.email}</a>. Отзыв не влияет на законность обработки, выполненной до его получения.</p>
     <h2>5. Подтверждение</h2><p>Я подтверждаю, что указанные мной данные принадлежат мне, а предоставленная информация является достоверной.</p>`;
 
-  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: `${title} — ТехУчёт`, description: `${title} сайта ТехУчёт.`, canonical, prefix: '../', schemas: [organizationSchema({ includeAddress: false })], robots: 'noindex, follow' })}</head><body>${header('../', '../', { homeHref: '../', isRegional: true, showPrava: true })}<main id="main" class="legal"><div class="container legal__inner"><h1>${title}</h1><p class="legal__updated">Редакция от 8 августа 2026 года</p>${isPrivacy ? privacyContent : consentContent}</div></main>${footer('../', { homeHref: '../', address: spbFooterAddress, description: spbFooterDesc, serviceLinks: spbServiceLinks })}${simpleCallbackModal('../')}${mobileBar('../')}</body></html>`;
+  return `<!DOCTYPE html><html lang="ru"><head>${head({ title: `${title} — ТехУчёт`, description: `${title} сайта ТехУчёт.`, canonical, prefix: '../', schemas: [organizationSchema({ includeAddress: false })], robots: 'noindex, follow' })}</head><body>${header('../', '../', { homeHref: '../', isRegional: true, showPrava: true })}<main id="main" class="legal"><div class="container legal__inner"><h1>${title}</h1><p class="legal__updated">Редакция от 8 ноября 2026 года</p>${isPrivacy ? privacyContent : consentContent}</div></main>${footer('../', { homeHref: '../', address: spbFooterAddress, description: spbFooterDesc, serviceLinks: spbServiceLinks })}${simpleCallbackModal('../')}${mobileBar('../')}</body></html>`;
 }
 
 export function spbSubdomainNotFoundPage({ nested = false } = {}) {
