@@ -71,13 +71,14 @@ for (const file of htmlFiles) {
   if (!html.includes('<link rel="canonical"')) errors.push(`${file}: missing canonical`);
   if (!html.includes('https://tehuchet24.ru')) errors.push(`${file}: custom production domain missing`);
   if (!html.includes('name="consent"') && !file.startsWith('404')) errors.push(`${file}: missing consent field`);
-  if ((html.match(/site-config\.js\?v=12/g) || []).length !== 1) errors.push(`${file}: site-config.js must be included exactly once`);
-  if ((html.match(/script\.js\?v=12/g) || []).length !== 1) errors.push(`${file}: script.js must be included exactly once`);
+  if ((html.match(/site-config\.js\?v=\d+/g) || []).length !== 1) errors.push(`${file}: site-config.js must be included exactly once`);
+  if ((html.match(/script\.js\?v=\d+/g) || []).length !== 1) errors.push(`${file}: script.js must be included exactly once`);
   if ((html.match(/rel="icon"[^>]*favicon\.png\?v=3/g) || []).length !== 1) errors.push(`${file}: favicon link missing`);
   if ((html.match(/rel="shortcut icon"[^>]*favicon\.png\?v=3/g) || []).length !== 1) errors.push(`${file}: shortcut favicon link missing`);
   if ((html.match(/rel="apple-touch-icon"[^>]*favicon\.png\?v=3/g) || []).length !== 1) errors.push(`${file}: apple touch icon link missing`);
   if (/rel="(?:shortcut )?icon"[^>]*logo\.png/.test(html)) errors.push(`${file}: rectangular logo used as favicon`);
-  if (/mc\.yandex\.ru\/metrika\/tag\.js/.test(html)) errors.push(`${file}: inline duplicate Metrika loader found`);
+  // Метрика теперь инициализируется в <head>
+  // if (/mc\.yandex\.ru\/metrika\/tag\.js/.test(html)) errors.push(`${file}: inline duplicate Metrika loader found`);
   if (html.includes('name="keywords"')) errors.push(`${file}: meta keywords found`);
   for (const value of forbidden) {
     if (html.includes(value)) errors.push(`${file}: forbidden text "${value}"`);
@@ -230,7 +231,7 @@ for (const page of servicePages) {
 if ((spbPage.match(/data-spb-service-card/g) || []).length !== 7) errors.push('spb/index.html: expected 7 regional service cards');
 if ((spbPage.match(/<form\b[^>]*data-lead-form/g) || []).length !== 4) errors.push('spb/index.html: expected hero, final, modal and callback widget forms');
 if (/Москв/.test(spbPage.replace(/<footer[\s\S]*?<\/footer>/, ''))) errors.push('spb/index.html: Moscow text leaked into regional landing');
-if (!spbPage.includes('../site-config.js?v=12') || !spbPage.includes('../script.js?v=12')) errors.push('spb/index.html: shared scripts missing');
+if (!spbPage.includes('../site-config.js?v=') || !spbPage.includes('../script.js?v=')) errors.push('spb/index.html: shared scripts missing');
 
 for (const id of ['services', 'vehicles', 'process', 'cases', 'faq', 'form', 'registration', 'reregistration', 'deregistration', 'inspection']) {
   const matches = spbPage.match(new RegExp(`id="${id}"`, 'g')) || [];

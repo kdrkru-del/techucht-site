@@ -237,6 +237,8 @@
   }
 
   // 7. Goal-Poisoning Shield: защита от отравления целей в Метрике
+  // ВНИМАНИЕ: Блокировка reachGoal отключена, чтобы не срезать реальные лиды и коммерческие цели.
+  // Антифрод скоринг, логирование и разметка userParams/bot_detected сохраняются в полном объёме.
   function installMetrikaBotShield() {
     const origYm = window.ym;
     if (typeof origYm === 'function' && !origYm._antifraudWrapped) {
@@ -244,13 +246,11 @@
         const activeCid = counterId || detectCounterId();
         const risk = evaluateClientBotRisk();
 
-        // Если посетитель распознан как бот — БЛОКИРУЕМ достижение коммерческих целей
-        if (method === 'reachGoal' && target !== 'bot_detected' && risk.isBot) {
-          console.warn('[AntiFraud Shield] Заблокировано отравление коммерческой цели ботом:', target, 'Score:', risk.fraudScore);
+        if (risk.isBot) {
           markBotInMetrika(activeCid, risk.fraudScore);
-          return;
         }
 
+        // События аналитики отправляются ВСЕГДА независимо от antifraud score
         return origYm.apply(this, arguments);
       };
 
@@ -268,7 +268,6 @@
       const risk = evaluateClientBotRisk();
       if (risk.isBot) {
         markBotInMetrika(detectCounterId(), risk.fraudScore);
-        return;
       }
 
       const href = target.getAttribute('href') || '';

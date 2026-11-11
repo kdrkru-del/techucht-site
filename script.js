@@ -925,11 +925,16 @@
     if (window[guardKey]) return;
     window[guardKey] = true;
     window.ym = window.ym || function () { (window.ym.a = window.ym.a || []).push(arguments); };
-    window.ym.l = Date.now();
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://mc.yandex.ru/metrika/tag.js?id=${encodeURIComponent(METRIKA_ID)}`;
-    document.head.append(script);
+    window.ym.l = window.ym.l || Date.now();
+    // Стандартный тег tag.js теперь инициализирован синхронно в <head>.
+    // Если по какой-то причине скрипт ещё не загружен, добавляем как fallback.
+    const alreadyLoaded = Array.from(document.scripts).some((s) => s.src && s.src.includes('mc.yandex.ru/metrika/tag.js'));
+    if (!alreadyLoaded) {
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://mc.yandex.ru/metrika/tag.js?id=${encodeURIComponent(METRIKA_ID)}`;
+      document.head.append(script);
+    }
     window.ym(Number(METRIKA_ID), 'init', {
       clickmap: true,
       trackLinks: true,
@@ -1378,18 +1383,13 @@
       el.addEventListener('input', markFormInteraction, { once: true });
     });
 
-    const isMobile = window.innerWidth <= 640;
     if (!isDismissed() && !isInteracted()) {
       window.setTimeout(() => {
         if (isDismissed() || isInteracted() || formInteracted) return;
         if (document.querySelector('.modal.is-open')) return;
 
-        if (isMobile) {
-          return;
-        }
-
         openChat(true);
-      }, 25000);
+      }, 8000);
     }
   }
 })();
