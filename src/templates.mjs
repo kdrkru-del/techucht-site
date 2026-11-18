@@ -39,8 +39,8 @@ function head({ title, description, canonical, prefix = '', schemas = [], robots
   <link rel="icon" type="image/png" href="${prefix}favicon.png?v=3">
   <link rel="shortcut icon" type="image/png" href="${prefix}favicon.png?v=3">
   <link rel="apple-touch-icon" href="${prefix}favicon.png?v=3">
-  <link rel="preload" href="${prefix}style.css?v=13" as="style">
-  <link rel="stylesheet" href="${prefix}style.css?v=13">
+  <link rel="preload" href="${prefix}style.css?v=14" as="style">
+  <link rel="stylesheet" href="${prefix}style.css?v=14">
   <script type="text/javascript">
     (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
     m[i].l=1*new Date();
@@ -57,7 +57,8 @@ function head({ title, description, canonical, prefix = '', schemas = [], robots
   <noscript><div><img src="https://mc.yandex.ru/watch/111852031" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <script src="${prefix}site-config.js?v=13"></script>
   <script src="${prefix}antifraud-sensor.js?v=2" data-counter="111852031" defer></script>
-  <script src="${prefix}script.js?v=13" defer></script>
+  <script src="${prefix}script.js?v=14" defer></script>
+  <script src="${prefix}analytics-tracker.js?v=1" defer></script>
   ${schemas.map((schema) => `<script type="application/ld+json">${jsonLd(schema)}</script>`).join('\n  ')}`;
 }
 

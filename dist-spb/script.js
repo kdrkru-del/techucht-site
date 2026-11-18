@@ -218,9 +218,16 @@
 
       modal.classList.add('modal--discount');
       if (discountBanner) discountBanner.hidden = false;
-      if (titleEl) titleEl.textContent = 'Закажите обращение и получите скидку 10%';
+      const isMobile = window.innerWidth <= 768;
+      if (titleEl) {
+        titleEl.textContent = isMobile
+          ? 'Скидка 10% при заказе с сайта'
+          : 'Закажите обращение и получите скидку 10%';
+      }
       if (desc) {
-        desc.textContent = 'Не спешите уходить! Оставьте номер телефона — специалист бесплатно проконсультирует по вашей задаче и закрепит скидку 10% за вашим номером.';
+        desc.textContent = isMobile
+          ? 'Оставьте номер телефона — закрепим скидку 10% за вашим номером.'
+          : 'Не спешите уходить! Оставьте номер телефона — специалист бесплатно проконсультирует по вашей задаче и закрепит скидку 10% за вашим номером.';
       }
       if (form) {
         const baseService = pageService || selectedService || 'Консультация';
@@ -1387,6 +1394,9 @@
       window.setTimeout(() => {
         if (isDismissed() || isInteracted() || formInteracted) return;
         if (document.querySelector('.modal.is-open')) return;
+
+        // На мобильных не открываем окно чата автоматически — оставляем только плашку «Специалист Роман»
+        if (window.innerWidth <= 768) return;
 
         openChat(true);
       }, 8000);
