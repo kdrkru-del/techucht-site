@@ -239,25 +239,11 @@
   // 7. Goal-Poisoning Shield: защита от отравления целей в Метрике
   // ВНИМАНИЕ: Блокировка reachGoal отключена, чтобы не срезать реальные лиды и коммерческие цели.
   // Антифрод скоринг, логирование и разметка userParams/bot_detected сохраняются в полном объёме.
-  function installMetrikaBotShield() {
-    const origYm = window.ym;
-    if (typeof origYm === 'function' && !origYm._antifraudWrapped) {
-      const wrappedYm = function (counterId, method, target, paramsObj) {
-        const activeCid = counterId || detectCounterId();
-        const risk = evaluateClientBotRisk();
-
-        if (risk.isBot) {
-          markBotInMetrika(activeCid, risk.fraudScore);
-        }
-
-        // События аналитики отправляются ВСЕГДА независимо от antifraud score
-        return origYm.apply(this, arguments);
-      };
-
-      wrappedYm._antifraudWrapped = true;
-      window.ym = wrappedYm;
-    }
-  }
+  // ИСПРАВЛЕНО 19.11.2026: window.ym больше НЕ подменяется.
+  // Раньше обёртка ставилась по таймеру, пока window.ym ещё был заглушкой-очередью
+  // из <head>. После загрузки tag.js все reachGoal уходили в «мёртвую» очередь ym.a,
+  // и ни одна цель сайта (заявка, телефон, мессенджеры, чат) не доходила до Метрики.
+  // Разметка ботов делается отдельно: markBotInMetrika() по клику и при загрузке.
 
   // 8. Автоматический трекинг целевых действий реальных людей
   function setupHumanInteractions() {
@@ -270,40 +256,10 @@
         markBotInMetrika(detectCounterId(), risk.fraudScore);
       }
 
-      const href = target.getAttribute('href') || '';
-      const cid = detectCounterId();
-      if (!cid || typeof window.ym !== 'function') return;
-
-      // Телефон
-      if (href.startsWith('tel:')) {
-        try {
-          window.ym(cid, 'reachGoal', 'click_phone', { phone: href.replace('tel:', '') });
-        } catch (err) {}
-      }
-
-      // WhatsApp
-      if (href.includes('wa.me') || href.includes('whatsapp.com')) {
-        try {
-          window.ym(cid, 'reachGoal', 'click_whatsapp');
-        } catch (err) {}
-      }
-
-      // Telegram
-      if (href.includes('t.me') || href.includes('telegram.org')) {
-        try {
-          window.ym(cid, 'reachGoal', 'click_telegram');
-        } catch (err) {}
-      }
+      // Цели click_phone / click_whatsapp / click_telegram отправляет script.js (trackGoal).
+      // Здесь они больше не дублируются (раньше каждая цель уходила дважды).
     }, true);
   }
-
-  // Периодическая проверка готовности Яндекс.Метрики
-  const checkInterval = setInterval(function () {
-    if (typeof window.ym === 'function') {
-      installMetrikaBotShield();
-      clearInterval(checkInterval);
-    }
-  }, 250);
 
   // Инициализация
   if (document.readyState === 'loading') {
