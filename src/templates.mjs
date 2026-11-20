@@ -57,7 +57,7 @@ function head({ title, description, canonical, prefix = '', schemas = [], robots
   <noscript><div><img src="https://mc.yandex.ru/watch/111852031" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <script src="${prefix}site-config.js?v=13"></script>
   <script src="${prefix}antifraud-sensor.js?v=3" data-counter="111852031" defer></script>
-  <script src="${prefix}script.js?v=14" defer></script>
+  <script src="${prefix}script.js?v=15" defer></script>
   <script src="${prefix}analytics-tracker.js?v=1" defer></script>
   ${schemas.map((schema) => `<script type="application/ld+json">${jsonLd(schema)}</script>`).join('\n  ')}`;
 }

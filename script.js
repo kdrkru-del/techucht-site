@@ -327,6 +327,8 @@
       if (!digits.length) return '';
       if (digits.startsWith('8')) digits = `7${digits.slice(1)}`;
       else if (!digits.startsWith('7')) digits = `7${digits}`;
+      // «+7 (» подставлено маской, а номер набран целиком с «8» или «+7»: 7 8XXX… / 7 7XXX… → 7 XXX…
+      if (digits.length >= 12 && (digits[1] === '8' || digits[1] === '7')) digits = `7${digits.slice(2)}`;
       digits = digits.slice(0, 11);
 
       let res = '+7 (';
@@ -440,6 +442,7 @@
   function normalizePhone(raw) {
     let digits = String(raw || '').replace(/\D/g, '');
     if (digits.startsWith('8')) digits = `7${digits.slice(1)}`;
+    if (digits.length === 12 && (digits.startsWith('78') || digits.startsWith('77'))) digits = `7${digits.slice(2)}`;
     if (!digits.startsWith('7') && digits.length === 10) digits = `7${digits}`;
     return digits.length === 11 ? `+${digits}` : '';
   }
@@ -643,6 +646,7 @@
   async function buildPayload(form) {
     const payload = Object.fromEntries(new FormData(form).entries());
     delete payload._honey;
+    if (payload.phone) payload.phone = normalizePhone(payload.phone) || payload.phone;
     const attribution = getAttribution();
     const clientId = await getMetrikaClientId();
     const rawService = payload.service || form.dataset.selectedService || selectedService || 'Консультация';
