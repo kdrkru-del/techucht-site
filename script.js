@@ -693,7 +693,7 @@
     };
   }
 
-  async function postJsonEndpoint(endpoint, payload, { timeoutMs = 6500, keepalive = false } = {}) {
+  async function postJsonEndpoint(endpoint, payload, { timeoutMs = 12000, keepalive = false } = {}) {
     const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
     const timer = controller ? window.setTimeout(() => controller.abort(), timeoutMs) : null;
     const fetchOpts = {
@@ -782,13 +782,9 @@
   }
 
   async function sendLead(payload, options = {}) {
-    const isSubdomain = window.location.hostname.endsWith('.tehuchet24.ru') && window.location.hostname !== 'www.tehuchet24.ru';
     const endpoints = [
       (CONFIG.LEAD_GATEWAY_URL && !CONFIG.LEAD_GATEWAY_URL.includes('localhost')) ? CONFIG.LEAD_GATEWAY_URL : null,
-      '/api/lead',
-      ...(isSubdomain ? ['__bridge__'] : []),
       CONFIG.FORM_ENDPOINT,
-      ...(!isSubdomain ? [] : []),
       CONFIG.FALLBACK_FORM_ENDPOINT || 'https://formsubmit.co/ajax/techuchet24@ya.ru',
     ].filter(Boolean);
 
@@ -796,13 +792,16 @@
     let lastError = new Error('Form endpoint is not configured');
 
     for (const endpoint of uniqueEndpoints) {
-      try {
-        if (endpoint === '__bridge__') {
-          return await sendViaMainDomainBridge(payload, options);
+      const maxAttempts = endpoint === CONFIG.FORM_ENDPOINT ? 2 : 1;
+      for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+        try {
+          return await postJsonEndpoint(endpoint, payload, options);
+        } catch (err) {
+          lastError = err;
+          if (attempt < maxAttempts) {
+            await new Promise((resolve) => window.setTimeout(resolve, 600));
+          }
         }
-        return await postJsonEndpoint(endpoint, payload, options);
-      } catch (err) {
-        lastError = err;
       }
     }
     throw lastError;
